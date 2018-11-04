@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="BusinessLogicWPF.View.Register2"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BusinessLogicWPF.View"
+             mc:Ignorable="d" 
+             Height="Auto" d:DesignWidth="400">
+    <Grid Margin="0" VerticalAlignment="Top">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Label x:Name="LabelPhoneNumber" Grid.Row="0" Grid.Column="1" Content="* Please enter your phone number" Foreground="Red" FontSize="10" Visibility="Collapsed"/>
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Enter your phone number" FontSize="14"/>
+        <TextBox x:Name="TextBoxPhoneNumber" Grid.Row="1" Grid.Column="1" FontSize="14" BorderThickness="0, 0, 0, 3" BorderBrush="Black" Foreground="White" Background="{x:Null}"/>
+
+        <Label x:Name="LabelOtp" Grid.Row="2" Grid.Column="1" Content="* Please enter OTP received in your mobile number" Foreground="Red" FontSize="10" Visibility="Collapsed"/>
+        <Button x:Name="ButtonResendOtp" Grid.Row="3" Grid.Column="1" Visibility="Collapsed" FontSize="12" BorderThickness="0"/>
+        <Label Grid.Row="4" Grid.Column="0" Content="Enter OTP" FontSize="14"/>
+        <TextBox x:Name="TextBoxOtp" Grid.Row="4" Grid.Column="1" FontSize="14" Background="{x:Null}" Foreground="White" BorderThickness="0, 0, 0, 3" BorderBrush="Black"/>
+
+        <Button x:Name="ButtonNext" Grid.Row="5" Grid.ColumnSpan="2" Grid.Column="0" Margin="170, 5" Background="#FF1E2A33">
+            <Image Source="../Images/Forward_48px.png" Stretch="None"/>
+        </Button>
+
+    </Grid>
+</UserControl>

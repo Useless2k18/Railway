@@ -1,0 +1,95 @@
+﻿<Window x:Name="WindowLogin" x:Class="BusinessLogicWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BusinessLogicWPF"
+        xmlns:viewmodels="clr-namespace:BusinessLogicWPF.ViewModel"
+        xmlns:views="clr-namespace:BusinessLogicWPF.View"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="Auto" Width="400" SizeToContent="Height" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" WindowStyle="None" AllowsTransparency="True">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_1" />
+        <CommandBinding Command="{x:Static SystemCommands.MinimizeWindowCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_2" />
+    </Window.CommandBindings>
+    
+    <Window.Resources>
+        <DataTemplate x:Name="LoginViewTemplate" DataType="{x:Type viewmodels:LoginViewModel}">
+            <views:Login DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="RegisterViewTemplate" DataType="{x:Type viewmodels:RegisterViewModel}">
+            <views:Register DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="Register2ViewTemplate" DataType="{x:Type viewmodels:Register2ViewModel}">
+            <views:Register2 DataContext="{Binding}"/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Window.Background>
+        <SolidColorBrush Opacity="0.95" Color="DarkGray"/>
+    </Window.Background>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="GridTitleBar"  Grid.Row="0" HorizontalAlignment="Left" Height="33" VerticalAlignment="Top" Width="400">
+            <DockPanel MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
+                <Button x:Name="ButtonClose" Command="{x:Static SystemCommands.CloseWindowCommand}" Background="{x:Null}" DockPanel.Dock="Right" BorderBrush="{x:Null}">
+                    <Image Source="Images/icons8_Close_Window_32.png"></Image>
+                </Button>
+                <Button x:Name="ButtonMinimize" Command="{x:Static SystemCommands.MinimizeWindowCommand}" Background="{x:Null}" DockPanel.Dock="Right" BorderBrush="{x:Null}">
+                    <Image Source="Images/icons8_Minimize_Window_32.png"/>
+                </Button>
+                <Label Content="Welcome to IRCTC" Background="Transparent"/>
+            </DockPanel>
+        </Grid>
+        <Grid x:Name="GridHeader" HorizontalAlignment="Left" Margin="0" Grid.Row="1" Width="400">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Column="0" Source="Images/Indian_Railwaylogo.png" Height="90" Margin="10,5,5,5"/>
+            <Label Grid.Column="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Margin="5" Foreground="Black" FontFamily="Century Gothic">IRCTC Administration Portal</Label>
+        </Grid>
+        <Grid x:Name="GridLoginAssistant" Grid.Row="2" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" Width="400">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <DockPanel HorizontalAlignment="Right" LastChildFill="True" Grid.Row="0">
+                <Button x:Name="ButtonAlreadyRegistered" Visibility="Collapsed" DockPanel.Dock="Left" Width="242" BorderBrush="{x:Null}" FontSize="16" Background="{x:Null}" Style="{StaticResource CustomButtonStyle}" Click="ButtonAlreadyRegistered_Click" Foreground="#FF2300FF" Cursor="Hand" MouseEnter="ButtonLikeLabel_MouseEnter" MouseLeave="ButtonLikeLabel_MouseLeave">
+                    <Button.Content>
+                        <TextBlock>
+                            <Underline>Already Registered?</Underline>
+                        </TextBlock>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="ButtonNewUser" Visibility="Collapsed" DockPanel.Dock="Left" Width="242" BorderBrush="{x:Null}" FontSize="16" Background="{x:Null}" Style="{StaticResource CustomButtonStyle}" Click="ButtonNewUser_Click" Foreground="#FF2300FF" Cursor="Hand" MouseEnter="ButtonLikeLabel_MouseEnter" MouseLeave="ButtonLikeLabel_MouseLeave">
+                    <Button.Content>
+                        <TextBlock>
+                            <Underline>New User?</Underline>
+                        </TextBlock>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="ButtonLoginFacebook" Background="{x:Null}" BorderBrush="{x:Null}" Cursor="Hand">
+                    <Image Source="Images/Facebook_48px.png" Stretch="None"/>
+                </Button>
+                <Button x:Name="ButtonLoginTwitter" Background="{x:Null}" BorderBrush="{x:Null}" Cursor="Hand">
+                    <Image Source="Images/Twitter_48px.png" Stretch="None"/>
+                </Button>
+                <Button x:Name="ButtonLoginGoogle" Background="{x:Null}" BorderBrush="{x:Null}" Cursor="Hand">
+                    <Image Source="Images/Google Plus Squared_48px.png" Stretch="None"/>
+                </Button>
+            </DockPanel>
+        </Grid>
+        <Grid x:Name="GridLoginFields" Grid.Row="3" HorizontalAlignment="Left" Margin="0,10" VerticalAlignment="Top" Width="400" Height="Auto">
+            <ContentControl Content="{Binding}"/>
+        </Grid>
+    </Grid>
+</Window>
