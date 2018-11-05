@@ -17,5 +17,17 @@ namespace BusinessLogicWPF.View
         {
             MessageBox.Show("Logged in!");
         }
+
+        private void TextUserName_LostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        {
+            if (TextUserName.Text.Length != 0)
+                MessageBox.Show($"You just entered {TextUserName.Text}");
+        }
+
+        private void TextPassword_LostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        {
+            if (TextPassword.Password.Length != 0)
+                MessageBox.Show($"You just entered {TextPassword.Password}");
+        }
     }
 }

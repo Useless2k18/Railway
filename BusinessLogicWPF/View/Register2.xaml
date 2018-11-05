@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BusinessLogicWPF.View"
              mc:Ignorable="d" 
-             Height="Auto" d:DesignWidth="400">
+             Height="Auto" d:DesignWidth="500">
     <Grid Margin="0" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -22,13 +22,14 @@
 
         <Label x:Name="LabelPhoneNumber" Grid.Row="0" Grid.Column="1" Content="* Please enter your phone number" Foreground="Red" FontSize="10" Visibility="Collapsed"/>
 
-        <Label Grid.Row="1" Grid.Column="0" Content="Enter your phone number" FontSize="14"/>
-        <TextBox x:Name="TextBoxPhoneNumber" Grid.Row="1" Grid.Column="1" FontSize="14" BorderThickness="0, 0, 0, 3" BorderBrush="Black" Foreground="White" Background="{x:Null}"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="Enter your phone number" FontSize="14" Margin="10,10,5,10"/>
+        <TextBox x:Name="TextBoxPhoneNumber" Grid.Row="1" Grid.Column="1" FontSize="14" Margin="10,10,5,10" BorderThickness="0, 0, 0, 3" BorderBrush="Black" Foreground="White" Background="{x:Null}"/>
 
         <Label x:Name="LabelOtp" Grid.Row="2" Grid.Column="1" Content="* Please enter OTP received in your mobile number" Foreground="Red" FontSize="10" Visibility="Collapsed"/>
         <Button x:Name="ButtonResendOtp" Grid.Row="3" Grid.Column="1" Visibility="Collapsed" FontSize="12" BorderThickness="0"/>
-        <Label Grid.Row="4" Grid.Column="0" Content="Enter OTP" FontSize="14"/>
-        <TextBox x:Name="TextBoxOtp" Grid.Row="4" Grid.Column="1" FontSize="14" Background="{x:Null}" Foreground="White" BorderThickness="0, 0, 0, 3" BorderBrush="Black"/>
+
+        <Label Grid.Row="4" Grid.Column="0" Content="Enter OTP" FontSize="14" Margin="10,10,5,10"/>
+        <TextBox x:Name="TextBoxOtp" Grid.Row="4" Grid.Column="1" FontSize="14" Margin="10,10,5,10" Background="{x:Null}" Foreground="White" BorderThickness="0, 0, 0, 3" BorderBrush="Black"/>
 
         <Button x:Name="ButtonNext" Grid.Row="5" Grid.ColumnSpan="2" Grid.Column="0" Margin="170, 5" Background="#FF1E2A33">
             <Image Source="../Images/Forward_48px.png" Stretch="None"/>

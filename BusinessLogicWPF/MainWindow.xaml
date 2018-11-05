@@ -7,7 +7,7 @@
         xmlns:viewmodels="clr-namespace:BusinessLogicWPF.ViewModel"
         xmlns:views="clr-namespace:BusinessLogicWPF.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="Auto" Width="400" SizeToContent="Height" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" WindowStyle="None" AllowsTransparency="True">
+        Title="MainWindow" Height="Auto" Width="450" SizeToContent="Height" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" WindowStyle="None" AllowsTransparency="True">
 
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_1" />
@@ -37,7 +37,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="GridTitleBar"  Grid.Row="0" HorizontalAlignment="Left" Height="33" VerticalAlignment="Top" Width="400">
+        <Grid x:Name="GridTitleBar"  Grid.Row="0" HorizontalAlignment="Left" Height="33" VerticalAlignment="Top" Width="450">
             <DockPanel MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
                 <Button x:Name="ButtonClose" Command="{x:Static SystemCommands.CloseWindowCommand}" Background="{x:Null}" DockPanel.Dock="Right" BorderBrush="{x:Null}">
                     <Image Source="Images/icons8_Close_Window_32.png"></Image>
@@ -48,7 +48,7 @@
                 <Label Content="Welcome to IRCTC" Background="Transparent"/>
             </DockPanel>
         </Grid>
-        <Grid x:Name="GridHeader" HorizontalAlignment="Left" Margin="0" Grid.Row="1" Width="400">
+        <Grid x:Name="GridHeader" HorizontalAlignment="Left" Margin="0" Grid.Row="1" Width="450">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -57,7 +57,7 @@
             <Image Grid.Column="0" Source="Images/Indian_Railwaylogo.png" Height="90" Margin="10,5,5,5"/>
             <Label Grid.Column="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Margin="5" Foreground="Black" FontFamily="Century Gothic">IRCTC Administration Portal</Label>
         </Grid>
-        <Grid x:Name="GridLoginAssistant" Grid.Row="2" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" Width="400">
+        <Grid x:Name="GridLoginAssistant" Grid.Row="2" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" Width="450">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>

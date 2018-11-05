@@ -155,6 +155,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
+    <Folder Include="UnitOfWork\Core\" />
+    <Folder Include="UnitOfWork\Domain\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\appstore_apple.jpg" />

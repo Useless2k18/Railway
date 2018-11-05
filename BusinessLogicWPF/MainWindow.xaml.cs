@@ -18,6 +18,7 @@ namespace BusinessLogicWPF
             //GridLoginFields.Children.Add(_loginControl);
             //GridLoginFields.Height = _loginControl.Height;
             ButtonNewUser.Visibility = Visibility.Visible;
+            CenterWindowOnScreen();
         }
 
         private void CommandBinding_CanExecute_1(object sender, CanExecuteRoutedEventArgs e)
@@ -45,6 +46,7 @@ namespace BusinessLogicWPF
             ButtonAlreadyRegistered.Visibility = Visibility.Collapsed;
             DataContext = new LoginViewModel();
             ButtonNewUser.Visibility = Visibility.Visible;
+            CenterWindowOnScreen();
         }
 
         private void ButtonNewUser_Click(object sender, RoutedEventArgs e)
@@ -52,6 +54,7 @@ namespace BusinessLogicWPF
             ButtonNewUser.Visibility = Visibility.Collapsed;
             DataContext = new RegisterViewModel();
             ButtonAlreadyRegistered.Visibility = Visibility.Visible;
+            CenterWindowOnScreen();
         }
 
         private void ButtonLikeLabel_MouseEnter(object sender, MouseEventArgs e)
@@ -68,6 +71,16 @@ namespace BusinessLogicWPF
             {
                 button.FontWeight = FontWeights.Normal;
             }
+        }
+
+        public void CenterWindowOnScreen()
+        {
+            var screenWidth = SystemParameters.PrimaryScreenWidth;
+            var screenHeight = SystemParameters.PrimaryScreenHeight;
+            var windowWidth = Width;
+            var windowHeight = Height;
+            Left = screenWidth / 2 - windowWidth / 2;
+            Top = screenHeight / 2 - windowHeight / 2;
         }
     }
 }
