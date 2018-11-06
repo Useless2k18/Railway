@@ -36,7 +36,7 @@ namespace BusinessLogicWPF
             SystemCommands.MinimizeWindow(this);
         }
 
-        private void DockPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void WindowLogin_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
         }

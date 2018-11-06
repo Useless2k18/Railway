@@ -100,7 +100,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="WindowLoginAndRegister.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -109,8 +109,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="IrctcAppDbContext.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="WindowLoginAndRegister.xaml.cs">
+      <DependentUpon>WindowLoginAndRegister.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\Register.xaml">

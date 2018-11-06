@@ -1,4 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using System.Text.RegularExpressions;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace BusinessLogicWPF.View
 {
@@ -10,6 +13,38 @@ namespace BusinessLogicWPF.View
         public Register2()
         {
             InitializeComponent();
+            ComboBoxCountryCode.Items.Add("+91");
+            ComboBoxCountryCode.Items.Add("+90");
+            ComboBoxCountryCode.Items.Add("+456");
         }
+
+        private void TextBox_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+
+        private static readonly Regex Regex = new Regex("[^0-9]+"); //regex that matches disallowed text
+        private static bool IsTextAllowed(string text)
+        {
+            return !Regex.IsMatch(text);
+        }
+
+        // Use the DataObject.Pasting Handler 
+        private void TextBoxOnPasting(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(typeof(string)))
+            {
+                var text = (string)e.DataObject.GetData(typeof(string));
+                if (!IsTextAllowed(text))
+                {
+                    e.CancelCommand();
+                }
+            }
+            else
+            {
+                e.CancelCommand();
+            }
+        }
+
     }
 }

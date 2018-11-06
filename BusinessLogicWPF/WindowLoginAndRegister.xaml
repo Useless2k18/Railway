@@ -1,4 +1,4 @@
-﻿<Window x:Name="WindowLogin" x:Class="BusinessLogicWPF.MainWindow"
+﻿<Window x:Name="WindowLoginAndRegister" x:Class="BusinessLogicWPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,7 +7,14 @@
         xmlns:viewmodels="clr-namespace:BusinessLogicWPF.ViewModel"
         xmlns:views="clr-namespace:BusinessLogicWPF.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="Auto" Width="450" SizeToContent="Height" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" WindowStyle="None" AllowsTransparency="True">
+        Title="MainWindow"
+        Height="Auto" Width="450"
+        SizeToContent="Height"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        MouseLeftButtonDown="WindowLogin_MouseLeftButtonDown">
 
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_1" />
@@ -38,7 +45,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid x:Name="GridTitleBar"  Grid.Row="0" HorizontalAlignment="Left" Height="33" VerticalAlignment="Top" Width="450">
-            <DockPanel MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
+            <DockPanel>
                 <Button x:Name="ButtonClose" Command="{x:Static SystemCommands.CloseWindowCommand}" Background="{x:Null}" DockPanel.Dock="Right" BorderBrush="{x:Null}">
                     <Image Source="Images/icons8_Close_Window_32.png"></Image>
                 </Button>
@@ -62,7 +69,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <DockPanel HorizontalAlignment="Right" LastChildFill="True" Grid.Row="0">
+            <DockPanel HorizontalAlignment="Right" LastChildFill="True" Grid.Row="0" Margin="0,0,20,0">
                 <Button x:Name="ButtonAlreadyRegistered" Visibility="Collapsed" DockPanel.Dock="Left" Width="242" BorderBrush="{x:Null}" FontSize="16" Background="{x:Null}" Style="{StaticResource CustomButtonStyle}" Click="ButtonAlreadyRegistered_Click" Foreground="#FF2300FF" Cursor="Hand" MouseEnter="ButtonLikeLabel_MouseEnter" MouseLeave="ButtonLikeLabel_MouseLeave">
                     <Button.Content>
                         <TextBlock>
@@ -88,7 +95,7 @@
                 </Button>
             </DockPanel>
         </Grid>
-        <Grid x:Name="GridLoginFields" Grid.Row="3" HorizontalAlignment="Left" Margin="0,10" VerticalAlignment="Top" Width="400" Height="Auto">
+        <Grid x:Name="GridLoginFields" Grid.Row="3" HorizontalAlignment="Left" Margin="0,10" VerticalAlignment="Top" Width="450" Height="Auto">
             <ContentControl Content="{Binding}"/>
         </Grid>
     </Grid>
