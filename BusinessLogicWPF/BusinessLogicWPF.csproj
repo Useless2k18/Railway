@@ -80,27 +80,34 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="View\Home\Window\HomeWindow.xaml.cs">
+      <DependentUpon>HomeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\Register2ViewModel.cs" />
     <Compile Include="ViewModel\RegisterViewModel.cs" />
-    <Compile Include="View\Login.xaml.cs">
+    <Compile Include="View\LoginAndRegister\UserControls\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Register.xaml.cs">
+    <Compile Include="View\LoginAndRegister\UserControls\Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Register2.xaml.cs">
+    <Compile Include="View\LoginAndRegister\UserControls\Register2.xaml.cs">
       <DependentUpon>Register2.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\Home\Window\HomeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Style\ButtonTransparentHoverStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Login.xaml">
+    <Page Include="View\LoginAndRegister\UserControls\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="WindowLoginAndRegister.xaml">
+    <Page Include="View\LoginAndRegister\Window\WindowLoginAndRegister.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -109,15 +116,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="IrctcAppDbContext.cs" />
-    <Compile Include="WindowLoginAndRegister.xaml.cs">
+    <Compile Include="View\LoginAndRegister\Window\WindowLoginAndRegister.xaml.cs">
       <DependentUpon>WindowLoginAndRegister.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\Register.xaml">
+    <Page Include="View\LoginAndRegister\UserControls\Register.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Register2.xaml">
+    <Page Include="View\LoginAndRegister\UserControls\Register2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -157,6 +164,7 @@
     <Folder Include="Model\" />
     <Folder Include="UnitOfWork\Core\" />
     <Folder Include="UnitOfWork\Domain\" />
+    <Folder Include="View\Home\UserControls\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\appstore_apple.jpg" />

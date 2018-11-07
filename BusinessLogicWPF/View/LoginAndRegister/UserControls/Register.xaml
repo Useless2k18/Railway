@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="BusinessLogicWPF.View.Register"
+﻿<UserControl x:Class="BusinessLogicWPF.View.LoginAndRegister.UserControls.Register"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BusinessLogicWPF.View"
+             xmlns:local="clr-namespace:BusinessLogicWPF.View.LoginAndRegister.UserControls"
              mc:Ignorable="d" d:DesignWidth="450" Height="Auto">
     <Grid x:Name="Register1" Margin="0" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
@@ -58,7 +58,7 @@
         </TextBlock>
 
         <Button x:Name="ButtonNext" Grid.Row="10" Grid.ColumnSpan="2" Grid.Column="0" VerticalAlignment="Center" BorderBrush="{x:Null}" FontSize="20" FontFamily="Century Gothic" Margin="170,5,200,5" FontWeight="Bold" BorderThickness="0" Click="ButtonNext_OnClick" Background="#FF1E2A33" Cursor="Hand">
-            <Image Source="../Images/Forward_48px.png"/>
+            <Image Source="../../../Images/Forward_48px.png"/>
         </Button>
 
     </Grid>

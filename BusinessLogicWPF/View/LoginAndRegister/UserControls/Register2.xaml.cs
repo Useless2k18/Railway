@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace BusinessLogicWPF.View
+namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
 {
     /// <summary>
     /// Interaction logic for Register2.xaml

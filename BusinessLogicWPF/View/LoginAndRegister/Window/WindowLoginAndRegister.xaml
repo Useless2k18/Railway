@@ -1,13 +1,14 @@
-﻿<Window x:Name="WindowLoginAndRegister" x:Class="BusinessLogicWPF.MainWindow"
+﻿<Window x:Name="WindowLoginRegister" x:Class="BusinessLogicWPF.View.LoginAndRegister.Window.WindowLoginAndRegister"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BusinessLogicWPF"
+        xmlns:local="clr-namespace:BusinessLogicWPF.View.LoginAndRegister.Window"
         xmlns:viewmodels="clr-namespace:BusinessLogicWPF.ViewModel"
-        xmlns:views="clr-namespace:BusinessLogicWPF.View"
+        xmlns:views="clr-namespace:BusinessLogicWPF.View.LoginAndRegister.Window"
+        xmlns:userControls="clr-namespace:BusinessLogicWPF.View.LoginAndRegister.UserControls"
         mc:Ignorable="d"
-        Title="MainWindow"
+        Title="Login"
         Height="Auto" Width="450"
         SizeToContent="Height"
         ResizeMode="NoResize"
@@ -23,13 +24,13 @@
     
     <Window.Resources>
         <DataTemplate x:Name="LoginViewTemplate" DataType="{x:Type viewmodels:LoginViewModel}">
-            <views:Login DataContext="{Binding}"/>
+            <userControls:Login DataContext="{Binding}"/>
         </DataTemplate>
         <DataTemplate x:Name="RegisterViewTemplate" DataType="{x:Type viewmodels:RegisterViewModel}">
-            <views:Register DataContext="{Binding}"/>
+            <userControls:Register DataContext="{Binding}"/>
         </DataTemplate>
         <DataTemplate x:Name="Register2ViewTemplate" DataType="{x:Type viewmodels:Register2ViewModel}">
-            <views:Register2 DataContext="{Binding}"/>
+            <userControls:Register2 DataContext="{Binding}"/>
         </DataTemplate>
     </Window.Resources>
 
@@ -47,10 +48,10 @@
         <Grid x:Name="GridTitleBar"  Grid.Row="0" HorizontalAlignment="Left" Height="33" VerticalAlignment="Top" Width="450">
             <DockPanel>
                 <Button x:Name="ButtonClose" Command="{x:Static SystemCommands.CloseWindowCommand}" Background="{x:Null}" DockPanel.Dock="Right" BorderBrush="{x:Null}">
-                    <Image Source="Images/icons8_Close_Window_32.png"></Image>
+                    <Image Source="../../../Images/icons8_Close_Window_32.png"></Image>
                 </Button>
                 <Button x:Name="ButtonMinimize" Command="{x:Static SystemCommands.MinimizeWindowCommand}" Background="{x:Null}" DockPanel.Dock="Right" BorderBrush="{x:Null}">
-                    <Image Source="Images/icons8_Minimize_Window_32.png"/>
+                    <Image Source="../../../Images/icons8_Minimize_Window_32.png"/>
                 </Button>
                 <Label Content="Welcome to IRCTC" Background="Transparent"/>
             </DockPanel>
@@ -61,7 +62,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Image Grid.Column="0" Source="Images/Indian_Railwaylogo.png" Height="90" Margin="10,5,5,5"/>
+            <Image Grid.Column="0" Source="../../../Images/Indian_Railwaylogo.png" Height="90" Margin="10,5,5,5"/>
             <Label Grid.Column="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Margin="5" Foreground="Black" FontFamily="Century Gothic">IRCTC Administration Portal</Label>
         </Grid>
         <Grid x:Name="GridLoginAssistant" Grid.Row="2" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" Width="450">
@@ -85,13 +86,13 @@
                     </Button.Content>
                 </Button>
                 <Button x:Name="ButtonLoginFacebook" Background="{x:Null}" BorderBrush="{x:Null}" Cursor="Hand">
-                    <Image Source="Images/Facebook_48px.png" Stretch="None"/>
+                    <Image Source="../../../Images/Facebook_48px.png" Stretch="None"/>
                 </Button>
                 <Button x:Name="ButtonLoginTwitter" Background="{x:Null}" BorderBrush="{x:Null}" Cursor="Hand">
-                    <Image Source="Images/Twitter_48px.png" Stretch="None"/>
+                    <Image Source="../../../Images/Twitter_48px.png" Stretch="None"/>
                 </Button>
                 <Button x:Name="ButtonLoginGoogle" Background="{x:Null}" BorderBrush="{x:Null}" Cursor="Hand">
-                    <Image Source="Images/Google Plus Squared_48px.png" Stretch="None"/>
+                    <Image Source="../../../Images/Google Plus Squared_48px.png" Stretch="None"/>
                 </Button>
             </DockPanel>
         </Grid>

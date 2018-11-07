@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
-namespace BusinessLogicWPF.View
+namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
 {
     /// <summary>
     /// Interaction logic for Register.xaml
@@ -15,7 +15,7 @@ namespace BusinessLogicWPF.View
     public partial class Register : UserControl
     {
         private int _emptyFlag;
-        private readonly Window _window;
+        private readonly System.Windows.Window _window;
 
         public Register()
         {

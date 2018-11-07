@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
-namespace BusinessLogicWPF.View
+namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
 {
     /// <summary>
     /// Interaction logic for Login.xaml

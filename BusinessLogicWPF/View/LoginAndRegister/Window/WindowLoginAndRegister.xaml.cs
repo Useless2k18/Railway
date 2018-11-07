@@ -3,14 +3,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace BusinessLogicWPF
+namespace BusinessLogicWPF.View.LoginAndRegister.Window
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class WindowLoginAndRegister : System.Windows.Window
     {
-        public MainWindow()
+        public WindowLoginAndRegister()
         {
             InitializeComponent();
             DataContext = new LoginViewModel();
