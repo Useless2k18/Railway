@@ -27,6 +27,11 @@
         <DataTemplate x:Name="LoginSelectionViewTemplate" DataType="{x:Type loginAndRegister:LoginViewModel}">
             <userControls:LoginSelection DataContext="{Binding}"/>
         </DataTemplate>
+        <DataTemplate x:Name="LoginAsAdminViewTemplate" DataType="{x:Type loginAndRegister:LoginAsAdminViewModel}">
+            <userControls:LoginAsAdmin DataContext="{Binding}"/>
+        </DataTemplate><DataTemplate x:Name="LoginAsStationMasterViewTemplate" DataType="{x:Type loginAndRegister:LoginAsStationMasterViewModel}">
+            <userControls:LoginAsStationMaster DataContext="{Binding}"/>
+        </DataTemplate>
         <DataTemplate x:Name="LoginAsTteViewTemplate" DataType="{x:Type loginAndRegister:LoginAsTteViewModel}">
             <userControls:LoginAsTte DataContext="{Binding}"/>
         </DataTemplate>

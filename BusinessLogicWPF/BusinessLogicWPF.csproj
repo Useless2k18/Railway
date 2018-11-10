@@ -95,6 +95,8 @@
     <Compile Include="Model\TrainClass.cs" />
     <Compile Include="Model\TrainStatus.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="ViewModel\LoginAndRegister\LoginAsAdminViewModel.cs" />
+    <Compile Include="ViewModel\LoginAndRegister\LoginAsStationMasterViewModel.cs" />
     <Compile Include="ViewModel\LoginAndRegister\LoginViewModel.cs" />
     <Compile Include="View\Home\Window\HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>
@@ -102,6 +104,12 @@
     <Compile Include="ViewModel\LoginAndRegister\LoginAsTteViewModel.cs" />
     <Compile Include="ViewModel\LoginAndRegister\Register2ViewModel.cs" />
     <Compile Include="ViewModel\LoginAndRegister\RegisterViewModel.cs" />
+    <Compile Include="View\LoginAndRegister\UserControls\LoginAsAdmin.xaml.cs">
+      <DependentUpon>LoginAsAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoginAndRegister\UserControls\LoginAsStationMaster.xaml.cs">
+      <DependentUpon>LoginAsStationMaster.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LoginAndRegister\UserControls\LoginAsTte.xaml.cs">
       <DependentUpon>LoginAsTte.xaml</DependentUpon>
     </Compile>
@@ -119,6 +127,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Style\ButtonTransparentHoverStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoginAndRegister\UserControls\LoginAsAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoginAndRegister\UserControls\LoginAsStationMaster.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
