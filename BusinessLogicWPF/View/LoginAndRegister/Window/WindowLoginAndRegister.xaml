@@ -4,18 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BusinessLogicWPF.View.LoginAndRegister.Window"
-        xmlns:viewmodels="clr-namespace:BusinessLogicWPF.ViewModel"
+        xmlns:viewmodels="clr-namespace:BusinessLogicWPF.ViewModel.LoginAndRegister"
         xmlns:views="clr-namespace:BusinessLogicWPF.View.LoginAndRegister.Window"
         xmlns:userControls="clr-namespace:BusinessLogicWPF.View.LoginAndRegister.UserControls"
+        xmlns:loginAndRegister="clr-namespace:BusinessLogicWPF.ViewModel.LoginAndRegister"
         mc:Ignorable="d"
-        Title="Login"
+        Title="LoginAsTte"
         Height="Auto" Width="450"
         SizeToContent="Height"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         WindowStyle="None"
         AllowsTransparency="True"
-        MouseLeftButtonDown="WindowLogin_MouseLeftButtonDown">
+        MouseLeftButtonDown="WindowLoginRegister_MouseLeftButtonDown">
 
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_1" />
@@ -23,13 +24,16 @@
     </Window.CommandBindings>
     
     <Window.Resources>
-        <DataTemplate x:Name="LoginViewTemplate" DataType="{x:Type viewmodels:LoginViewModel}">
-            <userControls:Login DataContext="{Binding}"/>
+        <DataTemplate x:Name="LoginSelectionViewTemplate" DataType="{x:Type loginAndRegister:LoginViewModel}">
+            <userControls:LoginSelection DataContext="{Binding}"/>
         </DataTemplate>
-        <DataTemplate x:Name="RegisterViewTemplate" DataType="{x:Type viewmodels:RegisterViewModel}">
+        <DataTemplate x:Name="LoginAsTteViewTemplate" DataType="{x:Type loginAndRegister:LoginAsTteViewModel}">
+            <userControls:LoginAsTte DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="RegisterViewTemplate" DataType="{x:Type loginAndRegister:RegisterViewModel}">
             <userControls:Register DataContext="{Binding}"/>
         </DataTemplate>
-        <DataTemplate x:Name="Register2ViewTemplate" DataType="{x:Type viewmodels:Register2ViewModel}">
+        <DataTemplate x:Name="Register2ViewTemplate" DataType="{x:Type loginAndRegister:Register2ViewModel}">
             <userControls:Register2 DataContext="{Binding}"/>
         </DataTemplate>
     </Window.Resources>

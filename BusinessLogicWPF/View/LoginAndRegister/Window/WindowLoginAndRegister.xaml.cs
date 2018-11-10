@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using BusinessLogicWPF.ViewModel.LoginAndRegister;
 
 namespace BusinessLogicWPF.View.LoginAndRegister.Window
 {
@@ -18,7 +19,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.Window
             //GridLoginFields.Children.Add(_loginControl);
             //GridLoginFields.Height = _loginControl.Height;
             ButtonNewUser.Visibility = Visibility.Visible;
-            CenterWindowOnScreen();
+            //CenterWindowOnScreen();
         }
 
         private void CommandBinding_CanExecute_1(object sender, CanExecuteRoutedEventArgs e)
@@ -36,7 +37,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.Window
             SystemCommands.MinimizeWindow(this);
         }
 
-        private void WindowLogin_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void WindowLoginRegister_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
         }
@@ -46,7 +47,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.Window
             ButtonAlreadyRegistered.Visibility = Visibility.Collapsed;
             DataContext = new LoginViewModel();
             ButtonNewUser.Visibility = Visibility.Visible;
-            CenterWindowOnScreen();
+            //CenterWindowOnScreen();
         }
 
         private void ButtonNewUser_Click(object sender, RoutedEventArgs e)
@@ -54,7 +55,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.Window
             ButtonNewUser.Visibility = Visibility.Collapsed;
             DataContext = new RegisterViewModel();
             ButtonAlreadyRegistered.Visibility = Visibility.Visible;
-            CenterWindowOnScreen();
+            //CenterWindowOnScreen();
         }
 
         private void ButtonLikeLabel_MouseEnter(object sender, MouseEventArgs e)

@@ -4,17 +4,21 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using BusinessLogicWPF.ViewModel.LoginAndRegister;
 
 namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
 {
     /// <summary>
-    /// Interaction logic for Login.xaml
+    /// Interaction logic for LoginAsTte.xaml
     /// </summary>
-    public partial class Login : UserControl
+    public partial class LoginAsTte : UserControl
     {
-        public Login()
+        private readonly System.Windows.Window _window;
+
+        public LoginAsTte()
         {
             InitializeComponent();
+            _window = Application.Current.MainWindow;
         }
 
         private void ButtonLogin_Click(object sender, RoutedEventArgs e)
@@ -28,7 +32,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
         {
             if (TextUserName.Text.Length == 0) return;
 
-            await Task.Factory.StartNew((() =>
+            await Task.Factory.StartNew(() =>
             {
                 string text = null;
 
@@ -38,7 +42,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
 
                 if (text == "sdc224")
                     MessageBox.Show($"Hi {text}");
-            }));
+            });
         }
 
         private void TextPassword_LostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
@@ -75,5 +79,10 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
         }
 
         #endregion
+
+        private void ButtonBack_OnClick(object sender, RoutedEventArgs e)
+        {
+            _window.DataContext = new LoginViewModel();
+        }
     }
 }
