@@ -5,8 +5,43 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BusinessLogicWPF.View.LoginAndRegister.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             Height="Auto" d:DesignWidth="500">
     <Grid>
-            
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+        
+            <Button x:Name="ButtonBack" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="ButtonBack_OnClick">
+                <Image Source="../../../Images/back-button.png" Width="50" Height="50"></Image>
+            </Button>
+        
+            <Label Grid.Row="1" Grid.Column="0" Content="Username" Margin="20,10,30,10" FontSize="14"/>
+            <TextBox x:Name="TextUserName" Grid.Row="1" Grid.Column="1"  Margin="20,10,30,10" FontSize="14" Background="{x:Null}" BorderThickness="0,0,0,3" BorderBrush="Black" Foreground="White" LostKeyboardFocus="TextUserName_LostKeyboardFocus"/>
+
+            <Label Grid.Row="2" Grid.Column="0" Content="Password" Margin="20,10,30,10" FontSize="14"/>
+            <PasswordBox x:Name="TextPassword" Grid.Row="2" Grid.Column="1" Margin="20,10,30,10" FontSize="14" Background="{x:Null}" BorderThickness="0,0,0,3" BorderBrush="Black" Foreground="White" LostKeyboardFocus="TextPassword_LostKeyboardFocus"/>
+
+            <Label Grid.Row="3" Grid.Column="0" Content="Enter OTP" Margin="20,10,30,10" FontSize="14"/>
+            <!--<TextBox x:Name="TextOtp" Grid.Row="3" Grid.Column="1" Margin="20,10,30,10" FontSize="14" Background="{x:Null}" BorderThickness="0,0,0,3" BorderBrush="Black" Foreground="White" PreviewTextInput="TextOtp_PreviewTextInput" DataObject.Pasting="TextOtp_OnPasting" MaxLength="6"/>-->
+            <DockPanel Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Margin="20,10,30,10">
+                <TextBox x:Name="TextOtp1" DockPanel.Dock="Left" MaxLength="1" FontSize="14" Width="20" Margin="0,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Padding="2,2,2,2" KeyUp="TextOtp_KeyUp" PreviewTextInput="TextOtp_PreviewTextInput" DataObject.Pasting="TextOtp_OnPasting"/>
+                <TextBox x:Name="TextOtp2" DockPanel.Dock="Left" MaxLength="1" FontSize="14" Width="20" Margin="0,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Padding="2,2,2,2" KeyUp="TextOtp_KeyUp" PreviewTextInput="TextOtp_PreviewTextInput" DataObject.Pasting="TextOtp_OnPasting"/>
+                <TextBox x:Name="TextOtp3" DockPanel.Dock="Left" MaxLength="1" FontSize="14" Width="20" Margin="0,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Padding="2,2,2,2" KeyUp="TextOtp_KeyUp" PreviewTextInput="TextOtp_PreviewTextInput" DataObject.Pasting="TextOtp_OnPasting"/>
+                <TextBox x:Name="TextOtp4" DockPanel.Dock="Left" MaxLength="1" FontSize="14" Width="20" Margin="0,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Padding="2,2,2,2" KeyUp="TextOtp_KeyUp" PreviewTextInput="TextOtp_PreviewTextInput" DataObject.Pasting="TextOtp_OnPasting"/>
+                <TextBox x:Name="TextOtp5" DockPanel.Dock="Left" MaxLength="1" FontSize="14" Width="20" Margin="0,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Padding="2,2,2,2" KeyUp="TextOtp_KeyUp" PreviewTextInput="TextOtp_PreviewTextInput" DataObject.Pasting="TextOtp_OnPasting"/>
+                <TextBox x:Name="TextOtp6" DockPanel.Dock="Left" MaxLength="1" FontSize="14" Width="20" Margin="0,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Padding="2,2,2,2" KeyUp="TextOtp_KeyUp" PreviewTextInput="TextOtp_PreviewTextInput" DataObject.Pasting="TextOtp_OnPasting"/>
+            </DockPanel>
+
+            <Button x:Name="ButtonLogin" Grid.Row="4" Grid.ColumnSpan="2" Grid.Column="0" Content="Login" VerticalAlignment="Center" BorderBrush="{x:Null}" FontSize="20" FontFamily="Century Gothic" Margin="20" Background="#FFFF9E00" FontWeight="Bold" Foreground="White" BorderThickness="0" Click="ButtonLogin_Click"/>
+    </Grid>
     </Grid>
 </UserControl>
