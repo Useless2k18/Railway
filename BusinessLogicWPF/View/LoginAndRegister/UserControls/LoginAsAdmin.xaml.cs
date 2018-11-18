@@ -1,10 +1,10 @@
 ﻿using BusinessLogicWPF.ViewModel.LoginAndRegister;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
@@ -34,7 +34,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
 
         #region Input Fields
 
-        private async void TextUserName_LostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        private async void TextUserName_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             if (TextUserName.Text.Length == 0) return;
 
@@ -51,7 +51,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
             });
         }
 
-        private void TextPassword_LostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        private void TextPassword_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             if (TextPassword.Password.Length != 0)
                 MessageBox.Show($"You just entered {TextPassword.Password}");
@@ -63,7 +63,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
             return !Regex.IsMatch(text);
         }
 
-        private void TextOtp_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        private void TextOtp_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !IsTextAllowed(e.Text);
         }
@@ -84,19 +84,33 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
             }
         }
 
-        private void TextOtp_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        /*private void TextOtp_KeyUp(object sender, KeyEventArgs e)
         {
-            var id = 0;
-            var textBox = sender as TextBox;
+            MoveToNextUiElement(e);
+        }
 
-            if (sender is TextBox)
-            {
-                textBox.IsEnabled = false;
-                id = int.Parse(textBox.Name.Last().ToString());
-                textBox = (TextBox)FindName($"TextOtp{id + 1}");
-            }
-            if (id != 6)
-                textBox?.Focus();
+        private void TextOtp1_PreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (!e.Handled)
+                e.Handled = true;
+        }
+        */
+
+        private static void MoveToNextUiElement(RoutedEventArgs e)
+        {
+            // Creating a FocusNavigationDirection object and setting it to a
+            // local field that contains the direction selected.
+            const FocusNavigationDirection focusDirection = FocusNavigationDirection.Next;
+
+            // MoveFocus takes a TraversalRequest as its argument.
+            var request = new TraversalRequest(focusDirection);
+
+            // Gets the element with keyboard focus.
+
+            // Change keyboard focus.
+            if (!(Keyboard.FocusedElement is UIElement elementWithFocus)) return;
+
+            if (elementWithFocus.MoveFocus(request)) e.Handled = true;
         }
 
         #endregion

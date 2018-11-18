@@ -1,10 +1,10 @@
-﻿using System.Text.RegularExpressions;
+﻿using BusinessLogicWPF.ViewModel.LoginAndRegister;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using BusinessLogicWPF.ViewModel.LoginAndRegister;
 
 namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
 {
@@ -24,6 +24,11 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
         private void ButtonLogin_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Logged in!");
+        }
+
+        private void ButtonBack_OnClick(object sender, RoutedEventArgs e)
+        {
+            _window.DataContext = new LoginViewModel();
         }
 
         #region Input Fields
@@ -79,10 +84,5 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
         }
 
         #endregion
-
-        private void ButtonBack_OnClick(object sender, RoutedEventArgs e)
-        {
-            _window.DataContext = new LoginViewModel();
-        }
     }
 }

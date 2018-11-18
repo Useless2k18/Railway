@@ -5,8 +5,30 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BusinessLogicWPF.View.LoginAndRegister.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             Height="Auto" d:DesignWidth="500">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <Button x:Name="ButtonBack" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="ButtonBack_OnClick">
+            <Image Source="../../../Images/back-button.png" Width="50" Height="50"></Image>
+        </Button>
+        
+        <Label Grid.Row="1" Grid.Column="0" Content="Username" Margin="20,10,30,10" FontSize="14"/>
+        <TextBox x:Name="TextUserName" Grid.Row="1" Grid.Column="1"  Margin="20,10,30,10" FontSize="14" Background="{x:Null}" BorderThickness="0,0,0,3" BorderBrush="Black" Foreground="White" LostKeyboardFocus="TextUserName_LostKeyboardFocus"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Password" Margin="20,10,30,10" FontSize="14"/>
+        <PasswordBox x:Name="TextPassword" Grid.Row="2" Grid.Column="1" Margin="20,10,30,10" FontSize="14" Background="{x:Null}" BorderThickness="0,0,0,3" BorderBrush="Black" Foreground="White" LostKeyboardFocus="TextPassword_LostKeyboardFocus"/>
+        
+        <Button x:Name="ButtonLogin" Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0" Content="Login" VerticalAlignment="Center" BorderBrush="{x:Null}" FontSize="20" FontFamily="Century Gothic" Margin="20" Background="#FFFF9E00" FontWeight="Bold" Foreground="White" BorderThickness="0" Click="ButtonLogin_Click"/>
+
     </Grid>
 </UserControl>
