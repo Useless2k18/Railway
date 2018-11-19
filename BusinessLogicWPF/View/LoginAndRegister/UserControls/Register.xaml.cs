@@ -1,4 +1,4 @@
-﻿using BusinessLogicWPF.ViewModel;
+﻿using BusinessLogicWPF.ViewModel.LoginAndRegister;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
@@ -6,7 +6,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using BusinessLogicWPF.ViewModel.LoginAndRegister;
 
 namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
 {
@@ -74,6 +73,9 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
             {
                 TextBlockPassword.Visibility = Visibility.Visible;
                 LabelPassword.Visibility = Visibility.Collapsed;
+                PasswordInstructions.Opacity = 1.5;
+                TextFullName.Opacity = 0.5;
+                TextEmailId.Opacity = 0.5;
                 _emptyFlag++;
             }
 
@@ -83,17 +85,13 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
                 _emptyFlag++;
             }
 
-            if (!CheckBoxAcceptTerm.IsChecked.GetValueOrDefault())
-            {
-                LabelAcceptTerm.Visibility = Visibility.Visible;
-                _emptyFlag++;
-            }
-
             #endregion
 
             if (_emptyFlag != 0) return;
 
             if (DateOfBirth.SelectedDate == null) return;
+            PasswordInstructions.Opacity = 0.5;
+
             var age = GetAge(DateOfBirth.SelectedDate.Value);
             if (age < 18)
             {
@@ -132,11 +130,6 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
         private void DateOfBirth_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             LabelDateOfBirth.Visibility = Visibility.Collapsed;
-        }
-
-        private void CheckBoxAcceptTerm_Checked(object sender, RoutedEventArgs e)
-        {
-            LabelAcceptTerm.Visibility = Visibility.Collapsed;
         }
 
         #endregion

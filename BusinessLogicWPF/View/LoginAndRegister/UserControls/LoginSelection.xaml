@@ -13,8 +13,17 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" x:Name="ButtonLoginAsAdmin" Content="Login As ADMIN" Width="350" Margin="10,10,10,10" FontSize="18" FontFamily="Calibri" Click="ButtonLoginAsAdmin_Click"/>
-        <Button Grid.Row="1" x:Name="ButtonLoginAsStationMaster" Content="Login As Station Master" Width="350" Margin="10,10,10,10" FontSize="18" Click="ButtonLoginAsStationMaster_Click"/>
-        <Button Grid.Row="2" x:Name="ButtonLoginAsTte" Content="Login As Traveling Ticket Examiner" Width="350" Margin="10,10,10,10" FontSize="18" Click="ButtonLoginAsTte_Click"/>
+        <Button Grid.Row="0" x:Name="ButtonLoginAsAdmin"
+                Content="Login As ADMIN"
+                Width="350" Margin="10,10,10,10"
+                FontSize="18" Click="ButtonLoginAsAdmin_Click"/>
+        <Button Grid.Row="1" x:Name="ButtonLoginAsStationMaster"
+                Content="Login As Station Master"
+                Width="350" Margin="10,10,10,10"
+                FontSize="18" Click="ButtonLoginAsStationMaster_Click"/>
+        <Button Grid.Row="2" x:Name="ButtonLoginAsTte"
+                Content="Login As Traveling Ticket Examiner"
+                Width="350" Margin="10,10,10,10"
+                FontSize="18" Click="ButtonLoginAsTte_Click"/>
     </Grid>
 </UserControl>

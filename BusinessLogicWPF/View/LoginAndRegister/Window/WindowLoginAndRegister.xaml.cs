@@ -1,40 +1,32 @@
-﻿using BusinessLogicWPF.ViewModel;
+﻿using BusinessLogicWPF.ViewModel.LoginAndRegister;
+using Microsoft.Win32;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using BusinessLogicWPF.ViewModel.LoginAndRegister;
 
 namespace BusinessLogicWPF.View.LoginAndRegister.Window
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class WindowLoginAndRegister : System.Windows.Window
+    public partial class WindowLoginAndRegister
     {
+        private int _counter;
+
         public WindowLoginAndRegister()
         {
             InitializeComponent();
+            Left = 100;
+            Top = 10;
+            SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
             DataContext = new LoginViewModel();
-            //GridLoginFields.Children.Clear();
-            //GridLoginFields.Children.Add(_loginControl);
-            //GridLoginFields.Height = _loginControl.Height;
-            ButtonNewUser.Visibility = Visibility.Visible;
-            //CenterWindowOnScreen();
         }
 
-        private void CommandBinding_CanExecute_1(object sender, CanExecuteRoutedEventArgs e)
+        private void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
         {
-            e.CanExecute = true;
-        }
-
-        private void CommandBinding_Executed_1(object sender, ExecutedRoutedEventArgs e)
-        {
-            SystemCommands.CloseWindow(this);
-        }
-
-        private void CommandBinding_Executed_2(object sender, ExecutedRoutedEventArgs e)
-        {
-            SystemCommands.MinimizeWindow(this);
+            this.Left = SystemParameters.PrimaryScreenWidth - this.Width;
+            this.Top = SystemParameters.PrimaryScreenHeight - this.Height;
         }
 
         private void WindowLoginRegister_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -42,20 +34,21 @@ namespace BusinessLogicWPF.View.LoginAndRegister.Window
             DragMove();
         }
 
-        private void ButtonAlreadyRegistered_Click(object sender, RoutedEventArgs e)
-        {
-            ButtonAlreadyRegistered.Visibility = Visibility.Collapsed;
-            DataContext = new LoginViewModel();
-            ButtonNewUser.Visibility = Visibility.Visible;
-            //CenterWindowOnScreen();
-        }
-
         private void ButtonNewUser_Click(object sender, RoutedEventArgs e)
         {
-            ButtonNewUser.Visibility = Visibility.Collapsed;
-            DataContext = new RegisterViewModel();
-            ButtonAlreadyRegistered.Visibility = Visibility.Visible;
-            //CenterWindowOnScreen();
+            if (_counter % 2 == 0)
+            {
+                ButtonNewUser.Content = "Already Registered?";
+                DataContext = new Register2ViewModel();
+                ButtonBack.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                ButtonNewUser.Content = "New User?";
+                DataContext = new LoginViewModel();
+                ButtonBack.Visibility = Visibility.Collapsed;
+            }
+            _counter++;
         }
 
         private void ButtonLikeLabel_MouseEnter(object sender, MouseEventArgs e)
@@ -82,6 +75,12 @@ namespace BusinessLogicWPF.View.LoginAndRegister.Window
             var windowHeight = Height;
             Left = screenWidth / 2 - windowWidth / 2;
             Top = screenHeight / 2 - windowHeight / 2;
+        }
+
+        private void ButtonBack_OnClick(object sender, RoutedEventArgs e)
+        {
+            DataContext = new LoginViewModel();
+            ButtonBack.Visibility = Visibility.Collapsed;
         }
     }
 }

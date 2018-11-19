@@ -1,4 +1,5 @@
-﻿using BusinessLogicWPF.ViewModel.LoginAndRegister;
+﻿using BusinessLogicWPF.Helper;
+using BusinessLogicWPF.ViewModel.LoginAndRegister;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -19,16 +20,19 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
 
         private void ButtonLoginAsAdmin_Click(object sender, RoutedEventArgs e)
         {
+            ErrorLabelHelper.Reset();
             _window.DataContext = new LoginAsAdminViewModel();
         }
 
         private void ButtonLoginAsStationMaster_Click(object sender, RoutedEventArgs e)
         {
+            ErrorLabelHelper.Reset();
             _window.DataContext = new LoginAsStationMasterViewModel();
         }
 
         private void ButtonLoginAsTte_Click(object sender, RoutedEventArgs e)
         {
+            ErrorLabelHelper.Reset();
             _window.DataContext = new LoginAsTteViewModel();
         }
     }

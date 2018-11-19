@@ -1,5 +1,4 @@
-﻿using BusinessLogicWPF.ViewModel.LoginAndRegister;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,16 +17,14 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
         {
             InitializeComponent();
             _window = Application.Current.MainWindow;
+
+            var buttonBack = (Button)_window?.FindName("ButtonBack");
+            if (buttonBack != null) buttonBack.Visibility = Visibility.Visible;
         }
 
         private void ButtonLogin_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Logged in!");
-        }
-
-        private void ButtonBack_OnClick(object sender, RoutedEventArgs e)
-        {
-            _window.DataContext = new LoginViewModel();
         }
 
         #region Input Fields

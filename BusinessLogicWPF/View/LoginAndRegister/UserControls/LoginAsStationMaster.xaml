@@ -18,10 +18,6 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         
-        <Button x:Name="ButtonBack" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="ButtonBack_OnClick">
-            <Image Source="../../../Images/back-button.png" Width="50" Height="50"></Image>
-        </Button>
-        
         <Label Grid.Row="1" Grid.Column="0" Content="Username" Margin="20,10,30,10" FontSize="14"/>
         <TextBox x:Name="TextUserName" Grid.Row="1" Grid.Column="1"  Margin="20,10,30,10" FontSize="14" Background="{x:Null}" BorderThickness="0,0,0,3" BorderBrush="Black" Foreground="White" LostKeyboardFocus="TextUserName_LostKeyboardFocus"/>
 

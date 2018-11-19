@@ -1,10 +1,10 @@
-﻿using BusinessLogicWPF.ViewModel.LoginAndRegister;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
@@ -20,16 +20,17 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
         {
             InitializeComponent();
             _window = Application.Current.MainWindow;
-        }
 
-        private void ButtonBack_OnClick(object sender, RoutedEventArgs e)
-        {
-            _window.DataContext = new LoginViewModel();
+            var buttonBack = (Button)_window?.FindName("ButtonBack");
+            if (buttonBack != null) buttonBack.Visibility = Visibility.Visible;
         }
 
         private void ButtonLogin_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Logged in!");
+            if (TextUserName.Text.Length != 0 && TextPassword.Password.Length != 0 && TextOtp.Text.Length != 0)
+            {
+                MessageBox.Show("Logged in!");
+            }
         }
 
         #region Input Fields
@@ -49,12 +50,6 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
                 if (text == "sdc224")
                     MessageBox.Show($"Hi {text}");
             });
-        }
-
-        private void TextPassword_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            if (TextPassword.Password.Length != 0)
-                MessageBox.Show($"You just entered {TextPassword.Password}");
         }
 
         private static readonly Regex Regex = new Regex("[^0-9]+"); //regex that matches disallowed text
@@ -82,6 +77,41 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
             {
                 e.CancelCommand();
             }
+        }
+
+        private void TextPassword_OnLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (TextPassword.Password.Length == 0)
+            {
+                LabelPasswordEmptyError.Foreground = new SolidColorBrush(Colors.OrangeRed);
+                LabelPasswordEmptyError.Visibility = Visibility.Visible;
+                TextPassword.BorderBrush = new SolidColorBrush(Colors.OrangeRed);
+            }
+            else
+            {
+                LabelPasswordEmptyError.Visibility = Visibility.Hidden;
+                TextPassword.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#89000000");
+            }
+        }
+
+        private void TextPassword_OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (TextPassword.Password.Length != 0)
+            {
+                LabelPasswordEmptyError.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void TextPassword_OnPreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            if (LabelPasswordEmptyError.Visibility == Visibility.Hidden)
+                TextPassword.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF673AB7");
+        }
+
+        private void TextPassword_OnMouseLeave(object sender, MouseEventArgs e)
+        {
+            if (LabelPasswordEmptyError.Visibility == Visibility.Hidden)
+                TextPassword.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#89000000");
         }
 
         /*private void TextOtp_KeyUp(object sender, KeyEventArgs e)

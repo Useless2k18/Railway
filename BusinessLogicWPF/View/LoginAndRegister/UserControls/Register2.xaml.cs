@@ -46,5 +46,9 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
             }
         }
 
+        private void ButtonNext_OnClick(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Registered");
+        }
     }
 }
