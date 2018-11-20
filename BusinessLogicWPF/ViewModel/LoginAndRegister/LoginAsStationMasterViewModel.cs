@@ -1,13 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BusinessLogicWPF.Domain;
+using System;
+using System.ComponentModel;
 
 namespace BusinessLogicWPF.ViewModel.LoginAndRegister
 {
-    class LoginAsStationMasterViewModel
+    public class LoginAsStationMasterViewModel : INotifyPropertyChanged
     {
+        private string _userName;
 
+        public string Username
+        {
+            get => _userName;
+            set => this.MutateVerbose(ref _userName, value, RaisePropertyChanged());
+        }
+
+        private Action<PropertyChangedEventArgs> RaisePropertyChanged()
+        {
+            return args => PropertyChanged?.Invoke(this, args);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

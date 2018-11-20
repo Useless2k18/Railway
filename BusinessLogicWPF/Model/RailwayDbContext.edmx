@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RailwayModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RailwayModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="UserId" />
@@ -88,6 +88,18 @@
           <Property Name="StationId" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="StationName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="StationLocation" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StationMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="FullName" Type="varchar(max)" Nullable="false" />
+          <Property Name="EmailId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar(max)" Nullable="false" />
+          <Property Name="AadharCard" Type="bigint" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="StationId" Type="varchar" MaxLength="8" Nullable="false" />
         </EntityType>
         <EntityType Name="Train">
           <Key>
@@ -236,6 +248,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_StationMaster_Id_Station">
+          <End Role="Station" Type="Self.Station" Multiplicity="1" />
+          <End Role="StationMaster" Type="Self.StationMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="StationId" />
+            </Principal>
+            <Dependent Role="StationMaster">
+              <PropertyRef Name="StationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TrainDestinationId_Station">
           <End Role="Station" Type="Self.Station" Multiplicity="0..1" />
           <End Role="Train" Type="Self.Train" Multiplicity="*" />
@@ -271,6 +295,7 @@
           <EntitySet Name="Route" EntityType="Self.Route" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RouteHasStation" EntityType="Self.RouteHasStation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Station" EntityType="Self.Station" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StationMaster" EntityType="Self.StationMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Train" EntityType="Self.Train" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrainClass" EntityType="Self.TrainClass" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrainStatus" EntityType="Self.TrainStatus" Schema="dbo" store:Type="Tables" />
@@ -296,6 +321,10 @@
             <End Role="Train" EntitySet="Train" />
             <End Role="Route" EntitySet="Route" />
           </AssociationSet>
+          <AssociationSet Name="FK_StationMaster_Id_Station" Association="Self.FK_StationMaster_Id_Station">
+            <End Role="Station" EntitySet="Station" />
+            <End Role="StationMaster" EntitySet="StationMaster" />
+          </AssociationSet>
           <AssociationSet Name="FK_TrainDestinationId_Station" Association="Self.FK_TrainDestinationId_Station">
             <End Role="Station" EntitySet="Station" />
             <End Role="Train" EntitySet="Train" />
@@ -305,8 +334,7 @@
             <End Role="Train" EntitySet="Train" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RailwayModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -400,6 +428,7 @@
           <Property Name="StationLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Trains" Relationship="Self.FK_TrainDestinationId_Station" FromRole="Station" ToRole="Train" />
           <NavigationProperty Name="Trains1" Relationship="Self.FK_TrainSourceId_Station" FromRole="Station" ToRole="Train" />
+          <NavigationProperty Name="StationMasters" Relationship="RailwayModel.FK_StationMaster_Id_Station" FromRole="Station" ToRole="StationMaster" />
         </EntityType>
         <EntityType Name="Train">
           <Key>
@@ -623,7 +652,37 @@
             <End Role="Station" EntitySet="Stations" />
             <End Role="Train" EntitySet="Trains" />
           </AssociationSet>
+          <EntitySet Name="StationMasters" EntityType="RailwayModel.StationMaster" />
+          <AssociationSet Name="FK_StationMaster_Id_Station" Association="RailwayModel.FK_StationMaster_Id_Station">
+            <End Role="Station" EntitySet="Stations" />
+            <End Role="StationMaster" EntitySet="StationMasters" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="StationMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EmailId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AadharCard" Type="Int64" Nullable="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="StationId" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Station" Relationship="RailwayModel.FK_StationMaster_Id_Station" FromRole="StationMaster" ToRole="Station" />
+        </EntityType>
+        <Association Name="FK_StationMaster_Id_Station">
+          <End Type="RailwayModel.Station" Role="Station" Multiplicity="1" />
+          <End Type="RailwayModel.StationMaster" Role="StationMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="StationId" />
+            </Principal>
+            <Dependent Role="StationMaster">
+              <PropertyRef Name="StationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -793,6 +852,19 @@
                 <ScalarProperty Name="AadharCard" ColumnName="AadharCard" />
                 <ScalarProperty Name="SecurityQuestion" ColumnName="SecurityQuestion" />
                 <ScalarProperty Name="SecurityAnswer" ColumnName="SecurityAnswer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StationMasters">
+            <EntityTypeMapping TypeName="RailwayModel.StationMaster">
+              <MappingFragment StoreEntitySet="StationMaster">
+                <ScalarProperty Name="StationId" ColumnName="StationId" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="AadharCard" ColumnName="AadharCard" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

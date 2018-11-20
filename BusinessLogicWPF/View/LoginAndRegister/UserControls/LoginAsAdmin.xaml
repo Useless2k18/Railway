@@ -8,7 +8,6 @@
              xmlns:local="clr-namespace:BusinessLogicWPF.View.LoginAndRegister.UserControls"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
              xmlns:domain="clr-namespace:BusinessLogicWPF.Domain"
              xmlns:loginAndRegister="clr-namespace:BusinessLogicWPF.ViewModel.LoginAndRegister"
              Height="Auto" Width="Auto"

@@ -38,5 +38,6 @@ namespace BusinessLogicWPF.Model
         public virtual DbSet<TrainStatu> TrainStatus { get; set; }
         public virtual DbSet<Tte> Ttes { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<StationMaster> StationMasters { get; set; }
     }
 }

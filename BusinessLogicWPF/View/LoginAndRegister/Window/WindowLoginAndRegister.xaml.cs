@@ -39,7 +39,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.Window
             if (_counter % 2 == 0)
             {
                 ButtonNewUser.Content = "Already Registered?";
-                DataContext = new Register2ViewModel();
+                DataContext = new RegisterViewModel();
                 ButtonBack.Visibility = Visibility.Collapsed;
             }
             else

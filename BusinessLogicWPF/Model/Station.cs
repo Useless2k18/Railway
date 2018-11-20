@@ -19,6 +19,7 @@ namespace BusinessLogicWPF.Model
         {
             this.Trains = new HashSet<Train>();
             this.Trains1 = new HashSet<Train>();
+            this.StationMasters = new HashSet<StationMaster>();
         }
     
         public string StationId { get; set; }
@@ -29,5 +30,7 @@ namespace BusinessLogicWPF.Model
         public virtual ICollection<Train> Trains { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Train> Trains1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StationMaster> StationMasters { get; set; }
     }
 }

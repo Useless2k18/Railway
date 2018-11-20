@@ -25,6 +25,8 @@
         <AssociationConnector Association="RailwayModel.FK_Route_Train" ManuallyRouted="false" />
         <AssociationConnector Association="RailwayModel.FK_TrainDestinationId_Station" ManuallyRouted="false" />
         <AssociationConnector Association="RailwayModel.FK_TrainSourceId_Station" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RailwayModel.StationMaster" Width="1.5" PointX="3" PointY="12.125" />
+        <AssociationConnector Association="RailwayModel.FK_StationMaster_Id_Station" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

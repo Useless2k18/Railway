@@ -24,7 +24,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         Opacity="0.95"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Height="Auto" Width="450"
+        Height="Auto" Width="500"
         SizeToContent="Height"
         WindowStartupLocation="CenterOwner"
         AllowsTransparency="True"
@@ -138,6 +138,7 @@
                 <Button x:Name="ButtonNewUser"
                     Margin="5,5,5,5"
                     Style="{StaticResource MaterialDesignToolButton}"
+                    FontSize="18"
                     Content="New User?"
                     Foreground="Blue"
                     Click="ButtonNewUser_Click"
@@ -145,8 +146,7 @@
                     MouseLeave="ButtonLikeLabel_MouseLeave"/>
             </DockPanel>
         </Grid>
-        <Grid x:Name="GridLoginFields"
-              Grid.Row="2">
+        <Grid x:Name="GridLoginFields" Grid.Row="2">
             <ContentControl Content="{Binding}"/>
         </Grid>
     </Grid>
