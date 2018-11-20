@@ -101,6 +101,6 @@
             Grid.Row="4" Content="Login"
             Style="{StaticResource MaterialDesignRaisedAccentButton}"
             Click="ButtonLogin_Click"
-            Width="400" Margin="10,10"/>
+            Width="400" Margin="10,10,10,20"/>
     </Grid>
 </UserControl>

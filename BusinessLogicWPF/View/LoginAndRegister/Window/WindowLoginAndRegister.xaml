@@ -79,7 +79,7 @@
                    Height="90" Margin="10,10,10,10"/>
             <TextBlock Grid.Column="1"
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Center" Margin="5"
+                   VerticalAlignment="Center" Margin="5,0,10,0"
                        FontWeight="Bold"
                    Style="{StaticResource MaterialDesignHeadlineTextBlock}">
                 IRCTC Administration Portal
