@@ -111,19 +111,6 @@
     <Compile Include="Domain\SimpleDateValidationRule.cs" />
     <Compile Include="Domain\TreesViewModel.cs" />
     <Compile Include="Helper\ErrorLabelHelper.cs" />
-    <Compile Include="Model\Admin.cs" />
-    <Compile Include="Model\DaysAvailable.cs" />
-    <Compile Include="Model\Passenger.cs" />
-    <Compile Include="Model\PassengerTicket.cs" />
-    <Compile Include="Model\RailwayDbContext.cs" />
-    <Compile Include="Model\Reservation.cs" />
-    <Compile Include="Model\Route.cs" />
-    <Compile Include="Model\RouteHasStation.cs" />
-    <Compile Include="Model\Station.cs" />
-    <Compile Include="Model\Train.cs" />
-    <Compile Include="Model\TrainClass.cs" />
-    <Compile Include="Model\TrainStatus.cs" />
-    <Compile Include="Model\User.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Style\Class\TextInputToVisibilityConverter.cs" />
     <Compile Include="Style\Class\NullTextBox.cs" />
@@ -241,12 +228,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Analyzer Include="..\packages\AWSSDK.DynamoDBv2.3.3.14.2\analyzers\dotnet\cs\AWSSDK.DynamoDBv2.CodeAnalysis.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Model\" />
     <Folder Include="UnitOfWork\Core\" />
     <Folder Include="UnitOfWork\Domain\" />
     <Folder Include="View\Home\UserControls\" />
