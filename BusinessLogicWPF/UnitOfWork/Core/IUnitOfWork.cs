@@ -5,7 +5,8 @@ namespace BusinessLogicWPF.UnitOfWork.Core
 {
     public interface IUnitOfWork : IDisposable
     {
-        IStationMasterRepository StationMasters { get; set; }
+        IStationMasterRepository StationMasters { get; }
+        ITteRepository Ttes { get; }
         void Complete();
     }
 }

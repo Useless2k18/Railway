@@ -1,4 +1,5 @@
 ﻿using BusinessLogicWPF.Model;
+using BusinessLogicWPF.View.StationMaster.Window;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Linq;
@@ -18,14 +19,12 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
     public partial class LoginAsStationMaster : UserControl
     {
         private readonly System.Windows.Window _window;
-        private Visibility _visibility;
+        private Model.StationMaster _stationMasterDetails;
 
         public LoginAsStationMaster()
         {
             InitializeComponent();
             _window = Application.Current.MainWindow;
-
-            _visibility = UsernameAlert.Visibility;
 
             var buttonBack = (Button)_window?.FindName("ButtonBack");
             if (buttonBack != null) buttonBack.Visibility = Visibility.Visible;
@@ -33,7 +32,14 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
 
         private void ButtonLogin_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Logged in!");
+            if (_stationMasterDetails.Password == TextPassword.Password)
+            {
+                var window = new StationMasterWindow();
+                window.ShowDialog();
+
+            }
+            else
+                MessageBox.Show("Invalid Password");
         }
 
         #region Input Fields
@@ -54,25 +60,23 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
                 Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal,
                     (ThreadStart)delegate { text = TextUserName.Text; });
 
-                //Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal,
-                //(ThreadStart)delegate { visibility = _visibility; });
+                var context = new RailwayDbContext();
 
-                var context = new RailwayEntities();
-
-                var name = context.StationMasters
+                _stationMasterDetails = context.StationMasters
                     .SingleOrDefault(a => a.Id == text);
 
-                if (name != null)
+                if (_stationMasterDetails != null)
                 {
                     Dispatcher.BeginInvoke(
                         DispatcherPriority.Normal,
-                        new Action((() =>
+                        new Action(() =>
                         {
                             UsernameAlert.Kind = PackIconKind.SmileyCool;
                             UsernameAlert.Foreground = new SolidColorBrush(Colors.Green);
-                            UsernameAlert.ToolTip = "Hello " + name.FullName;
+                            UsernameAlert.ToolTip = "Hello " + _stationMasterDetails.FullName;
                             UsernameAlert.Visibility = Visibility.Visible;
-                        })));
+                            ButtonLogin.IsEnabled = true;
+                        }));
                 }
                 else
                 {
@@ -84,6 +88,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
                             UsernameAlert.Foreground = new SolidColorBrush(Colors.OrangeRed);
                             UsernameAlert.ToolTip = "Sorry, Username not available";
                             UsernameAlert.Visibility = Visibility.Visible;
+                            ButtonLogin.IsEnabled = false;
                         }));
                 }
             });

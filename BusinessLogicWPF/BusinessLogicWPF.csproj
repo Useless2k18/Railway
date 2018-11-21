@@ -123,63 +123,21 @@
     <Compile Include="Domain\SimpleDateValidationRule.cs" />
     <Compile Include="Domain\TreesViewModel.cs" />
     <Compile Include="Helper\ErrorLabelHelper.cs" />
-    <Compile Include="Model\Admin.cs">
-      <DependentUpon>RailwayDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\DaysAvailable.cs">
-      <DependentUpon>RailwayDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Passenger.cs">
-      <DependentUpon>RailwayDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\PassengerTicket.cs">
-      <DependentUpon>RailwayDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\RailwayDbContext.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RailwayDbContext.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\RailwayDbContext.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RailwayDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\RailwayDbContext.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RailwayDbContext.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Reservation.cs">
-      <DependentUpon>RailwayDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Route.cs">
-      <DependentUpon>RailwayDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\RouteHasStation.cs">
-      <DependentUpon>RailwayDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Station.cs">
-      <DependentUpon>RailwayDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\StationMaster.cs">
-      <DependentUpon>RailwayDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Train.cs">
-      <DependentUpon>RailwayDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\TrainClass.cs">
-      <DependentUpon>RailwayDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\TrainStatu.cs">
-      <DependentUpon>RailwayDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Tte.cs">
-      <DependentUpon>RailwayDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\User.cs">
-      <DependentUpon>RailwayDbContext.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Model\Admin.cs" />
+    <Compile Include="Model\DaysAvailable.cs" />
+    <Compile Include="Model\Passenger.cs" />
+    <Compile Include="Model\PassengerTicket.cs" />
+    <Compile Include="Model\RailwayDbContext.cs" />
+    <Compile Include="Model\Reservation.cs" />
+    <Compile Include="Model\Route.cs" />
+    <Compile Include="Model\RouteHasStation.cs" />
+    <Compile Include="Model\Station.cs" />
+    <Compile Include="Model\StationMaster.cs" />
+    <Compile Include="Model\Train.cs" />
+    <Compile Include="Model\TrainClass.cs" />
+    <Compile Include="Model\TrainStatus.cs" />
+    <Compile Include="Model\Tte.cs" />
+    <Compile Include="Model\User.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Style\Class\TextInputToVisibilityConverter.cs" />
     <Compile Include="Style\Class\NullTextBox.cs" />
@@ -187,8 +145,10 @@
     <Compile Include="UnitOfWork\Core\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\Core\Repositories\IRepository.cs" />
     <Compile Include="UnitOfWork\Core\Repositories\IStationMasterRepository.cs" />
+    <Compile Include="UnitOfWork\Core\Repositories\ITteRepository.cs" />
     <Compile Include="UnitOfWork\Persistence\Repositories\Repository.cs" />
     <Compile Include="UnitOfWork\Persistence\Repositories\StationMasterRepository.cs" />
+    <Compile Include="UnitOfWork\Persistence\Repositories\TteRepository.cs" />
     <Compile Include="UnitOfWork\Persistence\UnitOfWork.cs" />
     <Compile Include="ViewModel\LoginAndRegister\LoginAsAdminViewModel.cs" />
     <Compile Include="ViewModel\LoginAndRegister\LoginAsStationMasterViewModel.cs" />
@@ -216,6 +176,9 @@
     </Compile>
     <Compile Include="View\LoginAndRegister\UserControls\Register2.xaml.cs">
       <DependentUpon>Register2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StationMaster\Window\StationMasterWindow.xaml.cs">
+      <DependentUpon>StationMasterWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Style\InlineTextBox.xaml">
       <SubType>Designer</SubType>
@@ -277,6 +240,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\StationMaster\Window\StationMasterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -297,13 +264,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.Config" />
-    <EntityDeploy Include="Model\RailwayDbContext.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>RailwayDbContext.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Model\RailwayDbContext.edmx.diagram">
-      <DependentUpon>RailwayDbContext.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -354,16 +314,6 @@
     <Resource Include="Images\otp-icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Model\RailwayDbContext.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RailwayDbContext.edmx</DependentUpon>
-      <LastGenOutput>RailwayDbContext.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model\RailwayDbContext.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RailwayDbContext.edmx</DependentUpon>
-      <LastGenOutput>RailwayDbContext.cs</LastGenOutput>
-    </Content>
     <Content Include="Railway.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

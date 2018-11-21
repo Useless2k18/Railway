@@ -59,7 +59,7 @@
             </TextBox>
         </DockPanel>
 
-        <DockPanel Grid.Row="1" Margin="20,10,30,0">
+        <DockPanel Grid.Row="1" Margin="20,10,50,0">
             <materialDesign:PackIcon
                 Kind="Key"
                 Foreground="{Binding ElementName=TextPassword, Path=BorderBrush}"
@@ -84,6 +84,7 @@
             x:Name="ButtonLogin"
             Grid.Row="3" Content="Login"
             Style="{StaticResource MaterialDesignRaisedAccentButton}"
+            IsEnabled="False"
             Click="ButtonLogin_Click"
             Width="400" Margin="10,10,10,20"/>
     </Grid>

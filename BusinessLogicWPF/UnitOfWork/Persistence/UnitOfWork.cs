@@ -7,15 +7,17 @@ namespace BusinessLogicWPF.UnitOfWork.Persistence
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly RailwayEntities _context;
+        private readonly RailwayDbContext _context;
 
-        public UnitOfWork(RailwayEntities context)
+        public IStationMasterRepository StationMasters { get; }
+        public ITteRepository Ttes { get; }
+
+        public UnitOfWork(RailwayDbContext context)
         {
             _context = context;
             StationMasters = new StationMasterRepository(_context);
+            Ttes = new TteRepository(_context);
         }
-
-        public IStationMasterRepository StationMasters { get; set; }
 
         public void Complete()
         {
