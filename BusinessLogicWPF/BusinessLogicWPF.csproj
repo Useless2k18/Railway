@@ -41,6 +41,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,6 +51,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\Flat-Icons.com-Square-Train.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AWSSDK.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
@@ -287,12 +291,6 @@
     <Resource Include="Images\Facebook_48px.png" />
     <Resource Include="Images\Forward_48px.png" />
     <Resource Include="Images\Help_48px.png" />
-    <Resource Include="Images\icons8_Close_Window.ico" />
-    <Resource Include="Images\icons8_Close_Window_16.png" />
-    <Resource Include="Images\icons8_Close_Window_32.png" />
-    <Resource Include="Images\icons8_Minimize_Window.ico" />
-    <Resource Include="Images\icons8_Minimize_Window_16.png" />
-    <Resource Include="Images\icons8_Minimize_Window_32.png" />
     <Resource Include="Images\Indian_Railwaylogo.png" />
     <Resource Include="Images\Indian_Railways_Logo_Blue.png" />
     <Resource Include="Images\IRCTC_Logo1.png" />
@@ -314,6 +312,7 @@
     <Resource Include="Images\otp-icon.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\Flat-Icons.com-Square-Train.ico" />
     <Content Include="Railway.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

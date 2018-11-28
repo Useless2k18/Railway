@@ -29,6 +29,7 @@
         AllowsTransparency="True"
         WindowTransitionsEnabled="True"
         ResizeMode="CanMinimize"
+        Icon="../../../Images/Flat-Icons.com-Square-Train.ico"
         MouseLeftButtonDown="WindowLoginRegister_MouseLeftButtonDown"
         BorderThickness="1"
         Title="Welcome to IRCTC">
