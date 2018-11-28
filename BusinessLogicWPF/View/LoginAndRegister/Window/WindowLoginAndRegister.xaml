@@ -26,7 +26,6 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Height="Auto" Width="500"
         SizeToContent="Height"
-        WindowStartupLocation="CenterOwner"
         AllowsTransparency="True"
         WindowTransitionsEnabled="True"
         ResizeMode="CanMinimize"
