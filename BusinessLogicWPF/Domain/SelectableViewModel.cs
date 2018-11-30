@@ -6,75 +6,64 @@ namespace BusinessLogicWPF.Domain
 
     public class SelectableViewModel : INotifyPropertyChanged
     {
-        private bool _isSelected;
-        private string _name;
-        private string _description;
-        private char _code;
-        private double _numeric;
-        private string _food;
+        private string _tteId;
+        private string _tteName;
+        private int _trainNo;
+        private string _trainName;
+        private bool _assign;
 
-        public bool IsSelected
+        public string TteId
         {
-            get { return _isSelected; }
+            get => _tteId;
             set
             {
-                if (_isSelected == value) return;
-                _isSelected = value;
+                if (_tteId == value) return;
+                _tteId = value;
                 OnPropertyChanged();
             }
         }
 
-        public char Code
+
+        public string TteName
         {
-            get { return _code; }
+            get => _tteName;
             set
             {
-                if (_code == value) return;
-                _code = value;
+                if (_tteName == value) return;
+                _tteName = value;
                 OnPropertyChanged();
             }
         }
 
-        public string Name
+        public int TrainNo
         {
-            get { return _name; }
+            get => _trainNo;
             set
             {
-                if (_name == value) return;
-                _name = value;
+                if (_trainNo == value) return;
+                _trainNo = value;
                 OnPropertyChanged();
             }
         }
 
-        public string Description
+        public string TrainName
         {
-            get { return _description; }
+            get => _trainName;
             set
             {
-                if (_description == value) return;
-                _description = value;
+                if (_trainName == value) return;
+                _trainName = value;
                 OnPropertyChanged();
             }
         }
 
-        public double Numeric
+        public bool Assign
         {
-            get { return _numeric; }
+            get => _assign;
             set
             {
-                if (_numeric == value) return;
-                _numeric = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string Food
-        {
-            get { return _food; }
-            set
-            {
-                if (_food == value) return;
-                _food = value;
+                if (_assign == value) return;
+                _assign = value;
                 OnPropertyChanged();
             }
         }
@@ -84,7 +73,7 @@ namespace BusinessLogicWPF.Domain
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             var handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+            handler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

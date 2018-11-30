@@ -11,7 +11,6 @@ namespace BusinessLogicWPF.ViewModel.StationMaster
         private readonly ObservableCollection<SelectableViewModel> _items1;
         private readonly ObservableCollection<SelectableViewModel> _items2;
         private readonly ObservableCollection<SelectableViewModel> _items3;
-        private bool? _isAllItems3Selected;
 
         public StationMasterAllocateTteViewModel()
         {
@@ -20,52 +19,35 @@ namespace BusinessLogicWPF.ViewModel.StationMaster
             _items3 = CreateData();
         }
 
-        public bool? IsAllItems3Selected
-        {
-            get => _isAllItems3Selected;
-            set
-            {
-                if (_isAllItems3Selected == value) return;
-
-                _isAllItems3Selected = value;
-
-                if (_isAllItems3Selected.HasValue)
-                    SelectAll(_isAllItems3Selected.Value, Items3);
-
-                OnPropertyChanged();
-            }
-        }
-
-        private static void SelectAll(bool select, IEnumerable<SelectableViewModel> models)
-        {
-            foreach (var model in models)
-            {
-                model.IsSelected = select;
-            }
-        }
-
         private static ObservableCollection<SelectableViewModel> CreateData()
         {
             return new ObservableCollection<SelectableViewModel>
             {
                 new SelectableViewModel
                 {
-                    Code = 'M',
-                    Name = "Material Design",
-                    Description = "Material Design in XAML Toolkit"
+                    TteId = "ABC55dd",
+                    TteName = "Shekhar Mahato",
+                    TrainNo = 12345,
+                    TrainName = "HWH MAS Duronto",
+                    Assign = false
                 },
+
                 new SelectableViewModel
                 {
-                    Code = 'D',
-                    Name = "Dragablz",
-                    Description = "Dragablz Tab Control",
-                    Food = "Fries"
+                    TteId = "AHdd54",
+                    TteName = "Utsab Goyal",
+                    TrainNo = 15125,
+                    TrainName = "MAS NJP Express",
+                    Assign = false
                 },
+
                 new SelectableViewModel
                 {
-                    Code = 'P',
-                    Name = "Predator",
-                    Description = "If it bleeds, we can kill it"
+                    TteId = "ABC55dd2q",
+                    TteName = "Pinaki Kundu",
+                    TrainNo = 54575,
+                    TrainName = "BOM HWH MAIL",
+                    Assign = false
                 }
             };
         }
@@ -82,14 +64,12 @@ namespace BusinessLogicWPF.ViewModel.StationMaster
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public IEnumerable<string> Foods
+        public IEnumerable<string> Assigns
         {
             get
             {
-                yield return "Burger";
-                yield return "Fries";
-                yield return "Shake";
-                yield return "Lettuce";
+                yield return "Don't Assign";
+                yield return "Assign";
             }
         }
     }
