@@ -116,9 +116,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Domain\AnotherCommandImplementation.cs" />
+    <Compile Include="Domain\DemoItem.cs" />
     <Compile Include="Domain\FutureDateValidationRule.cs" />
     <Compile Include="Domain\IsCheckedValidationRule.cs" />
-    <Compile Include="Domain\ListsAndGridsViewModel.cs" />
     <Compile Include="Domain\NotEmptyValidationRule.cs" />
     <Compile Include="Domain\NotifyPropertyChangedExtension.cs" />
     <Compile Include="Domain\SampleDialogViewModel.cs" />
@@ -157,6 +157,8 @@
     <Compile Include="ViewModel\LoginAndRegister\LoginAsAdminViewModel.cs" />
     <Compile Include="ViewModel\LoginAndRegister\LoginAsStationMasterViewModel.cs" />
     <Compile Include="ViewModel\LoginAndRegister\LoginViewModel.cs" />
+    <Compile Include="ViewModel\StationMaster\StationMasterAllocateTteViewModel.cs" />
+    <Compile Include="ViewModel\StationMaster\StationMasterWindowViewModel.cs" />
     <Compile Include="View\Home\Window\HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>
     </Compile>
@@ -180,6 +182,12 @@
     </Compile>
     <Compile Include="View\LoginAndRegister\UserControls\Register2.xaml.cs">
       <DependentUpon>Register2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StationMaster\UserControls\AllocateTte.xaml.cs">
+      <DependentUpon>AllocateTte.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StationMaster\UserControls\StationMasterHome.xaml.cs">
+      <DependentUpon>StationMasterHome.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StationMaster\Window\StationMasterWindow.xaml.cs">
       <DependentUpon>StationMasterWindow.xaml</DependentUpon>
@@ -244,6 +252,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\StationMaster\UserControls\AllocateTte.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StationMaster\UserControls\StationMasterHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\StationMaster\Window\StationMasterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -279,7 +295,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UnitOfWork\Persistence\EntityConfigurations\" />
-    <Folder Include="ViewModel\StationMaster\" />
     <Folder Include="View\Home\UserControls\" />
   </ItemGroup>
   <ItemGroup>

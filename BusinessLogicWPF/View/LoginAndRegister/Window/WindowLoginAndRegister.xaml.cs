@@ -1,4 +1,5 @@
 ﻿using BusinessLogicWPF.ViewModel.LoginAndRegister;
+using MahApps.Metro.Controls;
 using Microsoft.Win32;
 using System;
 using System.Windows;
@@ -10,7 +11,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.Window
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class WindowLoginAndRegister
+    public partial class WindowLoginAndRegister : MetroWindow
     {
         private int _counter;
 
@@ -27,11 +28,6 @@ namespace BusinessLogicWPF.View.LoginAndRegister.Window
         {
             Left = SystemParameters.PrimaryScreenWidth - Width;
             Top = SystemParameters.PrimaryScreenHeight - Height;
-        }
-
-        private void WindowLoginRegister_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
         }
 
         private void ButtonNewUser_Click(object sender, RoutedEventArgs e)

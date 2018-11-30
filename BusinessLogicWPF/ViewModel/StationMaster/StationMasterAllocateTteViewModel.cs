@@ -1,18 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using BusinessLogicWPF.Domain;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace BusinessLogicWPF.Domain
+namespace BusinessLogicWPF.ViewModel.StationMaster
 {
-    public class ListsAndGridsViewModel : INotifyPropertyChanged
+    public class StationMasterAllocateTteViewModel : INotifyPropertyChanged
     {
         private readonly ObservableCollection<SelectableViewModel> _items1;
         private readonly ObservableCollection<SelectableViewModel> _items2;
         private readonly ObservableCollection<SelectableViewModel> _items3;
         private bool? _isAllItems3Selected;
 
-        public ListsAndGridsViewModel()
+        public StationMasterAllocateTteViewModel()
         {
             _items1 = CreateData();
             _items2 = CreateData();
@@ -21,7 +22,7 @@ namespace BusinessLogicWPF.Domain
 
         public bool? IsAllItems3Selected
         {
-            get { return _isAllItems3Selected; }
+            get => _isAllItems3Selected;
             set
             {
                 if (_isAllItems3Selected == value) return;
