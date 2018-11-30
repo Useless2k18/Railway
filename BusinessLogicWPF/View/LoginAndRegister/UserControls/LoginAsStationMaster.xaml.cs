@@ -35,8 +35,9 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
             if (_stationMasterDetails.Password == TextPassword.Password)
             {
                 var window = new StationMasterWindow();
+                _window.Hide();
                 window.ShowDialog();
-
+                _window.Show();
             }
             else
                 MessageBox.Show("Invalid Password");

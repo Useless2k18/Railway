@@ -18,7 +18,7 @@
 
     <ScrollViewer>
         <DataGrid
-            Margin="0 8 0 0"
+            Margin="10 8 0 8"
             ItemsSource="{Binding Items3}"
             CanUserSortColumns="True"
             CanUserAddRows="False"

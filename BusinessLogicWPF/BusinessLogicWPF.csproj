@@ -125,7 +125,6 @@
     <Compile Include="Domain\SelectableViewModel.cs" />
     <Compile Include="Domain\SimpleDataTemplateSelector.cs" />
     <Compile Include="Domain\SimpleDateValidationRule.cs" />
-    <Compile Include="Domain\TreesViewModel.cs" />
     <Compile Include="Helper\ErrorLabelHelper.cs" />
     <Compile Include="Model\Admin.cs" />
     <Compile Include="Model\DaysAvailable.cs" />
