@@ -64,7 +64,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
                 var context = new RailwayDbContext();
 
                 _stationMasterDetails = context.StationMasters
-                    .SingleOrDefault(a => a.Id == text);
+                    .FirstOrDefault(a => a.Id == text);
 
                 if (_stationMasterDetails != null)
                 {
