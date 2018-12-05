@@ -16,7 +16,8 @@ namespace BusinessLogicWPF.ViewModel.StationMaster
             DemoItems = new[]
             {
                 new DemoItem("Home", new StationMasterHome()),
-                new DemoItem("Allocate TTE", new AllocateTte {DataContext = new StationMasterAllocateTteViewModel()})
+                new DemoItem("Allocate TTE", new AllocateTte {DataContext = new AllocateTteViewModel()}),
+                new DemoItem("History", new History()),
             };
         }
     }

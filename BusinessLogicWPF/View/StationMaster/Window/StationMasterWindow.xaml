@@ -18,7 +18,8 @@
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{StaticResource MaterialDesignFont}" 
+        FontFamily="{StaticResource MaterialDesignFont}"
+        Closing="StationMasterWindow_OnClosing"
         Icon="../../../Images/Flat-Icons.com-Square-Train.ico">
 
     <!--<Window.Resources>

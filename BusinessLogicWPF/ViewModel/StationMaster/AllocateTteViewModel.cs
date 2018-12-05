@@ -1,18 +1,22 @@
 ﻿using BusinessLogicWPF.Domain;
+using BusinessLogicWPF.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace BusinessLogicWPF.ViewModel.StationMaster
 {
-    public class StationMasterAllocateTteViewModel : INotifyPropertyChanged
+    public class AllocateTteViewModel : INotifyPropertyChanged
     {
         private readonly ObservableCollection<SelectableViewModel> _items1;
         private readonly ObservableCollection<SelectableViewModel> _items2;
         private readonly ObservableCollection<SelectableViewModel> _items3;
 
-        public StationMasterAllocateTteViewModel()
+        public AllocateTteViewModel()
         {
             _items1 = CreateData();
             _items2 = CreateData();
@@ -25,29 +29,29 @@ namespace BusinessLogicWPF.ViewModel.StationMaster
             {
                 new SelectableViewModel
                 {
-                    TteId = "ABC55dd",
-                    TteName = "Shekhar Mahato",
+                    Index = 1,
                     TrainNo = 12345,
                     TrainName = "HWH MAS Duronto",
-                    Assign = false
+                    SourceStation = "Howrah",
+                    DestinationStation = "Chennai"
                 },
 
                 new SelectableViewModel
                 {
-                    TteId = "AHdd54",
-                    TteName = "Utsab Goyal",
+                    Index = 2,
                     TrainNo = 15125,
                     TrainName = "MAS NJP Express",
-                    Assign = false
+                    SourceStation = "Chennai",
+                    DestinationStation = "New Jalpaiguri"
                 },
 
                 new SelectableViewModel
                 {
-                    TteId = "ABC55dd2q",
-                    TteName = "Pinaki Kundu",
+                    Index = 3,
                     TrainNo = 54575,
                     TrainName = "BOM HWH MAIL",
-                    Assign = false
+                    SourceStation = "Mumbai",
+                    DestinationStation = "Howrah"
                 }
             };
         }
@@ -64,13 +68,9 @@ namespace BusinessLogicWPF.ViewModel.StationMaster
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public IEnumerable<string> Assigns
+        private Action<PropertyChangedEventArgs> RaisePropertyChanged()
         {
-            get
-            {
-                yield return "Don't Assign";
-                yield return "Assign";
-            }
+            return args => PropertyChanged?.Invoke(this, args);
         }
     }
 }

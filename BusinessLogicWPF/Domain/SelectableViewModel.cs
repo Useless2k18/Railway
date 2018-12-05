@@ -6,35 +6,24 @@ namespace BusinessLogicWPF.Domain
 
     public class SelectableViewModel : INotifyPropertyChanged
     {
-        private string _tteId;
-        private string _tteName;
+        private int _index;
         private int _trainNo;
         private string _trainName;
-        private bool _assign;
+        private string _sourceStation;
+        private string _destinationStation;
 
-        public string TteId
+        public int Index
         {
-            get => _tteId;
+            get => _index;
             set
             {
-                if (_tteId == value) return;
-                _tteId = value;
+                if (_index == value) return;
+
+                _index = value;
                 OnPropertyChanged();
             }
         }
-
-
-        public string TteName
-        {
-            get => _tteName;
-            set
-            {
-                if (_tteName == value) return;
-                _tteName = value;
-                OnPropertyChanged();
-            }
-        }
-
+        
         public int TrainNo
         {
             get => _trainNo;
@@ -57,13 +46,24 @@ namespace BusinessLogicWPF.Domain
             }
         }
 
-        public bool Assign
+        public string SourceStation
         {
-            get => _assign;
+            get => _sourceStation;
             set
             {
-                if (_assign == value) return;
-                _assign = value;
+                if (_sourceStation == value) return;
+                _sourceStation = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string DestinationStation
+        {
+            get => _destinationStation;
+            set
+            {
+                if (_destinationStation == value) return;
+                _destinationStation = value;
                 OnPropertyChanged();
             }
         }

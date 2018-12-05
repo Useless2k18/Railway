@@ -1,5 +1,6 @@
 ﻿using BusinessLogicWPF.ViewModel.StationMaster;
 using MaterialDesignThemes.Wpf;
+using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -46,6 +47,18 @@ namespace BusinessLogicWPF.View.StationMaster.Window
             }
 
             MenuToggleButton.IsChecked = false;
+        }
+
+        private void StationMasterWindow_OnClosing(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void CloseDialogHost_OnDialogClosing(object sender, DialogClosingEventArgs eventArgs)
+        {
+            if (!Equals(eventArgs.Parameter, true)) return;
+
+            Close();
         }
     }
 }

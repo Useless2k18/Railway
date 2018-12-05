@@ -5,7 +5,7 @@
              xmlns:class="clr-namespace:BusinessLogicWPF.Style.Class"
              xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             StartupUri="View/LoginAndRegister/Window/WindowLoginAndRegister.xaml">
+             StartupUri="View/StationMaster/Window/StationMasterWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
 
@@ -14,6 +14,7 @@
 
             <!-- MahApps Brushes -->
             <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource Primary700}"/>
+            <SolidColorBrush x:Key="SecondaryRedBrush" Color="Red"/>
             <SolidColorBrush x:Key="AccentColorBrush" Color="{DynamicResource Primary500}"/>
             <SolidColorBrush x:Key="AccentColorBrush2" Color="{DynamicResource Primary400}"/>
             <SolidColorBrush x:Key="AccentColorBrush3" Color="{DynamicResource Primary300}"/>

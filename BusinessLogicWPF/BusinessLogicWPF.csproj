@@ -115,6 +115,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Collections\TteCollection.cs" />
     <Compile Include="Domain\AnotherCommandImplementation.cs" />
     <Compile Include="Domain\DemoItem.cs" />
     <Compile Include="Domain\FutureDateValidationRule.cs" />
@@ -126,6 +127,9 @@
     <Compile Include="Domain\SimpleDataTemplateSelector.cs" />
     <Compile Include="Domain\SimpleDateValidationRule.cs" />
     <Compile Include="Helper\ErrorLabelHelper.cs" />
+    <Compile Include="Helper\IndetermineProgressDialog.xaml.cs">
+      <DependentUpon>IndetermineProgressDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Admin.cs" />
     <Compile Include="Model\DaysAvailable.cs" />
     <Compile Include="Model\Passenger.cs" />
@@ -147,7 +151,9 @@
     <Compile Include="Style\Class\WaterMarkTextHelper.cs" />
     <Compile Include="UnitOfWork\Core\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\Core\Repositories\IRepository.cs" />
+    <Compile Include="UnitOfWork\Core\Repositories\IRouteRepository.cs" />
     <Compile Include="UnitOfWork\Core\Repositories\IStationMasterRepository.cs" />
+    <Compile Include="UnitOfWork\Core\Repositories\IStationRepository.cs" />
     <Compile Include="UnitOfWork\Core\Repositories\ITteRepository.cs" />
     <Compile Include="UnitOfWork\Persistence\Repositories\Repository.cs" />
     <Compile Include="UnitOfWork\Persistence\Repositories\StationMasterRepository.cs" />
@@ -156,7 +162,8 @@
     <Compile Include="ViewModel\LoginAndRegister\LoginAsAdminViewModel.cs" />
     <Compile Include="ViewModel\LoginAndRegister\LoginAsStationMasterViewModel.cs" />
     <Compile Include="ViewModel\LoginAndRegister\LoginViewModel.cs" />
-    <Compile Include="ViewModel\StationMaster\StationMasterAllocateTteViewModel.cs" />
+    <Compile Include="ViewModel\StationMaster\AllocateTteViewModel.cs" />
+    <Compile Include="ViewModel\StationMaster\ForHelper\SelectionDialogViewModel.cs" />
     <Compile Include="ViewModel\StationMaster\StationMasterWindowViewModel.cs" />
     <Compile Include="View\Home\Window\HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>
@@ -185,12 +192,22 @@
     <Compile Include="View\StationMaster\UserControls\AllocateTte.xaml.cs">
       <DependentUpon>AllocateTte.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\StationMaster\UserControls\StationMasterHome.xaml.cs">
-      <DependentUpon>StationMasterHome.xaml</DependentUpon>
+    <Compile Include="View\StationMaster\UserControls\HelperForAllocation\SelectionDialog.xaml.cs">
+      <DependentUpon>SelectionDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StationMaster\UserControls\History.xaml.cs">
+      <DependentUpon>History.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StationMaster\UserControls\Home.xaml.cs">
+      <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StationMaster\Window\StationMasterWindow.xaml.cs">
       <DependentUpon>StationMasterWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Helper\IndetermineProgressDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Style\InlineTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -255,7 +272,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\StationMaster\UserControls\StationMasterHome.xaml">
+    <Page Include="View\StationMaster\UserControls\HelperForAllocation\SelectionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StationMaster\UserControls\History.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StationMaster\UserControls\Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -283,6 +308,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.Config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
