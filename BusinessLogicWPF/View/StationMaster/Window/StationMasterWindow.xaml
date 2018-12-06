@@ -22,20 +22,6 @@
         Closing="StationMasterWindow_OnClosing"
         Icon="../../../Images/Flat-Icons.com-Square-Train.ico">
 
-    <!--<Window.Resources>
-        <ResourceDictionary>
-            ~1~ data template used for the dialogs example, defines a View for a ViewModel of type DateTime  @1@
-            <DataTemplate DataType="{x:Type system:DateTime}">
-                <StackPanel Margin="16">
-                    <TextBlock>England win the World Cup:</TextBlock>
-                    <TextBlock Margin="0 8 0 0" Text="{Binding }" />
-                    <TextBlock Margin="0 8 0 0" >You will never see that again.</TextBlock>
-                    <Button  Margin="0 8 0 0" IsDefault="True" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Style="{DynamicResource MaterialDesignFlatButton}">AWESOME</Button>
-                </StackPanel>
-            </DataTemplate>
-        </ResourceDictionary>
-    </Window.Resources>-->
-
     <materialDesign:DialogHost 
         Identifier="RootDialog" 
         SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">

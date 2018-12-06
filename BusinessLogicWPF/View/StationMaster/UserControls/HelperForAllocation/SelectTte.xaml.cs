@@ -130,6 +130,7 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
 
                 DataHelper.Data.SourceStation = ComboBoxDestination.Text;
                 DataContext = new SelectTteViewModel(DataHelper.Data);
+                TextBlockWelcome.Text = "Add another TTE Details";
                 ComboBoxSource.SelectedItem =
                     Stations.FirstOrDefault(s => s.Contains(DataHelper.Data.SourceStation));
             }
