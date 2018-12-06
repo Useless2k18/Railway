@@ -1,0 +1,185 @@
+﻿<UserControl x:Class="BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation.SelectTte"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:collections="clr-namespace:BusinessLogicWPF.Collections"
+             xmlns:forHelper="clr-namespace:BusinessLogicWPF.ViewModel.StationMaster.ForHelper"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ObjectDataProvider 
+            x:Key="Choices"
+            ObjectType="{x:Type collections:TteCollection}"
+            MethodName="GetChoices"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <DockPanel
+            Grid.Row="0" Grid.ColumnSpan="2">
+            <ProgressBar 
+                x:Name="ProgressBar"
+                DockPanel.Dock="Top"
+                Margin="0"
+                Padding="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                Style="{StaticResource MaterialDesignLinearProgressBar}"
+                IsIndeterminate="True"
+                Visibility="Visible"/>
+        </DockPanel>
+        
+        <DockPanel
+            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+            HorizontalAlignment="Stretch">
+            <ComboBox
+                x:Name="ComboBoxTteId"
+                ItemsSource="{Binding Source={StaticResource Choices}}"
+                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                materialDesign:HintAssist.Hint="Select TTE Id"
+                DisplayMemberPath="Key"
+                Text="{Binding Path=TteId, Mode=TwoWay}"
+                SelectedValuePath="Value"
+                Margin="10">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel/>
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+            <ComboBox
+                x:Name="ComboBoxTteName"
+                ItemsSource="{Binding Source={StaticResource Choices}}"
+                IsEnabled="False"
+                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                materialDesign:HintAssist.Hint="Select TTE Name"
+                SelectedValuePath="Key"
+                Text="{Binding Path=TteName, Mode=TwoWay}"
+                DisplayMemberPath="Value"
+                Margin="10">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel/>
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </DockPanel>
+
+        <DockPanel 
+            Grid.Row="2"
+            Grid.Column="0">
+            <ComboBox
+                x:Name="ComboBoxSource"
+                ItemsSource="{Binding}"
+                IsEnabled="False"
+                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                materialDesign:HintAssist.Hint="Select Source Station"
+                Text="{Binding Path=SourceStation}"
+                Margin="10"
+                SelectionChanged="ComboBoxSource_SelectionChanged">
+            </ComboBox>
+        </DockPanel>
+        <StackPanel
+            Margin="5"
+            Grid.Row="2" Grid.Column="1"
+            Orientation="Horizontal">
+            <DatePicker
+                x:Name="DatePickerSource"
+                Margin="10"
+                materialDesign:HintAssist.Hint="Select Date"
+                Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                MinWidth="100"
+                Text="{Binding Path=SourceDate, Mode=TwoWay}"
+                VerticalAlignment="Center"/>
+            <materialDesign:TimePicker
+                x:Name="TimePickerSource"
+                Margin="10"
+                materialDesign:HintAssist.Hint="Select Time"
+                IsInvalidTextAllowed="False"
+                Text="{Binding Path=SourceTime, Mode=TwoWay}"
+                VerticalAlignment="Bottom"
+                MinWidth="100"/>
+        </StackPanel>
+
+
+        <DockPanel
+            Grid.Row="3"
+            Grid.Column="0">
+            <ComboBox
+                x:Name="ComboBoxDestination"
+                ItemsSource="{Binding}"
+                IsEnabled="{Binding}"
+                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                SelectionChanged="ComboBoxDestination_OnSelectionChanged"
+                materialDesign:HintAssist.Hint="Select Destination Station"
+                Text="{Binding Path=DestinationStation, Mode=TwoWay}"
+                Margin="10">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel/>
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </DockPanel>
+        <StackPanel
+            Margin="5"
+            Grid.Row="3" Grid.Column="1"
+            Orientation="Horizontal">
+            <DatePicker
+                x:Name="DatePickerDestination"
+                materialDesign:HintAssist.Hint="Select Date"
+                Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                VerticalAlignment="Center"
+                Text="{Binding Path=DestinationDate, Mode=TwoWay}"
+                Margin="10"
+                MinWidth="100"/>
+            <materialDesign:TimePicker
+                x:Name="TimePickerDestination"
+                materialDesign:HintAssist.Hint="Select Time"
+                IsInvalidTextAllowed="False"
+                Margin="10"
+                Text="{Binding Path=DestinationTime, Mode=TwoWay}"
+                VerticalAlignment="Bottom"
+                MinWidth="100"/>
+        </StackPanel>
+        <Button
+            x:Name="ButtonReset"
+            Grid.Row="4" Grid.Column="0"
+            Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+            BorderBrush="Red"
+            Background="Red"
+            Command="{Binding Path=ClearCommand}">
+            <materialDesign:PackIcon
+                Kind="Close"
+                Foreground="White"
+                MinWidth="30"
+                MinHeight="30"/>
+        </Button>
+        <Button
+            x:Name="ButtonProceed"
+            Grid.Row="4" Grid.Column="1"
+            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+            Click="ButtonProceed_OnClick">
+            <materialDesign:PackIcon
+                Kind="Check"
+                Foreground="White"
+                MinWidth="30"
+                MinHeight="30"/>
+        </Button>
+    </Grid>
+</UserControl>

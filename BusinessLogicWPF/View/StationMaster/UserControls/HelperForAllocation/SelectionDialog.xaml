@@ -7,151 +7,37 @@
              mc:Ignorable="d"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
-             MinHeight="300" MinWidth="400"
+             MinWidth="400"
              xmlns:viewmodel="clr-namespace:BusinessLogicWPF.ViewModel.StationMaster.ForHelper"
              xmlns:collections="clr-namespace:BusinessLogicWPF.Collections"
              xmlns:domain1="clr-namespace:BusinessLogicWPF.Domain"
-             d:DataContext="{d:DesignInstance viewmodel:SelectionDialogViewModel, d:IsDesignTimeCreatable=False}">
+             xmlns:typeconverter="clr-namespace:BusinessLogicWPF.TypeConverters">
     
     <UserControl.Resources>
-        <ObjectDataProvider 
-            x:Key="Choices"
-            ObjectType="{x:Type collections:TteCollection}"
-            MethodName="GetChoices"/>
+        
+        <DataTemplate DataType="{x:Type viewmodel:SelectTteViewModel}">
+            <local:SelectTte DataContext="{Binding}"/>
+        </DataTemplate>
     </UserControl.Resources>
     
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
-
-        <DockPanel
-            Grid.Row="0" Grid.ColumnSpan="2">
-            <ProgressBar 
-                x:Name="ProgressBar"
-                DockPanel.Dock="Top"
-                Margin="0"
-                Padding="0"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Top"
-                Style="{StaticResource MaterialDesignLinearProgressBar}"
-                IsIndeterminate="True"
-                Visibility="Visible"/>
-        </DockPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
         
-        <DockPanel
-            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-            HorizontalAlignment="Stretch">
-            <ComboBox
-                x:Name="ComboBoxTteId"
-                ItemsSource="{Binding Source={StaticResource Choices}}"
-                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                materialDesign:HintAssist.Hint="Select TTE Id"
-                DisplayMemberPath="Key"
-                SelectedValuePath="Value"
-                Margin="10">
-                <ComboBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel/>
-                    </ItemsPanelTemplate>
-                </ComboBox.ItemsPanel>
-            </ComboBox>
-            <ComboBox
-                x:Name="ComboBoxTteName"
-                ItemsSource="{Binding Source={StaticResource Choices}}"
-                IsEnabled="False"
-                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                materialDesign:HintAssist.Hint="Select TTE Name"
-                SelectedValuePath="Key"
-                DisplayMemberPath="Value"
-                Margin="10">
-                <ComboBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel/>
-                    </ItemsPanelTemplate>
-                </ComboBox.ItemsPanel>
-            </ComboBox>
-        </DockPanel>
-
-        <DockPanel 
-            Grid.Row="2"
-            Grid.Column="0">
-            <ComboBox
-                x:Name="ComboBoxSource"
-                ItemsSource="{Binding}"
-                IsEnabled="False"
-                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                materialDesign:HintAssist.Hint="Select Source Station"
-                Margin="10">
-            </ComboBox>
-        </DockPanel>
-        <StackPanel
-            Margin="5"
-            Grid.Row="2" Grid.Column="1"
-            Orientation="Horizontal">
-            <DatePicker
-                Margin="10"
-                materialDesign:HintAssist.Hint="Select Date"
-                Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                MinWidth="100"
-                VerticalAlignment="Center"/>
-            <materialDesign:TimePicker
-                Margin="10"
-                materialDesign:HintAssist.Hint="Select Time"
-                IsInvalidTextAllowed="False"
-                VerticalAlignment="Bottom"
-                MinWidth="100"/>
-        </StackPanel>
-
-
-        <DockPanel
-            Grid.Row="3"
-            Grid.Column="0">
-            <ComboBox
-                x:Name="ComboBoxDestination"
-                ItemsSource="{Binding}"
-                IsEnabled="False"
-                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                materialDesign:HintAssist.Hint="Select Destination Station"
-                Margin="10">
-                <ComboBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel/>
-                    </ItemsPanelTemplate>
-                </ComboBox.ItemsPanel>
-            </ComboBox>
-        </DockPanel>
-        <StackPanel
-            Margin="5"
-            Grid.Row="3" Grid.Column="1"
-            Orientation="Horizontal">
-            <DatePicker
-                materialDesign:HintAssist.Hint="Select Date"
-                Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                VerticalAlignment="Center"
-                Margin="10"
-                MinWidth="100"/>
-            <materialDesign:TimePicker
-                materialDesign:HintAssist.Hint="Select Time"
-                IsInvalidTextAllowed="False"
-                Margin="10"
-                VerticalAlignment="Bottom"
-                MinWidth="100"/>
-        </StackPanel>
+        <ContentControl 
+            Grid.Row="0" Grid.ColumnSpan="2"
+            Content="{Binding}"/>
 
         <Button 
-            Grid.Row="4" Grid.Column="0"
+            Grid.Row="1" Grid.Column="0"
             IsCancel="True"
-            Margin="8 0 0 0"
+            Margin="0 10 0 0"
             Style="{DynamicResource MaterialDesignFlatButton}"
             Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
             <Button.CommandParameter>
@@ -160,14 +46,17 @@
             CANCEL
         </Button>
         <Button 
-            Grid.Row="4" Grid.Column="1"
+            x:Name="ButtonAccept"
+            Grid.Row="1" Grid.Column="1"
+            Margin="0 10 0 0"
+            Content="Accept"
+            IsEnabled="False"
             IsDefault="True"
             Style="{DynamicResource MaterialDesignFlatButton}"
             Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
             <Button.CommandParameter>
                 <system:Boolean>True</system:Boolean>
             </Button.CommandParameter>
-            ACCEPT
         </Button>
     </Grid>
 </UserControl>

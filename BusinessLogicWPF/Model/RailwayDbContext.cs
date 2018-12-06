@@ -1,14 +1,11 @@
 namespace BusinessLogicWPF.Model
 {
-    using System;
     using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
 
     public partial class RailwayDbContext : DbContext
     {
         public RailwayDbContext()
-            : base("name=RailwayDbContext1")
+            : base("name=RailwayDbContext")
         {
         }
 

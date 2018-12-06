@@ -6,24 +6,11 @@ namespace BusinessLogicWPF.Domain
 
     public class SelectableViewModel : INotifyPropertyChanged
     {
-        private int _index;
         private int _trainNo;
         private string _trainName;
         private string _sourceStation;
         private string _destinationStation;
 
-        public int Index
-        {
-            get => _index;
-            set
-            {
-                if (_index == value) return;
-
-                _index = value;
-                OnPropertyChanged();
-            }
-        }
-        
         public int TrainNo
         {
             get => _trainNo;

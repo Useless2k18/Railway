@@ -1,12 +1,8 @@
 ﻿using BusinessLogicWPF.Domain;
-using BusinessLogicWPF.Model;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
 
 namespace BusinessLogicWPF.ViewModel.StationMaster
 {
@@ -29,7 +25,6 @@ namespace BusinessLogicWPF.ViewModel.StationMaster
             {
                 new SelectableViewModel
                 {
-                    Index = 1,
                     TrainNo = 12345,
                     TrainName = "HWH MAS Duronto",
                     SourceStation = "Howrah",
@@ -38,7 +33,6 @@ namespace BusinessLogicWPF.ViewModel.StationMaster
 
                 new SelectableViewModel
                 {
-                    Index = 2,
                     TrainNo = 15125,
                     TrainName = "MAS NJP Express",
                     SourceStation = "Chennai",
@@ -47,11 +41,18 @@ namespace BusinessLogicWPF.ViewModel.StationMaster
 
                 new SelectableViewModel
                 {
-                    Index = 3,
                     TrainNo = 54575,
                     TrainName = "BOM HWH MAIL",
                     SourceStation = "Mumbai",
                     DestinationStation = "Howrah"
+                },
+
+                new SelectableViewModel
+                {
+                    TrainNo = 12073,
+                    TrainName = "HWH BBS Janashatbdi",
+                    SourceStation = "Howrah",
+                    DestinationStation = "Bhubaneswar"
                 }
             };
         }

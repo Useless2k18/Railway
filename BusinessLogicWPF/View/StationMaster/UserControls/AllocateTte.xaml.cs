@@ -1,18 +1,12 @@
-﻿using BusinessLogicWPF.ViewModel.StationMaster;
-using MahApps.Metro.Controls;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Threading;
-using BusinessLogicWPF.Model;
+﻿using BusinessLogicWPF.Domain;
 using BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation;
+using BusinessLogicWPF.ViewModel.StationMaster;
 using BusinessLogicWPF.ViewModel.StationMaster.ForHelper;
 using MaterialDesignThemes.Wpf;
+using System;
+using System.ComponentModel;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace BusinessLogicWPF.View.StationMaster.UserControls
 {
@@ -35,8 +29,9 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls
             {
                 var item = (sender as FrameworkElement)?.DataContext;
                 var index = ListView1.Items.IndexOf(item ?? throw new InvalidOperationException());
+                var data = (SelectableViewModel)ListView1.Items[index];
 
-                var dialog = new SelectionDialog(index) {DataContext = new SelectionDialogViewModel()};
+                var dialog = new SelectionDialog() { DataContext = new SelectTteViewModel(data) };
 
                 var result = await DialogHost.Show(dialog, "RootDialog", ClosingEventHandler);
             }

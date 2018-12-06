@@ -65,6 +65,9 @@
     <Reference Include="CData, Version=1.0.0.0, Culture=neutral, PublicKeyToken=dd780259c32245fe, processorArchitecture=MSIL">
       <HintPath>..\packages\CData.0.6.0-alpha1\lib\portable-net45+win8+wp8+wpa81\CData.dll</HintPath>
     </Reference>
+    <Reference Include="Cinch.WPF, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Cinch.2.0.70832\lib\net40\Cinch.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\ControlzEx.dll</HintPath>
     </Reference>
@@ -89,7 +92,11 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=2.5.0.1205, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.2.5.0.1205\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="MEFedMVVM.WPF, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b6db3dc4f5fba1e3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Cinch.2.0.70832\lib\net40\MEFedMVVM.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
@@ -126,6 +133,7 @@
     <Compile Include="Domain\SelectableViewModel.cs" />
     <Compile Include="Domain\SimpleDataTemplateSelector.cs" />
     <Compile Include="Domain\SimpleDateValidationRule.cs" />
+    <Compile Include="Helper\DataHelper.cs" />
     <Compile Include="Helper\ErrorLabelHelper.cs" />
     <Compile Include="Helper\IndetermineProgressDialog.xaml.cs">
       <DependentUpon>IndetermineProgressDialog.xaml</DependentUpon>
@@ -149,6 +157,7 @@
     <Compile Include="Style\Class\TextInputToVisibilityConverter.cs" />
     <Compile Include="Style\Class\NullTextBox.cs" />
     <Compile Include="Style\Class\WaterMarkTextHelper.cs" />
+    <Compile Include="TypeConverters\MultiValueConverter.cs" />
     <Compile Include="UnitOfWork\Core\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\Core\Repositories\IRepository.cs" />
     <Compile Include="UnitOfWork\Core\Repositories\IRouteRepository.cs" />
@@ -164,6 +173,7 @@
     <Compile Include="ViewModel\LoginAndRegister\LoginViewModel.cs" />
     <Compile Include="ViewModel\StationMaster\AllocateTteViewModel.cs" />
     <Compile Include="ViewModel\StationMaster\ForHelper\SelectionDialogViewModel.cs" />
+    <Compile Include="ViewModel\StationMaster\ForHelper\SelectTteViewModel.cs" />
     <Compile Include="ViewModel\StationMaster\StationMasterWindowViewModel.cs" />
     <Compile Include="View\Home\Window\HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>
@@ -194,6 +204,9 @@
     </Compile>
     <Compile Include="View\StationMaster\UserControls\HelperForAllocation\SelectionDialog.xaml.cs">
       <DependentUpon>SelectionDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StationMaster\UserControls\HelperForAllocation\SelectTte.xaml.cs">
+      <DependentUpon>SelectTte.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StationMaster\UserControls\History.xaml.cs">
       <DependentUpon>History.xaml</DependentUpon>
@@ -273,6 +286,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\StationMaster\UserControls\HelperForAllocation\SelectionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StationMaster\UserControls\HelperForAllocation\SelectTte.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
