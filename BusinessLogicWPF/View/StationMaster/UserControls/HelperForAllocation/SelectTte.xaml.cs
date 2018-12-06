@@ -1,4 +1,5 @@
-﻿using BusinessLogicWPF.Helper;
+﻿using BusinessLogicWPF.Collections;
+using BusinessLogicWPF.Helper;
 using BusinessLogicWPF.Model;
 using BusinessLogicWPF.ViewModel.StationMaster.ForHelper;
 using MahApps.Metro.Controls;
@@ -18,9 +19,11 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
     public partial class SelectTte : UserControl
     {
         private static RailwayDbContext _context;
-        public static List<string> Stations = new List<string>();
         private readonly BackgroundWorker _backgroundWorker = new BackgroundWorker();
         private static bool _status;
+
+        public static List<string> Stations = new List<string>();
+        public static Dictionary<string, string> TteDetails = TteCollection.GetChoices();
 
         public SelectTte()
         {
@@ -68,12 +71,21 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
             }
             else
             {
-                ComboBoxSource.IsEnabled = ComboBoxTteName.IsEnabled = true;
+                ComboBoxSource.IsEnabled = ComboBoxTteId.IsEnabled = ComboBoxTteName.IsEnabled = true;
+
+                foreach (var tteDetail in TteDetails)
+                {
+                    ComboBoxTteId.Items.Add(tteDetail.Key);
+                    ComboBoxTteName.Items.Add(tteDetail.Value);
+                }
 
                 foreach (var station in Stations)
                 {
                     ComboBoxSource.Items.Add(station);
                     ComboBoxDestination.Items.Add(station);
+
+                    if (station.Contains(DataHelper.Data.DestinationStation))
+                        ComboBoxSource.Items.Remove(station);
                 }
             }
 
@@ -81,6 +93,18 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
             ComboBoxSource.SelectedItem = Stations.FirstOrDefault(s => s.Contains(DataHelper.Data.SourceStation));
             /*Dispatcher.BeginInvoke(DispatcherPriority.Normal,
                 new Action(() => { ProgressBar.Visibility = Visibility.Collapsed; }));*/
+        }
+
+        private void ComboBoxTteId_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ComboBoxTteId.SelectedItem != null)
+                ComboBoxTteName.SelectedItem = TteDetails[(string)ComboBoxTteId.SelectedItem];
+        }
+
+        private void ComboBoxTteName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ComboBoxTteName.SelectedItem != null)
+                ComboBoxTteId.SelectedItem = TteDetails.FirstOrDefault(x => x.Value == (string)ComboBoxTteName.SelectedItem).Key;
         }
 
         private void ComboBoxSource_SelectionChanged(object sender, SelectionChangedEventArgs e)

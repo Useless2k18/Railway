@@ -70,13 +70,13 @@
             HorizontalAlignment="Stretch">
             <ComboBox
                 x:Name="ComboBoxTteId"
-                ItemsSource="{Binding Source={StaticResource Choices}}"
+                IsEnabled="False"
+                ItemsSource="{Binding}"
                 Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                 materialDesign:HintAssist.Hint="Select TTE Id"
-                DisplayMemberPath="Key"
                 Text="{Binding Path=TteId, Mode=TwoWay}"
-                SelectedValuePath="Value"
-                Margin="10">
+                Margin="10"
+                SelectionChanged="ComboBoxTteId_SelectionChanged">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel/>
@@ -85,14 +85,13 @@
             </ComboBox>
             <ComboBox
                 x:Name="ComboBoxTteName"
-                ItemsSource="{Binding Source={StaticResource Choices}}"
+                ItemsSource="{Binding}"
                 IsEnabled="False"
                 Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                 materialDesign:HintAssist.Hint="Select TTE Name"
-                SelectedValuePath="Key"
                 Text="{Binding Path=TteName, Mode=TwoWay}"
-                DisplayMemberPath="Value"
-                Margin="10">
+                Margin="10"
+                SelectionChanged="ComboBoxTteName_SelectionChanged">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel/>

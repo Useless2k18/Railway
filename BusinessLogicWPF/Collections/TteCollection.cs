@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace BusinessLogicWPF.Collections
 {
     public static class TteCollection
     {
         public static Dictionary<string, string> Choices;
-        
+
         public static Dictionary<string, string> GetChoices()
         {
             Choices = new Dictionary<string, string>
