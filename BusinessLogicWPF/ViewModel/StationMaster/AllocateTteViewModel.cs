@@ -25,7 +25,7 @@ namespace BusinessLogicWPF.ViewModel.StationMaster
             {
                 new SelectableViewModel
                 {
-                    TrainNo = 12345,
+                    TrainNo = "12345",
                     TrainName = "HWH MAS Duronto",
                     SourceStation = "Howrah",
                     DestinationStation = "Chennai"
@@ -33,7 +33,7 @@ namespace BusinessLogicWPF.ViewModel.StationMaster
 
                 new SelectableViewModel
                 {
-                    TrainNo = 15125,
+                    TrainNo = "15125",
                     TrainName = "MAS NJP Express",
                     SourceStation = "Chennai",
                     DestinationStation = "New Jalpaiguri"
@@ -41,7 +41,7 @@ namespace BusinessLogicWPF.ViewModel.StationMaster
 
                 new SelectableViewModel
                 {
-                    TrainNo = 54575,
+                    TrainNo = "54575",
                     TrainName = "BOM HWH MAIL",
                     SourceStation = "Mumbai",
                     DestinationStation = "Howrah"
@@ -49,7 +49,7 @@ namespace BusinessLogicWPF.ViewModel.StationMaster
 
                 new SelectableViewModel
                 {
-                    TrainNo = 12073,
+                    TrainNo = "12073",
                     TrainName = "HWH BBS Janashatbdi",
                     SourceStation = "Howrah",
                     DestinationStation = "Bhubaneswar"

@@ -20,7 +20,7 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
         private static RailwayDbContext _context;
         public static List<string> Stations = new List<string>();
         private readonly BackgroundWorker _backgroundWorker = new BackgroundWorker();
-        private bool _status;
+        private static bool _status;
 
         public SelectTte()
         {
@@ -97,7 +97,7 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
         {
             if (ComboBoxDestination.SelectedItem == null) return;
 
-            if (ComboBoxDestination.SelectedItem.ToString().Contains(DataHelper.Data.DestinationStation)) return;
+            if (!ComboBoxDestination.SelectedItem.ToString().Contains(DataHelper.Data.DestinationStation)) return;
 
             _status = true;
         }
@@ -122,13 +122,20 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
                 MessageBox.Show("Please fill all the details!");
             else
             {
-                if (!_status)
+                if (_status)
                 {
                     DataHelper.StatusForEnable = true;
+                    TextBlockWelcome.Text = "Thanks for Adding";
+                    var controls = this.FindChildren<Control>();
+                    foreach (var control in controls)
+                    {
+                        control.IsEnabled = false;
+                    }
                     return;
                 }
 
                 DataHelper.Data.SourceStation = ComboBoxDestination.Text;
+
                 DataContext = new SelectTteViewModel(DataHelper.Data);
                 TextBlockWelcome.Text = "Add another TTE Details";
                 ComboBoxSource.SelectedItem =

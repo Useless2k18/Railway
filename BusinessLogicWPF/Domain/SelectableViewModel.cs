@@ -1,24 +1,22 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using System;
 
 namespace BusinessLogicWPF.Domain
 {
 
-    public class SelectableViewModel : INotifyPropertyChanged
+    public class SelectableViewModel
     {
-        private int _trainNo;
+        private string _trainNo;
         private string _trainName;
         private string _sourceStation;
         private string _destinationStation;
 
-        public int TrainNo
+        public string TrainNo
         {
             get => _trainNo;
             set
             {
-                if (_trainNo == value) return;
+                if (_trainNo != null && _trainNo == value) return;
                 _trainNo = value;
-                OnPropertyChanged();
             }
         }
 
@@ -27,9 +25,8 @@ namespace BusinessLogicWPF.Domain
             get => _trainName;
             set
             {
-                if (_trainName == value) return;
+                if (string.Equals(_trainName, value, StringComparison.Ordinal)) return;
                 _trainName = value;
-                OnPropertyChanged();
             }
         }
 
@@ -38,9 +35,8 @@ namespace BusinessLogicWPF.Domain
             get => _sourceStation;
             set
             {
-                if (_sourceStation == value) return;
+                if (_sourceStation != null && _sourceStation == value) return;
                 _sourceStation = value;
-                OnPropertyChanged();
             }
         }
 
@@ -49,18 +45,9 @@ namespace BusinessLogicWPF.Domain
             get => _destinationStation;
             set
             {
-                if (_destinationStation == value) return;
+                if (value != null && _destinationStation == value) return;
                 _destinationStation = value;
-                OnPropertyChanged();
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            handler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
