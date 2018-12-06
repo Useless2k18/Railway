@@ -31,7 +31,7 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls
                 var index = ListView1.Items.IndexOf(item ?? throw new InvalidOperationException());
                 var data = (SelectableViewModel)ListView1.Items[index];
 
-                var dialog = new SelectionDialog() { DataContext = new SelectTteViewModel(data) };
+                var dialog = new SelectionDialog { DataContext = new SelectTteViewModel(data) };
 
                 var result = await DialogHost.Show(dialog, "RootDialog", ClosingEventHandler);
             }

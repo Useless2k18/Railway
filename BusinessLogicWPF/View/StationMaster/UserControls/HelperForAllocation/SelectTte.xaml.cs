@@ -1,5 +1,7 @@
 ﻿using BusinessLogicWPF.Helper;
 using BusinessLogicWPF.Model;
+using BusinessLogicWPF.ViewModel.StationMaster.ForHelper;
+using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,8 +18,8 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
     public partial class SelectTte : UserControl
     {
         private static RailwayDbContext _context;
-        public List<string> Stations = new List<string>();
-        private static readonly BackgroundWorker BackgroundWorker = new BackgroundWorker();
+        public static List<string> Stations = new List<string>();
+        private readonly BackgroundWorker _backgroundWorker = new BackgroundWorker();
         private bool _status;
 
         public SelectTte()
@@ -25,21 +27,23 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
             InitializeComponent();
             ComboBoxDestination.IsEnabled = false;
 
-            if (BackgroundWorker.IsBusy)
+            if (_backgroundWorker.IsBusy)
             {
-                BackgroundWorker.WorkerSupportsCancellation = true;
-                BackgroundWorker.CancelAsync();
+                _backgroundWorker.WorkerSupportsCancellation = true;
+                _backgroundWorker.CancelAsync();
             }
 
-            BackgroundWorker.DoWork += _backgroundWorker_DoWork;
-            BackgroundWorker.RunWorkerCompleted += _backgroundWorker_RunWorkerCompleted;
-            BackgroundWorker.RunWorkerAsync();
-
+            else
+            {
+                _backgroundWorker.DoWork += _backgroundWorker_DoWork;
+                _backgroundWorker.RunWorkerCompleted += _backgroundWorker_RunWorkerCompleted;
+                _backgroundWorker.RunWorkerAsync();
+            }
         }
 
         private void _backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (BackgroundWorker.CancellationPending)
+            if (_backgroundWorker.CancellationPending)
             {
                 e.Cancel = true;
                 return;
@@ -73,14 +77,17 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
                 }
             }
 
-            Dispatcher.BeginInvoke(DispatcherPriority.Normal,
-                new Action(() => { ProgressBar.Visibility = Visibility.Collapsed; }));
+            ProgressBar.Visibility = Visibility.Collapsed;
+            ComboBoxSource.SelectedItem = Stations.FirstOrDefault(s => s.Contains(DataHelper.Data.SourceStation));
+            /*Dispatcher.BeginInvoke(DispatcherPriority.Normal,
+                new Action(() => { ProgressBar.Visibility = Visibility.Collapsed; }));*/
         }
 
         private void ComboBoxSource_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedItem = ComboBoxSource.SelectedItem;
             ComboBoxDestination.Items.Remove(selectedItem);
+            //Stations.Remove(selectedItem.ToString());
 
             if (ComboBoxSource.SelectedItem != null)
                 ComboBoxDestination.IsEnabled = true;
@@ -97,7 +104,35 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
 
         private void ButtonProceed_OnClick(object sender, RoutedEventArgs e)
         {
+            var id = this
+                .FindChildren<ComboBox>()
+                .Count(comboBox => !string.IsNullOrWhiteSpace(comboBox.Text));
 
+            id += this
+                .FindChildren<DatePicker>()
+                .Count(datePicker => !string.IsNullOrWhiteSpace(datePicker.Text));
+
+            id += this
+                .FindChildren<MaterialDesignThemes.Wpf.TimePicker>()
+                .Count(timePicker => !string.IsNullOrWhiteSpace(timePicker.Text));
+
+            var validData = id == 8;
+
+            if (!validData)
+                MessageBox.Show("Please fill all the details!");
+            else
+            {
+                if (!_status)
+                {
+                    DataHelper.StatusForEnable = true;
+                    return;
+                }
+
+                DataHelper.Data.SourceStation = ComboBoxDestination.Text;
+                DataContext = new SelectTteViewModel(DataHelper.Data);
+                ComboBoxSource.SelectedItem =
+                    Stations.FirstOrDefault(s => s.Contains(DataHelper.Data.SourceStation));
+            }
         }
     }
 }

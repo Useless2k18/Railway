@@ -15,8 +15,8 @@ namespace BusinessLogicWPF.ViewModel.StationMaster.ForHelper
         private DateTime? _futureValidatingDate;
         private string _tteId = string.Empty;
         private string _tteName = string.Empty;
-        private string _sourceStation = string.Empty;
-        private string _destinationStation = string.Empty;
+        private string _sourceStation;
+        private string _destinationStation;
         private string _sourceDate = string.Empty;
         private string _sourceTime = string.Empty;
         private string _destinationDate = string.Empty;
