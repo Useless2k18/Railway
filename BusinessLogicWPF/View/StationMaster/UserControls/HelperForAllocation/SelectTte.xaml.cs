@@ -1,12 +1,17 @@
 ﻿using BusinessLogicWPF.Collections;
 using BusinessLogicWPF.Helper;
-using BusinessLogicWPF.Model;
 using BusinessLogicWPF.ViewModel.StationMaster.ForHelper;
+using Google.Apis.Auth.OAuth2;
+using Google.Cloud.Firestore;
+using Google.Cloud.Firestore.V1Beta1;
+using Grpc.Auth;
+using Grpc.Core;
 using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -18,7 +23,7 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
     /// </summary>
     public partial class SelectTte : UserControl
     {
-        private static RailwayDbContext _context;
+        private static FirestoreDb _firestoreDb;
         private readonly BackgroundWorker _backgroundWorker = new BackgroundWorker();
         private static bool _status;
 
@@ -55,9 +60,42 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
             Dispatcher.BeginInvoke(DispatcherPriority.Normal,
                 new Action(() => { ProgressBar.Visibility = Visibility.Visible; }));
 
-            _context = new RailwayDbContext();
-            Stations = _context.Stations.Select(s => s.StationName).ToList();
+            // Google Cloud Platform project ID.
+            string projectId = "ticketchecker-d4f79";
+
+            // Initialization (Connection) of project based on JSON path
+
+            GoogleCredential cred = GoogleCredential.FromFile(@"TicketChecker-1f6bf5c2db0a.json");
+            Channel channel = new Channel(
+                FirestoreClient.DefaultEndpoint.Host, FirestoreClient.DefaultEndpoint.Port, cred.ToChannelCredentials());
+            FirestoreClient client = FirestoreClient.Create(channel);
+
+            _firestoreDb = FirestoreDb.Create(projectId, "(default)", client);
+            if (_firestoreDb == null) return;
+
+            RetrieveAllDocuments(_firestoreDb, "ROOT", "TTE", "TT110465").Wait();
         }
+
+        #region Google Firestore Library
+
+        private static async Task RetrieveAllDocuments(FirestoreDb db, params string[] name)
+        {
+            // [START fs_get_all]
+            CollectionReference usersRef = db.Collection(name[0]).Document(name[1]).Collection(name[2]);
+            QuerySnapshot snapshot = await usersRef.GetSnapshotAsync();
+            foreach (DocumentSnapshot document in snapshot.Documents)
+            {
+                MessageBox.Show($"TTE Id: {document.Id}");
+                Dictionary<string, object> documentDictionary = document.ToDictionary();
+                MessageBox.Show($"TTE Name: {documentDictionary["TT_NAME"]}");
+
+                Console.WriteLine();
+            }
+
+            // [END fs_get_all]
+        }
+
+        #endregion
 
         private void _backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
