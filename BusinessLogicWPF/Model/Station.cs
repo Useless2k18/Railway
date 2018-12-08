@@ -1,40 +1,17 @@
+﻿using Google.Cloud.Firestore;
+
 namespace BusinessLogicWPF.Model
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
-
-    [Table("Station")]
-    public partial class Station
+    [FirestoreData]
+    public class Station
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Station()
-        {
-            StationMasters = new HashSet<StationMaster>();
-            Trains = new HashSet<Train>();
-            Trains1 = new HashSet<Train>();
-        }
+        [FirestoreProperty]
+        public string STN_CODE { get; set; }
 
-        [StringLength(8)]
-        public string StationId { get; set; }
+        [FirestoreProperty]
+        public string STN_NAME { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string StationName { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        public string StationLocation { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StationMaster> StationMasters { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Train> Trains { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Train> Trains1 { get; set; }
+        [FirestoreProperty]
+        public string STN_PIN { get; set; }
     }
 }

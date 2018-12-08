@@ -1,9 +1,4 @@
-﻿using BusinessLogicWPF.Model;
-using BusinessLogicWPF.View.StationMaster.Window;
-using MaterialDesignThemes.Wpf;
-using System;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,7 +14,6 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
     public partial class LoginAsStationMaster : UserControl
     {
         private readonly System.Windows.Window _window;
-        private Model.StationMaster _stationMasterDetails;
 
         public LoginAsStationMaster()
         {
@@ -32,7 +26,9 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
 
         private void ButtonLogin_Click(object sender, RoutedEventArgs e)
         {
-            if (_stationMasterDetails.Password == TextPassword.Password)
+            // Code waiting for DbContext
+
+            /*if (_stationMasterDetails.Password == TextPassword.Password)
             {
                 var window = new StationMasterWindow();
                 _window.Hide();
@@ -40,7 +36,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
                 _window.Show();
             }
             else
-                MessageBox.Show("Invalid Password");
+                MessageBox.Show("Invalid Password");*/
         }
 
         #region Input Fields
@@ -61,7 +57,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
                 Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal,
                     (ThreadStart)delegate { text = TextUserName.Text; });
 
-                var context = new RailwayDbContext();
+                /*var context = new RailwayDbContext();
 
                 _stationMasterDetails = context.StationMasters
                     .FirstOrDefault(a => a.Id == text);
@@ -91,7 +87,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
                             UsernameAlert.Visibility = Visibility.Visible;
                             ButtonLogin.IsEnabled = false;
                         }));
-                }
+                }*/
             });
         }
 

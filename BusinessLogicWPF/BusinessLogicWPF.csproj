@@ -223,41 +223,18 @@
     <Compile Include="Domain\SelectableViewModel.cs" />
     <Compile Include="Domain\SimpleDataTemplateSelector.cs" />
     <Compile Include="Domain\SimpleDateValidationRule.cs" />
+    <Compile Include="GoogleCloudFireStoreLibrary\ConnectFireStore.cs" />
     <Compile Include="Helper\DataHelper.cs" />
     <Compile Include="Helper\ErrorLabelHelper.cs" />
     <Compile Include="Helper\IndetermineProgressDialog.xaml.cs">
       <DependentUpon>IndetermineProgressDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Admin.cs" />
-    <Compile Include="Model\DaysAvailable.cs" />
-    <Compile Include="Model\Passenger.cs" />
-    <Compile Include="Model\PassengerTicket.cs" />
-    <Compile Include="Model\RailwayDbContext.cs" />
-    <Compile Include="Model\Reservation.cs" />
-    <Compile Include="Model\Route.cs" />
-    <Compile Include="Model\RouteHasStation.cs" />
     <Compile Include="Model\Station.cs" />
-    <Compile Include="Model\StationMaster.cs" />
-    <Compile Include="Model\Train.cs" />
-    <Compile Include="Model\TrainClass.cs" />
-    <Compile Include="Model\TrainStatus.cs" />
-    <Compile Include="Model\Tte.cs" />
-    <Compile Include="Model\User.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Style\Class\TextInputToVisibilityConverter.cs" />
     <Compile Include="Style\Class\NullTextBox.cs" />
     <Compile Include="Style\Class\WaterMarkTextHelper.cs" />
     <Compile Include="TypeConverters\MultiValueConverter.cs" />
-    <Compile Include="UnitOfWork\Core\IUnitOfWork.cs" />
-    <Compile Include="UnitOfWork\Core\Repositories\IRepository.cs" />
-    <Compile Include="UnitOfWork\Core\Repositories\IRouteRepository.cs" />
-    <Compile Include="UnitOfWork\Core\Repositories\IStationMasterRepository.cs" />
-    <Compile Include="UnitOfWork\Core\Repositories\IStationRepository.cs" />
-    <Compile Include="UnitOfWork\Core\Repositories\ITteRepository.cs" />
-    <Compile Include="UnitOfWork\Persistence\Repositories\Repository.cs" />
-    <Compile Include="UnitOfWork\Persistence\Repositories\StationMasterRepository.cs" />
-    <Compile Include="UnitOfWork\Persistence\Repositories\TteRepository.cs" />
-    <Compile Include="UnitOfWork\Persistence\UnitOfWork.cs" />
     <Compile Include="ViewModel\LoginAndRegister\LoginAsAdminViewModel.cs" />
     <Compile Include="ViewModel\LoginAndRegister\LoginAsStationMasterViewModel.cs" />
     <Compile Include="ViewModel\LoginAndRegister\LoginViewModel.cs" />
@@ -423,7 +400,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UnitOfWork\Persistence\EntityConfigurations\" />
     <Folder Include="View\Home\UserControls\" />
   </ItemGroup>
   <ItemGroup>
