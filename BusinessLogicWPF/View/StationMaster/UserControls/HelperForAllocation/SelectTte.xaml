@@ -7,16 +7,11 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:collections="clr-namespace:BusinessLogicWPF.Collections"
              xmlns:forHelper="clr-namespace:BusinessLogicWPF.ViewModel.StationMaster.ForHelper"
+             xmlns:domain1="clr-namespace:BusinessLogicWPF.Domain"
+             xmlns:viewmodel="clr-namespace:BusinessLogicWPF.ViewModel.StationMaster.ForHelper"
              MinHeight="240" MinWidth="450"
              mc:Ignorable="d">
 
-    <UserControl.Resources>
-        <ObjectDataProvider 
-            x:Key="Choices"
-            ObjectType="{x:Type collections:TteCollection}"
-            MethodName="GetChoices"/>
-    </UserControl.Resources>
-    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -124,7 +119,9 @@
                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                 MinWidth="100"
                 Text="{Binding Path=SourceDate, Mode=TwoWay}"
-                VerticalAlignment="Center"/>
+                VerticalAlignment="Center" 
+                KeyDown="PickerSource_KeyDown"/>
+
             <materialDesign:TimePicker
                 x:Name="TimePickerSource"
                 Margin="10"
@@ -132,7 +129,8 @@
                 IsInvalidTextAllowed="False"
                 Text="{Binding Path=SourceTime, Mode=TwoWay}"
                 VerticalAlignment="Bottom"
-                MinWidth="100"/>
+                MinWidth="100"
+                KeyDown="PickerSource_KeyDown"/>
         </StackPanel>
 
 
@@ -166,7 +164,9 @@
                 VerticalAlignment="Center"
                 Text="{Binding Path=DestinationDate, Mode=TwoWay}"
                 Margin="10"
-                MinWidth="100"/>
+                MinWidth="100"
+                KeyDown="PickerSource_KeyDown"/>
+
             <materialDesign:TimePicker
                 x:Name="TimePickerDestination"
                 materialDesign:HintAssist.Hint="Select Time"
@@ -174,7 +174,8 @@
                 Margin="10"
                 Text="{Binding Path=DestinationTime, Mode=TwoWay}"
                 VerticalAlignment="Bottom"
-                MinWidth="100"/>
+                MinWidth="100"
+                KeyDown="PickerSource_KeyDown"/>
         </StackPanel>
         <Button
             x:Name="ButtonReset"

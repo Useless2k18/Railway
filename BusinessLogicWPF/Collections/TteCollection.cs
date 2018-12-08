@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using BusinessLogicWPF.Model;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BusinessLogicWPF.Collections
 {
@@ -6,15 +8,9 @@ namespace BusinessLogicWPF.Collections
     {
         public static Dictionary<string, string> Choices;
 
-        public static Dictionary<string, string> GetChoices()
+        public static Dictionary<string, string> GetChoices(List<Tte> ttes)
         {
-            Choices = new Dictionary<string, string>
-            {
-                {"1", "Anil Kumar"},
-                {"2", "Bijay Mahato"},
-                {"3", "Suresh Singh"},
-                {"4", "Niranjan Patra"}
-            };
+            Choices = ttes.ToDictionary(t => t.TT_ID, t => string.Format(t.F_NAME + " " + t.L_NAME));
 
             return Choices;
         }

@@ -1,5 +1,4 @@
-﻿using BusinessLogicWPF.Collections;
-using BusinessLogicWPF.GoogleCloudFireStoreLibrary;
+﻿using BusinessLogicWPF.GoogleCloudFireStoreLibrary;
 using BusinessLogicWPF.Helper;
 using BusinessLogicWPF.Model;
 using BusinessLogicWPF.ViewModel.StationMaster.ForHelper;
@@ -23,12 +22,15 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
         private static bool _status;
 
         public static List<Station> Stations = new List<Station>();
-        public static Dictionary<string, string> TteDetails = TteCollection.GetChoices();
+        public static List<Tte> Ttes { get; set; }
+        //public static Dictionary<string, string> TteDetails = new Dictionary<string, string>();
 
         public SelectTte()
         {
             InitializeComponent();
             ComboBoxDestination.IsEnabled = false;
+            DatePickerSource.BlackoutDates.AddDatesInPast();
+            DatePickerDestination.BlackoutDates.AddDatesInPast();
 
             if (_backgroundWorker.IsBusy)
             {
@@ -61,6 +63,7 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
             var connect = new ConnectFireStore(projectId, @"TicketChecker-1f6bf5c2db0a.json");
 
             Stations = connect.GetAllDocumentData<Station>("ROOT", "STATIONS", "STN_DETAILS");
+            Ttes = connect.GetAllDocumentData<Tte>("ROOT", "TT_DETAILS", "TT");
         }
 
         private void _backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -77,10 +80,10 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
             {
                 ComboBoxSource.IsEnabled = ComboBoxTteId.IsEnabled = ComboBoxTteName.IsEnabled = true;
 
-                foreach (var tteDetail in TteDetails)
+                foreach (var tte in Ttes)
                 {
-                    ComboBoxTteId.Items.Add(tteDetail.Key);
-                    ComboBoxTteName.Items.Add(tteDetail.Value);
+                    ComboBoxTteId.Items.Add(tte.TT_ID);
+                    ComboBoxTteName.Items.Add(tte.FullName);
                 }
 
                 foreach (var station in Stations)
@@ -88,27 +91,30 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
                     ComboBoxSource.Items.Add(station.STN_NAME);
                     ComboBoxDestination.Items.Add(station.STN_NAME);
 
-                    if (station.STN_NAME.Contains(DataHelper.Data.DestinationStation))
+                    if (station.STN_NAME != null && station.STN_NAME.Contains(DataHelper.Data.DestinationStation))
                         ComboBoxSource.Items.Remove(station);
                 }
             }
 
             ProgressBar.Visibility = Visibility.Collapsed;
-            ComboBoxSource.SelectedItem = Stations.FirstOrDefault(s => s.STN_NAME.Contains(DataHelper.Data.SourceStation));
-            /*Dispatcher.BeginInvoke(DispatcherPriority.Normal,
-                new Action(() => { ProgressBar.Visibility = Visibility.Collapsed; }));*/
+            ComboBoxSource.SelectedItem = Stations.FirstOrDefault(s =>
+                s.STN_NAME != null && s.STN_NAME.Contains(DataHelper.Data.SourceStation))
+                ?.STN_NAME;
         }
 
         private void ComboBoxTteId_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ComboBoxTteId.SelectedItem != null)
-                ComboBoxTteName.SelectedItem = TteDetails[(string)ComboBoxTteId.SelectedItem];
+                ComboBoxTteName.SelectedItem =
+                    Ttes.FirstOrDefault(t => t.TT_ID == ComboBoxTteId.SelectedItem as string)?.FullName;
         }
 
         private void ComboBoxTteName_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ComboBoxTteName.SelectedItem != null)
-                ComboBoxTteId.SelectedItem = TteDetails.FirstOrDefault(x => x.Value == (string)ComboBoxTteName.SelectedItem).Key;
+                ComboBoxTteId.SelectedItem =
+                    Ttes.FirstOrDefault(t => t.FullName == ComboBoxTteName.SelectedItem as string)
+                        ?.TT_ID;
         }
 
         private void ComboBoxSource_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -167,8 +173,14 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
                 DataContext = new SelectTteViewModel(DataHelper.Data);
                 TextBlockWelcome.Text = "Add another TTE Details";
                 ComboBoxSource.SelectedItem =
-                    Stations.FirstOrDefault(s => s.STN_NAME.Contains(DataHelper.Data.SourceStation));
+                    Stations.FirstOrDefault(s =>
+                        s.STN_NAME != null && s.STN_NAME.Contains(DataHelper.Data.SourceStation))?.STN_NAME;
             }
+        }
+
+        private void PickerSource_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }

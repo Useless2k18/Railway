@@ -215,7 +215,6 @@
     <Compile Include="Collections\TteCollection.cs" />
     <Compile Include="Domain\AnotherCommandImplementation.cs" />
     <Compile Include="Domain\DemoItem.cs" />
-    <Compile Include="Domain\FutureDateValidationRule.cs" />
     <Compile Include="Domain\IsCheckedValidationRule.cs" />
     <Compile Include="Domain\NotEmptyValidationRule.cs" />
     <Compile Include="Domain\NotifyPropertyChangedExtension.cs" />
@@ -230,6 +229,9 @@
       <DependentUpon>IndetermineProgressDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Station.cs" />
+    <Compile Include="Model\StationFrom.cs" />
+    <Compile Include="Model\StationTo.cs" />
+    <Compile Include="Model\Tte.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Style\Class\TextInputToVisibilityConverter.cs" />
     <Compile Include="Style\Class\NullTextBox.cs" />
