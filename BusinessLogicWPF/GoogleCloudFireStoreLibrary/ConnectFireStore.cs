@@ -1,5 +1,4 @@
-﻿using BusinessLogicWPF.Annotations;
-using Google.Apis.Auth.OAuth2;
+﻿using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Firestore;
 using Google.Cloud.Firestore.V1Beta1;
 using Grpc.Auth;
@@ -7,7 +6,6 @@ using Grpc.Core;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DocumentReference = Google.Cloud.Firestore.DocumentReference;
 
 namespace BusinessLogicWPF.GoogleCloudFireStoreLibrary
 {
@@ -26,37 +24,28 @@ namespace BusinessLogicWPF.GoogleCloudFireStoreLibrary
             _fireStoreDb = FirestoreDb.Create(projectId, dataBaseId, fireStoreClient);
         }
 
-        private static CollectionReference GetCollectionReference(string collectionName,
-            [CanBeNull] string documentName, [CanBeNull] string collectionName2)
-        {
-            if (documentName == string.Empty || collectionName2 == string.Empty)
-                return _fireStoreDb.Collection(collectionName);
+        private static string StringArrayToString(string[] stringArray, string separator) =>
+            string.Join(separator, stringArray);
 
-            return _fireStoreDb.Collection(collectionName).Document(documentName).Collection(collectionName2);
-        }
+        private static string GetCollectionPath(string[] pathArray) =>
+            pathArray.Length % 2 != 0 ? StringArrayToString(pathArray, "/") : null;
 
-        private static DocumentReference GetDocumentReference(string collectionName, string documentName) =>
-            _fireStoreDb.Collection(collectionName).Document(documentName);
+        private static string GetDocumentPath(string[] pathArray) =>
+            pathArray.Length % 2 == 0 ? StringArrayToString(pathArray, "/") : null;
 
         #region Add Data
 
         public async Task AddCollectionData(Dictionary<string, object> dictionary, params string[] name)
         {
-            DocumentReference documentReference = null;
-
-            for (var i = 0; i < name.Length / 2; i++)
-                documentReference = GetDocumentReference(name[i], name[i + 1]);
+            var documentReference = _fireStoreDb.Document(GetDocumentPath(name));
 
             if (documentReference == null) return;
             await documentReference.SetAsync(dictionary);
         }
 
-        public async Task AddCollectionData(object entity, params string[] name)
+        public async Task AddCollectionData<TEntity>(TEntity entity, params string[] name) where TEntity : class
         {
-            DocumentReference documentReference = null;
-
-            for (var i = 0; i < name.Length / 2; i++)
-                documentReference = GetDocumentReference(name[i], name[i + 1]);
+            var documentReference = _fireStoreDb.Document(GetDocumentPath(name));
 
             if (documentReference == null) return;
             await documentReference.SetAsync(entity);
@@ -68,21 +57,15 @@ namespace BusinessLogicWPF.GoogleCloudFireStoreLibrary
 
         public async Task AddOrUpdateCollectionData(Dictionary<string, object> dictionary, params string[] name)
         {
-            DocumentReference documentReference = null;
-
-            for (var i = 0; i < name.Length / 2; i++)
-                documentReference = GetDocumentReference(name[i], name[i + 1]);
+            var documentReference = _fireStoreDb.Document(GetDocumentPath(name));
 
             if (documentReference != null)
                 await documentReference.SetAsync(dictionary, SetOptions.MergeAll);
         }
 
-        public async Task AddOrUpdateCollectionData(object entity, params string[] name)
+        public async Task AddOrUpdateCollectionData<TEntity>(TEntity entity, params string[] name) where TEntity : class
         {
-            DocumentReference documentReference = null;
-
-            for (var i = 0; i < name.Length / 2; i++)
-                documentReference = GetDocumentReference(name[i], name[i + 1]);
+            var documentReference = _fireStoreDb.Document(GetDocumentPath(name));
 
             if (documentReference != null)
                 await documentReference.SetAsync(entity, SetOptions.MergeAll);
@@ -94,10 +77,7 @@ namespace BusinessLogicWPF.GoogleCloudFireStoreLibrary
 
         public async Task UpdateDoc(IDictionary<string, object> dictionary, params string[] name)
         {
-            DocumentReference documentReference = null;
-
-            for (var i = 0; i < name.Length / 2; i++)
-                documentReference = GetDocumentReference(name[i], name[i + 1]);
+            var documentReference = _fireStoreDb.Document(GetDocumentPath(name));
 
             if (documentReference != null)
                 await documentReference.UpdateAsync(dictionary);
@@ -109,34 +89,26 @@ namespace BusinessLogicWPF.GoogleCloudFireStoreLibrary
 
         #region Get Collection Fields
 
-        public async Task GetCollectionFields(object entity, params string[] name)
+        public TEntity GetCollectionFields<TEntity>(params string[] name) where TEntity : class
         {
-            DocumentReference documentReference = null;
+            var documentReference = _fireStoreDb.Document(GetDocumentPath(name));
 
-            for (var i = 0; i < name.Length / 2; i++)
-                documentReference = GetDocumentReference(name[i], name[i + 1]);
+            if (documentReference == null) return null;
 
-            if (documentReference == null) return;
+            var snapshot = documentReference.GetSnapshotAsync().Result;
 
-            var snapshot = await documentReference.GetSnapshotAsync();
-
-            if (snapshot.Exists)
-                entity = snapshot.ConvertTo<object>();
+            return snapshot.Exists ? snapshot.ConvertTo<TEntity>() : null;
         }
 
-        public async Task GetCollectionFields(Dictionary<string, object> dictionary, params string[] name)
+        public Dictionary<string, object> GetCollectionFields(params string[] name)
         {
-            DocumentReference documentReference = null;
+            var documentReference = _fireStoreDb.Document(GetDocumentPath(name));
 
-            for (var i = 0; i < name.Length / 2; i++)
-                documentReference = GetDocumentReference(name[i], name[i + 1]);
+            if (documentReference == null) return null;
 
-            if (documentReference == null) return;
+            var snapshot = documentReference.GetSnapshotAsync().Result;
 
-            var snapshot = await documentReference.GetSnapshotAsync();
-
-            if (snapshot.Exists)
-                dictionary = snapshot.ToDictionary();
+            return snapshot.Exists ? snapshot.ToDictionary() : null;
         }
 
         #endregion
@@ -145,91 +117,47 @@ namespace BusinessLogicWPF.GoogleCloudFireStoreLibrary
 
         public List<Dictionary<string, object>> GetAllDocumentData(params string[] name)
         {
-            Query allCollectionsQuery = GetCollectionReference(name[0], "", "");
-            DocumentReference documentReference = null;
-            int i;
+            var allCollectionsQuery = _fireStoreDb.Collection(GetCollectionPath(name));
 
-            for (i = 0; i < name.Length / 2; i++)
-                if (name.Length >= 2)
-                    documentReference = GetDocumentReference(name[i], name[i + 1]);
+            var allCollectionQuerySnapshot = allCollectionsQuery?.GetSnapshotAsync().Result;
 
-            if (name.Length > 2)
-                if (documentReference != null)
-                    allCollectionsQuery = documentReference.Collection(name[name.Length - 1]);
-
-            if (allCollectionsQuery == null) return null;
-
-            allCollectionsQuery.GetSnapshotAsync().Wait();
-            var allCollectionQuerySnapshot = allCollectionsQuery.GetSnapshotAsync().Result;
-
-            return allCollectionQuerySnapshot.Documents.Where(documentSnapshot => documentSnapshot.Exists)
+            return allCollectionQuerySnapshot?.Documents.Where(documentSnapshot => documentSnapshot.Exists)
                 .Where(documentSnapshot => documentSnapshot.ToDictionary() != null)
                 .Select(documentSnapshot => documentSnapshot.ToDictionary()).ToList();
         }
 
         public List<TEntity> GetAllDocumentData<TEntity>(params string[] name) where TEntity : class
         {
-            Query allCollectionsQuery = GetCollectionReference(name[0], "", "");
-            DocumentReference documentReference = null;
+            var allCollectionsQuery = _fireStoreDb.Collection(GetCollectionPath(name));
 
-            for (var i = 0; i < name.Length / 2; i++)
-                if (name.Length >= 2)
-                    documentReference = GetDocumentReference(name[i], name[i + 1]);
+            var allCollectionQuerySnapshot = allCollectionsQuery?.GetSnapshotAsync().Result;
 
-            if (name.Length > 2)
-                if (documentReference != null)
-                    allCollectionsQuery = documentReference.Collection(name[name.Length - 1]);
-
-            if (allCollectionsQuery == null) return null;
-
-            allCollectionsQuery.GetSnapshotAsync().Wait();
-            var allCollectionQuerySnapshot = allCollectionsQuery.GetSnapshotAsync().Result;
-
-            return allCollectionQuerySnapshot.Documents.Where(documentSnapshot => documentSnapshot.Exists)
+            return allCollectionQuerySnapshot?.Documents.Where(documentSnapshot => documentSnapshot.Exists)
                 .Select(documentSnapshot => documentSnapshot.ConvertTo<TEntity>()).ToList();
         }
 
         public List<string> GetAllDocumentId(params string[] name)
         {
-            Query allCollectionsQuery = GetCollectionReference(name[0], "", "");
-            DocumentReference documentReference = null;
-            var documentIdList = new List<string>();
+            var allCollectionsQuery = _fireStoreDb.Collection(GetCollectionPath(name));
 
-            for (var i = 0; i < name.Length / 2; i++)
-                if (name.Length >= 2)
-                    documentReference = GetDocumentReference(name[i], name[i + 1]);
+            var allCollectionQuerySnapshot = allCollectionsQuery?.GetSnapshotAsync().Result;
 
-            if (name.Length > 2)
-                if (documentReference != null)
-                    allCollectionsQuery = documentReference.Collection(name[name.Length - 1]);
-
-            if (allCollectionsQuery == null) return null;
-
-            allCollectionsQuery.GetSnapshotAsync().Wait();
-            var allCollectionQuerySnapshot = allCollectionsQuery.GetSnapshotAsync().Result;
-
-            foreach (var documentSnapshot in allCollectionQuerySnapshot.Documents)
-            {
-                if (!documentSnapshot.Exists) continue;
-
-                documentIdList.Add(documentSnapshot.Id);
-            }
-
-            return documentIdList;
+            return allCollectionQuerySnapshot?.Documents.Where(documentSnapshot => documentSnapshot.Exists)
+                .Select(documentSnapshot => documentSnapshot.Id).ToList();
         }
 
-        public async Task GetCollections(List<CollectionReference> collectionReference, params string[] name)
+        public List<CollectionReference> GetCollections(params string[] name)
         {
-            DocumentReference documentReference = null;
+            var documentReference = _fireStoreDb.Document(GetDocumentPath(name));
+            var collectionReference = new List<CollectionReference>();
 
-            for (var i = 0; i < name.Length / 2; i++)
-                documentReference = GetDocumentReference(name[i], name[i + 1]);
+            if (documentReference == null) return null;
 
-            if (documentReference == null) return;
-
-            IList<CollectionReference> subCollections = await documentReference.ListCollectionsAsync().ToList();
+            IList<CollectionReference> subCollections = documentReference.ListCollectionsAsync().ToList().Result;
 
             collectionReference.AddRange(subCollections);
+
+            return collectionReference;
         }
 
         #endregion
@@ -238,23 +166,15 @@ namespace BusinessLogicWPF.GoogleCloudFireStoreLibrary
 
         #region Query
 
-        public async Task FindDocument(string documentId, params string[] name)
+        public bool FindDocument(string documentId, params string[] name)
         {
-            CollectionReference collectionReference = null;
+            var collectionReference = _fireStoreDb.Collection(GetCollectionPath(name));
 
-            int i;
+            if (collectionReference == null) return false;
 
-            for (i = 0; i < name.Length / 2; i++)
-                collectionReference = name.Length <= 2
-                    ? GetCollectionReference(name[i], "", "")
-                    : GetCollectionReference(name[i], name[i + 1], name[i + 2]);
+            var documentSnapshot = collectionReference.Document(documentId).GetSnapshotAsync().Result;
 
-            if (collectionReference == null) return;
-
-            var documentSnapshot = await collectionReference.Document(name[name.Length - 1]).GetSnapshotAsync();
-
-            if (documentSnapshot.Exists)
-                documentId = documentSnapshot.Id;
+            return documentSnapshot.Exists;
         }
 
         #endregion

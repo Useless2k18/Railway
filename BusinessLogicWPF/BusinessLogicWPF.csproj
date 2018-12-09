@@ -228,6 +228,7 @@
     <Compile Include="Helper\IndetermineProgressDialog.xaml.cs">
       <DependentUpon>IndetermineProgressDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helper\StaticDbContext.cs" />
     <Compile Include="Model\Station.cs" />
     <Compile Include="Model\StationFrom.cs" />
     <Compile Include="Model\StationTo.cs" />
