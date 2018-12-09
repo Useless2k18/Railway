@@ -27,11 +27,19 @@ namespace BusinessLogicWPF.GoogleCloudFireStoreLibrary
         private static string StringArrayToString(string[] stringArray, string separator) =>
             string.Join(separator, stringArray);
 
-        private static string GetCollectionPath(string[] pathArray) =>
-            pathArray.Length % 2 != 0 ? StringArrayToString(pathArray, "/") : null;
+        private static string GetCollectionPath(string[] pathArray)
+        {
+            if (pathArray.Length > 1)
+                return pathArray.Length % 2 != 0 ? StringArrayToString(pathArray, "/") : null;
+            return pathArray.ToString().Contains("/") ? pathArray.ToString() : null;
+        }
 
-        private static string GetDocumentPath(string[] pathArray) =>
-            pathArray.Length % 2 == 0 ? StringArrayToString(pathArray, "/") : null;
+        private static string GetDocumentPath(string[] pathArray)
+        {
+            if (pathArray.Length > 1)
+                return pathArray.Length % 2 == 0 ? StringArrayToString(pathArray, "/") : null;
+            return pathArray.ToString().Contains("/") ? pathArray.ToString() : null;
+        }
 
         #region Add Data
 

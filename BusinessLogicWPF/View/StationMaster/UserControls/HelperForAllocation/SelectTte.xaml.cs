@@ -65,13 +65,6 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
 
             Stations = connect.GetAllDocumentData<Station>("ROOT", "STATIONS", "STN_DETAILS");
             Ttes = connect.GetAllDocumentData<Tte>("ROOT", "TT_DETAILS", "TT");
-            var station = new Station
-            {
-                STN_CODE = "ASN",
-                STN_NAME = "Asansol Junction",
-                STN_PIN = "713303"
-            };
-            //connect.AddCollectionData(station, "ROOT", "STATIONS", "STN_DETAILS", station.STN_CODE).Wait();
         }
 
         private void _backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

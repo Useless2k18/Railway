@@ -22,5 +22,7 @@ namespace BusinessLogicWPF.Model
         [CanBeNull] [FirestoreProperty] public StationFrom STATION_FROM { get; set; }
 
         [CanBeNull] [FirestoreProperty] public StationTo STATION_TO { get; set; }
+
+        [CanBeNull] [FirestoreProperty] public string TRAIN_NO { get; set; }
     }
 }
