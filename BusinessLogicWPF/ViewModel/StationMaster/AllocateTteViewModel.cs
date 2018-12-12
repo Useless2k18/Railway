@@ -1,4 +1,7 @@
 ﻿using BusinessLogicWPF.Domain;
+using BusinessLogicWPF.GoogleCloudFireStoreLibrary;
+using BusinessLogicWPF.Helper;
+using BusinessLogicWPF.Model;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -8,9 +11,9 @@ namespace BusinessLogicWPF.ViewModel.StationMaster
 {
     public class AllocateTteViewModel : INotifyPropertyChanged
     {
-        private readonly ObservableCollection<SelectableViewModel> _items1;
-        private readonly ObservableCollection<SelectableViewModel> _items2;
-        private readonly ObservableCollection<SelectableViewModel> _items3;
+        private readonly ObservableCollection<Train> _items1;
+        private readonly ObservableCollection<Train> _items2;
+        private readonly ObservableCollection<Train> _items3;
 
         public AllocateTteViewModel()
         {
@@ -19,7 +22,7 @@ namespace BusinessLogicWPF.ViewModel.StationMaster
             _items3 = CreateData();
         }
 
-        private static ObservableCollection<SelectableViewModel> CreateData()
+        private static ObservableCollection<SelectableViewModel> CreateData1()
         {
             return new ObservableCollection<SelectableViewModel>
             {
@@ -57,10 +60,21 @@ namespace BusinessLogicWPF.ViewModel.StationMaster
             };
         }
 
-        public ObservableCollection<SelectableViewModel> Items1 => _items1;
-        public ObservableCollection<SelectableViewModel> Items2 => _items2;
+        private static ObservableCollection<Train> CreateData()
+        {
+            // Google Cloud Platform project ID.
+            const string projectId = "ticketchecker-d4f79";
 
-        public ObservableCollection<SelectableViewModel> Items3 => _items3;
+            StaticDbContext.ConnectFireStore = new ConnectFireStore(projectId, @"TicketChecker-1f6bf5c2db0a.json");
+            var observableCollectionOfTrain = new ObservableCollection<Train>(StaticDbContext.ConnectFireStore.GetAllDocumentData<Train>("ROOT", "TRAIN_DETAILS", "12073"));
+
+            return observableCollectionOfTrain;
+        }
+
+        public ObservableCollection<Train> Items1 => _items1;
+        public ObservableCollection<Train> Items2 => _items2;
+
+        public ObservableCollection<Train> Items3 => _items3;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

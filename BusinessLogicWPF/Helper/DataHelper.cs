@@ -1,19 +1,19 @@
-﻿using BusinessLogicWPF.Domain;
+﻿using BusinessLogicWPF.Model;
 
 namespace BusinessLogicWPF.Helper
 {
     public static class DataHelper
     {
-        private static SelectableViewModel _data;
+        private static Train _train;
         private static bool _statusForEnable;
 
-        public static SelectableViewModel Data
+        public static Train Train
         {
-            get => _data;
+            get => _train;
             set
             {
-                if (value == null || _data == value) return;
-                _data = value;
+                if (value == null || _train == value) return;
+                _train = value;
             }
         }
 

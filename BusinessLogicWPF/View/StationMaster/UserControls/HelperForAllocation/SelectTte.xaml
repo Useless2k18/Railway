@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:collections="clr-namespace:BusinessLogicWPF.Collections"
-             xmlns:forHelper="clr-namespace:BusinessLogicWPF.ViewModel.StationMaster.ForHelper"
              xmlns:domain1="clr-namespace:BusinessLogicWPF.Domain"
              xmlns:viewmodel="clr-namespace:BusinessLogicWPF.ViewModel.StationMaster.ForHelper"
              MinHeight="240" MinWidth="450"

@@ -1,4 +1,4 @@
-﻿using BusinessLogicWPF.Domain;
+﻿using BusinessLogicWPF.Model;
 using BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation;
 using BusinessLogicWPF.ViewModel.StationMaster;
 using BusinessLogicWPF.ViewModel.StationMaster.ForHelper;
@@ -29,7 +29,7 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls
             {
                 var item = (sender as FrameworkElement)?.DataContext;
                 var index = ListView1.Items.IndexOf(item ?? throw new InvalidOperationException());
-                var data = (SelectableViewModel)ListView1.Items[index];
+                var data = (Train)ListView1.Items[index];
 
                 var dialog = new SelectionDialog { DataContext = new SelectTteViewModel(data) };
 

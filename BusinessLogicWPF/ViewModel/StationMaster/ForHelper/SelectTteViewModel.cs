@@ -1,5 +1,5 @@
-﻿using BusinessLogicWPF.Domain;
-using BusinessLogicWPF.Helper;
+﻿using BusinessLogicWPF.Helper;
+using BusinessLogicWPF.Model;
 using Cinch;
 using System;
 using System.ComponentModel;
@@ -24,11 +24,11 @@ namespace BusinessLogicWPF.ViewModel.StationMaster.ForHelper
 
         public SimpleCommand<object, object> ClearCommand { get; }
 
-        public SelectTteViewModel(SelectableViewModel data)
+        public SelectTteViewModel(Train train)
         {
             Date = DateTime.Now;
             Time = DateTime.Now;
-            DataHelper.Data = data;
+            DataHelper.Train = train;
             ClearCommand = new SimpleCommand<object, object>(CanExecuteClearCommand, ExecuteClearCommand);
         }
 

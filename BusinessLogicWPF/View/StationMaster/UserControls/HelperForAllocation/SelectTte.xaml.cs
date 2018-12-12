@@ -1,5 +1,4 @@
-﻿using BusinessLogicWPF.GoogleCloudFireStoreLibrary;
-using BusinessLogicWPF.Helper;
+﻿using BusinessLogicWPF.Helper;
 using BusinessLogicWPF.Model;
 using BusinessLogicWPF.ViewModel.StationMaster.ForHelper;
 using MahApps.Metro.Controls;
@@ -58,13 +57,8 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
             Dispatcher.BeginInvoke(DispatcherPriority.Normal,
                 new Action(() => { ProgressBar.Visibility = Visibility.Visible; }));
 
-            // Google Cloud Platform project ID.
-            const string projectId = "ticketchecker-d4f79";
-
-            var connect = new ConnectFireStore(projectId, @"TicketChecker-1f6bf5c2db0a.json");
-
-            Stations = connect.GetAllDocumentData<Station>("ROOT", "STATIONS", "STN_DETAILS");
-            Ttes = connect.GetAllDocumentData<Tte>("ROOT", "TT_DETAILS", "TT");
+            Stations = StaticDbContext.ConnectFireStore.GetAllDocumentData<Station>("ROOT", "STATIONS", "STN_DETAILS");
+            Ttes = StaticDbContext.ConnectFireStore.GetAllDocumentData<Tte>("ROOT", "TT_DETAILS", "TT");
         }
 
         private void _backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -92,14 +86,14 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
                     ComboBoxSource.Items.Add(station.STN_NAME);
                     ComboBoxDestination.Items.Add(station.STN_NAME);
 
-                    if (station.STN_NAME != null && station.STN_NAME.Contains(DataHelper.Data.DestinationStation))
+                    if (station.STN_CODE != null && station.STN_CODE.Contains(DataHelper.Train.DEST_STN))
                         ComboBoxSource.Items.Remove(station);
                 }
             }
 
             ProgressBar.Visibility = Visibility.Collapsed;
             ComboBoxSource.SelectedItem = Stations.FirstOrDefault(s =>
-                s.STN_NAME != null && s.STN_NAME.Contains(DataHelper.Data.SourceStation))
+                s.STN_CODE != null && s.STN_NAME != null && s.STN_CODE.Contains(DataHelper.Train.SRC_STN))
                 ?.STN_NAME;
         }
 
@@ -132,7 +126,11 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
         {
             if (ComboBoxDestination.SelectedItem == null) return;
 
-            if (!ComboBoxDestination.SelectedItem.ToString().Contains(DataHelper.Data.DestinationStation)) return;
+            var destinationStation = DataHelper.Train.DEST_STN;
+
+            if (!ComboBoxDestination.SelectedItem.ToString().Contains(
+                Stations.FirstOrDefault(s => s.STN_CODE == destinationStation)?.STN_NAME ??
+                throw new InvalidOperationException())) return;
 
             _status = true;
         }
@@ -169,13 +167,14 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
                     return;
                 }
 
-                DataHelper.Data.SourceStation = ComboBoxDestination.Text;
+                DataHelper.Train.SRC_STN = Stations.FirstOrDefault(s => s.STN_NAME == ComboBoxDestination.Text)?.STN_CODE;
 
-                DataContext = new SelectTteViewModel(DataHelper.Data);
+                DataContext = new SelectTteViewModel(DataHelper.Train);
                 TextBlockWelcome.Text = "Add another TTE Details";
+
                 ComboBoxSource.SelectedItem =
                     Stations.FirstOrDefault(s =>
-                        s.STN_NAME != null && s.STN_NAME.Contains(DataHelper.Data.SourceStation))?.STN_NAME;
+                        s.STN_CODE != null && s.STN_CODE.Contains(DataHelper.Train.SRC_STN))?.STN_NAME;
             }
         }
 

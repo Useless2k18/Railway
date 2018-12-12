@@ -30,19 +30,19 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn
-                        DisplayMemberBinding="{Binding TrainNo}"
+                        DisplayMemberBinding="{Binding TRAIN_NO}"
                         Header="Train No."/>
 
                     <GridViewColumn 
-                            DisplayMemberBinding="{Binding TrainName}"
+                            DisplayMemberBinding="{Binding NAME}"
                             Header="Train Name"/>
 
                     <GridViewColumn 
-                            DisplayMemberBinding="{Binding SourceStation}"
+                            DisplayMemberBinding="{Binding SRC_STN}"
                             Header="Source Station"/>
 
                     <GridViewColumn 
-                            DisplayMemberBinding="{Binding DestinationStation}"
+                            DisplayMemberBinding="{Binding DEST_STN}"
                             Header="Destination Station"/>
 
                     <GridViewColumn 

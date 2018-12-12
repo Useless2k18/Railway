@@ -229,9 +229,12 @@
       <DependentUpon>IndetermineProgressDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helper\StaticDbContext.cs" />
+    <Compile Include="Model\Coach.cs" />
+    <Compile Include="Model\Route.cs" />
     <Compile Include="Model\Station.cs" />
     <Compile Include="Model\StationFrom.cs" />
     <Compile Include="Model\StationTo.cs" />
+    <Compile Include="Model\Train.cs" />
     <Compile Include="Model\Tte.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Style\Class\TextInputToVisibilityConverter.cs" />
