@@ -118,11 +118,13 @@
                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                 MinWidth="100"
                 Text="{Binding Path=SourceDate, Mode=TwoWay}"
-                VerticalAlignment="Center" 
+                VerticalAlignment="Center"
+                SelectedDateChanged="DatePickerSource_OnSelectedDateChanged"
                 KeyDown="PickerSource_KeyDown"/>
 
             <materialDesign:TimePicker
                 x:Name="TimePickerSource"
+                IsEnabled="False"
                 Margin="10"
                 materialDesign:HintAssist.Hint="Select Time"
                 IsInvalidTextAllowed="False"
@@ -130,6 +132,7 @@
                 Text="{Binding Path=SourceTime, Mode=TwoWay}"
                 VerticalAlignment="Bottom"
                 MinWidth="100"
+                SelectedTimeChanged="TimePickerSource_OnSelectedTimeChanged"
                 KeyDown="PickerSource_KeyDown"/>
         </StackPanel>
 
@@ -159,16 +162,19 @@
             Orientation="Horizontal">
             <DatePicker
                 x:Name="DatePickerDestination"
+                IsEnabled="False"
                 materialDesign:HintAssist.Hint="Select Date"
                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                 VerticalAlignment="Center"
                 Text="{Binding Path=DestinationDate, Mode=TwoWay}"
                 Margin="10"
                 MinWidth="100"
+                SelectedDateChanged="DatePickerDestination_OnSelectedDateChanged"
                 KeyDown="PickerSource_KeyDown"/>
 
             <materialDesign:TimePicker
                 x:Name="TimePickerDestination"
+                IsEnabled="False"
                 materialDesign:HintAssist.Hint="Select Time"
                 IsInvalidTextAllowed="False"
                 Is24Hours="True"
@@ -176,6 +182,7 @@
                 Text="{Binding Path=DestinationTime, Mode=TwoWay}"
                 VerticalAlignment="Bottom"
                 MinWidth="100"
+                SelectedTimeChanged="TimePickerDestination_OnSelectedTimeChanged"
                 KeyDown="PickerSource_KeyDown"/>
         </StackPanel>
         <Button

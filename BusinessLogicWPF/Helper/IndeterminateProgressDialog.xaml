@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="BusinessLogicWPF.Helper.IndetermineProgressDialog"
+﻿<UserControl x:Class="BusinessLogicWPF.Helper.IndeterminateProgressDialog"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -10,18 +10,20 @@
     <StackPanel
         Margin="16">
         <ProgressBar
+            x:Name="ProgressBar"
             Style="{DynamicResource MaterialDesignCircularProgressBar}"
             HorizontalAlignment="Center"
             Margin="16"
             IsIndeterminate="True"
             Value="0" />
         <Button
+            x:Name="ButtonOk"
             Style="{StaticResource MaterialDesignFlatButton}"
             IsCancel="True"
+            IsEnabled="False"
             Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-            CommandParameter="Sample2Cancel"
             HorizontalAlignment="Center">
-            CANCEL
+            OK
         </Button>
     </StackPanel>
 </UserControl>

@@ -225,8 +225,8 @@
     <Compile Include="GoogleCloudFireStoreLibrary\ConnectFireStore.cs" />
     <Compile Include="Helper\DataHelper.cs" />
     <Compile Include="Helper\ErrorLabelHelper.cs" />
-    <Compile Include="Helper\IndetermineProgressDialog.xaml.cs">
-      <DependentUpon>IndetermineProgressDialog.xaml</DependentUpon>
+    <Compile Include="Helper\IndeterminateProgressDialog.xaml.cs">
+      <DependentUpon>IndeterminateProgressDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helper\StaticDbContext.cs" />
     <Compile Include="Model\Coach.cs" />
@@ -290,7 +290,7 @@
     <Compile Include="View\StationMaster\Window\StationMasterWindow.xaml.cs">
       <DependentUpon>StationMasterWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Helper\IndetermineProgressDialog.xaml">
+    <Page Include="Helper\IndeterminateProgressDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

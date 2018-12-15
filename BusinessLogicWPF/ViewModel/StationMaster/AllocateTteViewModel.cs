@@ -5,6 +5,7 @@ using BusinessLogicWPF.Model;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace BusinessLogicWPF.ViewModel.StationMaster
@@ -65,8 +66,17 @@ namespace BusinessLogicWPF.ViewModel.StationMaster
             // Google Cloud Platform project ID.
             const string projectId = "ticketchecker-d4f79";
 
-            StaticDbContext.ConnectFireStore = new ConnectFireStore(projectId, @"TicketChecker-1f6bf5c2db0a.json");
-            var observableCollectionOfTrain = new ObservableCollection<Train>(StaticDbContext.ConnectFireStore.GetAllDocumentData<Train>("ROOT", "TRAIN_DETAILS", "12073"));
+            try
+            {
+                StaticDbContext.ConnectFireStore = new ConnectFireStore(projectId, @"TicketChecker-1f6bf5c2db0a.json");
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception.Message);
+            }
+
+            var observableCollectionOfTrain = new ObservableCollection<Train>(
+                StaticDbContext.ConnectFireStore.GetAllDocumentData<Train>("ROOT", "TRAIN_DETAILS", "12073"));
 
             return observableCollectionOfTrain;
         }

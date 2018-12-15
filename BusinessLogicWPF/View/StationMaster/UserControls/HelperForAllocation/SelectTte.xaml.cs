@@ -22,12 +22,19 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
 
         public static List<Station> Stations = new List<Station>();
         public static List<Tte> Ttes { get; set; }
+        public List<Train> Trains { get; set; }
         //public static Dictionary<string, string> TteDetails = new Dictionary<string, string>();
 
         public SelectTte()
         {
             InitializeComponent();
+
+            // Some messy things around
             ComboBoxDestination.IsEnabled = false;
+            DatePickerDestination.IsEnabled = false;
+            TimePickerSource.IsEnabled = false;
+            TimePickerDestination.IsEnabled = false;
+
             DatePickerSource.BlackoutDates.AddDatesInPast();
             DatePickerDestination.BlackoutDates.AddDatesInPast();
             DatePickerSource.DisplayDateEnd = DatePickerDestination.DisplayDateEnd = DateTime.Now.AddMonths(3);
@@ -59,6 +66,10 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
 
             Stations = StaticDbContext.ConnectFireStore.GetAllDocumentData<Station>("ROOT", "STATIONS", "STN_DETAILS");
             Ttes = StaticDbContext.ConnectFireStore.GetAllDocumentData<Tte>("ROOT", "TT_DETAILS", "TT");
+            Trains = StaticDbContext.ConnectFireStore.GetAllDocumentData<Train>("ROOT", "TRAIN_DETAILS", "12073");
+
+            /*var d = Trains[0].ROUTE.TryGetValue("1", out var value);
+            if (value != null) MessageBox.Show(value.STN_CODE);*/
         }
 
         private void _backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -86,14 +97,16 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
                     ComboBoxSource.Items.Add(station.STN_NAME);
                     ComboBoxDestination.Items.Add(station.STN_NAME);
 
-                    if (station.STN_CODE != null && station.STN_CODE.Contains(DataHelper.Train.DEST_STN))
+                    if (station.STN_CODE != null &&
+                        station.STN_CODE.Contains(DataHelper.Train.DEST_STN ?? throw new InvalidOperationException()))
                         ComboBoxSource.Items.Remove(station);
                 }
             }
 
             ProgressBar.Visibility = Visibility.Collapsed;
             ComboBoxSource.SelectedItem = Stations.FirstOrDefault(s =>
-                s.STN_CODE != null && s.STN_NAME != null && s.STN_CODE.Contains(DataHelper.Train.SRC_STN))
+                s.STN_CODE != null && s.STN_NAME != null &&
+                    s.STN_CODE.Contains(DataHelper.Train.SRC_STN ?? throw new InvalidOperationException()))
                 ?.STN_NAME;
         }
 
@@ -124,15 +137,62 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
 
         private void ComboBoxDestination_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ComboBoxDestination.SelectedItem == null) return;
+            if (ComboBoxDestination.SelectedItem == null)
+            {
+                _status = false;
+                return;
+            }
 
             var destinationStation = DataHelper.Train.DEST_STN;
 
-            if (!ComboBoxDestination.SelectedItem.ToString().Contains(
+            _status = ComboBoxDestination.SelectedItem.ToString().Contains(
                 Stations.FirstOrDefault(s => s.STN_CODE == destinationStation)?.STN_NAME ??
-                throw new InvalidOperationException())) return;
+                throw new InvalidOperationException());
+        }
 
-            _status = true;
+        private void PickerSource_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void DatePickerSource_OnSelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TimePickerSource.IsEnabled = true;
+            TimePickerSource.SelectedTime = null;
+
+            // Here TimeSpan.FromDays() is used for not black-outing selected date
+            // (as train journey may be of 24 hours 😅) 
+
+            if (DatePickerSource.SelectedDate != null)
+                DatePickerDestination.BlackoutDates.Add(new CalendarDateRange(DateTime.Now,
+                    DatePickerSource.SelectedDate.Value - TimeSpan.FromDays(1)));
+        }
+
+        private void DatePickerDestination_OnSelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TimePickerDestination.IsEnabled = true;
+            TimePickerDestination.SelectedTime = null;
+        }
+
+        private void TimePickerSource_OnSelectedTimeChanged(object sender, RoutedPropertyChangedEventArgs<DateTime?> e)
+        {
+            DatePickerDestination.IsEnabled = true;
+            TimePickerDestination.SelectedTime = null;
+        }
+
+        private void TimePickerDestination_OnSelectedTimeChanged(object sender, RoutedPropertyChangedEventArgs<DateTime?> e)
+        {
+            if (TimePickerSource.SelectedTime == null) return;
+
+            var timeSpan = TimePickerSource.SelectedTime.Value.TimeOfDay;
+
+            if (TimePickerDestination.SelectedTime == null ||
+                TimePickerDestination.SelectedTime.Value.TimeOfDay > timeSpan) return;
+
+            if (DatePickerSource.SelectedDate != DatePickerDestination.SelectedDate) return;
+
+            MessageBox.Show("Sorry, but time is invalid!");
+            TimePickerDestination.SelectedTime = null;
         }
 
         private void ButtonProceed_OnClick(object sender, RoutedEventArgs e)
@@ -174,13 +234,16 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
 
                 ComboBoxSource.SelectedItem =
                     Stations.FirstOrDefault(s =>
-                        s.STN_CODE != null && s.STN_CODE.Contains(DataHelper.Train.SRC_STN))?.STN_NAME;
-            }
-        }
+                        s.STN_CODE != null &&
+                            s.STN_CODE.Contains(DataHelper.Train.SRC_STN ?? throw new InvalidOperationException()))
+                        ?.STN_NAME;
 
-        private void PickerSource_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            e.Handled = true;
+                // Waiting for disabling again
+                ComboBoxDestination.IsEnabled = false;
+                DatePickerDestination.IsEnabled = false;
+                TimePickerSource.IsEnabled = false;
+                TimePickerDestination.IsEnabled = false;
+            }
         }
     }
 }
