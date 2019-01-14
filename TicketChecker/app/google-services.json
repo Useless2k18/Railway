@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "224378918645",
+    "firebase_url": "https://ticketchecker-d4f79.firebaseio.com",
+    "project_id": "ticketchecker-d4f79",
+    "storage_bucket": "ticketchecker-d4f79.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:224378918645:android:0d3ab587d3ff7dd1",
+        "android_client_info": {
+          "package_name": "com.example.newu.ticketchecker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "224378918645-cuq1jdihtk2fb5fs550uo70hlht7p0be.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.newu.ticketchecker",
+            "certificate_hash": "1ff0fc1f7af4e6e1273772301fa87fb8a6ba1fe4"
+          }
+        },
+        {
+          "client_id": "224378918645-532upp219k76oimooaa8h9lbhr8p1tm2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAi5tW_5WAyVd1rxRwMlGeugmIJZL8SsT4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "224378918645-532upp219k76oimooaa8h9lbhr8p1tm2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
