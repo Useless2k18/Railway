@@ -128,7 +128,7 @@
                         DockPanel.Dock="Left" Margin="5,5,5,5" 
                         Style="{StaticResource MaterialDesignFloatingActionButton}"
                         BorderBrush="{x:Null}" Visibility="Collapsed"
-                        Click="ButtonBack_OnClick">
+                        Click="ButtonBackOnClick">
 
                     <materialDesign:PackIcon 
                         Kind="ArrowLeftDropCircleOutline"
@@ -140,9 +140,9 @@
                     FontSize="18"
                     Content="New User?"
                     Foreground="Blue"
-                    Click="ButtonNewUser_Click"
-                    MouseEnter="ButtonLikeLabel_MouseEnter"
-                    MouseLeave="ButtonLikeLabel_MouseLeave"/>
+                    Click="ButtonNewUserClick"
+                    MouseEnter="ButtonLikeLabelMouseEnter"
+                    MouseLeave="ButtonLikeLabelMouseLeave"/>
             </DockPanel>
         </Grid>
         <Grid x:Name="GridLoginFields" Grid.Row="2">

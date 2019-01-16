@@ -1,6 +1,8 @@
-﻿using BusinessLogicWPF.Annotations;
+﻿using System.Collections.Generic;
+
+using BusinessLogicWPF.Annotations;
+
 using Google.Cloud.Firestore;
-using System.Collections.Generic;
 
 namespace BusinessLogicWPF.Model
 {

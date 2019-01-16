@@ -1,53 +1,96 @@
-﻿using System;
-using System.Windows.Input;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="AnotherCommandImplementation.cs" company="SDCWORLD">
+//   Sourodeep Chatterjee
+// </copyright>
+// <summary>
+//   No WPF project is complete without it's own version of this.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace BusinessLogicWPF.Domain
 {
+    using System;
+    using System.Windows.Input;
+
+    using BusinessLogicWPF.Annotations;
+
     /// <summary>
     /// No WPF project is complete without it's own version of this.
     /// </summary>
     public class AnotherCommandImplementation : ICommand
     {
-        private readonly Action<object> _execute;
-        private readonly Func<object, bool> _canExecute;
+        /// <summary>
+        /// The execute.
+        /// </summary>
+        [NotNull]
+        private readonly Action<object> execute;
 
-        public AnotherCommandImplementation(Action<object> execute) : this(execute, null)
+        /// <summary>
+        /// The can execute.
+        /// </summary>
+        [NotNull]
+        private readonly Func<object, bool> canExecute;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AnotherCommandImplementation"/> class.
+        /// </summary>
+        /// <param name="execute">
+        /// The execute.
+        /// </param>
+        public AnotherCommandImplementation([CanBeNull] Action<object> execute) : this(execute, null)
         {
         }
 
-        public AnotherCommandImplementation(Action<object> execute, Func<object, bool> canExecute)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AnotherCommandImplementation"/> class.
+        /// </summary>
+        /// <param name="execute">
+        /// The execute.
+        /// </param>
+        /// <param name="canExecute">
+        /// The can execute.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// thrown if Argument Null Exception
+        /// </exception>
+        public AnotherCommandImplementation([NotNull] Action<object> execute, [CanBeNull] Func<object, bool> canExecute)
         {
-            if (execute == null) throw new ArgumentNullException(nameof(execute));
-
-            _execute = execute;
-            _canExecute = canExecute ?? (x => true);
+            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            this.canExecute = canExecute ?? (x => true);
         }
 
-        public bool CanExecute(object parameter)
-        {
-            return _canExecute(parameter);
-        }
-
-        public void Execute(object parameter)
-        {
-            _execute(parameter);
-        }
-
+        /// <summary>
+        /// The can execute changed.
+        /// </summary>
         public event EventHandler CanExecuteChanged
         {
-            add
-            {
-                CommandManager.RequerySuggested += value;
-            }
-            remove
-            {
-                CommandManager.RequerySuggested -= value;
-            }
+            add => CommandManager.RequerySuggested += value;
+
+            remove => CommandManager.RequerySuggested -= value;
         }
 
-        public void Refresh()
-        {
-            CommandManager.InvalidateRequerySuggested();
-        }
+        /// <summary>
+        /// The can execute.
+        /// </summary>
+        /// <param name="parameter">
+        /// The parameter.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public bool CanExecute(object parameter) => this.canExecute(parameter);
+
+        /// <summary>
+        /// The execute.
+        /// </summary>
+        /// <param name="parameter">
+        /// The parameter.
+        /// </param>
+        public void Execute(object parameter) => this.execute(parameter);
+
+        /// <summary>
+        /// The refresh.
+        /// </summary>
+        public void Refresh() => CommandManager.InvalidateRequerySuggested();
     }
 }

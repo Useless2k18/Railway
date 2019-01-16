@@ -1,79 +1,160 @@
-﻿using BusinessLogicWPF.Helper;
-using BusinessLogicWPF.Model;
-using BusinessLogicWPF.ViewModel.StationMaster.ForHelper;
-using MahApps.Metro.Controls;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Threading;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="SelectTte.xaml.cs" company="SDCWORLD">
+//   Sourodeep Chatterjee
+// </copyright>
+// <summary>
+//   Interaction logic for SelectTte.xaml
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using System.Windows.Threading;
+
+    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Helper;
+    using BusinessLogicWPF.Model;
+    using BusinessLogicWPF.ViewModel.StationMaster.ForHelper;
+
+    using MahApps.Metro.Controls;
+
     /// <summary>
-    /// Interaction logic for SelectTte.xaml
+    /// Interaction logic for Selecting TTE XAML file
     /// </summary>
     public partial class SelectTte : UserControl
     {
-        private readonly BackgroundWorker _backgroundWorker = new BackgroundWorker();
-        private static bool _status;
+        /// <summary>
+        /// The status.
+        /// </summary>
+        private static bool status;
 
-        public static List<Station> Stations = new List<Station>();
-        public static List<Tte> Ttes { get; set; }
-        public List<Train> Trains { get; set; }
-        //public static Dictionary<string, string> TteDetails = new Dictionary<string, string>();
+        /// <summary>
+        /// The stations.
+        /// </summary>
+        [NotNull]
+        private static List<Station> stations = new List<Station>();
 
+        /// <summary>
+        /// The background worker.
+        /// </summary>
+        [NotNull]
+        private readonly BackgroundWorker backgroundWorker = new BackgroundWorker();
+
+        //// public static Dictionary<string, string> TteDetails = new Dictionary<string, string>();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SelectTte"/> class.
+        /// </summary>
         public SelectTte()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             // Some messy things around
-            ComboBoxDestination.IsEnabled = false;
-            DatePickerDestination.IsEnabled = false;
-            TimePickerSource.IsEnabled = false;
-            TimePickerDestination.IsEnabled = false;
+            this.ComboBoxDestination.IsEnabled = false;
+            this.DatePickerDestination.IsEnabled = false;
+            this.TimePickerSource.IsEnabled = false;
+            this.TimePickerDestination.IsEnabled = false;
 
-            DatePickerSource.BlackoutDates.AddDatesInPast();
-            DatePickerDestination.BlackoutDates.AddDatesInPast();
-            DatePickerSource.DisplayDateEnd = DatePickerDestination.DisplayDateEnd = DateTime.Now.AddMonths(3);
+            this.DatePickerSource.BlackoutDates.AddDatesInPast();
+            this.DatePickerDestination.BlackoutDates.AddDatesInPast();
+            this.DatePickerSource.DisplayDateEnd =
+                this.DatePickerDestination.DisplayDateEnd = DateTime.Now.AddMonths(3);
 
-            if (_backgroundWorker.IsBusy)
+            if (this.backgroundWorker.IsBusy)
             {
-                _backgroundWorker.WorkerSupportsCancellation = true;
-                _backgroundWorker.CancelAsync();
+                this.backgroundWorker.WorkerSupportsCancellation = true;
+                this.backgroundWorker.CancelAsync();
             }
-
             else
             {
-                _backgroundWorker.DoWork += _backgroundWorker_DoWork;
-                _backgroundWorker.RunWorkerCompleted += _backgroundWorker_RunWorkerCompleted;
-                _backgroundWorker.RunWorkerAsync();
+                this.backgroundWorker.DoWork += this.BackgroundWorkerDoWork;
+                this.backgroundWorker.RunWorkerCompleted += this.BackgroundWorkerRunWorkerCompleted;
+                this.backgroundWorker.RunWorkerAsync();
             }
         }
 
-        private void _backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        /// <summary>
+        /// Gets or sets the TTEs.
+        /// </summary>
+        [CanBeNull]
+        public static List<Tte> Ttes { get; set; }
+
+        /// <summary>
+        /// Gets or sets the trains.
+        /// </summary>
+        [CanBeNull]
+        public List<Train> Trains { get; set; }
+
+        /// <summary>
+        /// The background worker do work.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void BackgroundWorkerDoWork([NotNull] object sender, [NotNull] DoWorkEventArgs e)
         {
-            if (_backgroundWorker.CancellationPending)
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
+            if (this.backgroundWorker.CancellationPending)
             {
                 e.Cancel = true;
                 return;
             }
 
-            Dispatcher.BeginInvoke(DispatcherPriority.Normal,
-                new Action(() => { ProgressBar.Visibility = Visibility.Visible; }));
+            this.Dispatcher.BeginInvoke(
+                DispatcherPriority.Normal,
+                new Action(() => { this.ProgressBar.Visibility = Visibility.Visible; }));
 
-            Stations = StaticDbContext.ConnectFireStore.GetAllDocumentData<Station>("ROOT", "STATIONS", "STN_DETAILS");
+            stations = StaticDbContext.ConnectFireStore.GetAllDocumentData<Station>("ROOT", "STATIONS", "STN_DETAILS")
+                       ?? throw new InvalidOperationException();
             Ttes = StaticDbContext.ConnectFireStore.GetAllDocumentData<Tte>("ROOT", "TT_DETAILS", "TT");
-            Trains = StaticDbContext.ConnectFireStore.GetAllDocumentData<Train>("ROOT", "TRAIN_DETAILS", "12073");
+            this.Trains = StaticDbContext.ConnectFireStore.GetAllDocumentData<Train>("ROOT", "TRAIN_DETAILS", "12073");
 
             /*var d = Trains[0].ROUTE.TryGetValue("1", out var value);
             if (value != null) MessageBox.Show(value.STN_CODE);*/
         }
 
-        private void _backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        /// <summary>
+        /// The background worker run worker completed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void BackgroundWorkerRunWorkerCompleted(
+            [NotNull] object sender,
+            [NotNull] RunWorkerCompletedEventArgs e)
         {
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
             if (e.Cancelled)
             {
                 MessageBox.Show("Operation Cancelled");
@@ -84,165 +165,385 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
             }
             else
             {
-                ComboBoxSource.IsEnabled = ComboBoxTteId.IsEnabled = ComboBoxTteName.IsEnabled = true;
+                this.ComboBoxSource.IsEnabled = this.ComboBoxTteId.IsEnabled = this.ComboBoxTteName.IsEnabled = true;
 
-                foreach (var tte in Ttes)
+                if (Ttes != null)
                 {
-                    ComboBoxTteId.Items.Add(tte.TT_ID);
-                    ComboBoxTteName.Items.Add(tte.FullName);
+                    foreach (var tte in Ttes)
+                    {
+                        this.ComboBoxTteId.Items.Add(tte.TT_ID);
+                        this.ComboBoxTteName.Items.Add(tte.FullName);
+                    }
                 }
 
-                foreach (var station in Stations)
+                foreach (var station in stations)
                 {
-                    ComboBoxSource.Items.Add(station.STN_NAME);
-                    ComboBoxDestination.Items.Add(station.STN_NAME);
+                    this.ComboBoxSource.Items.Add(station.STN_NAME);
+                    this.ComboBoxDestination.Items.Add(station.STN_NAME);
 
-                    if (station.STN_CODE != null &&
-                        station.STN_CODE.Contains(DataHelper.Train.DEST_STN ?? throw new InvalidOperationException()))
-                        ComboBoxSource.Items.Remove(station);
+                    if (station.STN_CODE.Contains(
+                        DataHelper.Train.DEST_STN ?? throw new InvalidOperationException()))
+                    {
+                        this.ComboBoxSource.Items.Remove(station);
+                    }
                 }
             }
 
-            ProgressBar.Visibility = Visibility.Collapsed;
-            ComboBoxSource.SelectedItem = Stations.FirstOrDefault(s =>
-                s.STN_CODE != null && s.STN_NAME != null &&
-                    s.STN_CODE.Contains(DataHelper.Train.SRC_STN ?? throw new InvalidOperationException()))
-                ?.STN_NAME;
+            this.ProgressBar.Visibility = Visibility.Collapsed;
+            this.ComboBoxSource.SelectedItem = stations.FirstOrDefault(
+                s => s.STN_CODE.Contains(
+                    DataHelper.Train.SRC_STN ?? throw new InvalidOperationException()))?.STN_NAME;
         }
 
-        private void ComboBoxTteId_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        /// <summary>
+        /// The combo box TTE Id selection changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ComboBoxTteIdSelectionChanged([NotNull] object sender, [NotNull] SelectionChangedEventArgs e)
         {
-            if (ComboBoxTteId.SelectedItem != null)
-                ComboBoxTteName.SelectedItem =
-                    Ttes.FirstOrDefault(t => t.TT_ID == ComboBoxTteId.SelectedItem as string)?.FullName;
-        }
-
-        private void ComboBoxTteName_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (ComboBoxTteName.SelectedItem != null)
-                ComboBoxTteId.SelectedItem =
-                    Ttes.FirstOrDefault(t => t.FullName == ComboBoxTteName.SelectedItem as string)
-                        ?.TT_ID;
-        }
-
-        private void ComboBoxSource_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selectedItem = ComboBoxSource.SelectedItem;
-            ComboBoxDestination.Items.Remove(selectedItem);
-            //Stations.Remove(selectedItem.ToString());
-
-            if (ComboBoxSource.SelectedItem != null)
-                ComboBoxDestination.IsEnabled = true;
-        }
-
-        private void ComboBoxDestination_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (ComboBoxDestination.SelectedItem == null)
+            if (sender == null)
             {
-                _status = false;
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
+            if (this.ComboBoxTteId.SelectedItem != null)
+            {
+                this.ComboBoxTteName.SelectedItem =
+                    (Ttes ?? throw new InvalidOperationException()).FirstOrDefault(t => t.TT_ID == this.ComboBoxTteId.SelectedItem as string)?.FullName;
+            }
+        }
+
+        /// <summary>
+        /// The combo box TTE Name selection changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ComboBoxTteNameSelectionChanged([NotNull] object sender, [NotNull] SelectionChangedEventArgs e)
+        {
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
+            if (this.ComboBoxTteName.SelectedItem != null)
+            {
+                this.ComboBoxTteId.SelectedItem =
+                    (Ttes ?? throw new InvalidOperationException())
+                    .FirstOrDefault(t => t.FullName == this.ComboBoxTteName.SelectedItem as string)?.TT_ID;
+            }
+        }
+
+        /// <summary>
+        /// The combo box source selection changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ComboBoxSourceSelectionChanged([NotNull] object sender, [NotNull] SelectionChangedEventArgs e)
+        {
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
+            var selectedItem = this.ComboBoxSource.SelectedItem;
+            this.ComboBoxDestination.Items.Remove(selectedItem);
+
+            //// Stations.Remove(selectedItem.ToString());
+            if (this.ComboBoxSource.SelectedItem != null)
+            {
+                this.ComboBoxDestination.IsEnabled = true;
+            }
+        }
+
+        /// <summary>
+        /// The combo box destination on selection changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ComboBoxDestination_OnSelectionChanged(
+            [NotNull] object sender,
+            [NotNull] SelectionChangedEventArgs e)
+        {
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
+            if (this.ComboBoxDestination.SelectedItem == null)
+            {
+                status = false;
                 return;
             }
 
             var destinationStation = DataHelper.Train.DEST_STN;
 
-            _status = ComboBoxDestination.SelectedItem.ToString().Contains(
-                Stations.FirstOrDefault(s => s.STN_CODE == destinationStation)?.STN_NAME ??
-                throw new InvalidOperationException());
+            status = this.ComboBoxDestination.SelectedItem.ToString().Contains(
+                stations.FirstOrDefault(s => s.STN_CODE == destinationStation)?.STN_NAME
+                ?? throw new InvalidOperationException());
         }
 
-        private void PickerSource_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        /// <summary>
+        /// The picker source key down.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// thrown if Argument is null
+        /// </exception>
+        private void PickerSourceKeyDown([NotNull] object sender, [NotNull] KeyEventArgs e)
         {
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
             e.Handled = true;
         }
 
-        private void DatePickerSource_OnSelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        /// <summary>
+        /// The date picker source on selected date changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void DatePickerSourceOnSelectedDateChanged([NotNull] object sender, [NotNull] SelectionChangedEventArgs e)
         {
-            TimePickerSource.IsEnabled = true;
-            TimePickerSource.SelectedTime = null;
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
+            this.TimePickerSource.IsEnabled = true;
+            this.TimePickerSource.SelectedTime = null;
 
             // Here TimeSpan.FromDays() is used for not black-outing selected date
             // (as train journey may be of 24 hours 😅) 
-
-            if (DatePickerSource.SelectedDate != null)
-                DatePickerDestination.BlackoutDates.Add(new CalendarDateRange(DateTime.Now,
-                    DatePickerSource.SelectedDate.Value - TimeSpan.FromDays(1)));
+            if (this.DatePickerSource.SelectedDate != null)
+            {
+                this.DatePickerDestination.BlackoutDates.Add(
+                    new CalendarDateRange(
+                        DateTime.Now,
+                        this.DatePickerSource.SelectedDate.Value - TimeSpan.FromDays(1)));
+            }
         }
 
-        private void DatePickerDestination_OnSelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        /// <summary>
+        /// The date picker destination on selected date changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void DatePickerDestinationOnSelectedDateChanged(
+            [NotNull] object sender,
+            [NotNull] SelectionChangedEventArgs e)
         {
-            TimePickerDestination.IsEnabled = true;
-            TimePickerDestination.SelectedTime = null;
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
+            this.TimePickerDestination.IsEnabled = true;
+            this.TimePickerDestination.SelectedTime = null;
         }
 
-        private void TimePickerSource_OnSelectedTimeChanged(object sender, RoutedPropertyChangedEventArgs<DateTime?> e)
+        /// <summary>
+        /// The time picker source on selected time changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void TimePickerSourceOnSelectedTimeChanged(
+            [NotNull] object sender,
+            [NotNull] RoutedPropertyChangedEventArgs<DateTime?> e)
         {
-            DatePickerDestination.IsEnabled = true;
-            TimePickerDestination.SelectedTime = null;
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
+            this.DatePickerDestination.IsEnabled = true;
+            this.TimePickerDestination.SelectedTime = null;
         }
 
-        private void TimePickerDestination_OnSelectedTimeChanged(object sender, RoutedPropertyChangedEventArgs<DateTime?> e)
+        /// <summary>
+        /// The time picker destination on selected time changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void TimePickerDestinationOnSelectedTimeChanged(
+            [NotNull] object sender,
+            [NotNull] RoutedPropertyChangedEventArgs<DateTime?> e)
         {
-            if (TimePickerSource.SelectedTime == null) return;
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
 
-            var timeSpan = TimePickerSource.SelectedTime.Value.TimeOfDay;
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
 
-            if (TimePickerDestination.SelectedTime == null ||
-                TimePickerDestination.SelectedTime.Value.TimeOfDay > timeSpan) return;
+            if (this.TimePickerSource.SelectedTime == null)
+            {
+                return;
+            }
 
-            if (DatePickerSource.SelectedDate != DatePickerDestination.SelectedDate) return;
+            var timeSpan = this.TimePickerSource.SelectedTime.Value.TimeOfDay;
+
+            if (this.TimePickerDestination.SelectedTime == null
+                || this.TimePickerDestination.SelectedTime.Value.TimeOfDay > timeSpan)
+            {
+                return;
+            }
+
+            if (this.DatePickerSource.SelectedDate != this.DatePickerDestination.SelectedDate)
+            {
+                return;
+            }
 
             MessageBox.Show("Sorry, but time is invalid!");
-            TimePickerDestination.SelectedTime = null;
+            this.TimePickerDestination.SelectedTime = null;
         }
 
-        private void ButtonProceed_OnClick(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// The button proceed on click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ButtonProceedOnClick([NotNull] object sender, [NotNull] RoutedEventArgs e)
         {
-            var id = this
-                .FindChildren<ComboBox>()
-                .Count(comboBox => !string.IsNullOrWhiteSpace(comboBox.Text));
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
 
-            id += this
-                .FindChildren<DatePicker>()
-                .Count(datePicker => !string.IsNullOrWhiteSpace(datePicker.Text));
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
 
-            id += this
-                .FindChildren<MaterialDesignThemes.Wpf.TimePicker>()
+            var id = this.FindChildren<ComboBox>().Count(comboBox => !string.IsNullOrWhiteSpace(comboBox.Text));
+
+            id += this.FindChildren<DatePicker>().Count(datePicker => !string.IsNullOrWhiteSpace(datePicker.Text));
+
+            id += this.FindChildren<MaterialDesignThemes.Wpf.TimePicker>()
                 .Count(timePicker => !string.IsNullOrWhiteSpace(timePicker.Text));
 
             var validData = id == 8;
 
             if (!validData)
+            {
                 MessageBox.Show("Please fill all the details!");
+            }
             else
             {
-                if (_status)
+                if (status)
                 {
                     DataHelper.StatusForEnable = true;
-                    TextBlockWelcome.Text = "Thanks for Adding";
+                    this.TextBlockWelcome.Text = "Thanks for Adding";
                     var controls = this.FindChildren<Control>();
                     foreach (var control in controls)
                     {
                         control.IsEnabled = false;
                     }
+
                     return;
                 }
 
-                DataHelper.Train.SRC_STN = Stations.FirstOrDefault(s => s.STN_NAME == ComboBoxDestination.Text)?.STN_CODE;
+                DataHelper.Train.SRC_STN =
+                    stations.FirstOrDefault(s => s.STN_NAME == this.ComboBoxDestination.Text)?.STN_CODE;
 
-                DataContext = new SelectTteViewModel(DataHelper.Train);
-                TextBlockWelcome.Text = "Add another TTE Details";
+                this.DataContext = new SelectTteViewModel(DataHelper.Train);
+                this.TextBlockWelcome.Text = "Add another TTE Details";
 
-                ComboBoxSource.SelectedItem =
-                    Stations.FirstOrDefault(s =>
-                        s.STN_CODE != null &&
-                            s.STN_CODE.Contains(DataHelper.Train.SRC_STN ?? throw new InvalidOperationException()))
-                        ?.STN_NAME;
+                this.ComboBoxSource.SelectedItem = stations.FirstOrDefault(
+                    s => s.STN_CODE.Contains(
+                        DataHelper.Train.SRC_STN ?? throw new InvalidOperationException()))?.STN_NAME;
 
                 // Waiting for disabling again
-                ComboBoxDestination.IsEnabled = false;
-                DatePickerDestination.IsEnabled = false;
-                TimePickerSource.IsEnabled = false;
-                TimePickerDestination.IsEnabled = false;
+                this.ComboBoxDestination.IsEnabled = false;
+                this.DatePickerDestination.IsEnabled = false;
+                this.TimePickerSource.IsEnabled = false;
+                this.TimePickerDestination.IsEnabled = false;
             }
         }
     }

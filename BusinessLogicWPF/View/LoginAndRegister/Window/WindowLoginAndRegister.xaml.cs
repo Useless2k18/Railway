@@ -1,53 +1,100 @@
-﻿using BusinessLogicWPF.ViewModel.LoginAndRegister;
-using MahApps.Metro.Controls;
-using Microsoft.Win32;
-using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="WindowLoginAndRegister.xaml.cs" company="SDCWORLD">
+//   Sourodeep Chatterjee
+// </copyright>
+// <summary>
+//   Interaction logic for MainWindow.xaml
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace BusinessLogicWPF.View.LoginAndRegister.Window
 {
+    using System;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+
+    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.ViewModel.LoginAndRegister;
+
+    using MahApps.Metro.Controls;
+
+    using Microsoft.Win32;
+
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Main Window XAML
     /// </summary>
     public partial class WindowLoginAndRegister : MetroWindow
     {
-        private int _counter;
+        /// <summary>
+        /// The counter.
+        /// </summary>
+        private int counter;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WindowLoginAndRegister"/> class.
+        /// </summary>
         public WindowLoginAndRegister()
         {
-            InitializeComponent();
-            Left = 100;
-            Top = 10;
-            SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
-            DataContext = new LoginViewModel();
+            this.InitializeComponent();
+            this.Left = 100;
+            this.Top = 10;
+            SystemEvents.DisplaySettingsChanged += this.SystemEventsDisplaySettingsChanged;
+            this.DataContext = new LoginViewModel();
         }
 
-        private void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
+        /// <summary>
+        /// The system events display settings changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void SystemEventsDisplaySettingsChanged([CanBeNull] object sender, [CanBeNull] EventArgs e)
         {
-            Left = SystemParameters.PrimaryScreenWidth - Width;
-            Top = SystemParameters.PrimaryScreenHeight - Height;
+            this.Left = SystemParameters.PrimaryScreenWidth - this.Width;
+            this.Top = SystemParameters.PrimaryScreenHeight - this.Height;
         }
 
-        private void ButtonNewUser_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// The button new user click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ButtonNewUserClick([CanBeNull] object sender, [CanBeNull] RoutedEventArgs e)
         {
-            if (_counter % 2 == 0)
+            if (this.counter % 2 == 0)
             {
-                ButtonNewUser.Content = "Already Registered?";
-                DataContext = new RegisterViewModel();
-                ButtonBack.Visibility = Visibility.Collapsed;
+                this.ButtonNewUser.Content = "Already Registered?";
+                this.DataContext = new RegisterViewModel();
+                this.ButtonBack.Visibility = Visibility.Collapsed;
             }
             else
             {
-                ButtonNewUser.Content = "New User?";
-                DataContext = new LoginViewModel();
-                ButtonBack.Visibility = Visibility.Collapsed;
+                this.ButtonNewUser.Content = "New User?";
+                this.DataContext = new LoginViewModel();
+                this.ButtonBack.Visibility = Visibility.Collapsed;
             }
-            _counter++;
+
+            this.counter++;
         }
 
-        private void ButtonLikeLabel_MouseEnter(object sender, MouseEventArgs e)
+        /// <summary>
+        /// The button like label mouse enter.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ButtonLikeLabelMouseEnter([CanBeNull] object sender, [CanBeNull] MouseEventArgs e)
         {
             if (sender is Button button)
             {
@@ -55,7 +102,16 @@ namespace BusinessLogicWPF.View.LoginAndRegister.Window
             }
         }
 
-        private void ButtonLikeLabel_MouseLeave(object sender, MouseEventArgs e)
+        /// <summary>
+        /// The button like label mouse leave.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ButtonLikeLabelMouseLeave([CanBeNull] object sender, [CanBeNull] MouseEventArgs e)
         {
             if (sender is Button button)
             {
@@ -63,20 +119,19 @@ namespace BusinessLogicWPF.View.LoginAndRegister.Window
             }
         }
 
-        public void CenterWindowOnScreen()
+        /// <summary>
+        /// The button back on click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ButtonBackOnClick([CanBeNull] object sender, [CanBeNull] RoutedEventArgs e)
         {
-            var screenWidth = SystemParameters.PrimaryScreenWidth;
-            var screenHeight = SystemParameters.PrimaryScreenHeight;
-            var windowWidth = Width;
-            var windowHeight = Height;
-            Left = screenWidth / 2 - windowWidth / 2;
-            Top = screenHeight / 2 - windowHeight / 2;
-        }
-
-        private void ButtonBack_OnClick(object sender, RoutedEventArgs e)
-        {
-            DataContext = new LoginViewModel();
-            ButtonBack.Visibility = Visibility.Collapsed;
+            this.DataContext = new LoginViewModel();
+            this.ButtonBack.Visibility = Visibility.Collapsed;
         }
     }
 }

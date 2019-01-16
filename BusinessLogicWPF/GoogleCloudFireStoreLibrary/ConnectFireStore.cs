@@ -1,94 +1,341 @@
-﻿using Google.Apis.Auth.OAuth2;
-using Google.Cloud.Firestore;
-using Google.Cloud.Firestore.V1Beta1;
-using Grpc.Auth;
-using Grpc.Core;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ConnectFireStore.cs" company="SDCWORLD">
+//   Sourodeep Chatterjee
+// </copyright>
+// <summary>
+//   Defines the ConnectFireStore type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+// ReSharper disable StyleCop.SA1202
 
 namespace BusinessLogicWPF.GoogleCloudFireStoreLibrary
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using BusinessLogicWPF.Annotations;
+
+    using Google.Apis.Auth.OAuth2;
+    using Google.Cloud.Firestore;
+    using Google.Cloud.Firestore.V1Beta1;
+
+    using Grpc.Auth;
+    using Grpc.Core;
+
+    /// <summary>
+    /// The connect fire store.
+    /// </summary>
     public class ConnectFireStore
     {
-        private static FirestoreDb _fireStoreDb;
+        /// <summary>
+        /// The fire store Database.
+        /// </summary>
+        [CanBeNull]
+        private static FirestoreDb fireStoreDb;
 
-        public ConnectFireStore(string projectId, string jsonPath, string dataBaseId = "(default)")
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConnectFireStore"/> class.
+        /// </summary>
+        /// <param name="projectId">
+        /// The project id.
+        /// </param>
+        /// <param name="jsonPath">
+        /// The JSON path.
+        /// </param>
+        /// <param name="databaseId">
+        /// The database id.
+        /// </param>
+        public ConnectFireStore([NotNull] string projectId, [NotNull] string jsonPath, [NotNull] string databaseId = "(default)")
         {
             var googleCredential = GoogleCredential.FromFile(jsonPath);
             var channel = new Channel(
-                FirestoreClient.DefaultEndpoint.Host, FirestoreClient.DefaultEndpoint.Port,
+                FirestoreClient.DefaultEndpoint.Host,
+                FirestoreClient.DefaultEndpoint.Port,
                 googleCredential.ToChannelCredentials());
             var fireStoreClient = FirestoreClient.Create(channel);
 
-            _fireStoreDb = FirestoreDb.Create(projectId, dataBaseId, fireStoreClient);
+            fireStoreDb = FirestoreDb.Create(projectId, databaseId, fireStoreClient);
         }
 
-        private static string StringArrayToString(string[] stringArray, string separator) =>
-            string.Join(separator, stringArray);
-
-        private static string GetCollectionPath(string[] pathArray)
+        /// <summary>
+        /// The string array to string.
+        /// </summary>
+        /// <param name="stringArray">
+        /// The string array.
+        /// </param>
+        /// <param name="separator">
+        /// The separator.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        [NotNull]
+        private static string StringArrayToString([NotNull] string[] stringArray, [NotNull] string separator)
         {
-            if (pathArray.Length > 1)
-                return pathArray.Length % 2 != 0 ? StringArrayToString(pathArray, "/") : null;
-            return pathArray.ToString().Contains("/") ? pathArray.ToString() : null;
+            if (stringArray == null)
+            {
+                throw new ArgumentNullException(nameof(stringArray));
+            }
+
+            if (separator == null)
+            {
+                throw new ArgumentNullException(nameof(separator));
+            }
+
+            return string.Join(separator, stringArray);
         }
 
-        private static string GetDocumentPath(string[] pathArray)
+        /// <summary>
+        /// The get collection path.
+        /// </summary>
+        /// <param name="pathArray">
+        /// The path array.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        [NotNull]
+        private static string GetCollectionPath([NotNull] string[] pathArray)
         {
+            if (pathArray == null)
+            {
+                throw new ArgumentNullException(nameof(pathArray));
+            }
+
             if (pathArray.Length > 1)
-                return pathArray.Length % 2 == 0 ? StringArrayToString(pathArray, "/") : null;
-            return pathArray.ToString().Contains("/") ? pathArray.ToString() : null;
+            {
+                return (pathArray.Length % 2 != 0 ? StringArrayToString(pathArray, "/") : null)
+                       ?? throw new InvalidOperationException();
+            }
+
+            return (pathArray.ToString().Contains("/") ? pathArray.ToString() : null)
+                   ?? throw new InvalidOperationException();
+        }
+
+        /// <summary>
+        /// The get document path.
+        /// </summary>
+        /// <param name="pathArray">
+        /// The path array.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        [NotNull]
+        private static string GetDocumentPath([NotNull] string[] pathArray)
+        {
+            if (pathArray == null)
+            {
+                throw new ArgumentNullException(nameof(pathArray));
+            }
+
+            if (pathArray.Length > 1)
+            {
+                return (pathArray.Length % 2 == 0 ? StringArrayToString(pathArray, "/") : null)
+                       ?? throw new InvalidOperationException();
+            }
+
+            return (pathArray.ToString().Contains("/") ? pathArray.ToString() : null)
+                   ?? throw new InvalidOperationException();
         }
 
         #region Add Data
 
-        public async Task AddCollectionData(Dictionary<string, object> dictionary, params string[] name)
+        /// <summary>
+        /// The add collection data async.
+        /// </summary>
+        /// <param name="dictionary">
+        /// The dictionary.
+        /// </param>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        public async Task AddCollectionDataAsync(
+            [NotNull] Dictionary<string, object> dictionary,
+            [NotNull] params string[] name)
         {
-            var documentReference = _fireStoreDb.Document(GetDocumentPath(name));
+            if (dictionary == null)
+            {
+                throw new ArgumentNullException(nameof(dictionary));
+            }
 
-            if (documentReference == null) return;
-            await documentReference.SetAsync(dictionary);
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            if (fireStoreDb != null)
+            {
+                var documentReference = fireStoreDb.Document(GetDocumentPath(name));
+
+                if (documentReference == null)
+                {
+                    return;
+                }
+
+                await documentReference.SetAsync(dictionary).ConfigureAwait(false);
+            }
         }
 
-        public async Task AddCollectionData<TEntity>(TEntity entity, params string[] name) where TEntity : class
+        /// <summary>
+        /// The add collection data async.
+        /// </summary>
+        /// <param name="entity">
+        /// The entity.
+        /// </param>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <typeparam name="TEntity">
+        /// Entity maybe a Model Class
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        public async Task AddCollectionDataAsync<TEntity>([NotNull] TEntity entity, [NotNull] params string[] name)
+            where TEntity : class
         {
-            var documentReference = _fireStoreDb.Document(GetDocumentPath(name));
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
 
-            if (documentReference == null) return;
-            await documentReference.SetAsync(entity);
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            if (fireStoreDb != null)
+            {
+                var documentReference = fireStoreDb.Document(GetDocumentPath(name));
+
+                if (documentReference == null)
+                {
+                    return;
+                }
+
+                await documentReference.SetAsync(entity).ConfigureAwait(false);
+            }
         }
 
         #endregion
 
         #region Add Or Update Data
 
-        public async Task AddOrUpdateCollectionData(Dictionary<string, object> dictionary, params string[] name)
+        /// <summary>
+        /// The add or update collection data async.
+        /// </summary>
+        /// <param name="dictionary">
+        /// The dictionary.
+        /// </param>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        public async Task AddOrUpdateCollectionDataAsync(
+            [NotNull] Dictionary<string, object> dictionary,
+            [NotNull] params string[] name)
         {
-            var documentReference = _fireStoreDb.Document(GetDocumentPath(name));
+            if (dictionary == null)
+            {
+                throw new ArgumentNullException(nameof(dictionary));
+            }
+
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            var documentReference = fireStoreDb?.Document(GetDocumentPath(name));
 
             if (documentReference != null)
-                await documentReference.SetAsync(dictionary, SetOptions.MergeAll);
+            {
+                await documentReference.SetAsync(dictionary, SetOptions.MergeAll).ConfigureAwait(false);
+            }
         }
 
-        public async Task AddOrUpdateCollectionData<TEntity>(TEntity entity, params string[] name) where TEntity : class
+        /// <summary>
+        /// The add or update collection data async.
+        /// </summary>
+        /// <param name="entity">
+        /// The entity.
+        /// </param>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <typeparam name="TEntity">
+        /// Entity maybe a class of Model
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        public async Task AddOrUpdateCollectionDataAsync<TEntity>(
+            [NotNull] TEntity entity,
+            [NotNull] params string[] name)
+            where TEntity : class
         {
-            var documentReference = _fireStoreDb.Document(GetDocumentPath(name));
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            var documentReference = fireStoreDb?.Document(GetDocumentPath(name));
 
             if (documentReference != null)
-                await documentReference.SetAsync(entity, SetOptions.MergeAll);
+            {
+                await documentReference.SetAsync(entity, SetOptions.MergeAll).ConfigureAwait(false);
+            }
         }
 
         #endregion
 
         #region Update Data
 
-        public async Task UpdateDoc(IDictionary<string, object> dictionary, params string[] name)
+        /// <summary>
+        /// The update doc async.
+        /// </summary>
+        /// <param name="dictionary">
+        /// The dictionary.
+        /// </param>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        public async Task UpdateDocAsync(
+            [NotNull] IDictionary<string, object> dictionary,
+            [NotNull] params string[] name)
         {
-            var documentReference = _fireStoreDb.Document(GetDocumentPath(name));
+            if (dictionary == null)
+            {
+                throw new ArgumentNullException(nameof(dictionary));
+            }
+
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            var documentReference = fireStoreDb?.Document(GetDocumentPath(name));
 
             if (documentReference != null)
-                await documentReference.UpdateAsync(dictionary);
+            {
+                await documentReference.UpdateAsync(dictionary).ConfigureAwait(false);
+            }
         }
 
         #endregion
@@ -97,22 +344,61 @@ namespace BusinessLogicWPF.GoogleCloudFireStoreLibrary
 
         #region Get Collection Fields
 
-        public TEntity GetCollectionFields<TEntity>(params string[] name) where TEntity : class
+        /// <summary>
+        /// The get collection fields.
+        /// </summary>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <typeparam name="TEntity">
+        /// Entity maybe a class of Model
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="TEntity"/>.
+        /// </returns>
+        [CanBeNull]
+        public TEntity GetCollectionFields<TEntity>([NotNull] params string[] name) where TEntity : class
         {
-            var documentReference = _fireStoreDb.Document(GetDocumentPath(name));
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
 
-            if (documentReference == null) return null;
+            var documentReference = fireStoreDb?.Document(GetDocumentPath(name));
+
+            if (documentReference == null)
+            {
+                return null;
+            }
 
             var snapshot = documentReference.GetSnapshotAsync().Result;
 
             return snapshot.Exists ? snapshot.ConvertTo<TEntity>() : null;
         }
 
-        public Dictionary<string, object> GetCollectionFields(params string[] name)
+        /// <summary>
+        /// The get collection fields.
+        /// </summary>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Dictionary{TKey,TValue}"/>.
+        /// </returns>
+        [CanBeNull]
+        public Dictionary<string, object> GetCollectionFields([NotNull] params string[] name)
         {
-            var documentReference = _fireStoreDb.Document(GetDocumentPath(name));
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
 
-            if (documentReference == null) return null;
+            var documentReference = fireStoreDb?.Document(GetDocumentPath(name));
+
+            if (documentReference == null)
+            {
+                return null;
+            }
 
             var snapshot = documentReference.GetSnapshotAsync().Result;
 
@@ -123,9 +409,24 @@ namespace BusinessLogicWPF.GoogleCloudFireStoreLibrary
 
         #region Get All Document or Collection
 
-        public List<Dictionary<string, object>> GetAllDocumentData(params string[] name)
+        /// <summary>
+        /// The get all document data.
+        /// </summary>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List{T}"/>.
+        /// </returns>
+        [CanBeNull]
+        public List<Dictionary<string, object>> GetAllDocumentData([NotNull] params string[] name)
         {
-            var allCollectionsQuery = _fireStoreDb.Collection(GetCollectionPath(name));
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            var allCollectionsQuery = fireStoreDb?.Collection(GetCollectionPath(name));
 
             var allCollectionQuerySnapshot = allCollectionsQuery?.GetSnapshotAsync().Result;
 
@@ -134,9 +435,27 @@ namespace BusinessLogicWPF.GoogleCloudFireStoreLibrary
                 .Select(documentSnapshot => documentSnapshot.ToDictionary()).ToList();
         }
 
-        public List<TEntity> GetAllDocumentData<TEntity>(params string[] name) where TEntity : class
+        /// <summary>
+        /// The get all document data.
+        /// </summary>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <typeparam name="TEntity">
+        /// Entity maybe a class of Model
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="List{T}"/>.
+        /// </returns>
+        [CanBeNull]
+        public List<TEntity> GetAllDocumentData<TEntity>([NotNull] params string[] name) where TEntity : class
         {
-            var allCollectionsQuery = _fireStoreDb.Collection(GetCollectionPath(name));
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            var allCollectionsQuery = fireStoreDb?.Collection(GetCollectionPath(name));
 
             var allCollectionQuerySnapshot = allCollectionsQuery?.GetSnapshotAsync().Result;
 
@@ -144,9 +463,27 @@ namespace BusinessLogicWPF.GoogleCloudFireStoreLibrary
                 .Select(documentSnapshot => documentSnapshot.ConvertTo<TEntity>()).ToList();
         }
 
-        public List<string> GetAllDocumentId(params string[] name)
+        /// <summary>
+        /// The get all document id.
+        /// </summary>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List{T}"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// thrown if Argument Null Exception
+        /// </exception>
+        [CanBeNull]
+        public List<string> GetAllDocumentId([NotNull] params string[] name)
         {
-            var allCollectionsQuery = _fireStoreDb.Collection(GetCollectionPath(name));
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            var allCollectionsQuery = fireStoreDb?.Collection(GetCollectionPath(name));
 
             var allCollectionQuerySnapshot = allCollectionsQuery?.GetSnapshotAsync().Result;
 
@@ -154,12 +491,35 @@ namespace BusinessLogicWPF.GoogleCloudFireStoreLibrary
                 .Select(documentSnapshot => documentSnapshot.Id).ToList();
         }
 
-        public List<CollectionReference> GetCollections(params string[] name)
+        /// <summary>
+        /// The get collections.
+        /// </summary>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List{T}"/>.
+        /// </returns>
+        [CanBeNull]
+        public List<CollectionReference> GetCollections([NotNull] params string[] name)
         {
-            var documentReference = _fireStoreDb.Document(GetDocumentPath(name));
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            if (fireStoreDb == null)
+            {
+                return null;
+            }
+
+            var documentReference = fireStoreDb.Document(GetDocumentPath(name));
             var collectionReference = new List<CollectionReference>();
 
-            if (documentReference == null) return null;
+            if (documentReference == null)
+            {
+                return null;
+            }
 
             IList<CollectionReference> subCollections = documentReference.ListCollectionsAsync().ToList().Result;
 
@@ -174,11 +534,36 @@ namespace BusinessLogicWPF.GoogleCloudFireStoreLibrary
 
         #region Query
 
-        public bool FindDocument(string documentId, params string[] name)
+        /// <summary>
+        /// The find document.
+        /// </summary>
+        /// <param name="documentId">
+        /// The document id.
+        /// </param>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public bool FindDocument([NotNull] string documentId, [NotNull] params string[] name)
         {
-            var collectionReference = _fireStoreDb.Collection(GetCollectionPath(name));
+            if (documentId == null)
+            {
+                throw new ArgumentNullException(nameof(documentId));
+            }
 
-            if (collectionReference == null) return false;
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            var collectionReference = fireStoreDb?.Collection(GetCollectionPath(name));
+
+            if (collectionReference == null)
+            {
+                return false;
+            }
 
             var documentSnapshot = collectionReference.Document(documentId).GetSnapshotAsync().Result;
 

@@ -1,29 +1,65 @@
-﻿using BusinessLogicWPF.Model;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DataHelper.cs" company="SDCWORLD">
+//   Sourodeep Chatterjee
+// </copyright>
+// <summary>
+//   Defines the DataHelper type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace BusinessLogicWPF.Helper
 {
+    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Model;
+
+    /// <summary>
+    /// The data helper.
+    /// </summary>
     public static class DataHelper
     {
-        private static Train _train;
-        private static bool _statusForEnable;
+        /// <summary>
+        /// The train.
+        /// </summary>
+        [CanBeNull]
+        private static Train train;
 
+        /// <summary>
+        /// The status for enable.
+        /// </summary>
+        private static bool statusForEnable;
+
+        /// <summary>
+        /// Gets or sets the train.
+        /// </summary>
+        [CanBeNull]
         public static Train Train
         {
-            get => _train;
+            get => train;
             set
             {
-                if (value == null || _train == value) return;
-                _train = value;
+                if (value == null || train == value)
+                {
+                    return;
+                }
+
+                train = value;
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether status for enable.
+        /// </summary>
         public static bool StatusForEnable
         {
-            get => _statusForEnable;
+            get => statusForEnable;
             set
             {
-                if (_statusForEnable.Equals(value)) return;
-                _statusForEnable = value;
+                if (statusForEnable.Equals(value))
+                {
+                    return;
+                }
+
+                statusForEnable = value;
             }
         }
     }

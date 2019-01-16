@@ -1,18 +1,39 @@
-﻿namespace BusinessLogicWPF.Helper
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ErrorLabelHelper.cs" company="SDCWORLD">
+//   Sourodeep Chatterjee
+// </copyright>
+// <summary>
+//   Defines the ErrorLabelHelper type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace BusinessLogicWPF.Helper
 {
+    /// <summary>
+    /// The error label helper.
+    /// </summary>
     public class ErrorLabelHelper
     {
-        private static int _counter;
+        /// <summary>
+        /// The counter.
+        /// </summary>
+        private static int counter;
 
+        /// <summary>
+        /// The check.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
         public static bool Check()
         {
-            _counter++;
-            return _counter > 2;
+            counter++;
+            return counter > 2;
         }
 
-        public static void Reset()
-        {
-            _counter = 0;
-        }
+        /// <summary>
+        /// The reset.
+        /// </summary>
+        public static void Reset() => counter = 0;
     }
 }

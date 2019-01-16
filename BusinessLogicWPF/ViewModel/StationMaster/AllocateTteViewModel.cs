@@ -1,74 +1,87 @@
-﻿using BusinessLogicWPF.Domain;
-using BusinessLogicWPF.GoogleCloudFireStoreLibrary;
-using BusinessLogicWPF.Helper;
-using BusinessLogicWPF.Model;
-using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="AllocateTteViewModel.cs" company="SDCWORLD">
+//   Sourodeep Chatterjee
+// </copyright>
+// <summary>
+//   Defines the AllocateTteViewModel type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace BusinessLogicWPF.ViewModel.StationMaster
 {
+    using System;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Diagnostics;
+    using System.Runtime.CompilerServices;
+
+    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.GoogleCloudFireStoreLibrary;
+    using BusinessLogicWPF.Helper;
+    using BusinessLogicWPF.Model;
+
+    /// <summary>
+    /// The allocate TTE View Model.
+    /// </summary>
     public class AllocateTteViewModel : INotifyPropertyChanged
     {
-        private readonly ObservableCollection<Train> _items1;
-        private readonly ObservableCollection<Train> _items2;
-        private readonly ObservableCollection<Train> _items3;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AllocateTteViewModel"/> class.
+        /// </summary>
         public AllocateTteViewModel()
         {
-            _items1 = CreateData();
-            _items2 = CreateData();
-            _items3 = CreateData();
+            this.Items1 = CreateData();
+            this.Items2 = CreateData();
+            this.Items3 = CreateData();
         }
 
-        private static ObservableCollection<SelectableViewModel> CreateData1()
-        {
-            return new ObservableCollection<SelectableViewModel>
-            {
-                new SelectableViewModel
-                {
-                    TrainNo = "12345",
-                    TrainName = "HWH MAS Duronto",
-                    SourceStation = "Howrah",
-                    DestinationStation = "Chennai"
-                },
+        /// <summary>
+        /// The property changed of Allocate TTE View Model.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
 
-                new SelectableViewModel
-                {
-                    TrainNo = "15125",
-                    TrainName = "MAS NJP Express",
-                    SourceStation = "Chennai",
-                    DestinationStation = "New Jalpaiguri"
-                },
+        /// <summary>
+        /// Gets The items 1.
+        /// </summary>
+        [CanBeNull]
+        public ObservableCollection<Train> Items1 { get; }
 
-                new SelectableViewModel
-                {
-                    TrainNo = "54575",
-                    TrainName = "BOM HWH MAIL",
-                    SourceStation = "Mumbai",
-                    DestinationStation = "Howrah"
-                },
+        /// <summary>
+        /// Gets the items 2.
+        /// </summary>
+        [CanBeNull]
+        public ObservableCollection<Train> Items2 { get; }
 
-                new SelectableViewModel
-                {
-                    TrainNo = "12073",
-                    TrainName = "HWH BBS Janashatbdi",
-                    SourceStation = "Howrah",
-                    DestinationStation = "Bhubaneswar"
-                }
-            };
-        }
+        /// <summary>
+        /// Gets the items 3.
+        /// </summary>
+        [CanBeNull]
+        public ObservableCollection<Train> Items3 { get; }
 
+        /// <summary>
+        /// The on property changed.
+        /// </summary>
+        /// <param name="propertyName">
+        /// The property name.
+        /// </param>
+        protected virtual void OnPropertyChanged([CallerMemberName] [CanBeNull] string propertyName = null) =>
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        /// <summary>
+        /// The create data.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="ObservableCollection{T}"/>.
+        /// </returns>
+        [CanBeNull]
         private static ObservableCollection<Train> CreateData()
         {
             // Google Cloud Platform project ID.
-            const string projectId = "ticketchecker-d4f79";
+            const string ProjectId = "ticketchecker-d4f79";
 
             try
             {
-                StaticDbContext.ConnectFireStore = new ConnectFireStore(projectId, @"TicketChecker-1f6bf5c2db0a.json");
+                StaticDbContext.ConnectFireStore = new ConnectFireStore(ProjectId, @"TicketChecker-1f6bf5c2db0a.json");
             }
             catch (Exception exception)
             {
@@ -81,21 +94,14 @@ namespace BusinessLogicWPF.ViewModel.StationMaster
             return observableCollectionOfTrain;
         }
 
-        public ObservableCollection<Train> Items1 => _items1;
-        public ObservableCollection<Train> Items2 => _items2;
-
-        public ObservableCollection<Train> Items3 => _items3;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private Action<PropertyChangedEventArgs> RaisePropertyChanged()
-        {
-            return args => PropertyChanged?.Invoke(this, args);
-        }
+        /// <summary>
+        /// The raise property changed.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Action"/>.
+        /// </returns>
+        [NotNull]
+        private Action<PropertyChangedEventArgs> RaisePropertyChanged() =>
+            args => this.PropertyChanged?.Invoke(this, args);
     }
 }

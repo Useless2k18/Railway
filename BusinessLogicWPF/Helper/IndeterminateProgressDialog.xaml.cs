@@ -1,34 +1,71 @@
-﻿using System;
-using System.ComponentModel;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Threading;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="IndeterminateProgressDialog.xaml.cs" company="SDCWORLD">
+//   Sourodeep Chatterjee
+// </copyright>
+// <summary>
+//   Interaction logic for IndeterminateProgressDialog.xaml
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace BusinessLogicWPF.Helper
 {
+    using System;
+    using System.ComponentModel;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Threading;
+
+    using BusinessLogicWPF.Annotations;
+
     /// <summary>
-    /// Interaction logic for IndeterminateProgressDialog.xaml
+    /// Interaction logic for Indeterminate Progress Dialog XAML
     /// </summary>
     public partial class IndeterminateProgressDialog : UserControl
     {
-        private static BackgroundWorker _backgroundWorker = new BackgroundWorker();
+        /// <summary>
+        /// The background worker.
+        /// </summary>
+        [NotNull]
+        private static BackgroundWorker backgroundWorker = new BackgroundWorker();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="IndeterminateProgressDialog"/> class.
+        /// </summary>
         public IndeterminateProgressDialog()
         {
-            InitializeComponent();
-            ButtonOk.IsEnabled = false;
+            this.InitializeComponent();
+            this.ButtonOk.IsEnabled = false;
         }
 
-        private void _backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        /// <summary>
+        /// The background worker do work.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void BackgroundWorkerDoWork([CanBeNull] object sender, [CanBeNull] DoWorkEventArgs e)
         {
-            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal,
-                new Action(() => { ProgressBar.Visibility = Visibility.Visible; }));
+            Application.Current.Dispatcher.Invoke(
+                DispatcherPriority.Normal,
+                new Action(() => { this.ProgressBar.Visibility = Visibility.Visible; }));
         }
 
-        private void _backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        /// <summary>
+        /// The background worker run worker completed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void BackgroundWorkerRunWorkerCompleted([CanBeNull] object sender, [CanBeNull] RunWorkerCompletedEventArgs e)
         {
-            ProgressBar.Visibility = Visibility.Collapsed;
-            ButtonOk.IsEnabled = true;
+            this.ProgressBar.Visibility = Visibility.Collapsed;
+            this.ButtonOk.IsEnabled = true;
         }
     }
 }

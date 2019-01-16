@@ -1,52 +1,116 @@
-﻿using System;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="SelectableViewModel.cs" company="SDCWORLD">
+//   Sourodeep Chatterjee
+// </copyright>
+// <summary>
+//   Defines the SelectableViewModel type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace BusinessLogicWPF.Domain
 {
+    using System;
 
+    using BusinessLogicWPF.Annotations;
+
+    /// <summary>
+    /// The selectable view model.
+    /// </summary>
     public class SelectableViewModel
     {
-        private string _trainNo;
-        private string _trainName;
-        private string _sourceStation;
-        private string _destinationStation;
+        /// <summary>
+        /// The train no.
+        /// </summary>
+        [CanBeNull]
+        private string trainNo;
 
+        /// <summary>
+        /// The train name.
+        /// </summary>
+        [CanBeNull]
+        private string trainName;
+
+        /// <summary>
+        /// The source station.
+        /// </summary>
+        [CanBeNull]
+        private string sourceStation;
+
+        /// <summary>
+        /// The destination station.
+        /// </summary>
+        [CanBeNull]
+        private string destinationStation;
+
+        /// <summary>
+        /// Gets or sets the train no.
+        /// </summary>
+        [CanBeNull]
         public string TrainNo
         {
-            get => _trainNo;
+            get => this.trainNo;
             set
             {
-                if (_trainNo != null && _trainNo == value) return;
-                _trainNo = value;
+                if (this.trainNo != null && this.trainNo == value)
+                {
+                    return;
+                }
+
+                this.trainNo = value;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the train name.
+        /// </summary>
+        [CanBeNull]
         public string TrainName
         {
-            get => _trainName;
+            get => this.trainName;
             set
             {
-                if (string.Equals(_trainName, value, StringComparison.Ordinal)) return;
-                _trainName = value;
+                if (string.Equals(this.trainName, value, StringComparison.Ordinal))
+                {
+                    return;
+                }
+
+                this.trainName = value;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the source station.
+        /// </summary>
+        [CanBeNull]
         public string SourceStation
         {
-            get => _sourceStation;
+            get => this.sourceStation;
             set
             {
-                if (_sourceStation != null && _sourceStation == value) return;
-                _sourceStation = value;
+                if (this.sourceStation != null && this.sourceStation == value)
+                {
+                    return;
+                }
+
+                this.sourceStation = value;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the destination station.
+        /// </summary>
+        [CanBeNull]
         public string DestinationStation
         {
-            get => _destinationStation;
+            get => this.destinationStation;
             set
             {
-                if (value != null && _destinationStation == value) return;
-                _destinationStation = value;
+                if (value != null && this.destinationStation == value)
+                {
+                    return;
+                }
+
+                this.destinationStation = value;
             }
         }
     }

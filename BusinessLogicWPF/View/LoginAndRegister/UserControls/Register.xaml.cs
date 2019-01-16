@@ -1,173 +1,344 @@
-﻿using BusinessLogicWPF.ViewModel.LoginAndRegister;
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Register.xaml.cs" company="SDCWORLD">
+//   Sourodeep Chatterjee
+// </copyright>
+// <summary>
+//   Interaction logic for Register.xaml
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable StyleCop.SA1204
 namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using System.Windows.Navigation;
+
+    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.ViewModel.LoginAndRegister;
+
+    using Window = System.Windows.Window;
+
     /// <summary>
-    /// Interaction logic for Register.xaml
+    /// Interaction logic for Register XAML
     /// </summary>
     public partial class Register : UserControl
     {
-        private int _emptyFlag;
-        private readonly System.Windows.Window _window;
+        /// <summary>
+        /// The window.
+        /// </summary>
+        [CanBeNull]
+        private readonly Window window;
 
+        /// <summary>
+        /// The empty flag.
+        /// </summary>
+        private int emptyFlag;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Register"/> class.
+        /// </summary>
         public Register()
         {
-            InitializeComponent();
-            _window = Application.Current.MainWindow;
+            this.InitializeComponent();
+            this.window = Application.Current.MainWindow;
         }
 
-        private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
+        /// <summary>
+        /// The hyperlink on request navigate.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void HyperlinkOnRequestNavigate([NotNull] object sender, [NotNull] RequestNavigateEventArgs e)
         {
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
         }
 
-        private void ButtonNext_OnClick(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// The button next on click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ButtonNextOnClick([CanBeNull] object sender, [CanBeNull] RoutedEventArgs e)
         {
-            _emptyFlag = 0;
+            this.emptyFlag = 0;
 
-            #region Handling Empty and Wrong Values
-
-            if (string.IsNullOrWhiteSpace(TextEmailId.Text))
+            if (string.IsNullOrWhiteSpace(this.TextEmailId.Text))
             {
-                LabelEmailId.Visibility = Visibility.Visible;
-                _emptyFlag++;
+                this.LabelEmailId.Visibility = Visibility.Visible;
+                this.emptyFlag++;
+            }
+            else if (!IsValidEmail(this.TextEmailId.Text))
+            {
+                this.LabelEmailId.Content = "* Please enter valid Email ID";
+                this.LabelEmailId.Visibility = Visibility.Visible;
+                this.emptyFlag++;
             }
 
-            else if (!IsValidEmail(TextEmailId.Text))
+            if (string.IsNullOrWhiteSpace(this.TextFullName.Text))
             {
-                LabelEmailId.Content = "* Please enter valid Email ID";
-                LabelEmailId.Visibility = Visibility.Visible;
-                _emptyFlag++;
+                this.LabelName.Visibility = Visibility.Visible;
+                this.emptyFlag++;
+            }
+            else if (!this.TextFullName.Text.Contains(" "))
+            {
+                this.LabelName.Content = "* Please enter your full name";
+                this.LabelName.Visibility = Visibility.Visible;
+                this.emptyFlag++;
             }
 
-            if (string.IsNullOrWhiteSpace(TextFullName.Text))
+            if (string.IsNullOrWhiteSpace(this.TextPassword.Password))
             {
-                LabelName.Visibility = Visibility.Visible;
-                _emptyFlag++;
+                this.TextBlockPassword.Visibility = Visibility.Visible;
+                this.LabelPassword.Visibility = Visibility.Visible;
+
+                this.emptyFlag++;
+            }
+            else if (!IsValidPassword(this.TextPassword.Password))
+            {
+                this.TextBlockPassword.Visibility = Visibility.Visible;
+                this.LabelPassword.Visibility = Visibility.Collapsed;
+                this.PasswordInstructions.Opacity = 1.5;
+                this.TextFullName.Opacity = 0.5;
+                this.TextEmailId.Opacity = 0.5;
+                this.emptyFlag++;
             }
 
-            else if (!TextFullName.Text.Contains(" "))
+            if (this.DateOfBirth.SelectedDate == null)
             {
-                LabelName.Content = "* Please enter your full name";
-                LabelName.Visibility = Visibility.Visible;
-                _emptyFlag++;
+                this.LabelDateOfBirth.Visibility = Visibility.Visible;
+                this.emptyFlag++;
             }
 
-            if (string.IsNullOrWhiteSpace(TextPassword.Password))
+            if (this.emptyFlag != 0)
             {
-                TextBlockPassword.Visibility = Visibility.Visible;
-                LabelPassword.Visibility = Visibility.Visible;
-
-                _emptyFlag++;
-            }
-
-            else if (!IsValidPassword(TextPassword.Password))
-            {
-                TextBlockPassword.Visibility = Visibility.Visible;
-                LabelPassword.Visibility = Visibility.Collapsed;
-                PasswordInstructions.Opacity = 1.5;
-                TextFullName.Opacity = 0.5;
-                TextEmailId.Opacity = 0.5;
-                _emptyFlag++;
-            }
-
-            if (DateOfBirth.SelectedDate == null)
-            {
-                LabelDateOfBirth.Visibility = Visibility.Visible;
-                _emptyFlag++;
-            }
-
-            #endregion
-
-            if (_emptyFlag != 0) return;
-
-            if (DateOfBirth.SelectedDate == null) return;
-            PasswordInstructions.Opacity = 0.5;
-
-            var age = GetAge(DateOfBirth.SelectedDate.Value);
-            if (age < 18)
-            {
-                LabelDateOfBirth.Content = "Age should not be less than 18";
-                LabelDateOfBirth.Visibility = Visibility.Visible;
                 return;
             }
 
-            _window.DataContext = new Register2ViewModel();
+            if (this.DateOfBirth.SelectedDate == null)
+            {
+                return;
+            }
+
+            this.PasswordInstructions.Opacity = 0.5;
+
+            var age = GetAge(this.DateOfBirth.SelectedDate.Value);
+            if (age < 18)
+            {
+                this.LabelDateOfBirth.Content = "Age should not be less than 18";
+                this.LabelDateOfBirth.Visibility = Visibility.Visible;
+                return;
+            }
+
+            // win is window
+            var win = this.window;
+            if (win != null)
+            {
+                win.DataContext = new Register2ViewModel();
+            }
         }
 
         #region Input Fields
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        /// <summary>
+        /// The text box text changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void TextBoxTextChanged([CanBeNull] object sender, [CanBeNull] TextChangedEventArgs e)
         {
             if (!(sender is TextBox textBox))
+            {
                 return;
+            }
 
             if (textBox.Name.Contains("Email"))
-                LabelEmailId.Visibility = Visibility.Collapsed;
+            {
+                this.LabelEmailId.Visibility = Visibility.Collapsed;
+            }
 
             if (textBox.Name.Contains("Name"))
-                LabelName.Visibility = Visibility.Collapsed;
+            {
+                this.LabelName.Visibility = Visibility.Collapsed;
+            }
         }
 
-        private void TextPassword_OnPasswordChanged(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// The text password on password changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void TextPasswordOnPasswordChanged([CanBeNull] object sender, [CanBeNull] RoutedEventArgs e)
         {
-            LabelPassword.Visibility = Visibility.Collapsed;
+            this.LabelPassword.Visibility = Visibility.Collapsed;
         }
 
-        private void DateOfBirth_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        /// <summary>
+        /// The date of birth on key down.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// thrown if Argument Null Exception
+        /// </exception>
+        private void DateOfBirthOnKeyDown([NotNull] object sender, [NotNull] KeyEventArgs e)
         {
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
             e.Handled = true;
         }
 
-        private void DateOfBirth_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        /// <summary>
+        /// The date of birth on selected date changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void DateOfBirthOnSelectedDateChanged([CanBeNull] object sender, [CanBeNull] SelectionChangedEventArgs e)
         {
-            LabelDateOfBirth.Visibility = Visibility.Collapsed;
+            this.LabelDateOfBirth.Visibility = Visibility.Collapsed;
         }
 
         #endregion
 
         #region Utility Functions
 
+        /// <summary>
+        /// The get age.
+        /// </summary>
+        /// <param name="bornDate">
+        /// The born date.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
         private static int GetAge(DateTime bornDate)
         {
             var today = DateTime.Today;
             var age = today.Year - bornDate.Year;
             if (bornDate > today.AddYears(-age))
+            {
                 age--;
+            }
 
             return age;
         }
 
-        private static bool IsValidEmail(string email)
+        /// <summary>
+        /// The is valid email.
+        /// </summary>
+        /// <param name="email">
+        /// The email.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        private static bool IsValidEmail([NotNull] string email)
         {
+            if (email == null)
+            {
+                throw new ArgumentNullException(nameof(email));
+            }
+
             return new EmailAddressAttribute().IsValid(email);
         }
 
-        private static bool IsLetter(char c)
-        {
-            return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z';
-        }
+        /// <summary>
+        /// The is letter.
+        /// </summary>
+        /// <param name="c">
+        /// The c.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        private static bool IsLetter(char c) => (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
 
-        private static bool IsDigit(char c)
-        {
-            return c >= '0' && c <= '9';
-        }
+        /// <summary>
+        /// The is digit.
+        /// </summary>
+        /// <param name="c">
+        /// The c.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        private static bool IsDigit(char c) => c >= '0' && c <= '9';
 
-        private static bool IsSymbol(char c)
-        {
-            return c > 32 && c < 127 && !IsDigit(c) && !IsLetter(c);
-        }
+        /// <summary>
+        /// The is symbol.
+        /// </summary>
+        /// <param name="c">
+        /// The c.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        private static bool IsSymbol(char c) => c > 32 && c < 127 && !IsDigit(c) && !IsLetter(c);
 
-        private static bool IsValidPassword(string password)
+        /// <summary>
+        /// The is valid password.
+        /// </summary>
+        /// <param name="password">
+        /// The password.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        private static bool IsValidPassword([NotNull] string password)
         {
+            if (password == null)
+            {
+                throw new ArgumentNullException(nameof(password));
+            }
+
             return
                 IsLetter(password.FirstOrDefault()) &&
                 password.Any(IsLetter) &&

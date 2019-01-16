@@ -70,7 +70,7 @@
                 materialDesign:HintAssist.Hint="Select TTE Id"
                 Text="{Binding Path=TteId, Mode=TwoWay}"
                 Margin="10"
-                SelectionChanged="ComboBoxTteId_SelectionChanged">
+                SelectionChanged="ComboBoxTteIdSelectionChanged">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel/>
@@ -85,7 +85,7 @@
                 materialDesign:HintAssist.Hint="Select TTE Name"
                 Text="{Binding Path=TteName, Mode=TwoWay}"
                 Margin="10"
-                SelectionChanged="ComboBoxTteName_SelectionChanged">
+                SelectionChanged="ComboBoxTteNameSelectionChanged">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel/>
@@ -104,7 +104,7 @@
                 materialDesign:HintAssist.Hint="Select Source Station"
                 Text="{Binding Path=SourceStation}"
                 Margin="10"
-                SelectionChanged="ComboBoxSource_SelectionChanged">
+                SelectionChanged="ComboBoxSourceSelectionChanged">
             </ComboBox>
         </DockPanel>
         <StackPanel
@@ -119,8 +119,8 @@
                 MinWidth="100"
                 Text="{Binding Path=SourceDate, Mode=TwoWay}"
                 VerticalAlignment="Center"
-                SelectedDateChanged="DatePickerSource_OnSelectedDateChanged"
-                KeyDown="PickerSource_KeyDown"/>
+                SelectedDateChanged="DatePickerSourceOnSelectedDateChanged"
+                KeyDown="PickerSourceKeyDown"/>
 
             <materialDesign:TimePicker
                 x:Name="TimePickerSource"
@@ -132,8 +132,8 @@
                 Text="{Binding Path=SourceTime, Mode=TwoWay}"
                 VerticalAlignment="Bottom"
                 MinWidth="100"
-                SelectedTimeChanged="TimePickerSource_OnSelectedTimeChanged"
-                KeyDown="PickerSource_KeyDown"/>
+                SelectedTimeChanged="TimePickerSourceOnSelectedTimeChanged"
+                KeyDown="PickerSourceKeyDown"/>
         </StackPanel>
 
 
@@ -169,8 +169,8 @@
                 Text="{Binding Path=DestinationDate, Mode=TwoWay}"
                 Margin="10"
                 MinWidth="100"
-                SelectedDateChanged="DatePickerDestination_OnSelectedDateChanged"
-                KeyDown="PickerSource_KeyDown"/>
+                SelectedDateChanged="DatePickerDestinationOnSelectedDateChanged"
+                KeyDown="PickerSourceKeyDown"/>
 
             <materialDesign:TimePicker
                 x:Name="TimePickerDestination"
@@ -182,8 +182,8 @@
                 Text="{Binding Path=DestinationTime, Mode=TwoWay}"
                 VerticalAlignment="Bottom"
                 MinWidth="100"
-                SelectedTimeChanged="TimePickerDestination_OnSelectedTimeChanged"
-                KeyDown="PickerSource_KeyDown"/>
+                SelectedTimeChanged="TimePickerDestinationOnSelectedTimeChanged"
+                KeyDown="PickerSourceKeyDown"/>
         </StackPanel>
         <Button
             x:Name="ButtonReset"
@@ -202,7 +202,7 @@
             x:Name="ButtonProceed"
             Grid.Row="5" Grid.Column="1"
             Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-            Click="ButtonProceed_OnClick">
+            Click="ButtonProceedOnClick">
             <materialDesign:PackIcon
                 Kind="Check"
                 Foreground="White"

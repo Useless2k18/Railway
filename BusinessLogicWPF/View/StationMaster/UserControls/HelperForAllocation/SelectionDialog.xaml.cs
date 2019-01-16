@@ -1,36 +1,93 @@
-﻿using BusinessLogicWPF.Helper;
-using System.ComponentModel;
-using System.Windows.Controls;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="SelectionDialog.xaml.cs" company="SDCWORLD">
+//   Sourodeep Chatterjee
+// </copyright>
+// <summary>
+//   Interaction logic for SelectionDialog.xaml
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
 {
+    using System;
+    using System.ComponentModel;
+    using System.Windows.Controls;
+
+    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Helper;
+
     /// <summary>
-    /// Interaction logic for SelectionDialog.xaml
+    /// Interaction logic for Selection Dialog XAML
     /// </summary>
     public partial class SelectionDialog : UserControl
     {
-        private BackgroundWorker _backgroundWorker = new BackgroundWorker();
+        /// <summary>
+        /// The background worker.
+        /// </summary>
+        [NotNull]
+        private readonly BackgroundWorker backgroundWorker = new BackgroundWorker();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SelectionDialog"/> class.
+        /// </summary>
         public SelectionDialog()
         : base()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
-            _backgroundWorker.DoWork += _backgroundWorker_DoWork;
-            _backgroundWorker.RunWorkerCompleted += _backgroundWorker_RunWorkerCompleted;
-            _backgroundWorker.RunWorkerAsync();
+            this.backgroundWorker.DoWork += this.BackgroundWorkerDoWork;
+            this.backgroundWorker.RunWorkerCompleted += this.BackgroundWorkerRunWorkerCompleted;
+            this.backgroundWorker.RunWorkerAsync();
         }
 
-        private void _backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        /// <summary>
+        /// The background worker do work.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void BackgroundWorkerDoWork([NotNull] object sender, [NotNull] DoWorkEventArgs e)
         {
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
             while (!DataHelper.StatusForEnable)
             {
             }
         }
 
-        private void _backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        /// <summary>
+        /// The background worker run worker completed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void BackgroundWorkerRunWorkerCompleted([NotNull] object sender, [NotNull] RunWorkerCompletedEventArgs e)
         {
-            ButtonAccept.IsEnabled = true;
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
+            this.ButtonAccept.IsEnabled = true;
         }
     }
 }

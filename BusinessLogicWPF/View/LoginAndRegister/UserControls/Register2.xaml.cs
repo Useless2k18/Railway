@@ -1,52 +1,117 @@
-﻿using System.Text.RegularExpressions;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Register2.xaml.cs" company="SDCWORLD">
+//   Sourodeep Chatterjee
+// </copyright>
+// <summary>
+//   Interaction logic for Register2.xaml
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
 {
+    using System;
+    using System.Text.RegularExpressions;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+
+    using BusinessLogicWPF.Annotations;
+
     /// <summary>
-    /// Interaction logic for Register2.xaml
+    /// Interaction logic for Register 2 XAML
     /// </summary>
     public partial class Register2 : UserControl
     {
+        /// <summary>
+        /// The regex.
+        /// </summary>
+        [CanBeNull]
+        private static readonly Regex Regex = new Regex("[^0-9]+"); // regex that matches disallowed text
+                                                                    
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Register2"/> class.
+        /// </summary>
         public Register2()
         {
-            InitializeComponent();
-            ComboBoxCountryCode.Items.Add("+91");
-            ComboBoxCountryCode.Items.Add("+90");
-            ComboBoxCountryCode.Items.Add("+456");
+            this.InitializeComponent();
+            this.ComboBoxCountryCode.Items.Add("+91");
+            this.ComboBoxCountryCode.Items.Add("+90");
+            this.ComboBoxCountryCode.Items.Add("+456");
         }
 
-        private void TextBox_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        /// <summary>
+        /// The is text allowed.
+        /// </summary>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        private static bool IsTextAllowed([NotNull] string text)
         {
-            e.Handled = !IsTextAllowed(e.Text);
+            if (text == null)
+            {
+                throw new ArgumentNullException(nameof(text));
+            }
+
+            return Regex != null && !Regex.IsMatch(text);
         }
 
-        private static readonly Regex Regex = new Regex("[^0-9]+"); //regex that matches disallowed text
-        private static bool IsTextAllowed(string text)
+        /// <summary>
+        /// The text box on preview text input.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void TextBoxOnPreviewTextInput([CanBeNull] object sender, [CanBeNull] TextCompositionEventArgs e)
         {
-            return !Regex.IsMatch(text);
+            if (e != null)
+            {
+                e.Handled = !IsTextAllowed(e.Text);
+            }
         }
 
         // Use the DataObject.Pasting Handler 
-        private void TextBoxOnPasting(object sender, DataObjectPastingEventArgs e)
+
+        /// <summary>
+        /// The text box on pasting.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void TextBoxOnPasting([CanBeNull] object sender, [CanBeNull] DataObjectPastingEventArgs e)
         {
-            if (e.DataObject.GetDataPresent(typeof(string)))
+            if (e != null && e.DataObject.GetDataPresent(typeof(string)))
             {
                 var text = (string)e.DataObject.GetData(typeof(string));
-                if (!IsTextAllowed(text))
+                if (!IsTextAllowed(text ?? throw new InvalidOperationException()))
                 {
                     e.CancelCommand();
                 }
             }
             else
             {
-                e.CancelCommand();
+                e?.CancelCommand();
             }
         }
 
-        private void ButtonNext_OnClick(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// The button next on click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ButtonNextOnClick([CanBeNull] object sender, [CanBeNull] RoutedEventArgs e)
         {
             MessageBox.Show("Registered");
         }

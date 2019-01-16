@@ -69,9 +69,9 @@
                 x:Name="TextPassword"
                 materialDesign:HintAssist.Hint="Enter Password"
                 Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
-                PreviewMouseMove="TextPassword_OnPreviewMouseMove"
-                MouseLeave="TextPassword_OnMouseLeave"
-                PasswordChanged="TextPassword_OnPasswordChanged"
+                PreviewMouseMove="TextPasswordOnPreviewMouseMove"
+                MouseLeave="TextPasswordOnMouseLeave"
+                PasswordChanged="TextPasswordOnPasswordChanged"
                 LostKeyboardFocus="TextPassword_OnLostKeyboardFocus">
             </PasswordBox>
         </DockPanel>
@@ -85,7 +85,7 @@
             Grid.Row="3" Content="Login"
             Style="{StaticResource MaterialDesignRaisedAccentButton}"
             IsEnabled="False"
-            Click="ButtonLogin_Click"
+            Click="ButtonLoginClick"
             Width="400" Margin="10,10,10,20"/>
     </Grid>
 </UserControl>

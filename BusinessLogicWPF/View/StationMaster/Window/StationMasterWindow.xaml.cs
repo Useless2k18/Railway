@@ -1,64 +1,140 @@
-﻿using BusinessLogicWPF.ViewModel.StationMaster;
-using MaterialDesignThemes.Wpf;
-using System.ComponentModel;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using System.Windows.Media;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="StationMasterWindow.xaml.cs" company="SDCWORLD">
+//   Sourodeep Chatterjee
+// </copyright>
+// <summary>
+//   Interaction logic for StationMasterWindow.xaml
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace BusinessLogicWPF.View.StationMaster.Window
 {
+    using System;
+    using System.ComponentModel;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System.Windows;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Input;
+    using System.Windows.Media;
+
+    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.ViewModel.StationMaster;
+
+    using MaterialDesignThemes.Wpf;
+
     /// <summary>
-    /// Interaction logic for StationMasterWindow.xaml
+    /// Interaction logic for Station Master Window XAML file
     /// </summary>
     public partial class StationMasterWindow : System.Windows.Window
     {
-        public static Snackbar Snackbar;
+        /// <summary>
+        /// The snack-bar.
+        /// </summary>
+        [CanBeNull]
+        private static Snackbar snackbar;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StationMasterWindow"/> class.
+        /// </summary>
         public StationMasterWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             Task.Factory.StartNew(() =>
             {
                 Thread.Sleep(2000);
-            }).ContinueWith(t =>
-            {
-                //note you can use the message queue from any thread, but just for the demo here we 
-                //need to get the message queue from the snack bar, so need to be on the dispatcher
-                MainSnackbar.MessageQueue.Enqueue("Hello Station Master");
-            }, TaskScheduler.FromCurrentSynchronizationContext());
+            }).ContinueWith(
+                t =>
+                    {
+                        // note you can use the message queue from any thread, but just for the demo here we 
+                        // need to get the message queue from the snack bar, so need to be on the dispatcher
+                        this.MainSnackbar.MessageQueue.Enqueue("Hello Station Master");
+                    },
+                TaskScheduler.FromCurrentSynchronizationContext());
 
-            DataContext = new StationMasterWindowViewModel(MainSnackbar.MessageQueue);
+            this.DataContext = new StationMasterWindowViewModel(this.MainSnackbar.MessageQueue);
 
-            Snackbar = MainSnackbar;
+            snackbar = this.MainSnackbar;
         }
 
-        private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// The UI element on preview mouse left button up.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void UiElementOnPreviewMouseLeftButtonUp([NotNull] object sender, [NotNull] MouseButtonEventArgs e)
         {
-            //until we had a StaysOpen glag to Drawer, this will help with scroll bars
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
+            // until we had a StaysOpen to Drawer, this will help with scroll bars
             var dependencyObject = Mouse.Captured as DependencyObject;
             while (dependencyObject != null)
             {
-                if (dependencyObject is ScrollBar) return;
+                if (dependencyObject is ScrollBar)
+                {
+                    return;
+                }
+
                 dependencyObject = VisualTreeHelper.GetParent(dependencyObject);
             }
 
-            MenuToggleButton.IsChecked = false;
+            this.MenuToggleButton.IsChecked = false;
         }
 
-        private void StationMasterWindow_OnClosing(object sender, CancelEventArgs e)
+        /// <summary>
+        /// The station master window on closing.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void StationMasterWindowOnClosing([NotNull] object sender, [NotNull] CancelEventArgs e)
         {
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
 
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
         }
 
-        private void CloseDialogHost_OnDialogClosing(object sender, DialogClosingEventArgs eventArgs)
+        /// <summary>
+        /// The close dialog host on dialog closing.
+        /// </summary>
+        /// <param name="eventArgs">
+        /// The event args.
+        /// </param>
+        private void CloseDialogHostOnDialogClosing([NotNull] DialogClosingEventArgs eventArgs)
         {
-            if (!Equals(eventArgs.Parameter, true)) return;
+            if (eventArgs == null)
+            {
+                throw new ArgumentNullException(nameof(eventArgs));
+            }
 
-            Close();
+            if (!object.Equals(eventArgs.Parameter, true))
+            {
+                return;
+            }
+
+            this.Close();
         }
     }
 }

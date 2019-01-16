@@ -1,33 +1,84 @@
-﻿using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Threading;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="LoginAsAdmin.xaml.cs" company="SDCWORLD">
+//   Sourodeep Chatterjee
+// </copyright>
+// <summary>
+//   Interaction logic for LoginAsAdmin.xaml
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable StyleCop.SA1204
+// ReSharper disable PrivateFieldCanBeConvertedToLocalVariable
 namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
 {
+    using System;
+    using System.Text.RegularExpressions;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using System.Windows.Threading;
+
+    using BusinessLogicWPF.Annotations;
+
+    using Window = System.Windows.Window;
+
     /// <summary>
-    /// Interaction logic for LoginAsAdmin.xaml
+    /// Interaction logic for Login As Admin XAML
     /// </summary>
     public partial class LoginAsAdmin : UserControl
     {
-        private readonly System.Windows.Window _window;
+        /// <summary>
+        /// The regex.
+        /// </summary>
+        [NotNull]
+        private static readonly Regex Regex = new Regex("[^0-9]+"); // regex that matches disallowed text
 
+        /// <summary>
+        /// The window.
+        /// </summary>
+        [NotNull]
+        private readonly Window window;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoginAsAdmin"/> class.
+        /// </summary>
         public LoginAsAdmin()
         {
-            InitializeComponent();
-            _window = Application.Current.MainWindow;
+            this.InitializeComponent();
+            this.window = Application.Current.MainWindow ?? throw new InvalidOperationException();
 
-            var buttonBack = (Button)_window?.FindName("ButtonBack");
-            if (buttonBack != null) buttonBack.Visibility = Visibility.Visible;
+            var buttonBack = (Button)this.window?.FindName("ButtonBack");
+            if (buttonBack != null)
+            {
+                buttonBack.Visibility = Visibility.Visible;
+            }
         }
 
-        private void ButtonLogin_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// The button login click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ButtonLoginClick([NotNull] object sender, [NotNull] RoutedEventArgs e)
         {
-            if (TextUserName.Text.Length != 0 && TextPassword.Password.Length != 0 && TextOtp.Text.Length != 0)
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
+            if (this.TextUserName.Text.Length != 0 && this.TextPassword.Password.Length != 0 && this.TextOtp.Text.Length != 0)
             {
                 MessageBox.Show("Logged in!");
             }
@@ -35,40 +86,117 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
 
         #region Input Fields
 
-        private async void TextUserName_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        /// <summary>
+        /// The text user name lost keyboard focus.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private async void TextUserNameLostKeyboardFocus(
+            [NotNull] object sender,
+            [NotNull] KeyboardFocusChangedEventArgs e)
         {
-            if (TextUserName.Text.Length == 0) return;
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
+            if (this.TextUserName.Text.Length == 0)
+            {
+                return;
+            }
 
             await Task.Factory.StartNew(() =>
-            {
-                string text = null;
+                {
+                    string text = null;
 
-                Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal,
-                    (ThreadStart)delegate { text = TextUserName.Text; });
+                    Application.Current.Dispatcher.Invoke(
+                        DispatcherPriority.Normal,
+                        (ThreadStart)delegate { text = this.TextUserName.Text; });
 
-
-                if (text == "sdc224")
-                    MessageBox.Show($"Hi {text}");
-            });
+                    if (text == "sdc224")
+                    {
+                        MessageBox.Show($"Hi {text}");
+                    }
+                }).ConfigureAwait(false);
         }
 
-        private static readonly Regex Regex = new Regex("[^0-9]+"); //regex that matches disallowed text
-        private static bool IsTextAllowed(string text)
+        /// <summary>
+        /// The is text allowed.
+        /// </summary>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        private static bool IsTextAllowed([NotNull] string text)
         {
+            if (text == null)
+            {
+                throw new ArgumentNullException(nameof(text));
+            }
+
             return !Regex.IsMatch(text);
         }
 
-        private void TextOtp_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        /// <summary>
+        /// The text OTP preview text input.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void TextOtpPreviewTextInput([NotNull] object sender, [NotNull] TextCompositionEventArgs e)
         {
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
             e.Handled = !IsTextAllowed(e.Text);
         }
 
-        private void TextOtp_OnPasting(object sender, DataObjectPastingEventArgs e)
+        /// <summary>
+        /// The text OTP on pasting.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void TextOtpOnPasting([NotNull] object sender, [NotNull] DataObjectPastingEventArgs e)
         {
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
             if (e.DataObject.GetDataPresent(typeof(string)))
             {
                 var text = (string)e.DataObject.GetData(typeof(string));
-                if (!IsTextAllowed(text))
+                if (!IsTextAllowed(text ?? throw new InvalidOperationException()))
                 {
                     e.CancelCommand();
                 }
@@ -79,39 +207,122 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
             }
         }
 
-        private void TextPassword_OnLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        /// <summary>
+        /// The text password on lost keyboard focus.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void TextPasswordOnLostKeyboardFocus([NotNull] object sender, [NotNull] KeyboardFocusChangedEventArgs e)
         {
-            if (TextPassword.Password.Length == 0)
+            if (sender == null)
             {
-                LabelPasswordEmptyError.Foreground = new SolidColorBrush(Colors.OrangeRed);
-                LabelPasswordEmptyError.Visibility = Visibility.Visible;
-                TextPassword.BorderBrush = new SolidColorBrush(Colors.OrangeRed);
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
+            if (this.TextPassword.Password.Length == 0)
+            {
+                this.LabelPasswordEmptyError.Foreground = new SolidColorBrush(Colors.OrangeRed);
+                this.LabelPasswordEmptyError.Visibility = Visibility.Visible;
+                this.TextPassword.BorderBrush = new SolidColorBrush(Colors.OrangeRed);
             }
             else
             {
-                LabelPasswordEmptyError.Visibility = Visibility.Hidden;
-                TextPassword.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#89000000");
+                this.LabelPasswordEmptyError.Visibility = Visibility.Hidden;
+                this.TextPassword.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#89000000");
             }
         }
 
-        private void TextPassword_OnPasswordChanged(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// The text password on password changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void TextPasswordOnPasswordChanged([NotNull] object sender, [NotNull] RoutedEventArgs e)
         {
-            if (TextPassword.Password.Length != 0)
+            if (sender == null)
             {
-                LabelPasswordEmptyError.Visibility = Visibility.Hidden;
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
+            if (this.TextPassword.Password.Length != 0)
+            {
+                this.LabelPasswordEmptyError.Visibility = Visibility.Hidden;
             }
         }
 
-        private void TextPassword_OnPreviewMouseMove(object sender, MouseEventArgs e)
+        /// <summary>
+        /// The text password on preview mouse move.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// thrown if Argument Null Exception
+        /// </exception>
+        private void TextPasswordOnPreviewMouseMove([NotNull] object sender, [NotNull] MouseEventArgs e)
         {
-            if (LabelPasswordEmptyError.Visibility == Visibility.Hidden)
-                TextPassword.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF673AB7");
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
+            if (this.LabelPasswordEmptyError.Visibility == Visibility.Hidden)
+            {
+                this.TextPassword.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF673AB7");
+            }
         }
 
-        private void TextPassword_OnMouseLeave(object sender, MouseEventArgs e)
+        /// <summary>
+        /// The text password on mouse leave.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void TextPasswordOnMouseLeave([NotNull] object sender, [NotNull] MouseEventArgs e)
         {
-            if (LabelPasswordEmptyError.Visibility == Visibility.Hidden)
-                TextPassword.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#89000000");
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
+            if (this.LabelPasswordEmptyError.Visibility == Visibility.Hidden)
+            {
+                this.TextPassword.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#89000000");
+            }
         }
 
         /*private void TextOtp_KeyUp(object sender, KeyEventArgs e)
@@ -125,22 +336,39 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
                 e.Handled = true;
         }
         */
-
-        private static void MoveToNextUiElement(RoutedEventArgs e)
+        
+        /// <summary>
+        /// The move to next UI element.
+        /// </summary>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private static void MoveToNextUiElement([NotNull] RoutedEventArgs e)
         {
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
             // Creating a FocusNavigationDirection object and setting it to a
             // local field that contains the direction selected.
-            const FocusNavigationDirection focusDirection = FocusNavigationDirection.Next;
+            const FocusNavigationDirection FocusDirection = FocusNavigationDirection.Next;
 
             // MoveFocus takes a TraversalRequest as its argument.
-            var request = new TraversalRequest(focusDirection);
+            var request = new TraversalRequest(FocusDirection);
 
             // Gets the element with keyboard focus.
 
             // Change keyboard focus.
-            if (!(Keyboard.FocusedElement is UIElement elementWithFocus)) return;
+            if (!(Keyboard.FocusedElement is UIElement elementWithFocus))
+            {
+                return;
+            }
 
-            if (elementWithFocus.MoveFocus(request)) e.Handled = true;
+            if (elementWithFocus.MoveFocus(request))
+            {
+                e.Handled = true;
+            }
         }
 
         #endregion

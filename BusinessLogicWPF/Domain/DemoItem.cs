@@ -1,59 +1,128 @@
-﻿using System;
-using System.ComponentModel;
-using System.Windows;
-using System.Windows.Controls;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DemoItem.cs" company="SDCWORLD">
+//   Sourodeep Chatterjee
+// </copyright>
+// <summary>
+//   Defines the DemoItem type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace BusinessLogicWPF.Domain
 {
-    class DemoItem : INotifyPropertyChanged
+    using System;
+    using System.ComponentModel;
+    using System.Windows;
+    using System.Windows.Controls;
+
+    using BusinessLogicWPF.Annotations;
+
+    /// <summary>
+    /// The demo item.
+    /// </summary>
+    public class DemoItem : INotifyPropertyChanged
     {
-        private string _name;
-        private object _content;
-        private ScrollBarVisibility _horizontalScrollBarVisibilityRequirement;
-        private ScrollBarVisibility _verticalScrollBarVisibilityRequirement;
-        private Thickness _marginRequirement = new Thickness(16);
+        /// <summary>
+        /// The name.
+        /// </summary>
+        [CanBeNull]
+        private string name;
 
-        public DemoItem(string name, object content)
+        /// <summary>
+        /// The content.
+        /// </summary>
+        [CanBeNull]
+        private object content;
+
+        /// <summary>
+        /// The horizontal scroll bar visibility requirement.
+        /// </summary>
+        private ScrollBarVisibility horizontalScrollBarVisibilityRequirement;
+
+        /// <summary>
+        /// The vertical scroll bar visibility requirement.
+        /// </summary>
+        private ScrollBarVisibility verticalScrollBarVisibilityRequirement;
+
+        /// <summary>
+        /// The margin requirement.
+        /// </summary>
+        private Thickness marginRequirement = new Thickness(16);
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DemoItem"/> class.
+        /// </summary>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <param name="content">
+        /// The content.
+        /// </param>
+        public DemoItem([CanBeNull] string name, [CanBeNull] object content)
         {
-            _name = name;
-            Content = content;
+            this.name = name;
+            this.Content = content;
         }
 
-        public string Name
-        {
-            get => _name;
-            set => this.MutateVerbose(ref _name, value, RaisePropertyChanged());
-        }
-
-        public object Content
-        {
-            get => _content;
-            set => this.MutateVerbose(ref _content, value, RaisePropertyChanged());
-        }
-
-        public ScrollBarVisibility HorizontalScrollBarVisibilityRequirement
-        {
-            get => _horizontalScrollBarVisibilityRequirement;
-            set => this.MutateVerbose(ref _horizontalScrollBarVisibilityRequirement, value, RaisePropertyChanged());
-        }
-
-        public ScrollBarVisibility VerticalScrollBarVisibilityRequirement
-        {
-            get => _verticalScrollBarVisibilityRequirement;
-            set => this.MutateVerbose(ref _verticalScrollBarVisibilityRequirement, value, RaisePropertyChanged());
-        }
-
-        public Thickness MarginRequirement
-        {
-            get => _marginRequirement;
-            set => this.MutateVerbose(ref _marginRequirement, value, RaisePropertyChanged());
-        }
-
+        /// <summary>
+        /// The property changed.
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private Action<PropertyChangedEventArgs> RaisePropertyChanged()
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        [CanBeNull]
+        public string Name
         {
-            return args => PropertyChanged?.Invoke(this, args);
+            get => this.name;
+            set => this.MutateVerbose(ref this.name, value, this.RaisePropertyChanged());
         }
+
+        /// <summary>
+        /// Gets or sets the content.
+        /// </summary>
+        [CanBeNull]
+        public object Content
+        {
+            get => this.content;
+            set => this.MutateVerbose(ref this.content, value, this.RaisePropertyChanged());
+        }
+
+        /// <summary>
+        /// Gets or sets the horizontal scroll bar visibility requirement.
+        /// </summary>
+        public ScrollBarVisibility HorizontalScrollBarVisibilityRequirement
+        {
+            get => this.horizontalScrollBarVisibilityRequirement;
+            set => this.MutateVerbose(ref this.horizontalScrollBarVisibilityRequirement, value, this.RaisePropertyChanged());
+        }
+
+        /// <summary>
+        /// Gets or sets the vertical scroll bar visibility requirement.
+        /// </summary>
+        public ScrollBarVisibility VerticalScrollBarVisibilityRequirement
+        {
+            get => this.verticalScrollBarVisibilityRequirement;
+            set => this.MutateVerbose(ref this.verticalScrollBarVisibilityRequirement, value, this.RaisePropertyChanged());
+        }
+
+        /// <summary>
+        /// Gets or sets the margin requirement.
+        /// </summary>
+        public Thickness MarginRequirement
+        {
+            get => this.marginRequirement;
+            set => this.MutateVerbose(ref this.marginRequirement, value, this.RaisePropertyChanged());
+        }
+
+        /// <summary>
+        /// The raise property changed.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Action"/>.
+        /// </returns>
+        [NotNull]
+        private Action<PropertyChangedEventArgs> RaisePropertyChanged() =>
+            args => this.PropertyChanged?.Invoke(this, args);
     }
 }
