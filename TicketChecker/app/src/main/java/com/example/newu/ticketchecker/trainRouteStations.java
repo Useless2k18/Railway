@@ -1,17 +1,17 @@
 package com.example.newu.ticketchecker;
 
-public class trainRouteStations {
-    private String ARR_TIME;
-    private String DEPT_TIME;
+public class TrainRouteStations {
+    private String arrivalTime;
+    private String departureTime;
     private String STN_CODE;
     private String TteAssignFlag;
 
-    public String getARR_TIME() {
-        return ARR_TIME;
+    public String getarrivalTime() {
+        return arrivalTime;
     }
 
-    public String getDEPT_TIME() {
-        return DEPT_TIME;
+    public String getDepartureTime() {
+        return departureTime;
     }
 
     public String getSTN_CODE() {

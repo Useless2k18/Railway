@@ -22,12 +22,12 @@ import com.google.firebase.iid.InstanceIdResult;
 
 public class trainsList extends AppCompatActivity {
     public static final String NODE_USERS="users";
-    private FirebaseAuth mAuth;
+    private FirebaseAuth authenticationObject;
     Button logout;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trains_list);
-        mAuth=FirebaseAuth.getInstance();
+        authenticationObject =FirebaseAuth.getInstance();
         logout = (Button)findViewById(R.id.logout);
 
 
@@ -51,7 +51,7 @@ public class trainsList extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.signOut();
+                authenticationObject.signOut();
                 finish();
                 startActivity(new Intent(trainsList.this,loginForm.class));
             }
@@ -62,7 +62,7 @@ public class trainsList extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if(mAuth.getCurrentUser()==null) {
+        if(authenticationObject.getCurrentUser()==null) {
             finish();
             Intent intent = new Intent(this,loginForm.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -72,7 +72,7 @@ public class trainsList extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(mAuth.getCurrentUser()!=null)
+        if(authenticationObject.getCurrentUser()!=null)
         {
             AlertDialog.Builder a_builder = new AlertDialog.Builder(trainsList.this);
             View view = getLayoutInflater().inflate(R.layout.dialog_custom,null);
@@ -81,7 +81,7 @@ public class trainsList extends AppCompatActivity {
             no.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mAuth.signOut();
+                    authenticationObject.signOut();
                     Toast.makeText(trainsList.this, "NOT POSSIBLE!!! REVERTING...", Toast.LENGTH_SHORT).show();
                     finish();
                 }
@@ -107,10 +107,10 @@ public class trainsList extends AppCompatActivity {
 
     private void saveToken(String token)
     {
-        String email=mAuth.getCurrentUser().getEmail();
+        String email= authenticationObject.getCurrentUser().getEmail();
         user usr = new user(email,token);
         DatabaseReference dbusers= FirebaseDatabase.getInstance().getReference(NODE_USERS);
-        dbusers.child(mAuth.getCurrentUser().getUid()).setValue(usr).addOnCompleteListener(new OnCompleteListener<Void>() {
+        dbusers.child(authenticationObject.getCurrentUser().getUid()).setValue(usr).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful())

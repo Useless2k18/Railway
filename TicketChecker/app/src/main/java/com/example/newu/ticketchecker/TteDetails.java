@@ -1,28 +1,30 @@
 package com.example.newu.ticketchecker;
-import com.google.firebase.firestore.Exclude;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ttnode {
+public class TteDetails {
     private String documentID;
-    private  String TT_ID;
-    private String F_NAME;
-    private String L_NAME;
+    private  String tteID;
+    private String trainNo;
+    private String lastName;
+    private String firstName;
+    private String date;
+
     private String ZONE;
     Map<String,String>STATION_FROM=new HashMap<String, String>();
     Map<String,String>STATION_TO=new HashMap<String, String>();
-public ttnode(){
+public TteDetails(){
 
 }
 
 
-    public ttnode(String ttid,String ttfrstname,String ttlastname,String zone )
+    public TteDetails(String ttid, String ttfrstname, String ttlastname, String zone )
     {
 
-        this.TT_ID=ttid;
-        this.F_NAME=ttfrstname;
-        this.L_NAME=ttlastname;
+        this.tteID =ttid;
+        this.trainNo =ttfrstname;
+        this.lastName =ttlastname;
         this.ZONE=zone;
         this.STATION_FROM.put("STATION_FRM_ID","");
         this.STATION_FROM.put("TT_BOARD_TIME:","");
@@ -39,19 +41,19 @@ public ttnode(){
     }
 
     public String gettt_ID() {
-        return TT_ID;
+        return tteID;
     }
 
     public String getzone() {
         return ZONE;
     }
 
-   public String getF_NAME() {
-        return F_NAME;
+   public String getTrainNo() {
+        return trainNo;
     }
 
-    public String getL_NAME() {
-        return L_NAME;
+    public String getLastName() {
+        return lastName;
     }
 
 

@@ -7,16 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -141,7 +137,7 @@ public class regForm extends AppCompatActivity {
         note.put(KEY_TITLE,title);
         note.put(KEY_DESCRIPTION,description);*/
         //this is used instead of the hashmap a java class note is used
-       ttnode note = new ttnode(ID, FRST, LST, ZONE);
+       TteDetails note = new TteDetails(ID, FRST, LST, ZONE);
 
         ttnode.document(ID).set(note);
     }

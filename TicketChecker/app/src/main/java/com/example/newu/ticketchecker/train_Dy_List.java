@@ -3,7 +3,6 @@ package com.example.newu.ticketchecker;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -18,8 +17,8 @@ import java.util.Map;
 
 public class train_Dy_List extends AppCompatActivity {
     private static final String KEY="ROUTE";
-    Map<String,trainRouteStations>Rt=new HashMap<String ,trainRouteStations>();
-    trainRouteStations RtStn= new trainRouteStations();
+    Map<String,TrainRouteStations>Rt=new HashMap<String ,TrainRouteStations>();
+    TrainRouteStations RtStn= new TrainRouteStations();
 
     //Map<String,String>RtStn=new HashMap<String, String>();
     int noofstops;
