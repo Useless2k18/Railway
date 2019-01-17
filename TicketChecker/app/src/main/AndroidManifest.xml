@@ -20,7 +20,7 @@
             android:name=".loginForm"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".regForm"
+            android:name=".TteSignUp"
             android:screenOrientation="portrait" />
         <activity
             android:name=".trainsList"

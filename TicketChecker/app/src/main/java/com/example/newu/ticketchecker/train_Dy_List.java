@@ -61,13 +61,13 @@ public class train_Dy_List extends AppCompatActivity {
                     for (int i = 0; i <= noofstops; i++) {
                         String code, stnpincode, stn;
                         RtStn = Rt.get(i);
-                        code = RtStn.getSTN_CODE();
+                        code = RtStn.getStationCode();
                         station_details.document(code).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 if (documentSnapshot.exists()) {
-                                    stationDetails stationobject = documentSnapshot.toObject(stationDetails.class);
-                                    Info ob = new Info(stationobject.getSTN_NAME(), stationobject.getSTN_CODE(), stationobject.getSTN_PIN());
+                                    StationDetails stationobject = documentSnapshot.toObject(StationDetails.class);
+                                    Info ob = new Info(stationobject.getStationName(), stationobject.getStationCode(), stationobject.getStationPin());
                                     info_list.add(ob);
 
                                 } else {

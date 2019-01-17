@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this,regForm.class);
+                Intent i = new Intent(MainActivity.this,TteSignUp.class);
                 startActivity(i);
             }
         });

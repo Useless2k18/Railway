@@ -3,7 +3,7 @@ package com.example.newu.ticketchecker;
 public class TrainRouteStations {
     private String arrivalTime;
     private String departureTime;
-    private String STN_CODE;
+    private String stationCode;
     private String TteAssignFlag;
 
     public String getarrivalTime() {
@@ -14,7 +14,7 @@ public class TrainRouteStations {
         return departureTime;
     }
 
-    public String getSTN_CODE() {
-        return STN_CODE;
+    public String getStationCode() {
+        return stationCode;
     }
 }
