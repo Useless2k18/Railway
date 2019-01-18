@@ -55,9 +55,9 @@ public class DynamicStationsList extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if(documentSnapshot.exists()) {
-                    trainNode note = documentSnapshot.toObject(trainNode.class);
+                    TrainDetails note = documentSnapshot.toObject(TrainDetails.class);
                     Rt = note.getROUTE();
-                    noOfStops = note.getNO_OF_STATIONS();
+                    noOfStops = note.getNoOfStations();
                     for (int i = 0; i <= noOfStops; i++) {
                         String code, stnpincode, stn;
                         RtStn = Rt.get(i);
