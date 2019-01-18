@@ -15,13 +15,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class train_Dy_List extends AppCompatActivity {
+public class DynamicStationsList extends AppCompatActivity {
     private static final String KEY="ROUTE";
     Map<String,TrainRouteStations>Rt=new HashMap<String ,TrainRouteStations>();
     TrainRouteStations RtStn= new TrainRouteStations();
 
     //Map<String,String>RtStn=new HashMap<String, String>();
-    int noofstops;
+    int noOfStops;
     private FirebaseFirestore dbb = FirebaseFirestore.getInstance();
     private FirebaseFirestore dbb1=FirebaseFirestore.getInstance();
     private CollectionReference train_details = dbb.collection("ROOT/TRAIN_DETAILS/12073");
@@ -32,7 +32,7 @@ public class train_Dy_List extends AppCompatActivity {
     //HashMap<String,Map>RO_TE=new HashMap<String, Map>();
 
 
-    ArrayList<Info> info_list;
+    ArrayList<StationInfo> info_list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +57,8 @@ public class train_Dy_List extends AppCompatActivity {
                 if(documentSnapshot.exists()) {
                     trainNode note = documentSnapshot.toObject(trainNode.class);
                     Rt = note.getROUTE();
-                    noofstops = note.getNO_OF_STATIONS();
-                    for (int i = 0; i <= noofstops; i++) {
+                    noOfStops = note.getNO_OF_STATIONS();
+                    for (int i = 0; i <= noOfStops; i++) {
                         String code, stnpincode, stn;
                         RtStn = Rt.get(i);
                         code = RtStn.getStationCode();
@@ -67,11 +67,11 @@ public class train_Dy_List extends AppCompatActivity {
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 if (documentSnapshot.exists()) {
                                     StationDetails stationobject = documentSnapshot.toObject(StationDetails.class);
-                                    Info ob = new Info(stationobject.getStationName(), stationobject.getStationCode(), stationobject.getStationPin());
+                                    StationInfo ob = new StationInfo(stationobject.getStationName(), stationobject.getStationCode(), stationobject.getStationPin());
                                     info_list.add(ob);
 
                                 } else {
-                                    Toast.makeText(train_Dy_List.this, "STATION LIST DOESNOT EXISTS", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(DynamicStationsList.this, "STATION LIST DOESNOT EXISTS", Toast.LENGTH_LONG).show();
                                 }
                                 //String description=note.getDescription();
                                 // String title=documentSnapshot.getString(KEY_TITLE);
@@ -90,13 +90,13 @@ public class train_Dy_List extends AppCompatActivity {
 
                 else
                 {
-                    Toast.makeText(train_Dy_List.this,"Not exists",Toast.LENGTH_LONG).show();
+                    Toast.makeText(DynamicStationsList.this,"Not exists",Toast.LENGTH_LONG).show();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(train_Dy_List.this,"ERROR",Toast.LENGTH_LONG).show();
+                Toast.makeText(DynamicStationsList.this,"ERROR",Toast.LENGTH_LONG).show();
 
             }
         });

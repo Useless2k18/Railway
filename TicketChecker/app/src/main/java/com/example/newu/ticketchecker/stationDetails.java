@@ -1,19 +1,19 @@
 package com.example.newu.ticketchecker;
 
-public class stationDetails {
-    private String STN_CODE;
-    private String STN_NAME;
-    private String STN_PIN;
+public class StationDetails {
+    private String stationCode;
+    private String stationName;
+    private String stationPin;
 
-    public String getSTN_CODE() {
-        return STN_CODE;
+    public String getStationCode() {
+        return stationCode;
     }
 
-    public String getSTN_NAME() {
-        return STN_NAME;
+    public String getStationName() {
+        return stationName;
     }
 
-    public String getSTN_PIN() {
-        return STN_PIN;
+    public String getStationPin() {
+        return stationPin;
     }
 }

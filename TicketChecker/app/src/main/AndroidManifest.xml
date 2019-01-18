@@ -30,7 +30,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".train_Dy_List"></activity>
+        <activity android:name=".DynamicStationsList"></activity>
     </application>
 
 </manifest>
