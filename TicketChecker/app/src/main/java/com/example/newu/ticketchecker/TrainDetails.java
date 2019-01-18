@@ -14,7 +14,7 @@ public class TrainDetails {
     private String[] runningDate;
     private int noOfStations;
     private Map<String,String> coach =new HashMap<String, String>();
-    Map<String,TrainRouteStations>ROUTE=new HashMap<String, TrainRouteStations>();
+    Map<String,TrainRouteStations> route =new HashMap<String, TrainRouteStations>();
 
     public String getDocumentID() {
         return documentID;
@@ -52,8 +52,8 @@ public class TrainDetails {
         return coach;
     }
 
-    public Map<String, TrainRouteStations> getROUTE() {
-        return ROUTE;
+    public Map<String, TrainRouteStations> getRoute() {
+        return route;
     }
 
     public int getNoOfStations() {

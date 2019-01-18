@@ -16,23 +16,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DynamicStationsList extends AppCompatActivity {
-    private static final String KEY="ROUTE";
-    Map<String,TrainRouteStations>Rt=new HashMap<String ,TrainRouteStations>();
-    TrainRouteStations RtStn= new TrainRouteStations();
+    private static final String KEY="route";
+    Map<String,TrainRouteStations> trainRoute =new HashMap<String ,TrainRouteStations>();
+    TrainRouteStations routeStations = new TrainRouteStations();
 
-    //Map<String,String>RtStn=new HashMap<String, String>();
+    //Map<String,String>routeStations=new HashMap<String, String>();
     int noOfStops;
-    private FirebaseFirestore dbb = FirebaseFirestore.getInstance();
-    private FirebaseFirestore dbb1=FirebaseFirestore.getInstance();
-    private CollectionReference train_details = dbb.collection("ROOT/TRAIN_DETAILS/12073");
-    private CollectionReference station_details = dbb1.collection("ROOT/STATIONS/STN_DETAILS");
+    private FirebaseFirestore trainDatabaseObject = FirebaseFirestore.getInstance();
+    private FirebaseFirestore stationsDatabaseObject =FirebaseFirestore.getInstance();
+    private CollectionReference trainDetails = trainDatabaseObject.collection("ROOT/TRAIN_DETAILS/12073");
+    private CollectionReference stationDetails = stationsDatabaseObject.collection("ROOT/STATIONS/STN_DETAILS");
     //HashMap<String, HashMap<String, String>> RO_TE = new HashMap<String, HashMap<String,String>>();
-    //HashMap<String, HashMap<String, String>> ROUTE = new HashMap<String, HashMap<String,String>>();
-    //Map<String,Map>ROUTE=new HashMap<String, Map>();
+    //HashMap<String, HashMap<String, String>> route = new HashMap<String, HashMap<String,String>>();
+    //Map<String,Map>route=new HashMap<String, Map>();
     //HashMap<String,Map>RO_TE=new HashMap<String, Map>();
 
 
-    ArrayList<StationInfo> info_list;
+    ArrayList<StationInfo> stationsList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,24 +51,24 @@ public class DynamicStationsList extends AppCompatActivity {
     //FETCH DATA FROM DATABASE
     public void download()
     {
-        train_details.document("12073").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        trainDetails.document("12073").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if(documentSnapshot.exists()) {
                     TrainDetails note = documentSnapshot.toObject(TrainDetails.class);
-                    Rt = note.getROUTE();
+                    trainRoute = note.getRoute();
                     noOfStops = note.getNoOfStations();
                     for (int i = 0; i <= noOfStops; i++) {
                         String code, stnpincode, stn;
-                        RtStn = Rt.get(i);
-                        code = RtStn.getStationCode();
-                        station_details.document(code).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        routeStations = trainRoute.get(i);
+                        code = routeStations.getStationCode();
+                        stationDetails.document(code).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 if (documentSnapshot.exists()) {
                                     StationDetails stationobject = documentSnapshot.toObject(StationDetails.class);
                                     StationInfo ob = new StationInfo(stationobject.getStationName(), stationobject.getStationCode(), stationobject.getStationPin());
-                                    info_list.add(ob);
+                                    stationsList.add(ob);
 
                                 } else {
                                     Toast.makeText(DynamicStationsList.this, "STATION LIST DOESNOT EXISTS", Toast.LENGTH_LONG).show();
