@@ -3,12 +3,13 @@ package com.example.newu.ticketchecker;
 public class StationInfo {
     private String stationName;
     private String stationCode;
-    private String stationZip;
+    private String stationPincode;
+
 
     public StationInfo(String nameOfStation, String codeOfStation, String zipCodeOfStation) {
         this.stationName = nameOfStation;
         this.stationCode = codeOfStation;
-        this.stationZip = zipCodeOfStation;
+        this.stationPincode = zipCodeOfStation;
     }
 
     public String getStationName() {
@@ -19,7 +20,7 @@ public class StationInfo {
         return stationCode;
     }
 
-    public String getStationZip() {
-        return stationZip;
+    public String getStationPincode() {
+        return stationPincode;
     }
 }
