@@ -3,6 +3,7 @@ package com.example.newu.ticketchecker;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -36,8 +37,10 @@ public class DynamicStationsList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ListView lv = (ListView) findViewById(R.id.listdyn);
         setContentView(R.layout.activity_train__dy__list);
-
+        CustomListAdapter cla = new CustomListAdapter(this,R.layout.customlistlayout,stationsList);
+        lv.setAdapter(cla);
     }
 
     @Override
