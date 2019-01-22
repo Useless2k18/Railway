@@ -31,7 +31,8 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".DynamicStationsList" />
-        <activity android:name=".Passenger_Details"></activity>
+        <activity android:name=".Passenger_Details" />
+        <activity android:name=".Book_Ticket"></activity>
     </application>
 
 </manifest>
