@@ -85,23 +85,57 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
 
         #region Input Fields
 
-        private void TextUserName_OnPasswordChanged(object sender, TextChangedEventArgs e)
+        /// <summary>
+        /// The text user name on password changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void TextUserNameOnPasswordChanged([CanBeNull] object sender, [CanBeNull] TextChangedEventArgs e)
         {
             this.UsernameAlert.Visibility = Visibility.Hidden;
         }
 
-        private async void TextUserName_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        /// <summary>
+        /// The text user name lost keyboard focus.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private async void TextUserNameLostKeyboardFocus(
+            [NotNull] object sender,
+            [NotNull] KeyboardFocusChangedEventArgs e)
         {
-            if (this.TextUserName.Text.Length == 0) return;
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
+            if (this.TextUserName.Text.Length == 0)
+            {
+                return;
+            }
 
             await Task.Factory.StartNew(() =>
-            {
-                string text = null;
+                {
+                    string text = null;
 
-                Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal,
-                    (ThreadStart)delegate { text = this.TextUserName.Text; });
+                    Application.Current.Dispatcher.Invoke(
+                        DispatcherPriority.Normal,
+                        (ThreadStart)delegate { text = this.TextUserName.Text; });
 
-                /*var context = new RailwayDbContext();
+                    /*var context = new RailwayDbContext();
 
                 _stationMasterDetails = context.StationMasters
                     .FirstOrDefault(a => a.Id == text);
@@ -132,10 +166,19 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
                             ButtonLogin.IsEnabled = false;
                         }));
                 }*/
-            });
+                }).ConfigureAwait(true);
         }
 
-        private void TextPassword_OnLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        /// <summary>
+        /// The text password on lost keyboard focus.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void TextPasswordOnLostKeyboardFocus([CanBeNull] object sender, [CanBeNull] KeyboardFocusChangedEventArgs e)
         {
             if (this.TextPassword.Password.Length == 0)
             {

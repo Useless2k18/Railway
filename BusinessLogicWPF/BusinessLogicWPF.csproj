@@ -446,12 +446,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Flat-Icons.com-Square-Train.ico" />
-    <Content Include="Railway.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Railway_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.1">

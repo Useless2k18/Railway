@@ -49,8 +49,8 @@
             <TextBox
                 x:Name="TextUserName"  materialDesign:HintAssist.Hint="Enter Username"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                TextChanged="TextUserName_OnPasswordChanged"
-                LostKeyboardFocus="TextUserName_LostKeyboardFocus">
+                TextChanged="TextUserNameOnPasswordChanged"
+                LostKeyboardFocus="TextUserNameLostKeyboardFocus">
                 <Binding Path="Username" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
@@ -72,7 +72,7 @@
                 PreviewMouseMove="TextPasswordOnPreviewMouseMove"
                 MouseLeave="TextPasswordOnMouseLeave"
                 PasswordChanged="TextPasswordOnPasswordChanged"
-                LostKeyboardFocus="TextPassword_OnLostKeyboardFocus">
+                LostKeyboardFocus="TextPasswordOnLostKeyboardFocus">
             </PasswordBox>
         </DockPanel>
 
