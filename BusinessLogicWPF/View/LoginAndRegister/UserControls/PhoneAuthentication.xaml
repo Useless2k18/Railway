@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="BusinessLogicWPF.View.LoginAndRegister.UserControls.PhoneAuthentication"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BusinessLogicWPF.View.LoginAndRegister.UserControls"
+             mc:Ignorable="d" 
+             xmlns:loginAndRegister="clr-namespace:BusinessLogicWPF.ViewModel.LoginAndRegister"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:cefSharp="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+             Height="Auto" Width="Auto"
+             d:DataContext="{d:DesignInstance loginAndRegister:PhoneAuthenticationViewModel, d:IsDesignTimeCreatable=False}">
+    
+    <UserControl.Resources>
+        <DataTemplate x:Name="OtpFieldTemplate" DataType="{x:Type loginAndRegister:OtpFieldViewModel}">
+            <local:OtpField DataContext="{Binding}"/>
+        </DataTemplate>
+    </UserControl.Resources>
+    
+    <Grid Margin="0" VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid
+            Grid.Row="0"
+            Name="MainGrid"/>
+
+        <Grid 
+            Row="1">
+            <ContentControl Content="{Binding}"/>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,18 +1,18 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LoginViewModel.cs" company="SDCWORLD">
+// <copyright file="OtpFieldViewModel.cs" company="SDCWORLD">
 //   Sourodeep Chatterjee
 // </copyright>
 // <summary>
-//   Defines the LoginViewModel type.
+//   Defines the OtpFieldViewModel type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace BusinessLogicWPF.ViewModel.LoginAndRegister
 {
     /// <summary>
-    /// The login view model.
+    /// The OTP field view model.
     /// </summary>
-    public class LoginViewModel
+    public class OtpFieldViewModel
     {
     }
 }

@@ -1,42 +1,65 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Register2.xaml.cs" company="SDCWORLD">
+// <copyright file="OtpField.xaml.cs" company="SDCWORLD">
 //   Sourodeep Chatterjee
 // </copyright>
 // <summary>
-//   Interaction logic for Register2.xaml
+//   Interaction logic for OtpField.XAML
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
 {
     using System;
+    using System.Collections.Generic;
+    using System.IO;
     using System.Text.RegularExpressions;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
 
     using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Model.Json;
+
+    using Newtonsoft.Json;
 
     /// <summary>
-    /// Interaction logic for Register 2 XAML
+    /// Interaction logic for OTP Field.XAML
     /// </summary>
-    public partial class Register2 : UserControl
+    public partial class OtpField : UserControl
     {
         /// <summary>
         /// The regex.
         /// </summary>
         [CanBeNull]
         private static readonly Regex Regex = new Regex("[^0-9]+"); // regex that matches disallowed text
-                                                                    
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="Register2"/> class.
+        /// Initializes a new instance of the <see cref="OtpField"/> class.
         /// </summary>
-        public Register2()
+        public OtpField()
         {
             this.InitializeComponent();
-            this.ComboBoxCountryCode.Items.Add("+91");
-            this.ComboBoxCountryCode.Items.Add("+90");
-            this.ComboBoxCountryCode.Items.Add("+456");
+
+            try
+            {
+                var jsonFile = File.ReadAllText(@"isd_country_code.json");
+                var listOfCodes = JsonConvert.DeserializeObject<List<IsdCodes>>(jsonFile);
+
+                foreach (var listOfCode in listOfCodes)
+                {
+                    this.ComboBoxCountryCode.SelectedValuePath = "Key";
+                    this.ComboBoxCountryCode.DisplayMemberPath = "Value";
+
+                    this.ComboBoxCountryCode.Items.Add(new KeyValuePair<string, string>(
+                        listOfCode.dial_code,
+                        $"{listOfCode.name} ({listOfCode.code})"));
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                throw;
+            }
         }
 
         /// <summary>

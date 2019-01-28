@@ -158,7 +158,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
             var win = this.window;
             if (win != null)
             {
-                win.DataContext = new Register2ViewModel();
+                win.DataContext = new PhoneAuthenticationViewModel();
             }
         }
 

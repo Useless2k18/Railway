@@ -49,8 +49,8 @@
         <DataTemplate x:Name="RegisterViewTemplate" DataType="{x:Type loginAndRegister:RegisterViewModel}">
             <userControls:Register DataContext="{Binding}"/>
         </DataTemplate>
-        <DataTemplate x:Name="Register2ViewTemplate" DataType="{x:Type loginAndRegister:Register2ViewModel}">
-            <userControls:Register2 DataContext="{Binding}"/>
+        <DataTemplate x:Name="PhoneAuthenticationViewModel" DataType="{x:Type loginAndRegister:PhoneAuthenticationViewModel}">
+            <userControls:PhoneAuthentication DataContext="{Binding}"/>
         </DataTemplate>
 
         <Style x:Key="EntryFieldStyle" TargetType="Grid" > 

@@ -1,18 +1,18 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LoginViewModel.cs" company="SDCWORLD">
+// <copyright file="PhoneAuthenticationViewModel.cs" company="SDCWORLD">
 //   Sourodeep Chatterjee
 // </copyright>
 // <summary>
-//   Defines the LoginViewModel type.
+//   Defines the PhoneAuthenticationViewModel type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace BusinessLogicWPF.ViewModel.LoginAndRegister
 {
     /// <summary>
-    /// The login view model.
+    /// The phone authentication view model.
     /// </summary>
-    public class LoginViewModel
+    public class PhoneAuthenticationViewModel
     {
     }
 }
