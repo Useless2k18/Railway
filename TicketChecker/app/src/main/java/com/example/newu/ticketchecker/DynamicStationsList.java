@@ -78,12 +78,16 @@ public class DynamicStationsList extends AppCompatActivity {
             String cityStr = addressList.get(0).getAdminArea();
             String countryStr = addressList.get(0).getCountryName();
             String postalcodeStr = addressList.get(0).getPostalCode();
-            String fullAddress = addressStr+", "+areaStr+", "+cityStr+", "+countryStr+", "+postalcodeStr;
+            //fullAddress = addressStr+", "+areaStr+", "+cityStr+", "+countryStr+", "+postalcodeStr;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //moveTaskToBack(true);//moves task to previous activity
+        //moveTaskToBack(true);   moves task to previous activity
         CustomListAdapter cla = new CustomListAdapter(this,R.layout.customlistlayout,stationsList);
+
+        //ADD TO STATIONSlIST ACCORDING TO PIN AND THEN SET ADAPTER EVERY TIME
+
+
         lv.setAdapter(cla);
     }
 
