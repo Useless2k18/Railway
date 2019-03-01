@@ -1,6 +1,8 @@
 package com.example.newu.ticketchecker;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -37,5 +39,57 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+Db_tableDivision);
         db.execSQL("DROP TABLE IF EXISTS "+Db_tableStation);
         onCreate(db);
+    }
+    public long insetStationData(SQLiteDatabase db,int Station_code,String Station_Name,String Station_pincode) {
+        db = this.getWritableDatabase();
+        ContentValues c = new ContentValues();
+        c.put(Db_station_col1,Station_code);
+        c.put(Db_station_col2,Station_Name);
+        c.put(Db_station_col3,Station_pincode);
+        //long res = db.insert(Db_name,null,c);
+        long i = db.insert(Db_tableStation,null,c);
+        return i;
+    }
+    public long insetDivisionData(SQLiteDatabase db,String Division_Name,String Station_Name) {
+        db = this.getWritableDatabase();
+        ContentValues c = new ContentValues();
+        c.put(Db_division_col1,Division_Name);
+        c.put(Db_division_col2,Station_Name);
+        long i = db.insert(Db_tableDivision,null,c);
+        return i;
+    }
+    public long insetZoneData(SQLiteDatabase db,int Zone_id,String Zone_name,String Division_name,int Zone_nof) {
+        db = this.getWritableDatabase();
+        ContentValues c = new ContentValues();
+        c.put(Db_zone_col1,Zone_id);
+        c.put(Db_zone_col2,Zone_name);
+        c.put(Db_zone_col3,Division_name);
+        c.put(Db_zone_col4,Zone_nof);
+        //long res = db.insert(Db_name,null,c);
+        long i = db.insert(Db_tableZone,null,c);
+        return i;
+    }
+    public Cursor getStationData(SQLiteDatabase db)
+    {
+
+        db = this.getWritableDatabase();
+        Cursor stations = db.rawQuery("select * from "+Db_tableStation,null);
+        return stations;
+    }
+    public Cursor getDivisionData(SQLiteDatabase db)
+    {
+
+        db = this.getWritableDatabase();
+        Cursor divisions = db.rawQuery("select * from "+Db_tableDivision,null);
+        return divisions;
+
+    }
+    public Cursor getZoneData(SQLiteDatabase db)
+    {
+
+        db = this.getWritableDatabase();
+        Cursor zone = db.rawQuery("select * from "+Db_tableZone,null);
+        return zone;
+
     }
 }
