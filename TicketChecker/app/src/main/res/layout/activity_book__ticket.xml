@@ -28,6 +28,17 @@
         app:srcCompat="@drawable/trainvector" />
 
     <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView19"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="113dp"
+        android:text="Train Name:"
+        android:textSize="20dp" />
+
+    <TextView
         android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,17 +80,6 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="155dp"
         android:text="Train no.:"
-        android:textSize="20dp" />
-
-    <TextView
-        android:id="@+id/textView21"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView19"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="113dp"
-        android:text="Train Name:"
         android:textSize="20dp" />
 
     <Button

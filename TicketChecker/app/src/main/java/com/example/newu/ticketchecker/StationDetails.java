@@ -3,7 +3,7 @@ package com.example.newu.ticketchecker;
 public class StationDetails {
     private String stationCode;
     private String stationName;
-    private String stationPincode;
+    private int stationPincode;
     private String railwayDivision;
     private String zone;
 
@@ -15,11 +15,11 @@ public class StationDetails {
         this.stationName = stationName;
     }
 
-    public String getStationPincode() {
+    public int getStationPincode() {
         return stationPincode;
     }
 
-    public void setStationPincode(String stationPincode) {
+    public void setStationPincode(int stationPincode) {
         this.stationPincode = stationPincode;
     }
 
@@ -47,7 +47,7 @@ public class StationDetails {
         return stationName;
     }
 
-    public String getStationPin() {
+    public int getStationPin() {
         return stationPincode;
     }
 }

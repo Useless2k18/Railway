@@ -1,15 +1,17 @@
 package com.example.newu.ticketchecker;
 
 public class StationInfo {
+    private String railwayDivision:
     private String stationName;
     private String stationCode;
-    private String stationPincode;
+    private int stationPincode;
 
 
-    public StationInfo(String nameOfStation, String codeOfStation, String zipCodeOfStation) {
+    public StationInfo(String nameOfStation, String codeOfStation, int zipCodeOfStation,String railwayDivisionName) {
         this.stationName = nameOfStation;
         this.stationCode = codeOfStation;
         this.stationPincode = zipCodeOfStation;
+       this.railwayDivision=railwayDivisionName;
     }
 
     public String getStationName() {
@@ -20,7 +22,11 @@ public class StationInfo {
         return stationCode;
     }
 
-    public String getStationPincode() {
+    public int getStationPincode() {
         return stationPincode;
+    }
+
+    public String getRailwayDivision() {
+        return railwayDivision;
     }
 }
