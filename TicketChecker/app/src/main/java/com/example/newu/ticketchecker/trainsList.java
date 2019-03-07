@@ -1,23 +1,15 @@
 package com.example.newu.ticketchecker;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.location.Address;
-import android.location.Geocoder;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,11 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-
-public class trainsList extends AppCompatActivity {
+public class TrainsList extends AppCompatActivity {
     public static final String NODE_USERS="users";
     private FirebaseAuth authenticationObject;
     Button logout;
@@ -65,7 +53,7 @@ public class trainsList extends AppCompatActivity {
             public void onClick(View v) {
                 authenticationObject.signOut();
                 finish();
-                startActivity(new Intent(trainsList.this,loginForm.class));
+                startActivity(new Intent(TrainsList.this,loginForm.class));
             }
         });
 
@@ -86,7 +74,7 @@ public class trainsList extends AppCompatActivity {
     public void onBackPressed() {
         if(authenticationObject.getCurrentUser()!=null)
         {
-            AlertDialog.Builder a_builder = new AlertDialog.Builder(trainsList.this);
+            AlertDialog.Builder a_builder = new AlertDialog.Builder(TrainsList.this);
             View view = getLayoutInflater().inflate(R.layout.dialog_custom,null);
             Button yes = (Button)view.findViewById(R.id.yes);
             Button no = (Button)view.findViewById(R.id.no);
@@ -94,14 +82,14 @@ public class trainsList extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     authenticationObject.signOut();
-                    Toast.makeText(trainsList.this, "NOT POSSIBLE!!! REVERTING...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TrainsList.this, "NOT POSSIBLE!!! REVERTING...", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             });
             yes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(trainsList.this, trainsList.class);
+                    Intent i = new Intent(TrainsList.this, TrainsList.class);
                     startActivity(i);
                 }
             });
@@ -127,7 +115,7 @@ public class trainsList extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful())
                 {
-                    Toast.makeText(trainsList.this, "Token Saved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TrainsList.this, "Token Saved", Toast.LENGTH_SHORT).show();
                 }
             }
         });

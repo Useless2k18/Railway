@@ -118,8 +118,8 @@ public class DynamicStationsList extends AppCompatActivity {
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 if (documentSnapshot.exists()) {
                                     StationDetails stationobject = documentSnapshot.toObject(StationDetails.class);
-                                    StationInfo ob = new StationInfo(stationobject.getStationName(), stationobject.getStationCode(), stationobject.getStationPin());
-                                    stationsList.add(ob);
+                                    //StationInfo ob = new StationInfo(stationobject.getStationName(), stationobject.getStationCode(), stationobject.getStationPin());
+                                    //stationsList.add(ob);
 
                                 } else {
                                     Toast.makeText(DynamicStationsList.this, "STATION LIST DOESNOT EXISTS", Toast.LENGTH_LONG).show();

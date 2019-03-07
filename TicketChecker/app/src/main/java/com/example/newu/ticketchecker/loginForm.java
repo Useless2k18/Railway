@@ -39,7 +39,7 @@ public class loginForm extends AppCompatActivity {
         ob = FirebaseAuth.getInstance();
         if(ob.getCurrentUser()!=null)
         {
-            Intent i = new Intent(loginForm.this, trainsList.class);
+            Intent i = new Intent(loginForm.this, TrainsList.class);
             startActivity(i);
         }
         login.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +77,7 @@ public class loginForm extends AppCompatActivity {
                             yes.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Intent i = new Intent(loginForm.this, trainsList.class);
+                                    Intent i = new Intent(loginForm.this, TrainsList.class);
                                     startActivity(i);
                                 }
                             });
