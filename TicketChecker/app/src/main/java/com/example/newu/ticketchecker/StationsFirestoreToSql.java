@@ -86,7 +86,7 @@ public class StationsFirestoreToSql extends AppCompatActivity {
                         Toast.makeText(StationsFirestoreToSql.this, "ERROR FETCHING DOCUMENT", Toast.LENGTH_LONG).show();
                     }
                     if (documentSnapshot1.exists()) {
-                        int noOfDivision = (int) documentSnapshot1.get("noOFDivision");
+                        int noOfDivision = (int) documentSnapshot1.get("noOfDivision");
                         final String[] divisions = (String[]) documentSnapshot1.get("divisions");
 
 
