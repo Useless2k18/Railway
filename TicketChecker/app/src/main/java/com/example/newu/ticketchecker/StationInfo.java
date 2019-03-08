@@ -4,7 +4,8 @@ public class StationInfo {
     private String railwayDivision;
     private String stationName;
     private String stationCode;
-    private int stationPincode;
+    private long stationPincode;
+
 
 
     public StationInfo(String nameOfStation, String codeOfStation, int zipCodeOfStation,String railwayDivisionName) {
@@ -22,7 +23,7 @@ public class StationInfo {
         return stationCode;
     }
 
-    public int getStationPincode() {
+    public long getStationPincode() {
         return stationPincode;
     }
 

@@ -1,11 +1,11 @@
 package com.example.newu.ticketchecker;
 
 public class StationsDocument {
-    private int noOfZone;
+    private long noOfZone;
     private String [] zoneList; ;
 
 
-    public int getNoOfZone() {
+    public long getNoOfZone() {
         return noOfZone;
     }
 
@@ -13,7 +13,7 @@ public class StationsDocument {
         return zoneList;
     }
 
-    public void setNoOfZone(int noOfZone) {
+    public void setNoOfZone(long noOfZone) {
         this.noOfZone = noOfZone;
     }
 

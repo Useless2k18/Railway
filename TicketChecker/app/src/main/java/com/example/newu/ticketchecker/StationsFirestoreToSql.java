@@ -25,12 +25,12 @@ public class StationsFirestoreToSql extends AppCompatActivity {
     SQLiteDatabase db;
     DatabaseHelper mydb;
     private FirebaseFirestore stationsDatabaseObject = FirebaseFirestore.getInstance();
-    private DocumentReference stations = stationsDatabaseObject.document("ROOT/Stations"),zone;
+    private DocumentReference stations = stationsDatabaseObject.document("Root/Stations"),zone;
 
     private String[] divisionList;
     private StationsDocument[] stationDivision;
 
-    private CollectionReference stationDetails = stationsDatabaseObject.collection("ROOT/Stations/StationDetails"),division;
+    private CollectionReference stationDetails = stationsDatabaseObject.collection("Root/Stations/StationDetails"),division;
 
 
     @Override
@@ -45,7 +45,7 @@ public class StationsFirestoreToSql extends AppCompatActivity {
     }
     public void FetchStations()
     {
-        int noOfZones;
+        long noOfZones;
         String[] zoneList;
         final StationsDocument stationsDocument=new StationsDocument();
 
@@ -60,7 +60,7 @@ public class StationsFirestoreToSql extends AppCompatActivity {
                     return;
                 }
                 if(documentSnapshot.exists()) {
-                    int tempNoOfZone = (int) documentSnapshot.get("noOfZone");
+                    long tempNoOfZone = (long) documentSnapshot.get("noOfZone");
                     String [] tempZoneLists = (String[]) documentSnapshot.get("zoneList");
                     stationsDocument.setNoOfZone(tempNoOfZone);
                     stationsDocument.setZoneList(tempZoneLists);
@@ -77,7 +77,7 @@ public class StationsFirestoreToSql extends AppCompatActivity {
 
         for (int TempJ = 0; TempJ < noOfZones; TempJ++) {
 
-            zone = stationDetails.document("ROOT/Stations/StationDetails/" + zoneList[TempJ]);
+            zone = stationDetails.document("Root/Stations/StationDetails/" + zoneList[TempJ]);
             final String zonePath = zoneList[TempJ];
             zone.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
                 @Override
@@ -86,13 +86,13 @@ public class StationsFirestoreToSql extends AppCompatActivity {
                         Toast.makeText(StationsFirestoreToSql.this, "EXCEPTION ENCOUNTERED FETCHING STATIONS ", Toast.LENGTH_LONG).show();
                     }
                     if (documentSnapshot1.exists()) {
-                        int noOfDivision = (int) documentSnapshot1.get("noOfDivision");
+                        long noOfDivision = (long) documentSnapshot1.get("noOfDivision");
                         final String[] divisions = (String[]) documentSnapshot1.get("divisions");
 
 
 
                         for (int TempK = 0; TempK < noOfDivision; TempK++) {
-                            division = zone.collection("ROOT/Stations/StationDetails"+zonePath + divisions[TempK]);
+                            division = zone.collection("Root/Stations/StationDetails"+zonePath + divisions[TempK]);
                             final String divisionPath=divisions[TempK];
                             division
                                     .get()

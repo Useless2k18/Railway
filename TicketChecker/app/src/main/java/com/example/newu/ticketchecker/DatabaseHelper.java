@@ -28,7 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table "+Db_tableStation+" (CODE varchar primary key,NAME varchar not null,PINCODE int not null)");
+        db.execSQL("create table "+Db_tableStation+" (CODE varchar primary key,NAME varchar not null,PINCODE long not null)");
         db.execSQL("create table "+Db_tableDivision+" (NAME varchar primary key,STATION varchar not null,FOREIGN KEY(STATION) REFERENCES Stations(CODE))");
         db.execSQL("create table "+Db_tableZone+" (ID varchar primary key,DIVISION varchar not null,NUMBER_OF int not null,FOREIGN KEY(DIVISION) REFERENCES Divisions(NAME))");
     }
@@ -40,7 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+Db_tableStation);
         onCreate(db);
     }
-    public long insertStationData(SQLiteDatabase db, String Station_code, String Station_Name, int Station_pincode) {
+    public long insertStationData(SQLiteDatabase db, String Station_code, String Station_Name, long Station_pincode) {
         db = this.getWritableDatabase();
         ContentValues c = new ContentValues();
         c.put(Db_station_col1,Station_code);
