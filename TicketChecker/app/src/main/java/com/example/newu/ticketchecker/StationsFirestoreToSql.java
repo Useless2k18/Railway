@@ -56,7 +56,7 @@ public class StationsFirestoreToSql extends AppCompatActivity {
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 if(e!=null)
                 {
-                    Toast.makeText(StationsFirestoreToSql.this,"NO DATA",Toast.LENGTH_LONG).show();
+                    Toast.makeText(StationsFirestoreToSql.this,"EXCEPTION ENCOUNTERED",Toast.LENGTH_LONG).show();
                     return;
                 }
                 if(documentSnapshot.exists()) {
@@ -68,7 +68,7 @@ public class StationsFirestoreToSql extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(StationsFirestoreToSql.this,"NO DATA",Toast.LENGTH_LONG).show();
+                    Toast.makeText(StationsFirestoreToSql.this,"ERROR FETCHING ZONE DATA",Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -83,7 +83,7 @@ public class StationsFirestoreToSql extends AppCompatActivity {
                 @Override
                 public void onEvent(@Nullable final DocumentSnapshot documentSnapshot1, @Nullable FirebaseFirestoreException e) {
                     if (e != null) {
-                        Toast.makeText(StationsFirestoreToSql.this, "ERROR FETCHING DOCUMENT", Toast.LENGTH_LONG).show();
+                        Toast.makeText(StationsFirestoreToSql.this, "EXCEPTION ENCOUNTERED FETCHING STATIONS ", Toast.LENGTH_LONG).show();
                     }
                     if (documentSnapshot1.exists()) {
                         int noOfDivision = (int) documentSnapshot1.get("noOfDivision");
@@ -109,7 +109,7 @@ public class StationsFirestoreToSql extends AppCompatActivity {
                                                 }
                                             } else {
                                                 //Log.d(TAG, "Error getting documents: ", task.getException());
-                                                Toast.makeText(StationsFirestoreToSql.this, "ERROR FETCHING DOCUMENT", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(StationsFirestoreToSql.this, "ERROR FETCHING STATIONS", Toast.LENGTH_LONG).show();
                                             }
                                         }
                                     });
@@ -117,7 +117,7 @@ public class StationsFirestoreToSql extends AppCompatActivity {
 
                     }
                     else {
-                        Toast.makeText(StationsFirestoreToSql.this, "ERROR FETCHING DOCUMENT", Toast.LENGTH_LONG).show();
+                        Toast.makeText(StationsFirestoreToSql.this, "ERROR FETCHING STATIONS", Toast.LENGTH_LONG).show();
                     }
 
 
