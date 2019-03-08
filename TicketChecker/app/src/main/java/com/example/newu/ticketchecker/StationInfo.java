@@ -1,7 +1,7 @@
 package com.example.newu.ticketchecker;
 
 public class StationInfo {
-    private String railwayDivision:
+    private String railwayDivision;
     private String stationName;
     private String stationCode;
     private int stationPincode;

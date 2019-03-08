@@ -3,12 +3,10 @@ package com.example.newu.ticketchecker;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.core.Tag;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -21,17 +19,16 @@ import com.google.firebase.firestore.QuerySnapshot;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import static android.content.ContentValues.TAG;
-
 
 public class StationsFirestoreToSql extends AppCompatActivity {
-    private StationZone[] stationZones;
-    private FirebaseFirestore stationsDatabaseObject = FirebaseFirestore.getInstance();
-    private DocumentReference stations = stationsDatabaseObject.document("ROOT/Stations"), zone;
-    DatabaseHelper mydb;
+    private StationsDocument[] stationsDocuments;
     SQLiteDatabase db;
+    DatabaseHelper mydb;
+    private FirebaseFirestore stationsDatabaseObject = FirebaseFirestore.getInstance();
+    private DocumentReference stations = stationsDatabaseObject.document("ROOT/Stations"),zone;
+
     private String[] divisionList;
-    private StationZone[] stationDivision;
+    private StationsDocument[] stationDivision;
 
     private CollectionReference stationDetails = stationsDatabaseObject.collection("ROOT/Stations/StationDetails"),division;
 
@@ -40,11 +37,19 @@ public class StationsFirestoreToSql extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stations_firestore_to_sql);
+        mydb=new DatabaseHelper(this);
+        db=mydb.getReadableDatabase();
         FetchStations();
+
+
     }
     public void FetchStations()
     {
-        mydb=new DatabaseHelper(this);
+        int noOfZones;
+        String[] zoneList;
+        final StationsDocument stationsDocument=new StationsDocument();
+
+
 
         stations.addSnapshotListener(this,new EventListener<DocumentSnapshot>() {
             @Override
@@ -55,30 +60,11 @@ public class StationsFirestoreToSql extends AppCompatActivity {
                     return;
                 }
                 if(documentSnapshot.exists()) {
-                    int noOfZone = (int) documentSnapshot.get("noOfDivision");
-                    String[] zoneLists = (String[]) documentSnapshot.get("zoneList");
-                    for (int j = 0; j < noOfZone; j++) {
+                    int tempNoOfZone = (int) documentSnapshot.get("noOfZone");
+                    String [] tempZoneLists = (String[]) documentSnapshot.get("zoneList");
+                    stationsDocument.setNoOfZone(tempNoOfZone);
+                    stationsDocument.setZoneList(tempZoneLists);
 
-                        division = zone.collection("ROOT/Stations/StationDetails/" + zoneLists[j]);
-                        division
-                                .get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@Nonnull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                                StationInfo newStation=document.toObject(StationInfo.class);
-
-
-                                            }
-                                        } else {
-                                            //Log.d(TAG, "Error getting documents: ", task.getException());
-                                            Toast.makeText(StationsFirestoreToSql.this,"ERROR FETCHING DOCUMENT",Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-                                });
-
-                    }
                 }
                 else
                 {
@@ -86,5 +72,57 @@ public class StationsFirestoreToSql extends AppCompatActivity {
                 }
             }
         });
+        noOfZones=stationsDocument.getNoOfZone();
+        zoneList=stationsDocument.getZoneList();
+
+        for (int TempJ = 0; TempJ < noOfZones; TempJ++) {
+
+            zone = stationDetails.document("ROOT/Stations/StationDetails/" + zoneList[TempJ]);
+            final String zonePath = zoneList[TempJ];
+            zone.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable final DocumentSnapshot documentSnapshot1, @Nullable FirebaseFirestoreException e) {
+                    if (e != null) {
+                        Toast.makeText(StationsFirestoreToSql.this, "ERROR FETCHING DOCUMENT", Toast.LENGTH_LONG).show();
+                    }
+                    if (documentSnapshot1.exists()) {
+                        int noOfDivision = (int) documentSnapshot1.get("noOFDivision");
+                        final String[] divisions = (String[]) documentSnapshot1.get("divisions");
+
+
+
+                        for (int TempK = 0; TempK < noOfDivision; TempK++) {
+                            division = zone.collection("ROOT/Stations/StationDetails"+zonePath + divisions[TempK]);
+                            final String divisionPath=divisions[TempK];
+                            division
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@Nonnull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    StationInfo newStation = document.toObject(StationInfo.class);
+
+                                                    mydb.insertStationData(db, newStation.getStationCode(), newStation.getStationName(), newStation.getStationPincode());
+                                                    mydb.insertDivisionData(db,divisionPath,newStation.getStationCode());
+                                                    mydb.insertZoneData(db,zonePath,divisionPath);
+                                                }
+                                            } else {
+                                                //Log.d(TAG, "Error getting documents: ", task.getException());
+                                                Toast.makeText(StationsFirestoreToSql.this, "ERROR FETCHING DOCUMENT", Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    });
+                        }
+
+                    }
+                    else {
+                        Toast.makeText(StationsFirestoreToSql.this, "ERROR FETCHING DOCUMENT", Toast.LENGTH_LONG).show();
+                    }
+
+
+                }
+            });
+        }
     }
 }
