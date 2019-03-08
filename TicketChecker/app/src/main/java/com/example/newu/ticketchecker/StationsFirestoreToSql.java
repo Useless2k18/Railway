@@ -16,6 +16,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.List;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -46,7 +48,7 @@ public class StationsFirestoreToSql extends AppCompatActivity {
     public void FetchStations()
     {
         long noOfZones;
-        String[] zoneList;
+        List<String> zoneList;
         final StationsDocument stationsDocument=new StationsDocument();
 
 
@@ -61,7 +63,7 @@ public class StationsFirestoreToSql extends AppCompatActivity {
                 }
                 if(documentSnapshot.exists()) {
                     long tempNoOfZone = (long) documentSnapshot.get("noOfZone");
-                    String [] tempZoneLists = (String[]) documentSnapshot.get("zoneList");
+                    List <String> tempZoneLists =(List<String>)  documentSnapshot.get("zoneList");
                     stationsDocument.setNoOfZone(tempNoOfZone);
                     stationsDocument.setZoneList(tempZoneLists);
 
@@ -77,8 +79,8 @@ public class StationsFirestoreToSql extends AppCompatActivity {
 
         for (int TempJ = 0; TempJ < noOfZones; TempJ++) {
 
-            zone = stationDetails.document("Root/Stations/StationDetails/" + zoneList[TempJ]);
-            final String zonePath = zoneList[TempJ];
+            zone = stationDetails.document("Root/Stations/StationDetails/" + zoneList.get(TempJ));
+            final String zonePath = zoneList.get(TempJ);
             zone.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable final DocumentSnapshot documentSnapshot1, @Nullable FirebaseFirestoreException e) {
@@ -87,13 +89,13 @@ public class StationsFirestoreToSql extends AppCompatActivity {
                     }
                     if (documentSnapshot1.exists()) {
                         long noOfDivision = (long) documentSnapshot1.get("noOfDivision");
-                        final String[] divisions = (String[]) documentSnapshot1.get("divisions");
+                        final List<String> divisions = (List<String>) documentSnapshot1.get("divisions");
 
 
 
                         for (int TempK = 0; TempK < noOfDivision; TempK++) {
-                            division = zone.collection("Root/Stations/StationDetails"+zonePath + divisions[TempK]);
-                            final String divisionPath=divisions[TempK];
+                            division = zone.collection("Root/Stations/StationDetails"+zonePath + divisions.get(TempK));
+                            final String divisionPath=divisions.get(TempK);
                             division
                                     .get()
                                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

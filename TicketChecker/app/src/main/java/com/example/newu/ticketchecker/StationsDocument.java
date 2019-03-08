@@ -1,15 +1,17 @@
 package com.example.newu.ticketchecker;
 
+import java.util.List;
+
 public class StationsDocument {
     private long noOfZone;
-    private String [] zoneList; ;
+    private List<String> zoneList; ;
 
 
     public long getNoOfZone() {
         return noOfZone;
     }
 
-    public String[] getZoneList() {
+    public List<String> getZoneList() {
         return zoneList;
     }
 
@@ -17,7 +19,7 @@ public class StationsDocument {
         this.noOfZone = noOfZone;
     }
 
-    public void setZoneList(String[] zoneList) {
+    public void setZoneList(List<String> zoneList) {
         this.zoneList = zoneList;
     }
 }
