@@ -35,7 +35,13 @@
         <activity android:name=".DynamicStationsList" />
         <activity android:name=".Passenger_Details" />
         <activity android:name=".Book_Ticket" />
-        <activity android:name=".StationsFirestoreToSql"></activity>
+        <activity android:name=".StationsFirestoreToSql">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
