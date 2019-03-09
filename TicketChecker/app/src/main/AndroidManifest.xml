@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.newu.ticketchecker">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,7 +25,7 @@
             android:name=".TteSignUp"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".trainsList"
+            android:name=".TrainsList"
             android:screenOrientation="portrait" />
 
         <meta-data
@@ -33,7 +34,14 @@
 
         <activity android:name=".DynamicStationsList" />
         <activity android:name=".Passenger_Details" />
-        <activity android:name=".Book_Ticket"></activity>
+        <activity android:name=".Book_Ticket" />
+        <activity android:name=".StationsFirestoreToSql">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -28,9 +28,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table "+Db_tableStation+" (CODE int primary key,NAME varchar not null,PINCODE varchar not null)");
-        db.execSQL("create table "+Db_tableDivision+" (NAME int primary key,STATION varchar not null,FOREIGN KEY(STATION) REFERENCES Stations(CODE))");
-        db.execSQL("create table "+Db_tableZone+" (ID int primary key,NAME varchar not null,DIVISION varchar not null,NUMBER_OF int not null,FOREIGN KEY(DIVISION) REFERENCES Divisions(NAME))");
+        db.execSQL("create table "+Db_tableStation+" (CODE varchar primary key,NAME varchar not null,PINCODE long not null)");
+        db.execSQL("create table "+Db_tableDivision+" (NAME varchar primary key,STATION varchar not null,FOREIGN KEY(STATION) REFERENCES Stations(CODE))");
+        db.execSQL("create table "+Db_tableZone+" (ID varchar primary key,DIVISION varchar not null,NUMBER_OF int not null,FOREIGN KEY(DIVISION) REFERENCES Divisions(NAME))");
     }
 
     @Override
@@ -40,7 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+Db_tableStation);
         onCreate(db);
     }
-    public long insetStationData(SQLiteDatabase db,int Station_code,String Station_Name,String Station_pincode) {
+    public long insertStationData(SQLiteDatabase db, String Station_code, String Station_Name, long Station_pincode) {
         db = this.getWritableDatabase();
         ContentValues c = new ContentValues();
         c.put(Db_station_col1,Station_code);
@@ -50,21 +50,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long i = db.insert(Db_tableStation,null,c);
         return i;
     }
-    public long insetDivisionData(SQLiteDatabase db,String Division_Name,String Station_Name) {
+    public long insertDivisionData(SQLiteDatabase db, String Division_Name, String Station_code) {
         db = this.getWritableDatabase();
         ContentValues c = new ContentValues();
         c.put(Db_division_col1,Division_Name);
-        c.put(Db_division_col2,Station_Name);
+        c.put(Db_division_col2,Station_code);
         long i = db.insert(Db_tableDivision,null,c);
         return i;
     }
-    public long insetZoneData(SQLiteDatabase db,int Zone_id,String Zone_name,String Division_name,int Zone_nof) {
+    public long insertZoneData(SQLiteDatabase db, String Zone_id, String Division_name) {
         db = this.getWritableDatabase();
         ContentValues c = new ContentValues();
         c.put(Db_zone_col1,Zone_id);
-        c.put(Db_zone_col2,Zone_name);
         c.put(Db_zone_col3,Division_name);
-        c.put(Db_zone_col4,Zone_nof);
+        //c.put(Db_zone_col4,Zone_nof);
         //long res = db.insert(Db_name,null,c);
         long i = db.insert(Db_tableZone,null,c);
         return i;
