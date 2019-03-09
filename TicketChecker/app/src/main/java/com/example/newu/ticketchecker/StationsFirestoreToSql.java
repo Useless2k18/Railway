@@ -102,13 +102,14 @@ public class StationsFirestoreToSql extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@Nonnull Task<QuerySnapshot> task) {
                                             if (task.isSuccessful()) {
-                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                mydb.insertStationData(db,"HWH","howrah",700009);
+                                               /* for (QueryDocumentSnapshot document : task.getResult()) {
                                                     StationInfo newStation = document.toObject(StationInfo.class);
 
-                                                    mydb.insertStationData(db, newStation.getStationCode(), newStation.getStationName(), newStation.getStationPincode());
-                                                    mydb.insertDivisionData(db,divisionPath,newStation.getStationCode());
-                                                    mydb.insertZoneData(db,zonePath,divisionPath);
-                                                }
+                                                   // mydb.insertStationData(db, newStation.getStationCode(), newStation.getStationName(), newStation.getStationPincode());
+                                                    //mydb.insertDivisionData(db,divisionPath,newStation.getStationCode());
+                                                    //mydb.insertZoneData(db,zonePath,divisionPath);
+                                                }*/
                                             } else {
                                                 //Log.d(TAG, "Error getting documents: ", task.getException());
                                                 Toast.makeText(StationsFirestoreToSql.this, "ERROR FETCHING STATIONS", Toast.LENGTH_LONG).show();
