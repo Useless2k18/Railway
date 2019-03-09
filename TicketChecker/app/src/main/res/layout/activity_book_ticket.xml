@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/booktckbackimg"
+    tools:context=".BookTicket">
+
+
+    <RelativeLayout
+        android:id="@+id/rel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:background="@drawable/shadow">
+
+        <EditText
+            android:id="@+id/editText6"
+            android:layout_width="176dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:hint="To"
+            android:inputType="textPersonName" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_alignTop="@+id/editText6"
+            android:layout_toEndOf="@+id/editText6"
+            app:srcCompat="@drawable/ic_arrow_forward_black_24dp" />
+
+        <EditText
+            android:id="@+id/editText7"
+            android:layout_width="176dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/editText6"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="2dp"
+            android:ems="10"
+            android:hint="From"
+            android:inputType="textPersonName" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="75dp"
+        android:text="Name:"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/editText8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rel"
+        android:layout_marginTop="7dp"
+        android:layout_toEndOf="@+id/textView13"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView13"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="126dp"
+        android:text="Age:"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/editText9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText8"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="6dp"
+        android:layout_toEndOf="@+id/textView15"
+        android:ems="10"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView13"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="177dp"
+        android:text="Gender:"
+        android:textSize="20dp" />
+
+    <RadioGroup
+        android:layout_width="290dp"
+        android:layout_height="47dp"
+        android:layout_alignTop="@+id/textView16"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal"
+        android:layout_toEndOf="@+id/textView16" >
+
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Male" />
+
+        <RadioButton
+            android:id="@+id/radioButton6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Female" />
+
+        <RadioButton
+            android:id="@+id/radioButton5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Other" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="140dp"
+        android:layout_marginBottom="209dp"
+        android:background="@drawable/circle_button"
+        android:text="ADD PASSENGER" />
+
+
+</RelativeLayout>
