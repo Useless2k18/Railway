@@ -9,21 +9,20 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String Db_name = "LocalDb.db";
-    public static final String Db_tableStation = "Stations";
+    public static final String Db_tableStation = "STATIONS";
     public static final String Db_station_col1 = "CODE";
     public static final String Db_station_col2 = "NAME";
     public static final String Db_station_col3 = "PINCODE";
-    public static final String Db_tableDivision = "Divisions";
+    public static final String Db_tableDivision = "DIVISION";
     public static final String Db_division_col1 = "NAME";
     public static final String Db_division_col2 = "STATION";
-    public static final String Db_tableZone = "Zones";
+    public static final String Db_tableZone = "Z";
     public static final String Db_zone_col1 = "ID";
     public static final String Db_zone_col2 = "NAME";
     public static final String Db_zone_col3 = "DIVISION";
     public static final String Db_zone_col4 = "NUMBER_OF";
     public DatabaseHelper(Context context) {
         super(context,Db_name,null,1);
-        SQLiteDatabase db =this.getWritableDatabase();
     }
 
     @Override
@@ -58,12 +57,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long i = db.insert(Db_tableDivision,null,c);
         return i;
     }
-    public long insertZoneData(SQLiteDatabase db, String Zone_id, String Division_name) {
+    public long insertZoneData(SQLiteDatabase db, String Zone_id, String Zone_name,String Division_name,long Zone_nof) {
         db = this.getWritableDatabase();
         ContentValues c = new ContentValues();
         c.put(Db_zone_col1,Zone_id);
+        c.put(Db_zone_col2,Zone_name);
         c.put(Db_zone_col3,Division_name);
-        //c.put(Db_zone_col4,Zone_nof);
+        c.put(Db_zone_col4,Zone_nof);
         //long res = db.insert(Db_name,null,c);
         long i = db.insert(Db_tableZone,null,c);
         return i;

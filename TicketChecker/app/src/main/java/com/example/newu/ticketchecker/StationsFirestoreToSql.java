@@ -41,7 +41,8 @@ public class StationsFirestoreToSql extends AppCompatActivity {
         setContentView(R.layout.activity_stations_firestore_to_sql);
         mydb=new DatabaseHelper(this);
         db=mydb.getReadableDatabase();
-        FetchStations();
+        mydb.insertStationData(db,"HWH","HOWRAH",700009);
+        //FetchStations();
 
 
     }
@@ -102,7 +103,7 @@ public class StationsFirestoreToSql extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@Nonnull Task<QuerySnapshot> task) {
                                             if (task.isSuccessful()) {
-                                                mydb.insertStationData(db,"HWH","howrah",700009);
+                                                //mydb.insertStationData(db,"HWH","howrah",700009);
                                                /* for (QueryDocumentSnapshot document : task.getResult()) {
                                                     StationInfo newStation = document.toObject(StationInfo.class);
 
