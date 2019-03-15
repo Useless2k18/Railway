@@ -25,15 +25,12 @@
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
         </StackPanel>
 
-        <StackPanel
-            Margin="10,10,10,10"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Stretch"
-            Orientation="Horizontal">
+        <DockPanel Margin="10,10,10,10" HorizontalAlignment="Right">
             <Button
                 x:Name="ButtonAdd"
                 Margin="0,0,10,0"
                 Click="ButtonAddOnClick"
+                DockPanel.Dock="Left"
                 Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
                 <materialDesign:PackIcon
                     Width="30"
@@ -42,31 +39,17 @@
             </Button>
 
             <Button
-                x:Name="ButtonDelete"
-                Margin="10,0,10,0"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Background="Red"
-                BorderBrush="Red"
-                Click="ButtonDeleteOnClick"
-                Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
-                <materialDesign:PackIcon
-                    Width="30"
-                    Height="30"
-                    Kind="Delete" />
-            </Button>
-
-            <Button
                 x:Name="ButtonSuccess"
                 Margin="10,0,0,0"
                 Click="ButtonSuccessOnClick"
+                DockPanel.Dock="Right"
                 Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
                 <materialDesign:PackIcon
                     Width="30"
                     Height="30"
                     Kind="Tick" />
             </Button>
-        </StackPanel>
+        </DockPanel>
 
     </StackPanel>
 </UserControl>

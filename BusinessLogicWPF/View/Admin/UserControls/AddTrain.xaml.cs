@@ -11,13 +11,14 @@ namespace BusinessLogicWPF.View.Admin.UserControls
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Diagnostics.Contracts;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Data;
-    using System.Windows.Media;
 
     using BusinessLogicWPF.Annotations;
-    using BusinessLogicWPF.Domain.TreeView;
+    using BusinessLogicWPF.Helper;
     using BusinessLogicWPF.View.Helpers.UserControls;
     using BusinessLogicWPF.ViewModel.Admin;
     using BusinessLogicWPF.ViewModel.Admin.ForHelpers;
@@ -30,9 +31,24 @@ namespace BusinessLogicWPF.View.Admin.UserControls
     public partial class AddTrain : UserControl
     {
         /// <summary>
-        /// The default margin.
+        /// The root.
         /// </summary>
-        private readonly Thickness defaultMargin = default(Thickness);
+        [NotNull]
+        private readonly MenuItem root;
+
+        /// <summary>
+        /// The list.
+        /// </summary>
+        [CanBeNull]
+        private readonly List<string> list = new List<string>
+                                                 {
+                                                     "Chair Car",
+                                                     "Second Sitting",
+                                                     "First Tier AC",
+                                                     "Second Tier AC",
+                                                     "Third Tier AC",
+                                                     "Sleeper"
+                                                 };
 
         /// <summary>
         /// The current selected item.
@@ -48,18 +64,21 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         {
             this.InitializeComponent();
 
-            var addTrainViewModel = new AddTrainViewModel();
-
-            // Root version (bind to RootNodeViewModelList with one item: RootNodeViewModel)
-            var rootTreeView = this.BuildTreeView();
-            var uiElement = rootTreeView;
-            if (uiElement != null)
+            this.root = new MenuItem { Name = "Coach" };
+            var enumerable = this.list;
+            if (enumerable != null)
             {
-                uiElement.ItemsSource = addTrainViewModel.RootNodeViewModelList;
-                uiElement.SelectedItemChanged += this.TreeViewSelectedItemChanged;
-                this.Grid2.Children.Add(uiElement);
-                Grid.SetColumn(uiElement, 0);
+                foreach (var item in enumerable)
+                {
+                    this.root.Items.Add(
+                        new MenuItem
+                            {
+                                Name = item
+                            });
+                }
             }
+
+            this.TreeView.Items.Add(this.root);
         }
 
         /// <summary>
@@ -87,7 +106,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls
             if (e != null)
             {
                 // this.ViewModel.SelectedItem = e.NewValue;
-                this.currentSelectedItem = ((NodeViewModel)e.NewValue).Name;
+                this.currentSelectedItem = ((MenuItem)e.NewValue).Name;
             }
         }
 
@@ -102,16 +121,6 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         /// </param>
         private async void ButtonAddOnClick([CanBeNull] object sender, [CanBeNull] RoutedEventArgs e)
         {
-            var list = new List<string>
-                           {
-                               "Chair Car",
-                               "Second Sitting",
-                               "First Tier AC",
-                               "Second Tier AC",
-                               "Third Tier AC",
-                               "Sleeper"
-                           };
-
             try
             {
                 if (string.Compare(this.currentSelectedItem, "Coach", StringComparison.Ordinal) == 0)
@@ -121,16 +130,41 @@ namespace BusinessLogicWPF.View.Admin.UserControls
                     var result1 = await DialogHost.Show(dialog1, "RootDialog", this.ClosingEventHandler)
                                       .ConfigureAwait(false);
                 }
-                else if (list.Contains(this.currentSelectedItem))
-                {
-                    var dialog2 = new SelectionDialog { DataContext = new EnterCoachesViewModel() };
-
-                    var result2 = await DialogHost.Show(dialog2, "RootDialog", this.ClosingEventHandler)
-                                      .ConfigureAwait(false);
-                }
                 else
                 {
-                    MessageBox.Show("Invalid request!");
+                    var o = this.list;
+                    if (o?.Contains(this.currentSelectedItem) == true)
+                    {
+                        DataHelper.SelectedCoach = (this.list ?? throw new InvalidOperationException()).FirstOrDefault(
+                            a => a.Contains(this.currentSelectedItem ?? throw new InvalidOperationException()));
+                        var dialog2 = new SelectionDialog { DataContext = new EnterCoachesViewModel() };
+
+                        var result2 = await DialogHost.Show(dialog2, "RootDialog", this.ClosingEventHandler)
+                                          .ConfigureAwait(false);
+
+                        if ((bool)result2)
+                        {
+                            this.Dispatcher.Invoke(
+                                () =>
+                                    {
+                                        var coaches = this.root.Items.FirstOrDefault(c => c.Name == DataHelper.SelectedCoach);
+
+                                        if (DataHelper.CoachesList != null)
+                                        {
+                                            foreach (var coach in DataHelper.CoachesList)
+                                            {
+                                                coaches?.Items.Add(new MenuItem { Name = coach });
+                                            }
+                                        }
+
+                                        this.TreeView.Items[0] = this.root;
+                                    });
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid request!");
+                    }
                 }
             }
             catch (Exception ex)
@@ -153,160 +187,25 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         }
 
         /// <summary>
-        /// Build a TreeView with multiple HierarchicalDataTemplates.
-        /// I have built only root and 3 levels, but more levels can be extended.
-        /// </summary>        
-        private TreeView BuildTreeView()
+        /// The object invariant.
+        /// </summary>
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
         {
-            HierarchicalDataTemplate levelNodeDefaultDataTemplate = this.BuildLevelNodeDataTemplate();
-            HierarchicalDataTemplate rootNodeDataTemplate = this.BuildLevelNodeDataTemplate(0);
-            HierarchicalDataTemplate level1NodeDataTemplate = this.BuildLevelNodeDataTemplate(1);
-            HierarchicalDataTemplate level2NodeDataTemplate = this.BuildLevelNodeDataTemplate(2);
-            HierarchicalDataTemplate level3NodeDataTemplate = this.BuildLevelNodeDataTemplate(3);
-            var levelNodeDataTemplateList = new List<Tuple<int, HierarchicalDataTemplate>>
-            {
-                new Tuple<int, HierarchicalDataTemplate>(0, rootNodeDataTemplate),
-                new Tuple<int, HierarchicalDataTemplate>(1, level1NodeDataTemplate),
-                new Tuple<int, HierarchicalDataTemplate>(2, level2NodeDataTemplate),
-                new Tuple<int, HierarchicalDataTemplate>(3, level3NodeDataTemplate),
-            };
-
-            var treeView = new TreeView
-                               {
-                                   ItemTemplateSelector = new NodeDataTemplateSelector(levelNodeDefaultDataTemplate, levelNodeDataTemplateList)
-                               };
-
-            // Disable selection highlight
-            treeView.Resources.Add(SystemColors.HighlightBrushKey, new SolidColorBrush(Colors.Transparent));
-            treeView.Resources.Add(SystemColors.HighlightTextBrushKey, new SolidColorBrush(Colors.Black));
-            treeView.Resources.Add(SystemColors.InactiveSelectionHighlightBrushKey, new SolidColorBrush(Colors.Transparent));
-            treeView.Resources.Add(SystemColors.InactiveSelectionHighlightTextBrushKey, new SolidColorBrush(Colors.Black));
-
-            return treeView;
-        }
-
-        private HierarchicalDataTemplate BuildLevelNodeDataTemplate(int level = int.MaxValue)
-        {
-            FrameworkElementFactory levelNodeElementFactory;
-            switch (level)
-            {
-                case 0: levelNodeElementFactory = this.BuildRootNodeVisual(); break;
-                case 1: levelNodeElementFactory = this.BuildLevel1NodeVisual(); break;
-                case 2: levelNodeElementFactory = this.BuildLevel2NodeVisual(); break;
-                case 3: levelNodeElementFactory = this.BuildLevel3NodeVisual(); break;
-                default: levelNodeElementFactory = this.BuildLevelNodeBasicVisual(); break;
-            }
-
-            var levelNodeDataTemplate = new HierarchicalDataTemplate
-                                            {
-                                                ItemsSource = new Binding("ChildNodes"),
-                                                VisualTree = levelNodeElementFactory
-                                            };
-            return levelNodeDataTemplate;
-        }
-
-        private FrameworkElementFactory BuildRootNodeVisual()
-        {
-            return this.BuildLevelNodeBasicVisual(nameFontBold: true);
-        }
-
-        private FrameworkElementFactory BuildLevel1NodeVisual()
-        {
-            var stackPanelFactory = this.CreateStackPanelFactory(
-                    Orientation.Horizontal, new Thickness(4, 4, 5, 2));
-            var textBlockFactory = new FrameworkElementFactory(typeof(TextBlock));
-            textBlockFactory.SetBinding(TextBlock.TextProperty, new Binding("Name"));
-            textBlockFactory.SetValue(TextBlock.FontWeightProperty, FontWeights.Bold);
-            textBlockFactory.SetValue(TextBlock.TextDecorationsProperty, TextDecorations.Underline);
-            textBlockFactory.SetValue(MarginProperty, new Thickness(0, 3, 0, 0));
-            stackPanelFactory.AppendChild(textBlockFactory);
-
-            return stackPanelFactory;
-        }
-
-        private FrameworkElementFactory BuildLevel2NodeVisual()
-        {
-            var stackPanelFactory = this.CreateStackPanelFactory(Orientation.Horizontal, new Thickness(4, 4, 5, 2));
-            this.AppendTextBlockBinding(stackPanelFactory, "Name");
-
-            // Bind SearchImagePath with Level2NodeViewModel
-            return stackPanelFactory;
-        }
-
-        /// <summary>
-        /// Level 3 node: horizontal stack panel containing an image 
-        /// and a vertical statck panel containing Name, Author, and Hyperlink        
-        /// </summary>        
-        private FrameworkElementFactory BuildLevel3NodeVisual()
-        {
-            var stackPanelFactory = this.CreateStackPanelFactory(Orientation.Horizontal, new Thickness(0, 0, 0, 4));
-            var stackPanelFactoryVert = this.CreateStackPanelFactory(Orientation.Vertical, new Thickness(4, 4, 5, 2));
-            this.AppendTextBlockBinding(stackPanelFactoryVert, "Name", textFontBold: true);
-            this.AppendTextBlockBinding(stackPanelFactoryVert, "Author");
-            stackPanelFactory.AppendChild(stackPanelFactoryVert);
-            return stackPanelFactory;
-        }
-
-        private FrameworkElementFactory BuildLevelNodeBasicVisual(bool nameFontBold = false)
-        {
-            var stackPanelFactory = this.CreateStackPanelFactory(Orientation.Horizontal, new Thickness(4, 4, 5, 2));
-            this.AppendTextBlockBinding(stackPanelFactory, "Name", nameFontBold);
-            return stackPanelFactory;
-        }
-
-        private StackPanel BuildRootlessHeaderVisual(string headerText, string imagePath)
-        {
-            var stackPanel = this.CreateStackPanel(Orientation.Horizontal, new Thickness(4, 5, 5, 2));
-
-            // TextBlock inside StackPanel
-            var textBlock = new TextBlock();
-            textBlock.SetValue(TextBlock.TextProperty, headerText);
-            textBlock.SetValue(MarginProperty, new Thickness(0, 2, 0, 0));
-            textBlock.SetValue(TextBlock.FontWeightProperty, FontWeights.Bold);
-            textBlock.SetValue(TextBlock.FontStyleProperty, FontStyles.Italic);
-            stackPanel.Children.Add(textBlock);
-
-            return stackPanel;
-        }
-
-        private FrameworkElementFactory CreateStackPanelFactory(
-                    Orientation orientation = Orientation.Horizontal, Thickness margin = default(Thickness))
-        {
-            var stackPanelFactory = new FrameworkElementFactory(typeof(StackPanel));
-            stackPanelFactory.SetValue(StackPanel.OrientationProperty, orientation);
-            if (margin != this.defaultMargin)
-            {
-                stackPanelFactory.SetValue(MarginProperty, margin);
-            }
-
-            return stackPanelFactory;
-        }
-
-        private void AppendTextBlockBinding(FrameworkElementFactory container, string name, bool textFontBold = false)
-        {
-            var textBlockFactory = new FrameworkElementFactory(typeof(TextBlock));
-            textBlockFactory.SetBinding(TextBlock.TextProperty, new Binding(name));
-            if (textFontBold)
-            {
-                textBlockFactory.SetValue(TextBlock.FontWeightProperty, FontWeights.Bold);
-            }
-
-            container.AppendChild(textBlockFactory);
-        }
-
-        private StackPanel CreateStackPanel(
-            Orientation orientation = Orientation.Horizontal, Thickness margin = default(Thickness))
-        {
-            var stackPanel = new StackPanel();
-            stackPanel.SetValue(StackPanel.OrientationProperty, orientation);
-            stackPanel.SetValue(HeightProperty, 20d);
-            stackPanel.SetValue(VerticalAlignmentProperty, VerticalAlignment.Top);
-            if (margin != this.defaultMargin)
-            {
-                stackPanel.SetValue(MarginProperty, margin);
-            }
-
-            return stackPanel;
+            Contract.Invariant(this.list.All(item => item != null));
         }
     }
+
+    public class MenuItem
+    {
+        public MenuItem()
+        {
+            this.Items = new ObservableCollection<MenuItem>();
+        }
+
+        public string Name { get; set; }
+
+        public ObservableCollection<MenuItem> Items { get; set; }
+    }
+
 }

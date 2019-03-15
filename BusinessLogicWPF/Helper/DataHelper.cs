@@ -37,6 +37,12 @@ namespace BusinessLogicWPF.Helper
         private static List<string> coachesList;
 
         /// <summary>
+        /// The selected coach.
+        /// </summary>
+        [CanBeNull]
+        private static string selectedCoach;
+
+        /// <summary>
         /// Gets or sets the train.
         /// </summary>
         [CanBeNull]
@@ -79,6 +85,24 @@ namespace BusinessLogicWPF.Helper
         {
             get => coachesList;
             set => coachesList = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the selected coach.
+        /// </summary>
+        [CanBeNull]
+        public static string SelectedCoach
+        {
+            get => selectedCoach;
+            set
+            {
+                if (value != null && selectedCoach == value)
+                {
+                    return;
+                }
+
+                selectedCoach = value;
+            }
         }
     }
 }

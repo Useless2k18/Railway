@@ -96,7 +96,15 @@
             </Grid>
 
             <StackPanel x:Name="StackPanel" Grid.Column="1">
-                <Grid x:Name="Grid2" />
+                <Grid x:Name="Grid2">
+                    <TreeView x:Name="TreeView" SelectedItemChanged="TreeViewSelectedItemChanged">
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate DataType="{x:Type local:MenuItem}" ItemsSource="{Binding Items}">
+                                <TextBlock Text="{Binding Name}" />
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+                </Grid>
                 <Grid x:Name="Grid3" MinWidth="400">
                     <materialDesign:PopupBox
                         Margin="10,10,10,10"

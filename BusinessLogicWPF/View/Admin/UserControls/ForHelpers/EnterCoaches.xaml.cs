@@ -9,13 +9,10 @@
 
 namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
 {
-    using System;
-    using System.Reflection;
+    using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Controls.Primitives;
     using System.Windows.Media;
-    using System.Windows.Shapes;
 
     using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Helper;
@@ -166,12 +163,15 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
             var button = (Button)this.FindName("ButtonAdd");
             var button2 = (Button)this.FindName("ButtonSuccess");
 
+            DataHelper.CoachesList = new List<string>();
+
             for (var i = 1; i <= this.counter; i++)
             {
                 var textBox = FindChild<TextBox>(this.StackPanel, "TextBox" + i);
 
                 if (textBox != null)
                 {
+                    DataHelper.CoachesList?.Add(textBox.Text);
                     textBox.Visibility = Visibility.Collapsed;
                 }
             }
@@ -183,19 +183,6 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
             }
 
             DataHelper.StatusForEnable = true;
-        }
-
-        /// <summary>
-        /// The button delete on click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        private void ButtonDeleteOnClick([CanBeNull] object sender, [CanBeNull] RoutedEventArgs e)
-        {
         }
     }
 }
