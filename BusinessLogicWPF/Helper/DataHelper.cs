@@ -9,6 +9,8 @@
 
 namespace BusinessLogicWPF.Helper
 {
+    using System.Collections.Generic;
+
     using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Model;
 
@@ -27,6 +29,12 @@ namespace BusinessLogicWPF.Helper
         /// The status for enable.
         /// </summary>
         private static bool statusForEnable;
+
+        /// <summary>
+        /// The coaches list.
+        /// </summary>
+        [CanBeNull]
+        private static List<string> coachesList;
 
         /// <summary>
         /// Gets or sets the train.
@@ -61,6 +69,16 @@ namespace BusinessLogicWPF.Helper
 
                 statusForEnable = value;
             }
+        }
+
+        /// <summary>
+        /// Gets or sets the coaches list.
+        /// </summary>
+        [CanBeNull]
+        public static List<string> CoachesList
+        {
+            get => coachesList;
+            set => coachesList = value;
         }
     }
 }

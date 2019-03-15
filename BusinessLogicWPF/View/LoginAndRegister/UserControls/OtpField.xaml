@@ -6,12 +6,16 @@
              xmlns:local="clr-namespace:BusinessLogicWPF.View.LoginAndRegister.UserControls"
              xmlns:loginAndRegister="clr-namespace:BusinessLogicWPF.ViewModel.LoginAndRegister"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:domain="clr-namespace:BusinessLogicWPF.Domain"
+             xmlns:json="clr-namespace:BusinessLogicWPF.Model.Json"
              mc:Ignorable="d" 
              Height="Auto" Width="Auto"
              d:DataContext="{d:DesignInstance loginAndRegister:OtpFieldViewModel, d:IsDesignTimeCreatable=False}">
+    
     <Grid Margin="10" VerticalAlignment="Top">
         
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -19,7 +23,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="0,10,10,10">
+        <Grid Grid.Row="0" Margin="0,10,15,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -32,21 +36,56 @@
                 Foreground="{Binding ElementName=TextBoxPhoneNumber, Path=BorderBrush}"/>
             <ComboBox x:Name="ComboBoxCountryCode" Grid.Column="1"
                       VerticalAlignment="Bottom"
-                      Margin="5,5,0,0" Width="50" FontSize="14"/>
+                      Margin="5,5,0,0" 
+                      Width="80" FontSize="14"
+                      SelectionChanged="ComboBoxCountryCodeOnSelectionChanged"
+                      IsEditable="False"
+                      ItemTemplateSelector="{DynamicResource ItemTemplateSelector}">
+                <ComboBox.Resources>
+                    <DataTemplate x:Key="SelectedTemplate" DataType="{x:Type json:IsdCodes}">
+                        <TextBlock Text="{Binding Path=ShortDescription}"/>
+                    </DataTemplate>
+                    <DataTemplate x:Key="DropDownTemplate" DataType="{x:Type json:IsdCodes}">
+                        <TextBlock Text="{Binding Path=LongDescription}"/>
+                    </DataTemplate>
+                    <domain:ComboBoxItemTemplateSelector
+                        x:Key="ItemTemplateSelector"
+                        SelectedTemplate="{StaticResource SelectedTemplate}"
+                        DropDownTemplate="{StaticResource DropDownTemplate}"/>
+                </ComboBox.Resources>
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel 
+                            RequestBringIntoView="FrameworkElementOnRequestBringIntoView"/>
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
             <TextBox x:Name="TextBoxPhoneNumber" Grid.Column="2"
                      VerticalAlignment="Center"
                      Margin="5,5,0,0" FontSize="14"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      materialDesign:HintAssist.Hint="Mobile Number"
+                     MaxLength="10"
                      PreviewTextInput="TextBoxOnPreviewTextInput"
                      DataObject.Pasting="TextBoxOnPasting"/>
         </Grid>
+        <Label
+            Name="LabelTextPhoneNumber"
+            Grid.Row="1"
+            Margin="10,0,0,0"
+            Visibility="Collapsed"
+            Foreground="Red"
+            FontSize="10"
+            Content="* Please Enter Your Phone Number"/>
         
         <Button x:Name="ButtonResendOtp"
-                Grid.Row="1"
+                Grid.Row="2"
                 Visibility="Collapsed" FontSize="12" BorderThickness="0"/>
 
-        <DockPanel Grid.Row="2" Margin="10,10,10,10">
+        <DockPanel 
+            Name="DockPanelWithTextBoxOtp"
+            Grid.Row="3" Margin="10,10,15,10"
+            Visibility="Collapsed">
             <materialDesign:PackIcon Margin="0,5,0,5"
                 Kind="Lock" Width="20" Height="20"
                 VerticalAlignment="Center"
@@ -60,12 +99,12 @@
                      MaxLength="6"/>
         </DockPanel>
         <Label x:Name="LabelOtp" 
-               Grid.Row="3"
+               Grid.Row="4"
                Content="* Please enter OTP received in your mobile number" 
                Foreground="Red" FontSize="10" Visibility="Collapsed"/>
 
         <Button x:Name="ButtonNext" 
-                Grid.Row="4" Margin="0,10,0,15"
+                Grid.Row="5" Margin="0,10,0,15"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontWeight="Bold"
@@ -76,11 +115,15 @@
                 Click="ButtonNextOnClick">
             <Button.Content>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock VerticalAlignment="Center">
+                    <TextBlock 
+                        Name="ButtonNextContent"
+                        VerticalAlignment="Center">
                         Next
                     </TextBlock>
-                    <materialDesign:PackIcon Kind="PageNextOutline"
-                                             Width="30" Height="30"/>
+                    <materialDesign:PackIcon
+                        Name="ButtonNextIcon"
+                        Kind="MessageProcessing"
+                        Width="30" Height="30"/>
                 </StackPanel>
             </Button.Content>
         </Button>

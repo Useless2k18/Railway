@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace BusinessLogicWPF.ViewModel.StationMaster.ForHelper
+namespace BusinessLogicWPF.ViewModel.Helpers
 {
     /// <summary>
     /// The selection dialog view model.

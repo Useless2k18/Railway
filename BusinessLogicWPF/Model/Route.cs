@@ -7,6 +7,8 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable StyleCop.SA1300
+// ReSharper disable InconsistentNaming
 namespace BusinessLogicWPF.Model
 {
     using BusinessLogicWPF.Annotations;
@@ -20,23 +22,31 @@ namespace BusinessLogicWPF.Model
     public class Route
     {
         /// <summary>
-        /// Gets or sets the ar r_ time.
+        /// Gets or sets the arrival time.
         /// </summary>
-        [CanBeNull] [FirestoreProperty] public string ARR_TIME { get; set; }
+        [CanBeNull]
+        [FirestoreProperty]
+        public string arrivalTime { get; set; }
 
         /// <summary>
-        /// Gets or sets the dep t_ time.
+        /// Gets or sets the departure time.
         /// </summary>
-        [CanBeNull] [FirestoreProperty] public string DEPT_TIME { get; set; }
+        [CanBeNull]
+        [FirestoreProperty]
+        public string departureTime { get; set; }
 
         /// <summary>
-        /// Gets or sets the st n_ code.
+        /// Gets or sets the station code.
         /// </summary>
-        [CanBeNull] [FirestoreProperty] public string STN_CODE { get; set; }
+        [CanBeNull]
+        [FirestoreProperty]
+        public string stationCode { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether TTE assign flag.
+        /// Gets or sets the TTE assign flag.
         /// </summary>
-        [FirestoreProperty] public bool TteAssignFlag { get; set; }
+        [CanBeNull]
+        [FirestoreProperty]
+        public int tteAssignFlag { get; set; }
     }
 }

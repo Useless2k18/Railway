@@ -1,13 +1,13 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="StationMasterWindow.xaml.cs" company="SDCWORLD">
+// <copyright file="AdminWindow.xaml.cs" company="SDCWORLD">
 //   Sourodeep Chatterjee
 // </copyright>
 // <summary>
-//   Interaction logic for StationMasterWindow.xaml
+//   Interaction logic for AdminWindow.XAML
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace BusinessLogicWPF.View.StationMaster.Window
+namespace BusinessLogicWPF.View.Admin.Window
 {
     using System;
     using System.ComponentModel;
@@ -19,14 +19,16 @@ namespace BusinessLogicWPF.View.StationMaster.Window
     using System.Windows.Media;
 
     using BusinessLogicWPF.Annotations;
-    using BusinessLogicWPF.ViewModel.StationMaster;
+    using BusinessLogicWPF.ViewModel.Admin;
 
     using MaterialDesignThemes.Wpf;
 
+    using Window = System.Windows.Window;
+
     /// <summary>
-    /// Interaction logic for Station Master Window XAML file
+    /// Interaction logic for AdminWindow.XAML
     /// </summary>
-    public partial class StationMasterWindow : Window
+    public partial class AdminWindow : Window
     {
         /// <summary>
         /// The snack-bar.
@@ -36,17 +38,17 @@ namespace BusinessLogicWPF.View.StationMaster.Window
 
         /// <inheritdoc />
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:BusinessLogicWPF.View.StationMaster.Window.StationMasterWindow" /> class.
+        /// Initializes a new instance of the <see cref="T:BusinessLogicWPF.View.Admin.Window.AdminWindow" /> class.
         /// </summary>
-        public StationMasterWindow()
+        public AdminWindow()
         {
             this.InitializeComponent();
 
             Task.Factory.StartNew(() => Thread.Sleep(2000)).ContinueWith(
-                t => this.MainSnackbar.MessageQueue.Enqueue("Hello Station Master"),
+                t => this.MainSnackbar.MessageQueue.Enqueue("Hello Admin"),
                 TaskScheduler.FromCurrentSynchronizationContext());
 
-            this.DataContext = new StationMasterWindowViewModel(this.MainSnackbar.MessageQueue);
+            this.DataContext = new AdminWindowViewModel(this.MainSnackbar.MessageQueue);
 
             snackbar = this.MainSnackbar;
         }
@@ -96,7 +98,7 @@ namespace BusinessLogicWPF.View.StationMaster.Window
         /// <param name="e">
         /// The e.
         /// </param>
-        private void StationMasterWindowOnClosing([NotNull] object sender, [NotNull] CancelEventArgs e)
+        private void AdminWindowOnClosing([NotNull] object sender, [NotNull] CancelEventArgs e)
         {
             if (sender == null)
             {

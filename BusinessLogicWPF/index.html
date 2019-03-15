@@ -41,7 +41,7 @@ limitations under the License.
                     </div>
                     <div class="mdl-card__supporting-text mdl-color-text--grey-600">
                         <p>Sign in with your phone number below.</p>
-                        <form id="sign-in-form" action="#">
+                        <form id="sign-in-form" action="404.html" autocomplete="on">
                             <!-- Input to enter the phone number -->
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                 <input class="mdl-textfield__input" type="text" pattern="\+[0-9\s\-\(\)]+" id="phone-number">
@@ -230,7 +230,8 @@ limitations under the License.
          * Reads the phone number from the user input.
          */
         function getPhoneNumberFromUserInput() {
-            return document.getElementById('phone-number').value;
+            //return document.getElementById('phone-number').value;
+            return dotNetPhoneNumberAuthentication.phoneNumber;
         }
         /**
          * Returns true if the phone number is valid.

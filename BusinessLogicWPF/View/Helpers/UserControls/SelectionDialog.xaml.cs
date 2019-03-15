@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
+namespace BusinessLogicWPF.View.Helpers.UserControls
 {
     using System;
     using System.ComponentModel;
@@ -27,13 +27,16 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
         [NotNull]
         private readonly BackgroundWorker backgroundWorker = new BackgroundWorker();
 
+        /// <inheritdoc />
         /// <summary>
-        /// Initializes a new instance of the <see cref="SelectionDialog"/> class.
+        /// Initializes a new instance of the <see cref="T:BusinessLogicWPF.View.Helpers.UserControls.SelectionDialog" /> class.
         /// </summary>
         public SelectionDialog()
-        : base()
+            : base()
         {
             this.InitializeComponent();
+
+            DataHelper.StatusForEnable = false;
 
             this.backgroundWorker.DoWork += this.BackgroundWorkerDoWork;
             this.backgroundWorker.RunWorkerCompleted += this.BackgroundWorkerRunWorkerCompleted;

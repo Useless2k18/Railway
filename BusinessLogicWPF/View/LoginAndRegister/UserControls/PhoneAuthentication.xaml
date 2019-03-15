@@ -12,14 +12,16 @@
              d:DataContext="{d:DesignInstance loginAndRegister:PhoneAuthenticationViewModel, d:IsDesignTimeCreatable=False}">
     
     <UserControl.Resources>
-        <DataTemplate x:Name="OtpFieldTemplate" DataType="{x:Type loginAndRegister:OtpFieldViewModel}">
-            <local:OtpField DataContext="{Binding}"/>
+        <DataTemplate 
+            x:Name="OtpFieldTemplate"
+            DataType="{x:Type loginAndRegister:OtpFieldViewModel}">
+            <local:OtpField DataContext="{Binding}" />
         </DataTemplate>
     </UserControl.Resources>
     
     <Grid Margin="0" VerticalAlignment="Top">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="200"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 

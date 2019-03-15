@@ -16,7 +16,7 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls
 
     using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Model;
-    using BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation;
+    using BusinessLogicWPF.View.Helpers.UserControls;
     using BusinessLogicWPF.ViewModel.StationMaster;
     using BusinessLogicWPF.ViewModel.StationMaster.ForHelper;
 

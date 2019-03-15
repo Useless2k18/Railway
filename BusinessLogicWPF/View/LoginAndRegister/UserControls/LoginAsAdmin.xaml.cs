@@ -22,6 +22,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
     using System.Windows.Threading;
 
     using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.View.Admin.Window;
 
     using Window = System.Windows.Window;
 
@@ -80,7 +81,14 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
 
             if (this.TextUserName.Text.Length != 0 && this.TextPassword.Password.Length != 0 && this.TextOtp.Text.Length != 0)
             {
-                MessageBox.Show("Logged in!");
+                var adminWindow = new AdminWindow();
+                this.window.Hide();
+                adminWindow.ShowDialog();
+                this.window.Show();
+            }
+            else
+            {
+                MessageBox.Show("Invalid password");
             }
         }
 

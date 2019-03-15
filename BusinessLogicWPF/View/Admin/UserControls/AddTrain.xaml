@@ -1,0 +1,137 @@
+﻿<UserControl
+    x:Class="BusinessLogicWPF.View.Admin.UserControls.AddTrain"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BusinessLogicWPF.View.Admin.UserControls"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="clr-namespace:BusinessLogicWPF.Model"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:viewModel="clr-namespace:BusinessLogicWPF.ViewModel.Admin"
+    Width="Auto"
+    Height="Auto"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="{x:Type TextBox}">
+                <Setter Property="Margin" Value="4,8,4,8" />
+            </Style>
+            <Style BasedOn="{StaticResource MaterialDesignPasswordBox}" TargetType="{x:Type PasswordBox}">
+                <Setter Property="Margin" Value="4,8,4,8" />
+            </Style>
+            <Style BasedOn="{StaticResource {x:Type materialDesign:PackIcon}}" TargetType="{x:Type materialDesign:PackIcon}">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Margin" Value="8,12,4,4" />
+                <Setter Property="Width" Value="20" />
+                <Setter Property="Height" Value="20" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <ScrollViewer>
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid
+                x:Name="Grid1"
+                Grid.Column="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <TextBox
+                    x:Name="TextBoxTrainNo"
+                    Grid.Row="0"
+                    materialDesign:HintAssist.Hint="Enter Train No"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                <TextBox
+                    x:Name="TextBoxTrainName"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    materialDesign:HintAssist.Hint="Enter Train Name"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                <TextBox
+                    x:Name="TextBoxTrainType"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    materialDesign:HintAssist.Hint="Enter Train Type"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                <TextBox
+                    x:Name="TextBoxTrainSource"
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    materialDesign:HintAssist.Hint="Enter Train Source Station"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                <TextBox
+                    x:Name="TextBoxTrainDestination"
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    materialDesign:HintAssist.Hint="Enter Train Destination Station"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                <TextBox
+                    x:Name="TextBoxTrainRakeZone"
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    materialDesign:HintAssist.Hint="Enter Train Rake Zone"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            </Grid>
+
+            <StackPanel x:Name="StackPanel" Grid.Column="1">
+                <Grid x:Name="Grid2" />
+                <Grid x:Name="Grid3" MinWidth="400">
+                    <materialDesign:PopupBox
+                        Margin="10,10,10,10"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        PlacementMode="LeftAndAlignMiddles"
+                        Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+                        ToolTip="Manage items"
+                        UnfurlOrientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
+                            <Button
+                                x:Name="ButtonAdd"
+                                Click="ButtonAddOnClick"
+                                ToolTip="Add an item">
+                                <Path
+                                    Width="15"
+                                    Height="15"
+                                    Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
+                                    Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"
+                                    Stretch="Uniform" />
+                            </Button>
+                            <Button Command="{Binding RemoveSelectedItemCommand}" ToolTip="Remove selected item">
+                                <Path
+                                    Width="15"
+                                    Height="15"
+                                    Data="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
+                                    Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"
+                                    Stretch="Uniform" />
+                            </Button>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+                </Grid>
+            </StackPanel>
+
+        </Grid>
+    </ScrollViewer>
+
+</UserControl>

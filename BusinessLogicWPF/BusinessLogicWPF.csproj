@@ -318,13 +318,23 @@
     <Compile Include="Domain\SelectableViewModel.cs" />
     <Compile Include="Domain\SimpleDataTemplateSelector.cs" />
     <Compile Include="Domain\SimpleDateValidationRule.cs" />
+    <Compile Include="Domain\TreeView\Level1NodeViewModel.cs" />
+    <Compile Include="Domain\TreeView\Level2NodeViewModel.cs" />
+    <Compile Include="Domain\TreeView\Level3NodeViewModel.cs" />
+    <Compile Include="Domain\TreeView\DelegateCommand.cs" />
+    <Compile Include="Domain\TreeView\NodeDataTemplateSelector.cs" />
+    <Compile Include="Domain\TreeView\NodeViewModel.cs" />
+    <Compile Include="Domain\TreeView\RootNodeViewModel.cs" />
     <Compile Include="GoogleCloudFireStoreLibrary\ConnectFireStore.cs" />
+    <Compile Include="Domain\ComboBoxItemTemplateSelector.cs" />
     <Compile Include="Helper\DataHelper.cs" />
     <Compile Include="Helper\ErrorLabelHelper.cs" />
     <Compile Include="Helper\IndeterminateProgressDialog.xaml.cs">
       <DependentUpon>IndeterminateProgressDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helper\PhoneAuthenticationHelper.cs" />
     <Compile Include="Helper\StaticDbContext.cs" />
+    <Compile Include="Helper\VisualTreeHelper.cs" />
     <Compile Include="Model\Coach.cs" />
     <Compile Include="Model\Json\IsdCodes.cs" />
     <Compile Include="Model\Route.cs" />
@@ -338,20 +348,47 @@
     <Compile Include="Style\Class\NullTextBox.cs" />
     <Compile Include="Style\Class\WaterMarkTextHelper.cs" />
     <Compile Include="TypeConverters\MultiValueConverter.cs" />
+    <Compile Include="ViewModel\Admin\AddTrainViewModel.cs" />
+    <Compile Include="ViewModel\Admin\AdminWindowViewModel.cs" />
+    <Compile Include="ViewModel\Admin\ForHelpers\CoachCategory.cs" />
+    <Compile Include="ViewModel\Admin\ForHelpers\EnterCoachesViewModel.cs" />
+    <Compile Include="ViewModel\Admin\ForHelpers\SelectCoachCategoryViewModel.cs" />
     <Compile Include="ViewModel\LoginAndRegister\LoginAsAdminViewModel.cs" />
     <Compile Include="ViewModel\LoginAndRegister\LoginAsStationMasterViewModel.cs" />
     <Compile Include="ViewModel\LoginAndRegister\LoginViewModel.cs" />
     <Compile Include="ViewModel\LoginAndRegister\OtpFieldViewModel.cs" />
     <Compile Include="ViewModel\LoginAndRegister\PhoneAuthenticationViewModel.cs" />
     <Compile Include="ViewModel\StationMaster\AllocateTteViewModel.cs" />
-    <Compile Include="ViewModel\StationMaster\ForHelper\SelectionDialogViewModel.cs" />
+    <Compile Include="ViewModel\Helpers\SelectionDialogViewModel.cs" />
     <Compile Include="ViewModel\StationMaster\ForHelper\SelectTteViewModel.cs" />
     <Compile Include="ViewModel\StationMaster\StationMasterWindowViewModel.cs" />
+    <Compile Include="View\Admin\UserControls\AddStation.xaml.cs">
+      <DependentUpon>AddStation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Admin\UserControls\AddTrain.xaml.cs">
+      <DependentUpon>AddTrain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Admin\UserControls\AddTte.xaml.cs">
+      <DependentUpon>AddTte.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Admin\UserControls\AdminHome.xaml.cs">
+      <DependentUpon>AdminHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Admin\UserControls\ForHelpers\EnterCoaches.xaml.cs">
+      <DependentUpon>EnterCoaches.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Admin\UserControls\ForHelpers\SelectCoachCategory.xaml.cs">
+      <DependentUpon>SelectCoachCategory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Admin\Window\AdminWindow.xaml.cs">
+      <DependentUpon>AdminWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Home\Window\HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\LoginAndRegister\LoginAsTteViewModel.cs" />
     <Compile Include="ViewModel\LoginAndRegister\RegisterViewModel.cs" />
+    <Compile Include="JsClasses\DotNetPhoneNumberAuthentication.cs" />
     <Compile Include="View\LoginAndRegister\UserControls\LoginAsAdmin.xaml.cs">
       <DependentUpon>LoginAsAdmin.xaml</DependentUpon>
     </Compile>
@@ -376,7 +413,7 @@
     <Compile Include="View\StationMaster\UserControls\AllocateTte.xaml.cs">
       <DependentUpon>AllocateTte.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\StationMaster\UserControls\HelperForAllocation\SelectionDialog.xaml.cs">
+    <Compile Include="View\Helpers\UserControls\SelectionDialog.xaml.cs">
       <DependentUpon>SelectionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StationMaster\UserControls\HelperForAllocation\SelectTte.xaml.cs">
@@ -408,6 +445,34 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Style\TextBoxWithPic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Admin\UserControls\AddStation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Admin\UserControls\AddTrain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Admin\UserControls\AddTte.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Admin\UserControls\AdminHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Admin\UserControls\ForHelpers\EnterCoaches.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Admin\UserControls\ForHelpers\SelectCoachCategory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Admin\Window\AdminWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -463,7 +528,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\StationMaster\UserControls\HelperForAllocation\SelectionDialog.xaml">
+    <Page Include="View\Helpers\UserControls\SelectionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -565,6 +630,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="404.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

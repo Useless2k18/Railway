@@ -1,33 +1,80 @@
-﻿using System.Collections.Generic;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Train.cs" company="SDCWORLD">
+//   Sourodeep Chatterjee
+// </copyright>
+// <summary>
+//   Defines the Train type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-using BusinessLogicWPF.Annotations;
-
-using Google.Cloud.Firestore;
-
+// ReSharper disable StyleCop.SA1300
+// ReSharper disable InconsistentNaming
 namespace BusinessLogicWPF.Model
 {
+    using BusinessLogicWPF.Annotations;
+
+    using Google.Cloud.Firestore;
+
+    /// <summary>
+    /// The train.
+    /// </summary>
     [FirestoreData]
     public class Train
     {
-        [CanBeNull] [FirestoreProperty] public Coach COACH { get; set; }
+        /// <summary>
+        /// Gets or sets the train no.
+        /// </summary>
+        [CanBeNull]
+        [FirestoreProperty]
+        public int trainNo { get; set; }
 
-        [CanBeNull] [FirestoreProperty] public string DEST_STN { get; set; }
+        /// <summary>
+        /// Gets or sets the train name.
+        /// </summary>
+        [CanBeNull]
+        [FirestoreProperty]
+        public string trainName { get; set; }
 
-        [CanBeNull] [FirestoreProperty] public string NAME { get; set; }
+        /// <summary>
+        /// Gets or sets the type.
+        /// </summary>
+        [CanBeNull]
+        [FirestoreProperty]
+        public string type { get; set; }
 
-        [FirestoreProperty] public int NO_OF_STATIONS { get; set; }
+        /// <summary>
+        /// Gets or sets the coach.
+        /// </summary>
+        [CanBeNull]
+        [FirestoreProperty]
+        public Coach coach { get; set; }
 
-        [CanBeNull] [FirestoreProperty] public string RAKE_ZONE { get; set; }
+        /// <summary>
+        /// Gets or sets the source station.
+        /// </summary>
+        [CanBeNull]
+        [FirestoreProperty]
+        public string sourceStation { get; set; }
 
-        // Map inside map
-        [CanBeNull] [FirestoreProperty] public Dictionary<string, Route> ROUTE { get; set; }
+        /// <summary>
+        /// Gets or sets the destination station.
+        /// </summary>
+        [CanBeNull]
+        [FirestoreProperty]
+        public string destinationStation { get; set; }
 
-        [CanBeNull] [FirestoreProperty] public string[] RUNN_DATE { get; set; }
+        /// <summary>
+        /// Gets or sets the rake zone.
+        /// </summary>
+        [CanBeNull]
+        [FirestoreProperty]
+        public string rakeZone { get; set; }
 
-        [CanBeNull] [FirestoreProperty] public string SRC_STN { get; set; }
-
-        [CanBeNull] [FirestoreProperty] public string TRAIN_NO { get; set; }
-
-        [CanBeNull] [FirestoreProperty] public string TYPE { get; set; }
+        /// <summary>
+        /// Gets or sets the route.
+        /// </summary>
+        [CanBeNull]
+        [FirestoreProperty]
+        public Route[] route { get; set; }
     }
 }
