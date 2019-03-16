@@ -158,7 +158,15 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
                 }
             }
 
-            MessageBox.Show("Are you sure you want to continue? You cannot undo this operation");
+            var s = MessageBox.Show(
+                "Are you sure you want to continue? You cannot undo this operation",
+                "Question",
+                MessageBoxButton.YesNo);
+            
+            if (s == MessageBoxResult.No)
+            {
+                return;
+            }
 
             var button = (Button)this.FindName("ButtonAdd");
             var button2 = (Button)this.FindName("ButtonSuccess");

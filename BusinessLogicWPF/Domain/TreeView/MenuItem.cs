@@ -1,0 +1,41 @@
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="MenuItem.cs" company="SDCWORLD">
+//   Sourodeep Chatterjee
+// </copyright>
+// <summary>
+//   Defines the MenuItem type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace BusinessLogicWPF.Domain.TreeView
+{
+    using System.Collections.ObjectModel;
+
+    using BusinessLogicWPF.Annotations;
+
+    /// <summary>
+    /// The menu item.
+    /// </summary>
+    public class MenuItem
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MenuItem"/> class.
+        /// </summary>
+        public MenuItem()
+        {
+            this.Items = new ObservableCollection<MenuItem>();
+        }
+
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        [CanBeNull]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the items.
+        /// </summary>
+        [CanBeNull]
+        public ObservableCollection<MenuItem> Items { get; set; }
+    }
+}

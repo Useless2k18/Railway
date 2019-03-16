@@ -11,7 +11,6 @@ namespace BusinessLogicWPF.View.Admin.UserControls
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Windows;
@@ -24,6 +23,8 @@ namespace BusinessLogicWPF.View.Admin.UserControls
     using BusinessLogicWPF.ViewModel.Admin.ForHelpers;
 
     using MaterialDesignThemes.Wpf;
+
+    using MenuItem = BusinessLogicWPF.Domain.TreeView.MenuItem;
 
     /// <summary>
     /// Interaction logic for AddTrains.XAML
@@ -42,12 +43,12 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         [CanBeNull]
         private readonly List<string> list = new List<string>
                                                  {
-                                                     "Chair Car",
-                                                     "Second Sitting",
                                                      "First Tier AC",
                                                      "Second Tier AC",
                                                      "Third Tier AC",
-                                                     "Sleeper"
+                                                     "Sleeper",
+                                                     "Chair Car",
+                                                     "Second Sitting"
                                                  };
 
         /// <summary>
@@ -70,11 +71,8 @@ namespace BusinessLogicWPF.View.Admin.UserControls
             {
                 foreach (var item in enumerable)
                 {
-                    this.root.Items.Add(
-                        new MenuItem
-                            {
-                                Name = item
-                            });
+                    var observableCollection = this.root.Items;
+                    observableCollection?.Add(new MenuItem { Name = item });
                 }
             }
 
@@ -147,13 +145,13 @@ namespace BusinessLogicWPF.View.Admin.UserControls
                             this.Dispatcher.Invoke(
                                 () =>
                                     {
-                                        var coaches = this.root.Items.FirstOrDefault(c => c.Name == DataHelper.SelectedCoach);
+                                        var coaches = (this.root.Items ?? throw new InvalidOperationException()).FirstOrDefault(c => c.Name == DataHelper.SelectedCoach);
 
                                         if (DataHelper.CoachesList != null)
                                         {
                                             foreach (var coach in DataHelper.CoachesList)
                                             {
-                                                coaches?.Items.Add(new MenuItem { Name = coach });
+                                                coaches?.Items?.Add(new MenuItem { Name = coach });
                                             }
                                         }
 
@@ -195,17 +193,4 @@ namespace BusinessLogicWPF.View.Admin.UserControls
             Contract.Invariant(this.list.All(item => item != null));
         }
     }
-
-    public class MenuItem
-    {
-        public MenuItem()
-        {
-            this.Items = new ObservableCollection<MenuItem>();
-        }
-
-        public string Name { get; set; }
-
-        public ObservableCollection<MenuItem> Items { get; set; }
-    }
-
 }

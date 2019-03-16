@@ -26,6 +26,12 @@ namespace BusinessLogicWPF.Helper
         private static Train train;
 
         /// <summary>
+        /// The station.
+        /// </summary>
+        [CanBeNull]
+        private static Station station;
+
+        /// <summary>
         /// The status for enable.
         /// </summary>
         private static bool statusForEnable;
@@ -57,6 +63,24 @@ namespace BusinessLogicWPF.Helper
                 }
 
                 train = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the station.
+        /// </summary>
+        [CanBeNull]
+        public static Station Station
+        {
+            get => station;
+            set
+            {
+                if (value == null || station == value)
+                {
+                    return;
+                }
+
+                station = value;
             }
         }
 

@@ -4,9 +4,83 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:BusinessLogicWPF.View.Admin.UserControls"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    Width="Auto"
+    Height="Auto"
     mc:Ignorable="d">
-    <Grid />
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" MinWidth="400">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBox
+                x:Name="TextBoxZoneName"
+                Grid.Row="0"
+                Margin="10,0,10,5"
+                materialDesign:HintAssist.Hint="Enter Zone Name"
+                MaxLength="4"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+            <TextBox
+                x:Name="TextBoxDivisionName"
+                Grid.Row="1"
+                Margin="10,10,10,5"
+                materialDesign:HintAssist.Hint="Enter Division Name"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+            <TextBox
+                x:Name="TextBoxStationCode"
+                Grid.Row="2"
+                Margin="10,10,10,5"
+                materialDesign:HintAssist.Hint="Enter Station Code"
+                MaxLength="8"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+            <TextBox
+                x:Name="TextBoxStationName"
+                Grid.Row="3"
+                Margin="10,10,10,5"
+                materialDesign:HintAssist.Hint="Enter Station Name"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+
+            <TextBox
+                x:Name="TextBoxPinCode"
+                Grid.Row="4"
+                Margin="10,10,10,5"
+                materialDesign:HintAssist.Hint="Enter PIN Code"
+                DataObject.Pasting="TextBoxPinCodeOnPasting"
+                MaxLength="6"
+                PreviewTextInput="TextBoxPinCodePreviewTextInput"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        </Grid>
+
+        <Grid
+            Grid.Column="1"
+            MinWidth="200"
+            Margin="50,20,20,20"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom">
+            <Button
+                x:Name="ButtonAccept"
+                Click="ButtonAcceptOnClick"
+                Style="{StaticResource MaterialDesignRaisedAccentButton}">
+                <TextBlock>
+                    <materialDesign:PackIcon Kind="TickCircle" />
+                    <Run Text="Accept" />
+                </TextBlock>
+            </Button>
+        </Grid>
+    </Grid>
 </UserControl>

@@ -1,41 +1,48 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:BusinessLogicWPF.Style"
-                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                    xmlns:class="clr-namespace:BusinessLogicWPF.Style.Class">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:class="clr-namespace:BusinessLogicWPF.Style.Class"
+    xmlns:local="clr-namespace:BusinessLogicWPF.Style"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-    <Style TargetType="{x:Type class:NullTextBox}" >        
-        <Setter Property="Template"> 
-            <Setter.Value> 
-                <ControlTemplate TargetType="{x:Type class:NullTextBox}"> 
-                    <Border x:Name="Border" BorderBrush="Black" BorderThickness="0,0,0,3" Padding="2"> 
-                        <Grid> 
-                            <ScrollViewer Margin="0"
-                                      x:Name="PART_ContentHost" 
-                                          Panel.ZIndex="100" 
-                                      VerticalAlignment="Center"/>
-                            <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type class:NullTextBox}}, Path=NullText}"
-                                       Padding="2" 
-                                       Foreground="Gray" 
-                                       Visibility="Hidden" 
-                                       x:Name="NullTextBox"
-                                       Panel.ZIndex="1"/> 
-                        </Grid> 
-                    </Border> 
-                    <ControlTemplate.Triggers> 
-                        <Trigger Property="Text" Value="{x:Static sys:String.Empty}"> 
-                            <Setter TargetName="NullTextBox" Property="Visibility" Value="Visible" /> 
-                        </Trigger> 
-                        <Trigger Property="Text" Value="{x:Null}"> 
-                            <Setter TargetName="NullTextBox" Property="Visibility" Value="Visible" /> 
-                        </Trigger> 
-                        <Trigger Property="IsKeyboardFocused" Value="True"> 
-                            <Setter TargetName="NullTextBox" Property="Visibility" Value="Hidden" /> 
-                        </Trigger> 
-                    </ControlTemplate.Triggers> 
-                </ControlTemplate> 
-            </Setter.Value> 
-        </Setter> 
+    <Style TargetType="{x:Type class:NullTextBox}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type class:NullTextBox}">
+                    <Border
+                        x:Name="Border"
+                        Padding="2"
+                        BorderBrush="Black"
+                        BorderThickness="0,0,0,3">
+                        <Grid>
+                            <ScrollViewer
+                                x:Name="PART_ContentHost"
+                                Margin="0"
+                                VerticalAlignment="Center"
+                                Panel.ZIndex="100" />
+                            <TextBlock
+                                x:Name="NullTextBox"
+                                Padding="2"
+                                Panel.ZIndex="1"
+                                Foreground="Gray"
+                                Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type class:NullTextBox}}, Path=NullText}"
+                                Visibility="Hidden" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                            <Setter TargetName="NullTextBox" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="Text" Value="{x:Null}">
+                            <Setter TargetName="NullTextBox" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="NullTextBox" Property="Visibility" Value="Hidden" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
-    
+
 </ResourceDictionary>

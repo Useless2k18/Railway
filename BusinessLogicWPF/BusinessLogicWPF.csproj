@@ -318,13 +318,6 @@
     <Compile Include="Domain\SelectableViewModel.cs" />
     <Compile Include="Domain\SimpleDataTemplateSelector.cs" />
     <Compile Include="Domain\SimpleDateValidationRule.cs" />
-    <Compile Include="Domain\TreeView\Level1NodeViewModel.cs" />
-    <Compile Include="Domain\TreeView\Level2NodeViewModel.cs" />
-    <Compile Include="Domain\TreeView\Level3NodeViewModel.cs" />
-    <Compile Include="Domain\TreeView\DelegateCommand.cs" />
-    <Compile Include="Domain\TreeView\NodeDataTemplateSelector.cs" />
-    <Compile Include="Domain\TreeView\NodeViewModel.cs" />
-    <Compile Include="Domain\TreeView\RootNodeViewModel.cs" />
     <Compile Include="GoogleCloudFireStoreLibrary\ConnectFireStore.cs" />
     <Compile Include="Domain\ComboBoxItemTemplateSelector.cs" />
     <Compile Include="Helper\DataHelper.cs" />
@@ -336,6 +329,7 @@
     <Compile Include="Helper\StaticDbContext.cs" />
     <Compile Include="Helper\VisualTreeHelper.cs" />
     <Compile Include="Model\Coach.cs" />
+    <Compile Include="Model\Division.cs" />
     <Compile Include="Model\Json\IsdCodes.cs" />
     <Compile Include="Model\Route.cs" />
     <Compile Include="Model\Station.cs" />
@@ -380,6 +374,7 @@
     <Compile Include="View\Admin\UserControls\ForHelpers\SelectCoachCategory.xaml.cs">
       <DependentUpon>SelectCoachCategory.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Domain\TreeView\MenuItem.cs" />
     <Compile Include="View\Admin\Window\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
@@ -577,6 +572,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="railway_division_station.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\Home\UserControls\" />

@@ -7,8 +7,11 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable InconsistentNaming
 namespace BusinessLogicWPF.Model
 {
+    using System.Diagnostics.CodeAnalysis;
+
     using BusinessLogicWPF.Annotations;
 
     using Google.Cloud.Firestore;
@@ -20,18 +23,34 @@ namespace BusinessLogicWPF.Model
     public class Station
     {
         /// <summary>
-        /// Gets or sets the st n_ code.
+        /// Gets or sets the railway division.
         /// </summary>
-        [CanBeNull][FirestoreProperty] public string STN_CODE { get; set; }
+        [CanBeNull]
+        [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "Reviewed. Suppression is OK here.")]
+        [FirestoreProperty]
+        public Division railwayDivision { get; set; }
 
         /// <summary>
-        /// Gets or sets the st n_ name.
+        /// Gets or sets the station code.
         /// </summary>
-        [CanBeNull][FirestoreProperty] public string STN_NAME { get; set; }
+        [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "Reviewed. Suppression is OK here.")]
+        [CanBeNull]
+        [FirestoreProperty]
+        public string stationCode { get; set; }
 
         /// <summary>
-        /// Gets or sets the st n_ pin.
+        /// Gets or sets the station name.
         /// </summary>
-        [CanBeNull][FirestoreProperty] public string STN_PIN { get; set; }
+        [CanBeNull]
+        [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "Reviewed. Suppression is OK here.")]
+        public string stationName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the station pin code.
+        /// </summary>
+        [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "Reviewed. Suppression is OK here.")]
+        [CanBeNull]
+        [FirestoreProperty]
+        public int stationPinCode { get; set; }
     }
 }

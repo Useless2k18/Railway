@@ -173,7 +173,7 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
             {
                 this.ComboBoxSource.IsEnabled = this.ComboBoxTteId.IsEnabled = this.ComboBoxTteName.IsEnabled = true;
 
-                if (Ttes != null)
+                /*if (Ttes != null)
                 {
                     foreach (var tte in Ttes)
                     {
@@ -192,13 +192,13 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
                     {
                         this.ComboBoxSource.Items.Remove(station);
                     }
-                }
+                }*/
             }
 
             this.ProgressBar.Visibility = Visibility.Collapsed;
-            this.ComboBoxSource.SelectedItem = stations.FirstOrDefault(
+            /*this.ComboBoxSource.SelectedItem = stations.FirstOrDefault(
                 s => s.STN_CODE != null && DataHelper.Train != null && s.STN_CODE.Contains(
-                         DataHelper.Train.sourceStation ?? throw new InvalidOperationException()))?.STN_NAME;
+                         DataHelper.Train.sourceStation ?? throw new InvalidOperationException()))?.STN_NAME;*/
         }
 
         /// <summary>
@@ -322,9 +322,9 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
             {
                 var destinationStation = DataHelper.Train.destinationStation;
 
-                status = this.ComboBoxDestination.SelectedItem.ToString().Contains(
+                /*status = this.ComboBoxDestination.SelectedItem.ToString().Contains(
                     stations.FirstOrDefault(s => s.STN_CODE == destinationStation)?.STN_NAME
-                    ?? throw new InvalidOperationException());
+                    ?? throw new InvalidOperationException());*/
             }
         }
 
@@ -540,16 +540,16 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
 
                 if (DataHelper.Train != null)
                 {
-                    DataHelper.Train.sourceStation =
-                        stations.FirstOrDefault(s => s.STN_NAME == this.ComboBoxDestination.Text)?.STN_CODE;
+                    /*DataHelper.Train.sourceStation =
+                        stations.FirstOrDefault(s => s.STN_NAME == this.ComboBoxDestination.Text)?.STN_CODE;*/
 
                     this.DataContext = new SelectTteViewModel(DataHelper.Train);
                     this.TextBlockWelcome.Text = "Add another TTE Details";
 
-                    this.ComboBoxSource.SelectedItem = stations.FirstOrDefault(
+                    /*this.ComboBoxSource.SelectedItem = stations.FirstOrDefault(
                             s => s.STN_CODE?.Contains(
                                      DataHelper.Train.sourceStation ?? throw new InvalidOperationException()) == true)
-                        ?.STN_NAME;
+                        ?.STN_NAME;*/
                 }
 
                 // Waiting for disabling again
