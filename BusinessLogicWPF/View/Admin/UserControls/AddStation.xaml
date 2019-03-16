@@ -10,12 +10,31 @@
     Height="Auto"
     mc:Ignorable="d">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" MinWidth="400">
+        <DockPanel
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Dock="Top">
+            <ProgressBar
+                x:Name="ProgressBar"
+                DockPanel.Dock="Top"
+                IsIndeterminate="False"
+                Visibility="Hidden" />
+        </DockPanel>
+
+        <Grid
+            Grid.Row="1"
+            Grid.Column="0"
+            MinWidth="400">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -67,6 +86,7 @@
         </Grid>
 
         <Grid
+            Grid.Row="1"
             Grid.Column="1"
             MinWidth="200"
             Margin="50,20,20,20"

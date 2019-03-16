@@ -10,9 +10,12 @@
 namespace BusinessLogicWPF.ViewModel.Admin
 {
     using System;
+    using System.Diagnostics;
 
     using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Domain;
+    using BusinessLogicWPF.GoogleCloudFireStoreLibrary;
+    using BusinessLogicWPF.Helper;
     using BusinessLogicWPF.View.Admin.UserControls;
 
     using MaterialDesignThemes.Wpf;
@@ -46,6 +49,18 @@ namespace BusinessLogicWPF.ViewModel.Admin
                                          new AddTrain { DataContext = new AddTrainViewModel() }),
                                      new DemoItem("Add Station", new AddStation()), new DemoItem("Add TTE", new AddTte())
                                  };
+
+            // Google Cloud Platform project ID.
+            const string ProjectId = "ticketchecker-d4f79";
+
+            try
+            {
+                StaticDbContext.ConnectFireStore = new ConnectFireStore(ProjectId, @"TicketChecker-1f6bf5c2db0a.json");
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception.Message);
+            }
         }
 
         /// <summary>

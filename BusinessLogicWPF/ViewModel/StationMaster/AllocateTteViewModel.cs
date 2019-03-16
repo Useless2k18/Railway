@@ -89,7 +89,8 @@ namespace BusinessLogicWPF.ViewModel.StationMaster
             }
 
             var observableCollectionOfTrain = new ObservableCollection<Train>(
-                StaticDbContext.ConnectFireStore.GetAllDocumentData<Train>("ROOT", "TRAIN_DETAILS", "12073"));
+                StaticDbContext.ConnectFireStore?.GetAllDocumentData<Train>("ROOT", "TRAIN_DETAILS", "12073")
+                ?? throw new InvalidOperationException());
 
             return observableCollectionOfTrain;
         }

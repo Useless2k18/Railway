@@ -10,6 +10,8 @@
 namespace BusinessLogicWPF.View.Admin.UserControls
 {
     using System;
+    using System.ComponentModel;
+    using System.Globalization;
     using System.Text.RegularExpressions;
     using System.Windows;
     using System.Windows.Controls;
@@ -18,6 +20,8 @@ namespace BusinessLogicWPF.View.Admin.UserControls
     using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Helper;
     using BusinessLogicWPF.Model;
+
+    using Google.Cloud.Firestore;
 
     /// <summary>
     /// Interaction logic for AddStations.XAML
@@ -156,38 +160,41 @@ namespace BusinessLogicWPF.View.Admin.UserControls
 
             var station = new Station
                               {
-                                  railwayDivision = new Division
-                                                        {
-                                                            Divisions = this.TextBoxDivisionName.Text
-                                                        },
-
-                                  stationCode = this.TextBoxStationCode.Text,
-                                  stationName = this.TextBoxStationName.Text,
-                                  stationPinCode = Convert.ToInt32(this.TextBoxPinCode.Text)
+                                  RailwayDivision = this.TextBoxDivisionName.Text,
+                                  StationCode = this.TextBoxStationCode.Text,
+                                  StationName = this.TextBoxStationName.Text,
+                                  StationPinCode = Convert.ToInt32(this.TextBoxPinCode.Text)
                               };
 
-            /*if (DataHelper.Station != null)
+            var backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += (o, args) => this.Dispatcher.Invoke(
+                () =>
+                    {
+                        this.ProgressBar.Visibility = Visibility.Visible;
+                        StaticDbContext.ConnectFireStore?.AddCollectionDataAsync(
+                            station,
+                            "Root",
+                            "Stations",
+                            "StationDetails",
+                            this.TextBoxZoneName.Text,
+                            station.RailwayDivision,
+                            station.StationCode);
+                    });
+
+            backgroundWorker.RunWorkerCompleted += (o, args) =>
+                {
+                    this.ProgressBar.Visibility = Visibility.Hidden;
+                    MessageBox.Show("Data Successfully added");
+                };
+
+            try
             {
-                if (DataHelper.Station.railwayDivision != null)
-                {
-                    DataHelper.Station.railwayDivision.Divisions = this.TextBoxDivisionName.Text;
-                }
-
-                if (DataHelper.Station.stationCode != null)
-                {
-                    DataHelper.Station.stationCode = this.TextBoxStationCode.Text;
-                }
-
-                if (DataHelper.Station.stationName != null)
-                {
-                    DataHelper.Station.stationName = this.TextBoxStationName.Text;
-                }
-
-                if (DataHelper.Station.stationCode != null)
-                {
-                    DataHelper.Station.stationPinCode = Convert.ToInt32(this.TextBoxPinCode.Text);
-                }
-            }*/
+                backgroundWorker.RunWorkerAsync();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
         }
     }
 }

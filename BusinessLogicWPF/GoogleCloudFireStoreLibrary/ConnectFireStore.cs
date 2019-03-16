@@ -357,7 +357,8 @@ namespace BusinessLogicWPF.GoogleCloudFireStoreLibrary
         /// The <see cref="TEntity"/>.
         /// </returns>
         [CanBeNull]
-        public TEntity GetCollectionFields<TEntity>([NotNull] params string[] name) where TEntity : class
+        public TEntity GetCollectionFields<TEntity>([NotNull] params string[] name)
+            where TEntity : class
         {
             if (name == null)
             {

@@ -7,8 +7,6 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-// ReSharper disable StyleCop.SA1300
-// ReSharper disable InconsistentNaming
 namespace BusinessLogicWPF.Model
 {
     using BusinessLogicWPF.Annotations;
@@ -25,56 +23,56 @@ namespace BusinessLogicWPF.Model
         /// Gets or sets the train no.
         /// </summary>
         [CanBeNull]
-        [FirestoreProperty]
-        public int trainNo { get; set; }
+        [FirestoreProperty("trainNo")]
+        public int TrainNumber { get; set; }
 
         /// <summary>
         /// Gets or sets the train name.
         /// </summary>
         [CanBeNull]
-        [FirestoreProperty]
-        public string trainName { get; set; }
+        [FirestoreProperty("trainName")]
+        public string TrainName { get; set; }
 
         /// <summary>
         /// Gets or sets the type.
         /// </summary>
         [CanBeNull]
-        [FirestoreProperty]
-        public string type { get; set; }
+        [FirestoreProperty("type")]
+        public string Type { get; set; }
 
         /// <summary>
         /// Gets or sets the coach.
         /// </summary>
         [CanBeNull]
-        [FirestoreProperty]
-        public Coach coach { get; set; }
+        [FirestoreProperty("coach")]
+        public Coach Coach { get; set; }
 
         /// <summary>
         /// Gets or sets the source station.
         /// </summary>
         [CanBeNull]
-        [FirestoreProperty]
-        public string sourceStation { get; set; }
+        [FirestoreProperty("sourceStation")]
+        public string SourceStation { get; set; }
 
         /// <summary>
         /// Gets or sets the destination station.
         /// </summary>
         [CanBeNull]
-        [FirestoreProperty]
-        public string destinationStation { get; set; }
+        [FirestoreProperty("destinationStation")]
+        public string DestinationStation { get; set; }
 
         /// <summary>
         /// Gets or sets the rake zone.
         /// </summary>
         [CanBeNull]
-        [FirestoreProperty]
-        public string rakeZone { get; set; }
+        [FirestoreProperty("rakeZone")]
+        public string RakeZone { get; set; }
 
         /// <summary>
         /// Gets or sets the route.
         /// </summary>
         [CanBeNull]
-        [FirestoreProperty]
-        public Route[] route { get; set; }
+        [FirestoreProperty("route")]
+        public Route[] Route { get; set; }
     }
 }

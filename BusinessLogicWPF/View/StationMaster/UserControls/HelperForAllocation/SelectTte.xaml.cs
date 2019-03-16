@@ -123,7 +123,7 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
                 DispatcherPriority.Normal,
                 new Action(() => this.ProgressBar.Visibility = Visibility.Visible));
 
-            if (StaticDbContext.ConnectFireStore != null)
+            /*if (StaticDbContext.ConnectFireStore != null)
             {
                 stations = StaticDbContext.ConnectFireStore.GetAllDocumentData<Station>(
                                "ROOT",
@@ -132,7 +132,7 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
                 Ttes = StaticDbContext.ConnectFireStore.GetAllDocumentData<Tte>("ROOT", "TT_DETAILS", "TT");
                 this.Trains =
                     StaticDbContext.ConnectFireStore.GetAllDocumentData<Train>("ROOT", "TRAIN_DETAILS", "12073");
-            }
+            }*/
 
             /*var d = Trains[0].ROUTE.TryGetValue("1", out var value);
             if (value != null) MessageBox.Show(value.STN_CODE);*/
@@ -320,7 +320,7 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
 
             if (DataHelper.Train != null)
             {
-                var destinationStation = DataHelper.Train.destinationStation;
+                var destinationStation = DataHelper.Train.DestinationStation;
 
                 /*status = this.ComboBoxDestination.SelectedItem.ToString().Contains(
                     stations.FirstOrDefault(s => s.STN_CODE == destinationStation)?.STN_NAME
