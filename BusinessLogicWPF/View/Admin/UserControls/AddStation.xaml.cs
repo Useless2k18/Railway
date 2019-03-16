@@ -11,7 +11,6 @@ namespace BusinessLogicWPF.View.Admin.UserControls
 {
     using System;
     using System.ComponentModel;
-    using System.Globalization;
     using System.Text.RegularExpressions;
     using System.Windows;
     using System.Windows.Controls;
@@ -20,8 +19,6 @@ namespace BusinessLogicWPF.View.Admin.UserControls
     using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Helper;
     using BusinessLogicWPF.Model;
-
-    using Google.Cloud.Firestore;
 
     /// <summary>
     /// Interaction logic for AddStations.XAML

@@ -19,6 +19,7 @@ namespace BusinessLogicWPF.View.Admin.Window
     using System.Windows.Media;
 
     using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Helper;
     using BusinessLogicWPF.ViewModel.Admin;
 
     using MaterialDesignThemes.Wpf;
@@ -109,6 +110,19 @@ namespace BusinessLogicWPF.View.Admin.Window
             {
                 throw new ArgumentNullException(nameof(e));
             }
+
+            if (MessageBox.Show(
+                    "Are you sure you want to Log out from your system?",
+                    "Question",
+                    MessageBoxButton.YesNo) == MessageBoxResult.No)
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            // After closing
+            StaticDbContext.ConnectFireStore = null;
+            DataHelper.StatusForEnable = false;
         }
 
         /// <summary>

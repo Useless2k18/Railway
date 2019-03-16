@@ -10,7 +10,7 @@
 namespace BusinessLogicWPF.ViewModel.Admin
 {
     using System;
-    using System.Diagnostics;
+    using System.Windows;
 
     using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Domain;
@@ -59,7 +59,8 @@ namespace BusinessLogicWPF.ViewModel.Admin
             }
             catch (Exception exception)
             {
-                Debug.WriteLine(exception.Message);
+                MessageBox.Show(exception.Message);
+                Application.Current.Shutdown(-1);
             }
         }
 

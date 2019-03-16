@@ -72,7 +72,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.Window
             if (this.counter % 2 == 0)
             {
                 this.ButtonNewUser.Content = "Already Registered?";
-                this.DataContext = new PhoneAuthenticationViewModel();
+                this.DataContext = new RegisterViewModel();
                 this.ButtonBack.Visibility = Visibility.Collapsed;
             }
             else
