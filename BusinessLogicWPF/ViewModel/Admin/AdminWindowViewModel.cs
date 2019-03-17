@@ -66,7 +66,7 @@ namespace BusinessLogicWPF.ViewModel.Admin
 
             var di = new DirectoryInfo(SecretFolder);
             var jsonFiles = di.GetFiles("*.json");
-            if (jsonFiles.Length == 1)
+            if (jsonFiles.Length == 0)
             {
                 MessageBox.Show(
                     "Please copy the service-account-key.json file into the Secret Folder of the App Directory!\n" +
