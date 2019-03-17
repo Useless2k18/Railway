@@ -10,6 +10,7 @@
 namespace BusinessLogicWPF.ViewModel.Admin
 {
     using System;
+    using System.Diagnostics;
     using System.IO;
     using System.Windows;
 
@@ -65,7 +66,7 @@ namespace BusinessLogicWPF.ViewModel.Admin
 
             var di = new DirectoryInfo(SecretFolder);
             var jsonFiles = di.GetFiles("*.json");
-            if (jsonFiles.Length == 0)
+            if (jsonFiles.Length == 1)
             {
                 MessageBox.Show(
                     "Please copy the service-account-key.json file into the Secret Folder of the App Directory!\n" +
@@ -74,7 +75,8 @@ namespace BusinessLogicWPF.ViewModel.Admin
                     "Don\'t forget to change your account to uselessgroup2k18@gmail.com first");
                 DataHelper.ExitCode = -1;
                 Application.Current.Shutdown(DataHelper.ExitCode);
-                System.Diagnostics.Process.Start("https://console.developers.google.com/apis/credentials");
+                Process.Start(SecretFolder);
+                Process.Start("https://console.developers.google.com/apis/credentials");
                 return;
             }
 

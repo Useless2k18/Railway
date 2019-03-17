@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogicWPF", "BusinessLogicWPF\BusinessLogicWPF.csproj", "{C5DF20AF-E5BD-414B-953F-75E8A40F115C}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "IRCTCSoftwareSetup", "IRCTCSoftwareSetup\IRCTCSoftwareSetup.vdproj", "{9C6930F2-3F90-40FA-927A-96F185A68B14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{C5DF20AF-E5BD-414B-953F-75E8A40F115C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5DF20AF-E5BD-414B-953F-75E8A40F115C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5DF20AF-E5BD-414B-953F-75E8A40F115C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C6930F2-3F90-40FA-927A-96F185A68B14}.Debug|Any CPU.ActiveCfg = Debug
+		{9C6930F2-3F90-40FA-927A-96F185A68B14}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
