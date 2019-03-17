@@ -20,6 +20,11 @@ namespace BusinessLogicWPF.Helper
     public static class DataHelper
     {
         /// <summary>
+        /// The exit code.
+        /// </summary>
+        private static short exitCode = -1;
+        
+        /// <summary>
         /// The train.
         /// </summary>
         [CanBeNull]
@@ -47,6 +52,23 @@ namespace BusinessLogicWPF.Helper
         /// </summary>
         [CanBeNull]
         private static string selectedCoach;
+
+        /// <summary>
+        /// Gets or sets the exit code.
+        /// </summary>
+        public static short ExitCode
+        {
+            get => exitCode;
+            set
+            {
+                if (exitCode.Equals(value))
+                {
+                    return;
+                }
+
+                exitCode = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the train.

@@ -9,8 +9,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="clr-namespace:BusinessLogicWPF.Model"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
-    xmlns:viewModel="clr-namespace:BusinessLogicWPF.ViewModel.Admin"
     xmlns:treeView="clr-namespace:BusinessLogicWPF.Domain.TreeView"
+    xmlns:viewModel="clr-namespace:BusinessLogicWPF.ViewModel.Admin"
     Width="Auto"
     Height="Auto"
     mc:Ignorable="d">
@@ -115,27 +115,17 @@
                     VerticalAlignment="Bottom"
                     PlacementMode="LeftAndAlignMiddles"
                     Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
-                    ToolTip="Manage items"
+                    ToolTip="Add Coaches"
                     UnfurlOrientation="Horizontal">
                     <StackPanel Orientation="Horizontal">
                         <Button
                             x:Name="ButtonAdd"
                             Click="ButtonAddOnClick"
                             ToolTip="Add an item">
-                            <Path
-                                Width="15"
-                                Height="15"
-                                Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
-                                Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"
-                                Stretch="Uniform" />
+                            <materialDesign:PackIcon Kind="Add" />
                         </Button>
-                        <Button Command="{Binding RemoveSelectedItemCommand}" ToolTip="Remove selected item">
-                            <Path
-                                Width="15"
-                                Height="15"
-                                Data="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
-                                Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"
-                                Stretch="Uniform" />
+                        <Button ToolTip="Remove selected item">
+                            <materialDesign:PackIcon Kind="Delete" />
                         </Button>
                     </StackPanel>
                 </materialDesign:PopupBox>

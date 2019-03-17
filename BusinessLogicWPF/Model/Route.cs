@@ -7,8 +7,6 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-// ReSharper disable StyleCop.SA1300
-// ReSharper disable InconsistentNaming
 namespace BusinessLogicWPF.Model
 {
     using BusinessLogicWPF.Annotations;
@@ -25,28 +23,27 @@ namespace BusinessLogicWPF.Model
         /// Gets or sets the arrival time.
         /// </summary>
         [CanBeNull]
-        [FirestoreProperty]
-        public string arrivalTime { get; set; }
+        [FirestoreProperty("arrivalTime")]
+        public string ArrivalTime { get; set; }
 
         /// <summary>
         /// Gets or sets the departure time.
         /// </summary>
         [CanBeNull]
-        [FirestoreProperty]
-        public string departureTime { get; set; }
+        [FirestoreProperty("departureTime")]
+        public string DepartureTime { get; set; }
 
         /// <summary>
         /// Gets or sets the station code.
         /// </summary>
         [CanBeNull]
-        [FirestoreProperty]
-        public string stationCode { get; set; }
+        [FirestoreProperty("stationCode")]
+        public string StationCode { get; set; }
 
         /// <summary>
         /// Gets or sets the TTE assign flag.
         /// </summary>
-        [CanBeNull]
-        [FirestoreProperty]
-        public int tteAssignFlag { get; set; }
+        [FirestoreProperty("tteAssignFlag")]
+        public int TteAssignFlag { get; set; }
     }
 }

@@ -10,6 +10,7 @@
 namespace BusinessLogicWPF.ViewModel.Admin
 {
     using System;
+    using System.IO;
     using System.Windows;
 
     using BusinessLogicWPF.Annotations;
@@ -25,6 +26,18 @@ namespace BusinessLogicWPF.ViewModel.Admin
     /// </summary>
     public class AdminWindowViewModel
     {
+        /// <summary>
+        /// The files.
+        /// </summary>
+        [NotNull]
+        private static readonly string Files = Directory.GetCurrentDirectory();
+
+        /// <summary>
+        /// The secret folder.
+        /// </summary>
+        [NotNull]
+        private static readonly string SecretFolder = Path.Combine(Files, "Secret");
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AdminWindowViewModel"/> class.
         /// </summary>
@@ -50,17 +63,35 @@ namespace BusinessLogicWPF.ViewModel.Admin
                                      new DemoItem("Add Station", new AddStation()), new DemoItem("Add TTE", new AddTte())
                                  };
 
+            var di = new DirectoryInfo(SecretFolder);
+            var jsonFiles = di.GetFiles("*.json");
+            if (jsonFiles.Length == 0)
+            {
+                MessageBox.Show(
+                    "Please copy the service-account-key.json file into the Secret Folder of the App Directory!\n" +
+                    "Navigate to https://console.developers.google.com/apis/credentials to create a service account key\n" + 
+                    "Note: Please Remember to give Owner permission to the service account key.\n" + 
+                    "Don\'t forget to change your account to uselessgroup2k18@gmail.com first");
+                DataHelper.ExitCode = -1;
+                Application.Current.Shutdown(DataHelper.ExitCode);
+                System.Diagnostics.Process.Start("https://console.developers.google.com/apis/credentials");
+                return;
+            }
+
+            DataHelper.ExitCode = 0;
+
             // Google Cloud Platform project ID.
             const string ProjectId = "ticketchecker-d4f79";
 
             try
             {
-                StaticDbContext.ConnectFireStore = new ConnectFireStore(ProjectId, @"TicketChecker-1f6bf5c2db0a.json");
+                StaticDbContext.ConnectFireStore = new ConnectFireStore(ProjectId, Path.Combine(SecretFolder, jsonFiles[0].FullName));
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
-                Application.Current.Shutdown(-1);
+                DataHelper.ExitCode = -1;
+                Application.Current.Shutdown(DataHelper.ExitCode);
             }
         }
 

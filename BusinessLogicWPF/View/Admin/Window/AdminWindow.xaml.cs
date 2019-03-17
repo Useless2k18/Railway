@@ -22,14 +22,14 @@ namespace BusinessLogicWPF.View.Admin.Window
     using BusinessLogicWPF.Helper;
     using BusinessLogicWPF.ViewModel.Admin;
 
-    using MaterialDesignThemes.Wpf;
+    using MahApps.Metro.Controls;
 
-    using Window = System.Windows.Window;
+    using MaterialDesignThemes.Wpf;
 
     /// <summary>
     /// Interaction logic for AdminWindow.XAML
     /// </summary>
-    public partial class AdminWindow : Window
+    public partial class AdminWindow : MetroWindow
     {
         /// <summary>
         /// The snack-bar.
@@ -109,6 +109,11 @@ namespace BusinessLogicWPF.View.Admin.Window
             if (e == null)
             {
                 throw new ArgumentNullException(nameof(e));
+            }
+
+            if (DataHelper.ExitCode == -1)
+            {
+                return;
             }
 
             if (MessageBox.Show(

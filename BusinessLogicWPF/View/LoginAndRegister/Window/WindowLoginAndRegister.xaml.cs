@@ -10,6 +10,7 @@
 namespace BusinessLogicWPF.View.LoginAndRegister.Window
 {
     using System;
+    using System.IO;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
@@ -27,6 +28,18 @@ namespace BusinessLogicWPF.View.LoginAndRegister.Window
     public partial class WindowLoginAndRegister : MetroWindow
     {
         /// <summary>
+        /// The files.
+        /// </summary>
+        [NotNull]
+        private static readonly string Files = Directory.GetCurrentDirectory();
+
+        /// <summary>
+        /// The secret folder.
+        /// </summary>
+        [NotNull]
+        private static readonly string SecretFolder = Path.Combine(Files, "Secret");
+
+        /// <summary>
         /// The counter.
         /// </summary>
         private int counter;
@@ -36,11 +49,36 @@ namespace BusinessLogicWPF.View.LoginAndRegister.Window
         /// </summary>
         public WindowLoginAndRegister()
         {
+            if (!CheckNet())
+            {
+                MessageBox.Show("Please connect system to Internet first!");
+                Application.Current.Shutdown(-1);
+            }
+
             this.InitializeComponent();
             this.Left = 100;
             this.Top = 10;
             SystemEvents.DisplaySettingsChanged += this.SystemEventsDisplaySettingsChanged;
             this.DataContext = new LoginViewModel();
+
+            if (!Directory.Exists(SecretFolder))
+            {
+                Directory.CreateDirectory(SecretFolder);
+            }
+        }
+
+        [System.Runtime.InteropServices.DllImport("wininet.dll")]
+        private static extern bool InternetGetConnectedState(out int description, int reservedValue);
+
+        /// <summary>
+        /// The check net.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public static bool CheckNet()
+        {
+            return InternetGetConnectedState(out var desc, 0);
         }
 
         /// <summary>
