@@ -13,8 +13,8 @@ namespace BusinessLogicWPF.Collections
     using System.Collections.Generic;
     using System.Linq;
 
-    using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Model;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// The TTE collection.

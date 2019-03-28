@@ -12,7 +12,7 @@ namespace BusinessLogicWPF.Style.Class
     using System.Windows;
     using System.Windows.Controls;
 
-    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// The null text box.

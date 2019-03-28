@@ -19,9 +19,9 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
     using System.Windows.Input;
     using System.Windows.Threading;
 
-    using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Helper;
     using BusinessLogicWPF.JsClasses;
+    using BusinessLogicWPF.Properties;
     using BusinessLogicWPF.ViewModel.LoginAndRegister;
 
     using CefSharp;

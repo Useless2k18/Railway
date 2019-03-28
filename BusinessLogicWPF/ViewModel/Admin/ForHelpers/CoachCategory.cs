@@ -11,8 +11,8 @@ namespace BusinessLogicWPF.ViewModel.Admin.ForHelpers
 {
     using System.Collections.ObjectModel;
 
-    using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Model;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// The coach category.

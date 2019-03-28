@@ -12,7 +12,7 @@ namespace BusinessLogicWPF.Domain
     using System.Windows;
     using System.Windows.Controls;
 
-    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// The simple data template selector.

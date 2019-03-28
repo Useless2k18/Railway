@@ -9,7 +9,7 @@
 
 namespace BusinessLogicWPF.Model
 {
-    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Properties;
 
     using Google.Cloud.Firestore;
 

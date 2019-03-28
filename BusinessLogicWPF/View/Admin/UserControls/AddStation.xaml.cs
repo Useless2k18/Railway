@@ -16,9 +16,9 @@ namespace BusinessLogicWPF.View.Admin.UserControls
     using System.Windows.Controls;
     using System.Windows.Input;
 
-    using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Helper;
     using BusinessLogicWPF.Model;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// Interaction logic for AddStations.XAML

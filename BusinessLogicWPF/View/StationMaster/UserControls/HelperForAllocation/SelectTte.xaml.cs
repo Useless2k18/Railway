@@ -18,9 +18,9 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
     using System.Windows.Input;
     using System.Windows.Threading;
 
-    using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Helper;
     using BusinessLogicWPF.Model;
+    using BusinessLogicWPF.Properties;
     using BusinessLogicWPF.ViewModel.StationMaster.ForHelper;
 
     using MahApps.Metro.Controls;

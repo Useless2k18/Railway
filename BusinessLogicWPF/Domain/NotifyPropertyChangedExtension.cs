@@ -14,7 +14,7 @@ namespace BusinessLogicWPF.Domain
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
-    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// The notify property changed extension.

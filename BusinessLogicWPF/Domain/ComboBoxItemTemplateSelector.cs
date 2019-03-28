@@ -13,8 +13,8 @@ namespace BusinessLogicWPF.Domain
     using System.Windows;
     using System.Windows.Controls;
 
-    using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Helper;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// The combo box item template selector.

@@ -12,7 +12,7 @@ namespace BusinessLogicWPF.Domain
     using System;
     using System.Windows.Input;
 
-    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// No WPF project is complete without it's own version of this.

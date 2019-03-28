@@ -9,7 +9,7 @@
 
 namespace BusinessLogicWPF.Helper
 {
-    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// The phone authentication helper.

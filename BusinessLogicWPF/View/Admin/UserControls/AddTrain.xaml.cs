@@ -16,8 +16,8 @@ namespace BusinessLogicWPF.View.Admin.UserControls
     using System.Windows;
     using System.Windows.Controls;
 
-    using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Helper;
+    using BusinessLogicWPF.Properties;
     using BusinessLogicWPF.View.Helpers.UserControls;
     using BusinessLogicWPF.ViewModel.Admin;
     using BusinessLogicWPF.ViewModel.Admin.ForHelpers;

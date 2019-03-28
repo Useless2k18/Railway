@@ -11,7 +11,7 @@ namespace BusinessLogicWPF.Domain.TreeView
 {
     using System.Collections.ObjectModel;
 
-    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// The menu item.

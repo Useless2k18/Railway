@@ -14,8 +14,8 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
     using System.Windows.Controls;
     using System.Windows.Media;
 
-    using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Helper;
+    using BusinessLogicWPF.Properties;
 
     using MaterialDesignThemes.Wpf;
 

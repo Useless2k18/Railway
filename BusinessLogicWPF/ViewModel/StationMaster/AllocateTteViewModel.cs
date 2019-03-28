@@ -15,10 +15,10 @@ namespace BusinessLogicWPF.ViewModel.StationMaster
     using System.Diagnostics;
     using System.Runtime.CompilerServices;
 
-    using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.GoogleCloudFireStoreLibrary;
     using BusinessLogicWPF.Helper;
     using BusinessLogicWPF.Model;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// The allocate TTE View Model.

@@ -14,7 +14,7 @@ namespace BusinessLogicWPF.Style.Class
     using System.Windows;
     using System.Windows.Controls;
 
-    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// The water mark text helper.

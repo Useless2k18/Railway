@@ -9,7 +9,7 @@
 
 namespace BusinessLogicWPF.JsClasses
 {
-    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// The dot net phone number authentication.

@@ -9,8 +9,8 @@
 
 namespace BusinessLogicWPF.Helper
 {
-    using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.GoogleCloudFireStoreLibrary;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// The static database context.

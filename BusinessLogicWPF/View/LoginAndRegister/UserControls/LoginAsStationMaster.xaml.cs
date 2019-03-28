@@ -19,7 +19,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
     using System.Windows.Media;
     using System.Windows.Threading;
 
-    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Properties;
 
     using Window = System.Windows.Window;
 

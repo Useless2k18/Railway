@@ -12,8 +12,8 @@ namespace BusinessLogicWPF.ViewModel.StationMaster
 {
     using System;
 
-    using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Domain;
+    using BusinessLogicWPF.Properties;
     using BusinessLogicWPF.View.StationMaster.UserControls;
 
     using MaterialDesignThemes.Wpf;

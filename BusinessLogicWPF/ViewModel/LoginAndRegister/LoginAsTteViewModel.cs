@@ -12,8 +12,8 @@ namespace BusinessLogicWPF.ViewModel.LoginAndRegister
     using System;
     using System.ComponentModel;
 
-    using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Domain;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// The login as TTE view model.

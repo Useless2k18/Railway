@@ -13,7 +13,7 @@ namespace BusinessLogicWPF.Model.Json
 {
     using System;
 
-    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// The ISD codes for Filling up the combo box based on Country.

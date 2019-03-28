@@ -11,8 +11,8 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
 {
     using System.Windows.Controls;
 
-    using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Helper;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// Interaction logic for SelectCoachCategory.XAML

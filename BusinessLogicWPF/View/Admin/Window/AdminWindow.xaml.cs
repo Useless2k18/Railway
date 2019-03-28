@@ -18,8 +18,8 @@ namespace BusinessLogicWPF.View.Admin.Window
     using System.Windows.Input;
     using System.Windows.Media;
 
-    using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Helper;
+    using BusinessLogicWPF.Properties;
     using BusinessLogicWPF.ViewModel.Admin;
 
     using MahApps.Metro.Controls;

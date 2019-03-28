@@ -14,10 +14,10 @@ namespace BusinessLogicWPF.ViewModel.Admin
     using System.IO;
     using System.Windows;
 
-    using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Domain;
     using BusinessLogicWPF.GoogleCloudFireStoreLibrary;
     using BusinessLogicWPF.Helper;
+    using BusinessLogicWPF.Properties;
     using BusinessLogicWPF.View.Admin.UserControls;
 
     using MaterialDesignThemes.Wpf;

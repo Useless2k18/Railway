@@ -16,7 +16,7 @@ namespace BusinessLogicWPF.GoogleCloudFireStoreLibrary
     using System.Linq;
     using System.Threading.Tasks;
 
-    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Properties;
 
     using Google.Apis.Auth.OAuth2;
     using Google.Cloud.Firestore;

@@ -11,7 +11,7 @@
 // ReSharper disable StyleCop.SA1300
 namespace BusinessLogicWPF.Model
 {
-    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Properties;
 
     using Google.Cloud.Firestore;
 

@@ -11,7 +11,7 @@ namespace BusinessLogicWPF.Domain
 {
     using System;
 
-    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// The selectable view model.

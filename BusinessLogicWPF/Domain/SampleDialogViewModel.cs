@@ -12,7 +12,7 @@ namespace BusinessLogicWPF.Domain
     using System;
     using System.ComponentModel;
 
-    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// The sample dialog view model.

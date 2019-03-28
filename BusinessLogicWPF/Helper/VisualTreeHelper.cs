@@ -13,7 +13,7 @@ namespace BusinessLogicWPF.Helper
     using System.Windows;
     using System.Windows.Media;
 
-    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// The visual tree helpers.

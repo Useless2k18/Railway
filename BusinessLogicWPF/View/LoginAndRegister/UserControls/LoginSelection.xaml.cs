@@ -12,8 +12,8 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
     using System.Windows;
     using System.Windows.Controls;
 
-    using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Helper;
+    using BusinessLogicWPF.Properties;
     using BusinessLogicWPF.ViewModel.LoginAndRegister;
 
     using Window = System.Windows.Window;

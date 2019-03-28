@@ -13,9 +13,9 @@ namespace BusinessLogicWPF.ViewModel.StationMaster.ForHelper
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
-    using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Helper;
     using BusinessLogicWPF.Model;
+    using BusinessLogicWPF.Properties;
 
     using Cinch;
 

@@ -15,7 +15,7 @@ namespace BusinessLogicWPF.Helper
     using System.Windows.Controls;
     using System.Windows.Threading;
 
-    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// Interaction logic for Indeterminate Progress Dialog XAML

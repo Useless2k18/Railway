@@ -15,7 +15,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.Window
     using System.Windows.Controls;
     using System.Windows.Input;
 
-    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Properties;
     using BusinessLogicWPF.ViewModel.LoginAndRegister;
 
     using MahApps.Metro.Controls;

@@ -13,8 +13,8 @@ namespace BusinessLogicWPF.View.Helpers.UserControls
     using System.ComponentModel;
     using System.Windows.Controls;
 
-    using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Helper;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// Interaction logic for Selection Dialog XAML

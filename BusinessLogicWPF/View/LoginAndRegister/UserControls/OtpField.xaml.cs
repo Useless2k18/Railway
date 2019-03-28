@@ -21,9 +21,9 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
     using System.Windows.Controls;
     using System.Windows.Input;
 
-    using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Helper;
     using BusinessLogicWPF.Model.Json;
+    using BusinessLogicWPF.Properties;
 
     using MaterialDesignThemes.Wpf;
 

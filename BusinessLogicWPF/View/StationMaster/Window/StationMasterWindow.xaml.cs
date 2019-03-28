@@ -18,7 +18,7 @@ namespace BusinessLogicWPF.View.StationMaster.Window
     using System.Windows.Input;
     using System.Windows.Media;
 
-    using BusinessLogicWPF.Annotations;
+    using BusinessLogicWPF.Properties;
     using BusinessLogicWPF.ViewModel.StationMaster;
 
     using MaterialDesignThemes.Wpf;

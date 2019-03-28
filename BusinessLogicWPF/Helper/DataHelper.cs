@@ -11,8 +11,8 @@ namespace BusinessLogicWPF.Helper
 {
     using System.Collections.Generic;
 
-    using BusinessLogicWPF.Annotations;
     using BusinessLogicWPF.Model;
+    using BusinessLogicWPF.Properties;
 
     /// <summary>
     /// The data helper.
