@@ -324,7 +324,7 @@
     </Compile>
     <Compile Include="Helper\PhoneAuthenticationHelper.cs" />
     <Compile Include="Helper\StaticDbContext.cs" />
-    <Compile Include="Helper\VisualTreeHelper.cs" />
+    <Compile Include="Helper\ExtendedVisualTreeHelper.cs" />
     <Compile Include="Model\Coach.cs" />
     <Compile Include="Model\Division.cs" />
     <Compile Include="Model\Json\IsdCodes.cs" />

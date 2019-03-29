@@ -56,7 +56,7 @@ namespace BusinessLogicWPF.Domain
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             var comboBoxItem =
-                VisualTreeHelpers.GetVisualParent<ComboBoxItem>(
+                ExtendedVisualTreeHelper.GetVisualParent<ComboBoxItem>(
                     container ?? throw new ArgumentNullException(nameof(container)));
             if (comboBoxItem != null)
             {
