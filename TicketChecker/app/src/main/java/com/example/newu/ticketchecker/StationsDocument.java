@@ -3,11 +3,11 @@ package com.example.newu.ticketchecker;
 import java.util.List;
 
 public class StationsDocument {
-    private long noOfZone;
+    private static long noOfZone;
     private List<String> zoneList; ;
 
 
-    public long getNoOfZone() {
+    public static long getNoOfZone() {
         return noOfZone;
     }
 
