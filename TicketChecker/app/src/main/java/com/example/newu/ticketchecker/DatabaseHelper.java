@@ -57,13 +57,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long i = db.insert(Db_tableDivision,null,c);
         return i;
     }
-    public long insertZoneData(SQLiteDatabase db, String Zone_id, String Zone_name,String Division_name,long noOfDivisions) {
+    public long insertZoneData(SQLiteDatabase db, String Zone_id, String Zone_name,String Division_name,long Zone_nof) {
         db = this.getWritableDatabase();
         ContentValues c = new ContentValues();
         c.put(Db_zone_col1,Zone_id);
         c.put(Db_zone_col2,Zone_name);
         c.put(Db_zone_col3,Division_name);
-        c.put(Db_zone_col4,noOfDivisions);
+        c.put(Db_zone_col4,Zone_nof);
         //long res = db.insert(Db_name,null,c);
         long i = db.insert(Db_tableZone,null,c);
         return i;

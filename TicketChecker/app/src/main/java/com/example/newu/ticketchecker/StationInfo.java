@@ -6,7 +6,7 @@ public class StationInfo {
     private String stationCode;
     private long stationPincode;
 
-public StationInfo(){}
+
 
     public StationInfo(String nameOfStation, String codeOfStation, int zipCodeOfStation,String railwayDivisionName) {
         this.stationName = nameOfStation;
