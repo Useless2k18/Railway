@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".NavigationDrawer"></activity>
+        <activity android:name=".NavigationDrawer" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,9 +26,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".TteSignUp"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".TrainsList"
             android:screenOrientation="portrait" />
 
         <meta-data
@@ -45,6 +42,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".BookTicket" />
+        <activity
+            android:name=".TrainsList"
+            android:label="@string/title_activity_trains_list"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

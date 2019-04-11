@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TicketChecker</string>
+    <string name="title_activity_trains_list">TrainsList</string>
 </resources>

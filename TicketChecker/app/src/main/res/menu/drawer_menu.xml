@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/myacct" android:title="My Account" android:icon="@drawable/ic_account_box_black_24dp"/>
+    <item android:id="@+id/booktkt" android:title="Book Ticket" android:icon="@drawable/ic_library_books_black_24dp"/>
+    <item android:id="@+id/pnr" android:title="PNR Check" android:icon="@drawable/ic_directions_subway_black_24dp"/>
+    <item android:id="@+id/cjny" android:title="Current Journey" android:icon="@drawable/ic_near_me_black_24dp"/>
+    <item android:id="@+id/emgcy" android:title="Emergency" android:icon="@drawable/ic_accessibility_black_24dp"/>
+    <item android:id="@+id/logout" android:title="Logout" android:icon="@drawable/ic_close_black_24dp"/>
+</menu>
