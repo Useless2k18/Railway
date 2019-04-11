@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
-public class TrainsList extends AppCompatActivity {
+class TrainsList extends AppCompatActivity {
     public static final String NODE_USERS="users";
     private FirebaseAuth authenticationObject;
     Button logout;
