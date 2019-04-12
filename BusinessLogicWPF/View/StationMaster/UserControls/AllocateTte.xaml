@@ -32,7 +32,7 @@
 
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding TRAIN_NO}" Header="Train No." />
+                    <GridViewColumn DisplayMemberBinding="{Binding TrainNumber}" Header="Train No." />
 
                     <GridViewColumn DisplayMemberBinding="{Binding NAME}" Header="Train Name" />
 

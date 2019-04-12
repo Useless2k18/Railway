@@ -16,6 +16,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls
     using System.Windows;
     using System.Windows.Controls;
 
+    using BusinessLogicWPF.View.Admin.UserControls.ForHelpers;
     using BusinessLogicWPF.View.Helpers.UserControls;
     using BusinessLogicWPF.ViewModel.Admin;
     using BusinessLogicWPF.ViewModel.Admin.ForHelpers;
@@ -217,6 +218,9 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         /// </param>
         private void ButtonNextOnClick(object sender, RoutedEventArgs e)
         {
+            this.MainGrid.Visibility = Visibility.Collapsed;
+            this.NavigateToRoute.Content = new AddRouteOfTrain { DataContext = new AddRouteOfTrainViewModel() };
+            this.NavigateToRoute.Visibility = Visibility.Visible;
         }
 
         /// <summary>

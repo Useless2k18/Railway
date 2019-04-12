@@ -17,151 +17,156 @@
 
     <Grid>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+        <ContentControl x:Name="NavigateToRoute" Grid.RowSpan="3" Visibility="Collapsed"/>
 
-        <TextBlock
-            Grid.Row="1"
-            Margin="10"
-            Style="{StaticResource MaterialDesignHeadlineTextBlock}"
-            Text="Enter Train Details"
-            TextAlignment="Center"/>
+        <Grid x:Name="MainGrid" Visibility="Visible">
 
-        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <TextBlock
+                Grid.Row="1"
+                Margin="10"
+                Style="{StaticResource MaterialDesignHeadlineTextBlock}"
+                Text="Enter Train Details"
+                TextAlignment="Center"/>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="2">
 
-            <Grid
-                x:Name="Grid1"
-                Grid.Column="0"
-                MinWidth="300"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-
-                <TextBox
-                    x:Name="TextBoxTrainNo"
-                    Grid.Row="0"
-                    Margin="10,8"
-                    materialDesign:HintAssist.Hint="Enter Train No"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-
-                <TextBox
-                    x:Name="TextBoxTrainName"
-                    Grid.Row="1"
+                <Grid
+                    x:Name="Grid1"
                     Grid.Column="0"
-                    Margin="10,10,10,5"
-                    materialDesign:HintAssist.Hint="Enter Train Name"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    MinWidth="300"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top">
 
-                <TextBox
-                    x:Name="TextBoxTrainType"
-                    Grid.Row="2"
-                    Grid.Column="0"
-                    Margin="10,10,10,5"
-                    materialDesign:HintAssist.Hint="Enter Train Type"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
 
-                <TextBox
-                    x:Name="TextBoxTrainSource"
-                    Grid.Row="3"
-                    Grid.Column="0"
-                    Margin="10,10,10,5"
-                    materialDesign:HintAssist.Hint="Enter Train Source Station"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox
+                        x:Name="TextBoxTrainNo"
+                        Grid.Row="0"
+                        Margin="10,8"
+                        materialDesign:HintAssist.Hint="Enter Train No"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-                <TextBox
-                    x:Name="TextBoxTrainDestination"
-                    Grid.Row="4"
-                    Grid.Column="0"
-                    Margin="10,10,10,5"
-                    materialDesign:HintAssist.Hint="Enter Train Destination Station"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox
+                        x:Name="TextBoxTrainName"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="10,10,10,5"
+                        materialDesign:HintAssist.Hint="Enter Train Name"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-                <TextBox
-                    x:Name="TextBoxTrainRakeZone"
-                    Grid.Row="5"
-                    Grid.Column="0"
-                    Margin="10,10,10,5"
-                    materialDesign:HintAssist.Hint="Enter Train Rake Zone"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-            </Grid>
+                    <TextBox
+                        x:Name="TextBoxTrainType"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Margin="10,10,10,5"
+                        materialDesign:HintAssist.Hint="Enter Train Type"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-            <ScrollViewer Grid.Column="1">
-                <StackPanel x:Name="StackPanel">
-                    <Grid x:Name="Grid2" MinWidth="300">
-                        <TreeView x:Name="TreeView" SelectedItemChanged="TreeViewSelectedItemChanged">
-                            <TreeView.ItemTemplate>
-                                <HierarchicalDataTemplate DataType="{x:Type treeView:MenuItem}" ItemsSource="{Binding Items}">
-                                    <TextBlock Text="{Binding Name}" />
-                                </HierarchicalDataTemplate>
-                            </TreeView.ItemTemplate>
-                        </TreeView>
-                    </Grid>
-                </StackPanel>
-            </ScrollViewer>
+                    <TextBox
+                        x:Name="TextBoxTrainSource"
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Margin="10,10,10,5"
+                        materialDesign:HintAssist.Hint="Enter Train Source Station"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-            <Grid
-                Grid.Column="2"
-                MinWidth="220"
-                HorizontalAlignment="Stretch">
+                    <TextBox
+                        x:Name="TextBoxTrainDestination"
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Margin="10,10,10,5"
+                        materialDesign:HintAssist.Hint="Enter Train Destination Station"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
+                    <TextBox
+                        x:Name="TextBoxTrainRakeZone"
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Margin="10,10,10,5"
+                        materialDesign:HintAssist.Hint="Enter Train Rake Zone"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                </Grid>
 
-                <materialDesign:PopupBox
-                    Grid.Row="0"
-                    Margin="20"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    PlacementMode="LeftAndAlignMiddles"
-                    Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
-                    ToolTip="Add Coaches"
-                    UnfurlOrientation="Horizontal">
-                    <StackPanel Orientation="Horizontal">
-                        <Button
-                            x:Name="ButtonAdd"
-                            Click="ButtonAddOnClick"
-                            ToolTip="Add an item">
-                            <materialDesign:PackIcon Kind="Add" />
-                        </Button>
-                        <Button ToolTip="Remove selected item">
-                            <materialDesign:PackIcon Kind="Delete" />
-                        </Button>
+                <ScrollViewer Grid.Column="1">
+                    <StackPanel x:Name="StackPanel">
+                        <Grid x:Name="Grid2" MinWidth="300">
+                            <TreeView x:Name="TreeView" SelectedItemChanged="TreeViewSelectedItemChanged">
+                                <TreeView.ItemTemplate>
+                                    <HierarchicalDataTemplate DataType="{x:Type treeView:MenuItem}" ItemsSource="{Binding Items}">
+                                        <TextBlock Text="{Binding Name}" />
+                                    </HierarchicalDataTemplate>
+                                </TreeView.ItemTemplate>
+                            </TreeView>
+                        </Grid>
                     </StackPanel>
-                </materialDesign:PopupBox>
+                </ScrollViewer>
 
-                <Button
-                    x:Name="ButtonNext"
-                    Grid.Row="1"
-                    Margin="20"
-                    VerticalAlignment="Bottom"
-                    Click="ButtonNextOnClick"
-                    Style="{StaticResource MaterialDesignRaisedAccentButton}">
-                    <TextBlock>
-                        <Run Text="Next" />
-                        <materialDesign:PackIcon 
-                            Kind="NavigateNext"
-                            Margin="5,0,0,-3"/>
-                    </TextBlock>
-                </Button>
+                <Grid
+                    Grid.Column="2"
+                    MinWidth="220"
+                    HorizontalAlignment="Stretch">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <materialDesign:PopupBox
+                        Grid.Row="0"
+                        Margin="20"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        PlacementMode="LeftAndAlignMiddles"
+                        Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+                        ToolTip="Add Coaches"
+                        UnfurlOrientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
+                            <Button
+                                x:Name="ButtonAdd"
+                                Click="ButtonAddOnClick"
+                                ToolTip="Add an item">
+                                <materialDesign:PackIcon Kind="Add" />
+                            </Button>
+                            <Button ToolTip="Remove selected item">
+                                <materialDesign:PackIcon Kind="Delete" />
+                            </Button>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+
+                    <Button
+                        x:Name="ButtonNext"
+                        Grid.Row="1"
+                        Margin="20"
+                        VerticalAlignment="Bottom"
+                        Click="ButtonNextOnClick"
+                        Style="{StaticResource MaterialDesignRaisedAccentButton}">
+                        <TextBlock>
+                            <Run Text="Next" />
+                            <materialDesign:PackIcon 
+                                Kind="NavigateNext"
+                                Margin="5,0,0,-3"/>
+                        </TextBlock>
+                    </Button>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

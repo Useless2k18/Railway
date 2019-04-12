@@ -343,6 +343,7 @@
     <Compile Include="ViewModel\Admin\AddStationViewModel.cs" />
     <Compile Include="ViewModel\Admin\AddTrainViewModel.cs" />
     <Compile Include="ViewModel\Admin\AdminWindowViewModel.cs" />
+    <Compile Include="ViewModel\Admin\ForHelpers\AddRouteOfTrainViewModel.cs" />
     <Compile Include="ViewModel\Admin\ForHelpers\CoachCategory.cs" />
     <Compile Include="ViewModel\Admin\ForHelpers\EnterCoachesViewModel.cs" />
     <Compile Include="ViewModel\Admin\ForHelpers\SelectCoachCategoryViewModel.cs" />
@@ -366,6 +367,9 @@
     </Compile>
     <Compile Include="View\Admin\UserControls\AdminHome.xaml.cs">
       <DependentUpon>AdminHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Admin\UserControls\ForHelpers\AddRouteOfTrain.xaml.cs">
+      <DependentUpon>AddRouteOfTrain.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Admin\UserControls\ForHelpers\EnterCoaches.xaml.cs">
       <DependentUpon>EnterCoaches.xaml</DependentUpon>
@@ -455,6 +459,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Admin\UserControls\AdminHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Admin\UserControls\ForHelpers\AddRouteOfTrain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
