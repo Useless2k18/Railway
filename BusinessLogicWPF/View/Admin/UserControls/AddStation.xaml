@@ -9,10 +9,11 @@
     Width="Auto"
     Height="Auto"
     mc:Ignorable="d">
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" MaxHeight="400"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>

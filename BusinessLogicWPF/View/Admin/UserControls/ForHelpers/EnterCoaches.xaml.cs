@@ -70,6 +70,9 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
             HintAssist.SetHint(textBox, "Enter Coach Number");
             HintAssist.SetIsFloating(textBox, true);
 
+            // Update ScrollViewer
+            this.ScrollViewer.ScrollToEnd();
+
             // Update Static class DataHelper
             DataHelper.StatusForEnable = false;
 
@@ -121,7 +124,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
                 if (textBox != null)
                 {
                     DataHelper.CoachesList?.Add(textBox.Text);
-                    textBox.Visibility = Visibility.Collapsed;
+                    textBox.IsEnabled = false;
                 }
             }
 

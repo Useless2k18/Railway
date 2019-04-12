@@ -16,13 +16,15 @@ namespace BusinessLogicWPF.View.Admin.UserControls
     using System.Windows;
     using System.Windows.Controls;
 
-    using BusinessLogicWPF.Helper;
-    using BusinessLogicWPF.Properties;
     using BusinessLogicWPF.View.Helpers.UserControls;
     using BusinessLogicWPF.ViewModel.Admin;
     using BusinessLogicWPF.ViewModel.Admin.ForHelpers;
 
+    using Helper;
+
     using MaterialDesignThemes.Wpf;
+
+    using Properties;
 
     using MenuItem = BusinessLogicWPF.Domain.TreeView.MenuItem;
 
@@ -66,6 +68,8 @@ namespace BusinessLogicWPF.View.Admin.UserControls
             this.InitializeComponent();
 
             this.root = new MenuItem { Name = "Coach" };
+            
+            // We should delete this part as here we are initializing the whole list for coaches
             var enumerable = this.list;
             if (enumerable != null)
             {
@@ -127,6 +131,24 @@ namespace BusinessLogicWPF.View.Admin.UserControls
 
                     var result1 = await DialogHost.Show(dialog1, "RootDialog", this.ClosingEventHandler)
                                       .ConfigureAwait(false);
+
+                    if ((bool)result1)
+                    {
+                        this.Dispatcher.Invoke(
+                            () =>
+                                {
+                                    var coaches = this.root.Items ?? throw new InvalidOperationException();
+
+                                    var item = new MenuItem { Name = DataHelper.SelectedCoach };
+
+                                    if (!coaches.Contains(item))
+                                    {
+                                        coaches.Add(item);
+                                    }
+
+                                    this.TreeView.Items[0] = this.root;
+                                });
+                    }
                 }
                 else
                 {
@@ -181,6 +203,19 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         /// The event args.
         /// </param>
         private void ClosingEventHandler([CanBeNull] object sender, [CanBeNull] DialogClosingEventArgs eventArgs)
+        {
+        }
+
+        /// <summary>
+        /// The button next on click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ButtonNextOnClick(object sender, RoutedEventArgs e)
         {
         }
 

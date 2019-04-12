@@ -8,7 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="Auto"
     Height="Auto"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    UseLayoutRounding="True">
 
     <StackPanel Margin="10,10,10,10">
 
@@ -16,16 +17,23 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>-->
+        <TextBlock
+            Margin="5"
+            Text="{Binding Path=CoachName}"
+            TextAlignment="Center"
+            Style="{StaticResource MaterialDesignTitleTextBlock}" />
 
-        <StackPanel x:Name="StackPanel">
-            <TextBox
-                x:Name="TextBox1"
-                Margin="10,10,10,10"
-                materialDesign:HintAssist.Hint="Enter Coach Number"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-        </StackPanel>
+        <ScrollViewer x:Name="ScrollViewer" MaxHeight="180">
+            <StackPanel x:Name="StackPanel" CanVerticallyScroll="True">
+                <TextBox
+                    x:Name="TextBox1"
+                    Margin="10"
+                    materialDesign:HintAssist.Hint="Enter Coach Number"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            </StackPanel>
+        </ScrollViewer>
 
-        <DockPanel Margin="10,10,10,10" HorizontalAlignment="Right">
+        <DockPanel Margin="10" HorizontalAlignment="Right">
             <Button
                 x:Name="ButtonAdd"
                 Margin="0,0,10,0"

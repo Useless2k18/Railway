@@ -311,6 +311,7 @@
     <Compile Include="Domain\IsCheckedValidationRule.cs" />
     <Compile Include="Domain\NotEmptyValidationRule.cs" />
     <Compile Include="Domain\NotifyPropertyChangedExtension.cs" />
+    <Compile Include="Domain\RelayCommand.cs" />
     <Compile Include="Domain\SampleDialogViewModel.cs" />
     <Compile Include="Domain\SelectableViewModel.cs" />
     <Compile Include="Domain\SimpleDataTemplateSelector.cs" />

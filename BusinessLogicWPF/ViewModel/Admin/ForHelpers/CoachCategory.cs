@@ -111,7 +111,7 @@ namespace BusinessLogicWPF.ViewModel.Admin.ForHelpers
             [CanBeNull] IEnumerable<string> sleeper = null,
             [CanBeNull] IEnumerable<string> secondSitting = null)
         {
-            this.CoachType = new ObservableCollection<string>(coachType ?? throw new ArgumentNullException(nameof(coachType)));
+            this.CoachName = new ObservableCollection<string>(coachType ?? throw new ArgumentNullException(nameof(coachType)));
             
             this.ChairCars = chairCar != null
                                  ? new ObservableCollection<string>(chairCar)
@@ -142,7 +142,7 @@ namespace BusinessLogicWPF.ViewModel.Admin.ForHelpers
         /// Gets the coach type.
         /// </summary>
         [CanBeNull]
-        public ObservableCollection<string> CoachType { get; }
+        public ObservableCollection<string> CoachName { get; }
 
         /// <summary>
         /// Gets the chair cars.
