@@ -25,49 +25,49 @@ namespace BusinessLogicWPF.Model
         /// Gets or sets the chair car.
         /// </summary>
         [CanBeNull]
-        [FirestoreProperty]
-        public string[] chairCar { get; set; }
+        [FirestoreProperty("chairCar")]
+        public string[] ChairCar { get; set; }
 
         /// <summary>
         /// Gets or sets the coach type.
         /// </summary>
         [CanBeNull]
-        [FirestoreProperty]
-        public string[] coachType { get; set; }
+        [FirestoreProperty("coachType")]
+        public string[] CoachType { get; set; }
 
         /// <summary>
         /// Gets or sets the first tier ac.
         /// </summary>
         [CanBeNull]
-        [FirestoreProperty]
-        public string[] firstTierAc { get; set; }
+        [FirestoreProperty("firstTierAc")]
+        public string[] FirstTierAc { get; set; }
 
         /// <summary>
         /// Gets or sets the second tier ac.
         /// </summary>
         [CanBeNull]
-        [FirestoreProperty]
-        public string[] secondTierAc { get; set; }
+        [FirestoreProperty("secondTierAc")]
+        public string[] SecondTierAc { get; set; }
 
         /// <summary>
         /// Gets or sets the third tier ac.
         /// </summary>
         [CanBeNull]
-        [FirestoreProperty]
-        public string[] thirdTierAc { get; set; }
+        [FirestoreProperty("thirdTierAc")]
+        public string[] ThirdTierAc { get; set; }
 
         /// <summary>
         /// Gets or sets the sleeper.
         /// </summary>
         [CanBeNull]
-        [FirestoreProperty]
-        public string[] sleeper { get; set; }
+        [FirestoreProperty("sleeper")]
+        public string[] Sleeper { get; set; }
 
         /// <summary>
         /// Gets or sets the second sitting.
         /// </summary>
         [CanBeNull]
-        [FirestoreProperty]
-        public string[] secondSitting { get; set; }
+        [FirestoreProperty("secondSitting")]
+        public string[] SecondSitting { get; set; }
     }
 }
