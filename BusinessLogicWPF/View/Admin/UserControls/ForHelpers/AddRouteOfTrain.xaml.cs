@@ -249,7 +249,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
         {
             if (DataHelper.Train != null)
             {
-                StaticDbContext.ConnectFireStore?.AddCollectionDataAsync(
+                StaticDbContext.ConnectFireStore?.AddOrUpdateCollectionDataAsync(
                     DataHelper.Train,
                     "Root",
                     "TrainDetails",

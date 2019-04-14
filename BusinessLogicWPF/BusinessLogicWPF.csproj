@@ -328,6 +328,7 @@
     <Compile Include="Helper\PhoneAuthenticationHelper.cs" />
     <Compile Include="Helper\StaticDbContext.cs" />
     <Compile Include="Helper\ExtendedVisualTreeHelper.cs" />
+    <Compile Include="JsClasses\DotNetPhoneNumberAuthentication.cs" />
     <Compile Include="Model\Coach.cs" />
     <Compile Include="Model\Division.cs" />
     <Compile Include="Model\Json\IsdCodes.cs" />
@@ -392,7 +393,6 @@
     </Compile>
     <Compile Include="ViewModel\LoginAndRegister\LoginAsTteViewModel.cs" />
     <Compile Include="ViewModel\LoginAndRegister\RegisterViewModel.cs" />
-    <Compile Include="JsClasses\DotNetPhoneNumberAuthentication.cs" />
     <Compile Include="View\LoginAndRegister\UserControls\LoginAsAdmin.xaml.cs">
       <DependentUpon>LoginAsAdmin.xaml</DependentUpon>
     </Compile>
