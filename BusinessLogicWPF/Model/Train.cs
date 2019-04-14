@@ -9,6 +9,8 @@
 
 namespace BusinessLogicWPF.Model
 {
+    using System.Collections.Generic;
+
     using BusinessLogicWPF.Properties;
 
     using Google.Cloud.Firestore;
@@ -73,6 +75,6 @@ namespace BusinessLogicWPF.Model
         /// </summary>
         [CanBeNull]
         [FirestoreProperty("route")]
-        public Route[] Route { get; set; }
+        public List<Route> Route { get; set; }
     }
 }
