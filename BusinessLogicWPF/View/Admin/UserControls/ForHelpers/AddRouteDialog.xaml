@@ -21,7 +21,8 @@
             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             CharacterCasing="Upper"
             Text="{Binding StationCode}"
-            materialDesign:HintAssist.Hint="Enter Station Code"/>
+            materialDesign:HintAssist.Hint="Enter Station Code"
+            LostFocus="TextBoxStationCodeOnLostFocus"/>
         <TextBox
             x:Name="TextBoxDepartureTime"
             HorizontalAlignment="Stretch"

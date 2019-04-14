@@ -32,8 +32,15 @@
 
             
             <StackPanel x:Name="StackPanel" Margin="10,20,10,0">
-                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                    <Grid x:Name="Grid2" MinWidth="600" Margin="10">
+                <ScrollViewer 
+                    x:Name="ScrollViewer"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto">
+                    <Grid 
+                        x:Name="Grid2"
+                        MinWidth="600"
+                        MaxHeight="180"
+                        Margin="10">
                         <TextBlock
                             x:Name="TextBlockForBlankRow"
                             Visibility="Visible"

@@ -13,6 +13,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
     using System.Windows;
     using System.Windows.Controls;
 
+    using BusinessLogicWPF.Helper;
     using BusinessLogicWPF.Model;
 
     using MaterialDesignThemes.Wpf;
@@ -28,6 +29,32 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
         public AddRouteDialog()
         {
             this.InitializeComponent();
+        }
+
+        /// <summary>
+        /// The text box station code on lost focus.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void TextBoxStationCodeOnLostFocus(object sender, RoutedEventArgs e)
+        {
+            if (this.TextBoxStationCode.Text == DataHelper.Train.SourceStation)
+            {
+                this.TextBoxArrivalTime.Text = "SRC0";
+            }
+            else if (this.TextBoxStationCode.Text == DataHelper.Train.DestinationStation)
+            {
+                this.TextBoxDepartureTime.Text = "DEST0";
+            }
+            else
+            {
+                this.TextBoxDepartureTime.Text = string.Empty;
+                this.TextBoxArrivalTime.Text = string.Empty;
+            }
         }
 
         /// <summary>
@@ -62,17 +89,37 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
                 MessageBox.Show("Please fill all the fields");
                 return;
             }
-
+            
             if (!DateTime.TryParse(this.TextBoxDepartureTime.Text, out var _))
             {
-                MessageBox.Show("Please type proper Departure Time!");
-                return;
-            }
+                if (this.TextBoxDepartureTime.Text == "DEST0"
+                    && this.TextBoxStationCode.Text != DataHelper.Train.DestinationStation)
+                {
+                    MessageBox.Show("Only Destination Station can have Departure Time as DEST0");
+                    return;
+                }
 
+                if (this.TextBoxDepartureTime.Text != "DEST0")
+                {
+                    MessageBox.Show("Please type proper Departure Time!");
+                    return;
+                }
+            }
+            
             if (!DateTime.TryParse(this.TextBoxArrivalTime.Text, out var _))
             {
-                MessageBox.Show("Please type proper Arrival Time!");
-                return;
+                if (this.TextBoxArrivalTime.Text == "SRC0"
+                    && this.TextBoxStationCode.Text != DataHelper.Train.SourceStation)
+                {
+                    MessageBox.Show("Only Source Station can have Arrival Time as SRC0");
+                    return;
+                }
+
+                if (this.TextBoxArrivalTime.Text != "SRC0")
+                {
+                    MessageBox.Show("Please type proper Arrival Time!");
+                    return;
+                }
             }
             
             var tteFlag = 0;
