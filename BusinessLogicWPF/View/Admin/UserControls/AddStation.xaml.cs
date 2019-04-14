@@ -20,6 +20,8 @@ namespace BusinessLogicWPF.View.Admin.UserControls
     using BusinessLogicWPF.Model;
     using BusinessLogicWPF.Properties;
 
+    using MahApps.Metro.Controls;
+
     /// <summary>
     /// Interaction logic for AddStations.XAML
     /// </summary>
@@ -187,10 +189,22 @@ namespace BusinessLogicWPF.View.Admin.UserControls
             try
             {
                 backgroundWorker.RunWorkerAsync();
+                this.Refresh();
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
+            }
+        }
+
+        /// <summary>
+        /// The refresh.
+        /// </summary>
+        private void Refresh()
+        {
+            foreach (var textBox in this.FindChildren<TextBox>())
+            {
+                textBox.Clear();
             }
         }
     }

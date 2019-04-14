@@ -20,6 +20,8 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
     using BusinessLogicWPF.Model;
     using BusinessLogicWPF.ViewModel.Admin.ForHelpers;
 
+    using MahApps.Metro.Controls;
+
     using MaterialDesignThemes.Wpf;
 
     /// <summary>
@@ -39,6 +41,11 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
         public AddRouteOfTrain()
         {
             this.InitializeComponent();
+
+            if (DataHelper.Train != null)
+            {
+                this.TextBlockRouteHeader.Text += DataHelper.Train.TrainNumber;
+            }
 
             this.DataGrid.ItemsSource = this.routes;
         }
@@ -137,9 +144,74 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
             }
         }
 
+        /// <summary>
+        /// The button accept on click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
         private void ButtonAcceptOnClick(object sender, RoutedEventArgs e)
         {
+            if (DataHelper.Train != null)
+            {
+                if (this.routes.Count == 0)
+                {
+                    MessageBox.Show($"Please add routes for the Train {DataHelper.Train.TrainNumber}");
+                    return;
+                }
+
+                if (this.routes.Any(r => r.StationCode == DataHelper.Train.SourceStation) == false)
+                {
+                    MessageBox.Show($"Please add a route details for Source Station {DataHelper.Train.SourceStation}");
+                    return;
+                }
+
+                if (this.routes.Any(r => r.StationCode == DataHelper.Train.DestinationStation) == false)
+                {
+                    MessageBox.Show(
+                        $"Please add a route details for Destination Station {DataHelper.Train.DestinationStation}");
+                    return;
+                }
+            }
+
+            MessageBox.Show("Congratulations! You have added a new Train into the Database");
+            if (DataHelper.Train != null)
+            {
+                if (MessageBox.Show(
+                        "Lets Confirm" 
+                        + $"\nTrain Number: {DataHelper.Train.TrainNumber}"
+                        + $"\nTrain Name: {DataHelper.Train.TrainName}"
+                        + $"\nTrain Type: {DataHelper.Train.Type}"
+                        + $"\nSource Station: {DataHelper.Train.SourceStation}"
+                        + $"\nDestination Station: {DataHelper.Train.DestinationStation}"
+                        + $"\nRake Zone: {DataHelper.Train.RakeZone}",
+                        "Confirm Message",
+                        MessageBoxButton.OKCancel) == MessageBoxResult.Cancel)
+                {
+                    MessageBox.Show("Ok... Data is not added");
+                    return;
+                }
+            }
+
+            if (DataHelper.Train != null)
+            {
+                DataHelper.Train.Route = this.routes.ToArray();
+            }
+
+            this.Refresh();
+
             DataHelper.Accept = true;
+        }
+
+        /// <summary>
+        /// The refresh.
+        /// </summary>
+        private void Refresh()
+        {
+            this.routes.Clear();
         }
     }
 }

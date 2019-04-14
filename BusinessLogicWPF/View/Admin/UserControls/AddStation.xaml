@@ -46,7 +46,6 @@
 
             <TextBox
                 x:Name="TextBoxZoneName"
-                CharacterCasing="Upper"
                 Grid.Row="0"
                 Margin="10,0,10,5"
                 materialDesign:HintAssist.Hint="Enter Zone Name"

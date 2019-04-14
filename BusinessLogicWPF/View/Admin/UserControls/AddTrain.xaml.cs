@@ -11,17 +11,23 @@ namespace BusinessLogicWPF.View.Admin.UserControls
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Diagnostics.Contracts;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Input;
 
+    using BusinessLogicWPF.Model;
     using BusinessLogicWPF.View.Admin.UserControls.ForHelpers;
     using BusinessLogicWPF.View.Helpers.UserControls;
     using BusinessLogicWPF.ViewModel.Admin;
     using BusinessLogicWPF.ViewModel.Admin.ForHelpers;
 
     using Helper;
+
+    using MahApps.Metro.Controls;
 
     using MaterialDesignThemes.Wpf;
 
@@ -35,10 +41,10 @@ namespace BusinessLogicWPF.View.Admin.UserControls
     public partial class AddTrain : UserControl
     {
         /// <summary>
-        /// The root.
+        /// The regex.
         /// </summary>
         [NotNull]
-        private readonly MenuItem root;
+        private static readonly Regex Regex = new Regex("[^0-9]+"); // regex that matches disallowed text
 
         /// <summary>
         /// The list.
@@ -53,6 +59,17 @@ namespace BusinessLogicWPF.View.Admin.UserControls
                                                      "Chair Car",
                                                      "Second Sitting"
                                                  };
+
+        /// <summary>
+        /// The root.
+        /// </summary>
+        [NotNull]
+        private readonly MenuItem root;
+
+        /// <summary>
+        /// The background worker.
+        /// </summary>
+        private BackgroundWorker backgroundWorker;
 
         /// <summary>
         /// The current selected item.
@@ -92,6 +109,39 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         /// </summary>
         [CanBeNull]
         public AddTrainViewModel ViewModel => this.DataContext as AddTrainViewModel;
+
+        /// <summary>
+        /// The is text allowed.
+        /// </summary>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        private static bool IsTextAllowed([NotNull] string text)
+        {
+            if (text == null)
+            {
+                throw new ArgumentNullException(nameof(text));
+            }
+
+            return !Regex.IsMatch(text);
+        }
+
+        /// <summary>
+        /// The text box train no on preview text input.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void TextBoxTrainNoOnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
 
         /// <summary>
         /// Trees View's Selected Item is read-only. Hence we can't bind it. There is a way to obtain a selected item.
@@ -224,15 +274,100 @@ namespace BusinessLogicWPF.View.Admin.UserControls
             var c = (MenuItem)this.TreeView.Items[0];
             var count = 0;
 
+            var coachType = new List<string>();
+            var firstTierAc = new List<string>();
+            var secondTierAc = new List<string>();
+            var thirdTierAc = new List<string>();
+            var sleeper = new List<string>();
+            var chairCar = new List<string>();
+            var secondSitting = new List<string>();
+
             foreach (var item in c.Items)
             {
-                if (item.Items.Count == 0)
+                if (item.Items.Count != 0)
                 {
-                    continue;
-                }
+                    switch (item.Name)
+                    {
+                        case "First Tier AC":
+                            coachType.Add("firstTierAc");
+                            foreach (var itemItem in item.Items)
+                            {
+                                firstTierAc.Add(itemItem.Name);
+                            }
 
-                count = 1;
-                break;
+                            break;
+                        case "Second Tier AC":
+                            coachType.Add("secondTierAc");
+                            foreach (var itemItem in item.Items)
+                            {
+                                secondTierAc.Add(itemItem.Name);
+                            }
+
+                            break;
+                        case "Third Tier AC":
+                            coachType.Add("thirdTierAc");
+                            foreach (var itemItem in item.Items)
+                            {
+                                thirdTierAc.Add(itemItem.Name);
+                            }
+
+                            break;
+                        case "Sleeper":
+                            coachType.Add("sleeper");
+                            foreach (var itemItem in item.Items)
+                            {
+                                sleeper.Add(itemItem.Name);
+                            }
+
+                            break;
+                        case "Chair Car":
+                            coachType.Add("chairCar");
+                            foreach (var itemItem in item.Items)
+                            {
+                                chairCar.Add(itemItem.Name);
+                            }
+
+                            break;
+                        case "Second Sitting":
+                            coachType.Add("secondSitting");
+                            foreach (var itemItem in item.Items)
+                            {
+                                secondSitting.Add(itemItem.Name);
+                            }
+
+                            break;
+                        default:
+                            break;
+                    }
+
+                    count++;
+                }
+                else
+                {
+                    switch (item.Name)
+                    {
+                        case "First Tier AC":
+                            firstTierAc.Add("NA");
+                            break;
+                        case "Second Tier AC":
+                            secondTierAc.Add("NA");
+                            break;
+                        case "Third Tier AC":
+                            thirdTierAc.Add("NA");
+                            break;
+                        case "Sleeper":
+                            sleeper.Add("NA");
+                            break;
+                        case "Chair Car":
+                            chairCar.Add("NA");
+                            break;
+                        case "Second Sitting":
+                            secondSitting.Add("NA");
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
 
             if (count == 0)
@@ -241,9 +376,91 @@ namespace BusinessLogicWPF.View.Admin.UserControls
                 return;
             }
 
+            DataHelper.Train = new Train
+                                   {
+                                       TrainNumber = Convert.ToInt32(this.TextBoxTrainNo.Text),
+                                       TrainName = this.TextBoxTrainName.Text,
+                                       Type = this.TextBoxTrainType.Text,
+                                       SourceStation = this.TextBoxTrainSource.Text,
+                                       DestinationStation = this.TextBoxTrainDestination.Text,
+                                       RakeZone = this.TextBoxTrainRakeZone.Text,
+                                       Coach = new Coach
+                                                   {
+                                                       CoachType = coachType.ToArray(),
+                                                       FirstTierAc = firstTierAc.ToArray(),
+                                                       SecondTierAc = secondTierAc.ToArray(),
+                                                       ThirdTierAc = thirdTierAc.ToArray(),
+                                                       Sleeper = sleeper.ToArray(),
+                                                       ChairCar = chairCar.ToArray(),
+                                                       SecondSitting = secondSitting.ToArray()
+                                                   }
+                                   };
+
             this.MainGrid.Visibility = Visibility.Collapsed;
             this.NavigateToRoute.Content = new AddRouteOfTrain { DataContext = new AddRouteOfTrainViewModel() };
             this.NavigateToRoute.Visibility = Visibility.Visible;
+
+            // Start background worker
+            this.backgroundWorker = new BackgroundWorker();
+            this.backgroundWorker.DoWork += this.BackgroundWorkerDoWork;
+            this.backgroundWorker.RunWorkerCompleted += this.BackgroundWorkerRunWorkerCompleted;
+            this.backgroundWorker.RunWorkerAsync();
+        }
+
+        /// <summary>
+        /// The background worker do work.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void BackgroundWorkerDoWork(object sender, DoWorkEventArgs e)
+        {
+            while (!DataHelper.Accept)
+            {
+            }
+        }
+
+        /// <summary>
+        /// The background worker run worker completed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void BackgroundWorkerRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            this.MainGrid.Visibility = Visibility.Visible;
+            this.NavigateToRoute.Visibility = Visibility.Collapsed;
+            this.NavigateToRoute.Content = null;
+
+            this.Refresh();
+        }
+
+        /// <summary>
+        /// The refresh.
+        /// </summary>
+        private void Refresh()
+        {
+            foreach (var textBox in this.FindChildren<TextBox>())
+            {
+                textBox.Clear();
+            }
+
+            var c = (MenuItem)this.TreeView.Items[0];
+
+            foreach (var item in c.Items)
+            {
+                item.Items.Clear();
+            }
+
+            this.TreeView.Items[0] = c;
+
+            DataHelper.Train = null;
         }
 
         /// <summary>

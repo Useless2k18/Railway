@@ -63,6 +63,7 @@
                         Grid.Row="0"
                         Margin="10,8"
                         materialDesign:HintAssist.Hint="Enter Train No"
+                        PreviewTextInput="TextBoxTrainNoOnPreviewTextInput"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
                     <TextBox
@@ -83,6 +84,7 @@
 
                     <TextBox
                         x:Name="TextBoxTrainSource"
+                        CharacterCasing="Upper"
                         Grid.Row="3"
                         Grid.Column="0"
                         Margin="10,10,10,5"
@@ -91,6 +93,7 @@
 
                     <TextBox
                         x:Name="TextBoxTrainDestination"
+                        CharacterCasing="Upper"
                         Grid.Row="4"
                         Grid.Column="0"
                         Margin="10,10,10,5"

@@ -17,6 +17,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock
+            x:Name="TextBlockRouteHeader"
             Grid.Row="1"
             Text="Enter Route Info of Train No. "
             Style="{StaticResource MaterialDesignHeadlineTextBlock}"
