@@ -138,9 +138,26 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         /// <param name="e">
         /// The e.
         /// </param>
-        private void TextBoxTrainNoOnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void TextBoxTrainNoOnPreviewTextInput(object sender, [NotNull] TextCompositionEventArgs e)
         {
             e.Handled = !IsTextAllowed(e.Text);
+        }
+
+        /// <summary>
+        /// The text box train no on lost focus.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void TextBoxTrainNoOnLostFocus(object sender, RoutedEventArgs e)
+        {
+            if (this.TextBoxTrainNo.Text.Length != 5)
+            {
+                MessageBox.Show("Train Number cannot be less than 5 digits!");
+            }
         }
 
         /// <summary>
@@ -386,13 +403,13 @@ namespace BusinessLogicWPF.View.Admin.UserControls
                                        RakeZone = this.TextBoxTrainRakeZone.Text,
                                        Coach = new Coach
                                                    {
-                                                       CoachType = coachType.ToArray(),
-                                                       FirstTierAc = firstTierAc.ToArray(),
-                                                       SecondTierAc = secondTierAc.ToArray(),
-                                                       ThirdTierAc = thirdTierAc.ToArray(),
-                                                       Sleeper = sleeper.ToArray(),
-                                                       ChairCar = chairCar.ToArray(),
-                                                       SecondSitting = secondSitting.ToArray()
+                                                       CoachType = coachType,
+                                                       FirstTierAc = firstTierAc,
+                                                       SecondTierAc = secondTierAc,
+                                                       ThirdTierAc = thirdTierAc,
+                                                       Sleeper = sleeper,
+                                                       ChairCar = chairCar,
+                                                       SecondSitting = secondSitting
                                                    }
                                    };
 

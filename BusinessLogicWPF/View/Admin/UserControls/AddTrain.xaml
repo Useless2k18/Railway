@@ -13,7 +13,8 @@
     xmlns:viewModel="clr-namespace:BusinessLogicWPF.ViewModel.Admin"
     Width="Auto"
     Height="Auto"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewModel:AddTrainViewModel, d:IsDesignTimeCreatable=False}">
 
     <Grid>
 
@@ -62,9 +63,17 @@
                         x:Name="TextBoxTrainNo"
                         Grid.Row="0"
                         Margin="10,8"
+                        MaxLength="5"
                         materialDesign:HintAssist.Hint="Enter Train No"
                         PreviewTextInput="TextBoxTrainNoOnPreviewTextInput"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        LostFocus="TextBoxTrainNoOnLostFocus"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <Binding Path="TrainNumber" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox>
 
                     <TextBox
                         x:Name="TextBoxTrainName"
@@ -72,7 +81,13 @@
                         Grid.Column="0"
                         Margin="10,10,10,5"
                         materialDesign:HintAssist.Hint="Enter Train Name"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <Binding Path="TrainName" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox>
 
                     <TextBox
                         x:Name="TextBoxTrainType"
@@ -80,7 +95,13 @@
                         Grid.Column="0"
                         Margin="10,10,10,5"
                         materialDesign:HintAssist.Hint="Enter Train Type"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <Binding Path="TrainType" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox>
 
                     <TextBox
                         x:Name="TextBoxTrainSource"
@@ -89,7 +110,13 @@
                         Grid.Column="0"
                         Margin="10,10,10,5"
                         materialDesign:HintAssist.Hint="Enter Train Source Station"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <Binding Path="SourceStation" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox>
 
                     <TextBox
                         x:Name="TextBoxTrainDestination"
@@ -98,7 +125,13 @@
                         Grid.Column="0"
                         Margin="10,10,10,5"
                         materialDesign:HintAssist.Hint="Enter Train Destination Station"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <Binding Path="DestinationStation" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox>
 
                     <TextBox
                         x:Name="TextBoxTrainRakeZone"
@@ -106,7 +139,13 @@
                         Grid.Column="0"
                         Margin="10,10,10,5"
                         materialDesign:HintAssist.Hint="Enter Train Rake Zone"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <Binding Path="RakeZone" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox>
                 </Grid>
 
                 <ScrollViewer Grid.Column="1">

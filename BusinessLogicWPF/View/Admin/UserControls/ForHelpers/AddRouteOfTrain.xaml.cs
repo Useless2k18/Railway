@@ -9,7 +9,9 @@
 
 namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
 {
+    using System;
     using System.Collections.ObjectModel;
+    using System.ComponentModel;
     using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
@@ -20,8 +22,6 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
     using BusinessLogicWPF.Model;
     using BusinessLogicWPF.ViewModel.Admin.ForHelpers;
 
-    using MahApps.Metro.Controls;
-
     using MaterialDesignThemes.Wpf;
 
     /// <summary>
@@ -29,6 +29,11 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
     /// </summary>
     public partial class AddRouteOfTrain : UserControl
     {
+        /// <summary>
+        /// The background worker.
+        /// </summary>
+        private BackgroundWorker backgroundWorker;
+        
         /// <summary>
         /// The routes.
         /// </summary>
@@ -48,6 +53,23 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
             }
 
             this.DataGrid.ItemsSource = this.routes;
+        }
+
+        /// <summary>
+        /// The get ITH digit from right end.
+        /// </summary>
+        /// <param name="n">
+        /// The n.
+        /// </param>
+        /// <param name="i">
+        /// The i.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        private static int GetIthDigitFromRightEnd(int n, int i)
+        {
+            return (int)((n / Math.Pow(10, i - 1)) % 10);
         }
 
         /// <summary>
@@ -198,9 +220,57 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
 
             if (DataHelper.Train != null)
             {
-                DataHelper.Train.Route = this.routes.ToArray();
+                DataHelper.Train.Route = this.routes.ToList();
             }
 
+            this.backgroundWorker = new BackgroundWorker();
+            this.backgroundWorker.DoWork += this.BackgroundWorkerDoWork;
+            this.backgroundWorker.RunWorkerCompleted += this.BackgroundWorkerRunWorkerCompleted;
+            try
+            {
+                this.backgroundWorker.RunWorkerAsync();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+        }
+
+        /// <summary>
+        /// The background worker do work.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void BackgroundWorkerDoWork(object sender, DoWorkEventArgs e)
+        {
+            if (DataHelper.Train != null)
+            {
+                StaticDbContext.ConnectFireStore?.AddCollectionDataAsync(
+                    DataHelper.Train,
+                    "Root",
+                    "TrainDetails",
+                    $"{GetIthDigitFromRightEnd(DataHelper.Train.TrainNumber, 5)}XXXX",
+                    $"Y{GetIthDigitFromRightEnd(DataHelper.Train.TrainNumber, 4)}XXX",
+                    "Trains",
+                    DataHelper.Train.TrainNumber.ToString());
+            }
+        }
+
+        /// <summary>
+        /// The background worker run worker completed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void BackgroundWorkerRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
             this.Refresh();
 
             DataHelper.Accept = true;
