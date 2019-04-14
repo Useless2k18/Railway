@@ -68,6 +68,9 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         {
             this.InitializeComponent();
 
+            this.MainGrid.Visibility = Visibility.Visible;
+            this.NavigateToRoute.Visibility = Visibility.Collapsed;
+
             this.root = new MenuItem { Name = "Coach" };
             
             // We should delete this part as here we are initializing the whole list for coaches
@@ -130,7 +133,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls
                 {
                     var dialog1 = new SelectionDialog { DataContext = new SelectCoachCategoryViewModel() };
 
-                    var result1 = await DialogHost.Show(dialog1, "RootDialog", this.ClosingEventHandler)
+                    var result1 = await DialogHost.Show(dialog1, "RootDialog")
                                       .ConfigureAwait(false);
 
                     if ((bool)result1)
@@ -160,7 +163,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls
                             a => a.Contains(this.currentSelectedItem ?? throw new InvalidOperationException()));
                         var dialog2 = new SelectionDialog { DataContext = new EnterCoachesViewModel() };
 
-                        var result2 = await DialogHost.Show(dialog2, "RootDialog", this.ClosingEventHandler)
+                        var result2 = await DialogHost.Show(dialog2, "RootDialog")
                                           .ConfigureAwait(false);
 
                         if ((bool)result2)
@@ -168,7 +171,9 @@ namespace BusinessLogicWPF.View.Admin.UserControls
                             this.Dispatcher.Invoke(
                                 () =>
                                     {
-                                        var coaches = (this.root.Items ?? throw new InvalidOperationException()).FirstOrDefault(c => c.Name == DataHelper.SelectedCoach);
+                                        var coaches =
+                                            (this.root.Items ?? throw new InvalidOperationException()).FirstOrDefault(
+                                                c => c.Name == DataHelper.SelectedCoach);
 
                                         if (DataHelper.CoachesList != null)
                                         {
@@ -195,19 +200,6 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         }
 
         /// <summary>
-        /// The closing event handler.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="eventArgs">
-        /// The event args.
-        /// </param>
-        private void ClosingEventHandler([CanBeNull] object sender, [CanBeNull] DialogClosingEventArgs eventArgs)
-        {
-        }
-
-        /// <summary>
         /// The button next on click.
         /// </summary>
         /// <param name="sender">
@@ -218,6 +210,37 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         /// </param>
         private void ButtonNextOnClick(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(this.TextBoxTrainNo.Text)
+                || string.IsNullOrWhiteSpace(this.TextBoxTrainName.Text)
+                || string.IsNullOrWhiteSpace(this.TextBoxTrainType.Text)
+                || string.IsNullOrWhiteSpace(this.TextBoxTrainSource.Text)
+                || string.IsNullOrWhiteSpace(this.TextBoxTrainDestination.Text)
+                || string.IsNullOrWhiteSpace(this.TextBoxTrainRakeZone.Text))
+            {
+                MessageBox.Show("Please fill up all the fields!");
+                return;
+            }
+
+            var c = (MenuItem)this.TreeView.Items[0];
+            var count = 0;
+
+            foreach (var item in c.Items)
+            {
+                if (item.Items.Count == 0)
+                {
+                    continue;
+                }
+
+                count = 1;
+                break;
+            }
+
+            if (count == 0)
+            {
+                MessageBox.Show("Please add at least one coach to this train!");
+                return;
+            }
+
             this.MainGrid.Visibility = Visibility.Collapsed;
             this.NavigateToRoute.Content = new AddRouteOfTrain { DataContext = new AddRouteOfTrainViewModel() };
             this.NavigateToRoute.Visibility = Visibility.Visible;

@@ -9,13 +9,15 @@
 
 namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
 {
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Threading;
 
+    using BusinessLogicWPF.ExtensionMethods;
+    using BusinessLogicWPF.Helper;
     using BusinessLogicWPF.Model;
-    using BusinessLogicWPF.View.Helpers.UserControls;
     using BusinessLogicWPF.ViewModel.Admin.ForHelpers;
 
     using MaterialDesignThemes.Wpf;
@@ -28,7 +30,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
         /// <summary>
         /// The routes.
         /// </summary>
-        private readonly ObservableCollection<Route> routes = new ObservableCollection<Route>();
+        private ObservableCollection<Route> routes = new ObservableCollection<Route>();
 
         /// <inheritdoc />
         /// <summary>
@@ -42,7 +44,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
         }
 
         /// <summary>
-        /// The tree view selected item changed.
+        /// The button delete on click.
         /// </summary>
         /// <param name="sender">
         /// The sender.
@@ -50,8 +52,22 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
         /// <param name="e">
         /// The e.
         /// </param>
-        private void TreeViewSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private void ButtonDeleteOnClick(object sender, RoutedEventArgs e)
         {
+            var selectedRow = ExtendedVisualTreeHelper.GetVisualParent<DataGridRow>(sender as DependencyObject).Item;
+
+            if (this.routes.Contains((Route)selectedRow))
+            {
+                this.routes.Remove((Route)selectedRow);
+            }
+
+            if (this.routes.Count == 0)
+            {
+                this.TextBlockForBlankRow.Visibility = Visibility.Visible;
+                this.DataGrid.Visibility = Visibility.Collapsed;
+            }
+
+            this.DataGrid.ItemsSource = this.routes;
         }
 
         /// <summary>
@@ -63,27 +79,67 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
         /// <param name="e">
         /// The e.
         /// </param>
-        private void ButtonAddRouteOnClick(object sender, RoutedEventArgs e)
+        private async void ButtonAddRouteOnClick(object sender, RoutedEventArgs e)
         {
-            this.routes.Add(
-                new Route
-                    {
-                        StationCode = "ASN",
-                        ArrivalTime = "12:00",
-                        DepartureTime = "2:00",
-                        TteAssignFlag = 0
-                    });
+            var dialog1 = new AddRouteDialog { DataContext = new AddRouteDialogViewModel() };
 
-            if (this.TextBlockForBlankRow.Visibility == Visibility.Visible)
+            var result1 = await DialogHost.Show(dialog1, "RootDialog")
+                              .ConfigureAwait(false);
+
+            if (result1 != null)
             {
-                this.TextBlockForBlankRow.Visibility = Visibility.Collapsed;
-                this.DataGrid.Visibility = Visibility.Visible;
+                this.Dispatcher.Invoke(
+                    () =>
+                        {
+                            this.routes.Add((Route)result1);
+                            this.routes = new ObservableCollection<Route>(this.routes.DistinctBy(r => r.StationCode));
+                            this.DataGrid.ItemsSource = this.routes;
+
+                            if (this.routes.Count != 0)
+                            {
+                                this.TextBlockForBlankRow.Visibility = Visibility.Collapsed;
+                                this.DataGrid.Visibility = Visibility.Visible;
+                            }
+                        },
+                    DispatcherPriority.Normal);
             }
+        }
 
-            /*var dialog1 = new SelectionDialog { DataContext = new SelectCoachCategoryViewModel() };
+        /// <summary>
+        /// The button edit on click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private async void ButtonEditOnClick(object sender, RoutedEventArgs e)
+        {
+            var selectedRow = ExtendedVisualTreeHelper.GetVisualParent<DataGridRow>(sender as DependencyObject).Item;
 
-            var result1 = await DialogHost.Show(dialog1, "RootDialog", this.ClosingEventHandler)
-                              .ConfigureAwait(false);*/
+            var dialog2 = new AddRouteDialog { DataContext = new AddRouteDialogViewModel((Route)selectedRow) };
+
+            var result2 = await DialogHost.Show(dialog2, "RootDialog")
+                              .ConfigureAwait(false);
+
+            if (result2 != null)
+            {
+                this.Dispatcher.Invoke(
+                    () =>
+                        {
+                            this.routes.Remove((Route)selectedRow);
+                            this.routes.Add((Route)result2);
+                            this.routes = new ObservableCollection<Route>(this.routes.DistinctBy(r => r.StationCode));
+                            this.DataGrid.ItemsSource = this.routes;
+                        },
+                    DispatcherPriority.Normal);
+            }
+        }
+
+        private void ButtonAcceptOnClick(object sender, RoutedEventArgs e)
+        {
+            DataHelper.Accept = true;
         }
     }
 }

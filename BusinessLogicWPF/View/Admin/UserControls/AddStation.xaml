@@ -46,6 +46,7 @@
 
             <TextBox
                 x:Name="TextBoxZoneName"
+                CharacterCasing="Upper"
                 Grid.Row="0"
                 Margin="10,0,10,5"
                 materialDesign:HintAssist.Hint="Enter Zone Name"
@@ -61,6 +62,7 @@
 
             <TextBox
                 x:Name="TextBoxStationCode"
+                CharacterCasing="Upper"
                 Grid.Row="2"
                 Margin="10,10,10,5"
                 materialDesign:HintAssist.Hint="Enter Station Code"

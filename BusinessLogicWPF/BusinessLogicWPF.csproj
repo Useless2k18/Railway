@@ -316,6 +316,8 @@
     <Compile Include="Domain\SelectableViewModel.cs" />
     <Compile Include="Domain\SimpleDataTemplateSelector.cs" />
     <Compile Include="Domain\SimpleDateValidationRule.cs" />
+    <Compile Include="ExtensionMethods\GeneralPropertyComparer.cs" />
+    <Compile Include="ExtensionMethods\LinqExtensions.cs" />
     <Compile Include="GoogleCloudFireStoreLibrary\ConnectFireStore.cs" />
     <Compile Include="Domain\ComboBoxItemTemplateSelector.cs" />
     <Compile Include="Helper\DataHelper.cs" />
@@ -343,6 +345,7 @@
     <Compile Include="ViewModel\Admin\AddStationViewModel.cs" />
     <Compile Include="ViewModel\Admin\AddTrainViewModel.cs" />
     <Compile Include="ViewModel\Admin\AdminWindowViewModel.cs" />
+    <Compile Include="ViewModel\Admin\ForHelpers\AddRouteDialogViewModel.cs" />
     <Compile Include="ViewModel\Admin\ForHelpers\AddRouteOfTrainViewModel.cs" />
     <Compile Include="ViewModel\Admin\ForHelpers\CoachCategory.cs" />
     <Compile Include="ViewModel\Admin\ForHelpers\EnterCoachesViewModel.cs" />
@@ -367,6 +370,9 @@
     </Compile>
     <Compile Include="View\Admin\UserControls\AdminHome.xaml.cs">
       <DependentUpon>AdminHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Admin\UserControls\ForHelpers\AddRouteDialog.xaml.cs">
+      <DependentUpon>AddRouteDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Admin\UserControls\ForHelpers\AddRouteOfTrain.xaml.cs">
       <DependentUpon>AddRouteOfTrain.xaml</DependentUpon>
@@ -459,6 +465,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Admin\UserControls\AdminHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Admin\UserControls\ForHelpers\AddRouteDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

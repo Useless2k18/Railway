@@ -37,6 +37,12 @@ namespace BusinessLogicWPF.Helper
         private static Station station;
 
         /// <summary>
+        /// The route.
+        /// </summary>
+        [CanBeNull]
+        private static Route route;
+
+        /// <summary>
         /// The status for enable.
         /// </summary>
         private static bool statusForEnable;
@@ -105,6 +111,29 @@ namespace BusinessLogicWPF.Helper
                 station = value;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the route.
+        /// </summary>
+        [CanBeNull]
+        public static Route Route
+        {
+            get => route;
+            set
+            {
+                if (value == null || route == value)
+                {
+                    return;
+                }
+
+                route = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether accept.
+        /// </summary>
+        public static bool Accept { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether status for enable.
