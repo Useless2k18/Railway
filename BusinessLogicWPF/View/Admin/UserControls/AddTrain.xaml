@@ -66,13 +66,17 @@
                         MaxLength="5"
                         materialDesign:HintAssist.Hint="Enter Train No"
                         PreviewTextInput="TextBoxTrainNoOnPreviewTextInput"
-                        LostFocus="TextBoxTrainNoOnLostFocus"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                        <Binding Path="TrainNumber" UpdateSourceTrigger="PropertyChanged">
-                            <Binding.ValidationRules>
-                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
+                        <TextBox.Text>
+                            <Binding 
+                                Path="TrainNumber"
+                                UpdateSourceTrigger="PropertyChanged"
+                                ValidatesOnExceptions="True">
+                                <Binding.ValidationRules>
+                                    <domain:NotEmptyValidationRule MaxCount="6" ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
                     </TextBox>
 
                     <TextBox
@@ -82,11 +86,13 @@
                         Margin="10,10,10,5"
                         materialDesign:HintAssist.Hint="Enter Train Name"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                        <Binding Path="TrainName" UpdateSourceTrigger="PropertyChanged">
-                            <Binding.ValidationRules>
-                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
+                        <TextBox.Text>
+                            <Binding Path="TrainName" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <domain:NotEmptyValidationRule MaxCount="6" ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
                     </TextBox>
 
                     <TextBox
@@ -96,11 +102,15 @@
                         Margin="10,10,10,5"
                         materialDesign:HintAssist.Hint="Enter Train Type"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                        <Binding Path="TrainType" UpdateSourceTrigger="PropertyChanged">
-                            <Binding.ValidationRules>
-                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
+                        <TextBox.Text>
+                            <Binding 
+                                Path="TrainType"
+                                UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <domain:NotEmptyValidationRule MaxCount="6" ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
                     </TextBox>
 
                     <TextBox
@@ -109,13 +119,16 @@
                         Grid.Row="3"
                         Grid.Column="0"
                         Margin="10,10,10,5"
+                        MaxLength="8"
                         materialDesign:HintAssist.Hint="Enter Train Source Station"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                        <Binding Path="SourceStation" UpdateSourceTrigger="PropertyChanged">
-                            <Binding.ValidationRules>
-                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
+                        <TextBox.Text>
+                            <Binding Path="SourceStation" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <domain:NotEmptyValidationRule MaxCount="6" ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
                     </TextBox>
 
                     <TextBox
@@ -124,13 +137,16 @@
                         Grid.Row="4"
                         Grid.Column="0"
                         Margin="10,10,10,5"
+                        MaxLength="8"
                         materialDesign:HintAssist.Hint="Enter Train Destination Station"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                        <Binding Path="DestinationStation" UpdateSourceTrigger="PropertyChanged">
-                            <Binding.ValidationRules>
-                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
+                        <TextBox.Text>
+                            <Binding Path="DestinationStation" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <domain:NotEmptyValidationRule MaxCount="6" ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
                     </TextBox>
 
                     <TextBox
@@ -140,11 +156,13 @@
                         Margin="10,10,10,5"
                         materialDesign:HintAssist.Hint="Enter Train Rake Zone"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                        <Binding Path="RakeZone" UpdateSourceTrigger="PropertyChanged">
-                            <Binding.ValidationRules>
-                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
+                        <TextBox.Text>
+                            <Binding Path="RakeZone" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <domain:NotEmptyValidationRule MaxCount="6" ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
                     </TextBox>
                 </Grid>
 
@@ -174,12 +192,14 @@
 
                     <materialDesign:PopupBox
                         Grid.Row="0"
+                        PopupMode="Click"
+                        StaysOpen="True"
                         Margin="20"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom"
                         PlacementMode="LeftAndAlignMiddles"
                         Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
-                        ToolTip="Add Coaches"
+                        ToolTip="Add or Delete Coaches"
                         UnfurlOrientation="Horizontal">
                         <StackPanel Orientation="Horizontal">
                             <Button
@@ -188,26 +208,46 @@
                                 ToolTip="Add an item">
                                 <materialDesign:PackIcon Kind="Add" />
                             </Button>
-                            <Button ToolTip="Remove selected item">
+                            <Button 
+                                x:Name="ButtonDelete"
+                                Click="ButtonDeleteOnClick"
+                                ToolTip="Remove selected item">
                                 <materialDesign:PackIcon Kind="Delete" />
                             </Button>
                         </StackPanel>
                     </materialDesign:PopupBox>
 
-                    <Button
-                        x:Name="ButtonNext"
+                    <StackPanel
                         Grid.Row="1"
-                        Margin="20"
-                        VerticalAlignment="Bottom"
-                        Click="ButtonNextOnClick"
-                        Style="{StaticResource MaterialDesignRaisedAccentButton}">
-                        <TextBlock>
-                            <Run Text="Next" />
-                            <materialDesign:PackIcon 
-                                Kind="NavigateNext"
-                                Margin="5,0,0,-3"/>
-                        </TextBlock>
-                    </Button>
+                        Margin="20">
+                        <Button
+                            x:Name="ButtonReset"
+                            Margin="20"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource MaterialDesignRaisedLightButton}"
+                            Click="ButtonResetOnClick">
+                            <TextBlock>
+                                <Run Text="Reset"/>
+                                <materialDesign:PackIcon
+                                    Kind="Refresh"
+                                    Margin="5,0,0,-3"/>
+                            </TextBlock>
+                        </Button>
+                    
+                        <Button
+                            x:Name="ButtonNext"
+                            Margin="20"
+                            VerticalAlignment="Bottom"
+                            Click="ButtonNextOnClick"
+                            Style="{StaticResource MaterialDesignRaisedAccentButton}">
+                            <TextBlock>
+                                <Run Text="Next" />
+                                <materialDesign:PackIcon 
+                                    Kind="NavigateNext"
+                                    Margin="5,0,0,-3"/>
+                            </TextBlock>
+                        </Button>
+                    </StackPanel>
                 </Grid>
             </Grid>
         </Grid>

@@ -20,6 +20,11 @@ namespace BusinessLogicWPF.Domain
     public class NotEmptyValidationRule : ValidationRule
     {
         /// <summary>
+        /// Gets or sets the max count.
+        /// </summary>
+        public int MaxCount { get; set; }
+        
+        /// <summary>
         /// The validate.
         /// </summary>
         /// <param name="value">
@@ -33,6 +38,8 @@ namespace BusinessLogicWPF.Domain
         /// </returns>
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
+            ErrorLabelHelper.MaxCount = this.MaxCount;
+
             if (ErrorLabelHelper.Check())
             {
                 return string.IsNullOrWhiteSpace((value ?? string.Empty).ToString())

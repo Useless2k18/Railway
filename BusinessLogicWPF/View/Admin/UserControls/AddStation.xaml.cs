@@ -19,6 +19,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls
     using BusinessLogicWPF.Helper;
     using BusinessLogicWPF.Model;
     using BusinessLogicWPF.Properties;
+    using BusinessLogicWPF.ViewModel.Admin;
 
     using MahApps.Metro.Controls;
 
@@ -40,6 +41,8 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         public AddStation()
         {
             this.InitializeComponent();
+
+            this.DataContext = new AddStationViewModel();
         }
 
         /// <summary>
@@ -206,6 +209,8 @@ namespace BusinessLogicWPF.View.Admin.UserControls
             {
                 textBox.Clear();
             }
+
+            ErrorLabelHelper.Reset();
         }
     }
 }

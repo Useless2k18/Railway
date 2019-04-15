@@ -282,6 +282,8 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
         private void Refresh()
         {
             this.routes.Clear();
+
+            ErrorLabelHelper.Reset();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace BusinessLogicWPF.ViewModel.Admin
 {
     using System;
     using System.ComponentModel;
-    using System.Runtime.CompilerServices;
+    using System.Text.RegularExpressions;
 
     using BusinessLogicWPF.Domain;
     using BusinessLogicWPF.Properties;
@@ -62,7 +62,11 @@ namespace BusinessLogicWPF.ViewModel.Admin
         public string TrainNumber
         {
             get => this.trainNumber;
-            set => this.MutateVerbose(ref this.trainNumber, value, this.RaisePropertyChanged());
+            set
+            {
+                this.ValidateTrainNumber(value);
+                this.MutateVerbose(ref this.trainNumber, value, this.RaisePropertyChanged());
+            }
         }
 
         /// <summary>
@@ -119,5 +123,28 @@ namespace BusinessLogicWPF.ViewModel.Admin
         [CanBeNull]
         private Action<PropertyChangedEventArgs> RaisePropertyChanged() =>
             args => this.PropertyChanged?.Invoke(this, args);
+
+        /// <summary>
+        /// The validate train number.
+        /// </summary>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <exception cref="ArgumentException">
+        /// throws if Train Number is not validated...means less than 5 digits
+        /// </exception>
+        private void ValidateTrainNumber(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return;
+            }
+
+            var regex = new Regex(@"^[0-9]{5}");
+            if (regex.Match(value) == Match.Empty)
+            {
+                throw new ArgumentException("Must be of 5 digits");
+            }
+        }
     }
 }

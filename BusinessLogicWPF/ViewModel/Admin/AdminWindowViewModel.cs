@@ -58,10 +58,11 @@ namespace BusinessLogicWPF.ViewModel.Admin
             this.DemoItems = new[]
                                  {
                                      new DemoItem("Home", new AdminHome()),
+                                     new DemoItem("Add Train", new AddTrain { DataContext = new AddTrainViewModel() }),
                                      new DemoItem(
-                                         "Add Train",
-                                         new AddTrain { DataContext = new AddTrainViewModel() }),
-                                     new DemoItem("Add Station", new AddStation()), new DemoItem("Add TTE", new AddTte())
+                                         "Add Station",
+                                         new AddStation { DataContext = new AddStationViewModel() }),
+                                     new DemoItem("Add TTE", new AddTte())
                                  };
 
             var di = new DirectoryInfo(SecretFolder);

@@ -12,7 +12,6 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
     using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Media;
 
     using BusinessLogicWPF.Helper;
     using BusinessLogicWPF.Properties;
@@ -41,6 +40,24 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
         }
 
         /// <summary>
+        /// The button delete on click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ButtonDeleteOnClick(object sender, RoutedEventArgs e)
+        {
+            var s = "TextBox" + this.counter;
+
+            var findTextBox = ExtendedVisualTreeHelper.FindChild<TextBox>(this.StackPanel, s);
+            this.StackPanel.Children.Remove(findTextBox);
+            this.counter--;
+        }
+
+        /// <summary>
         /// The button add on click.
         /// </summary>
         /// <param name="sender">
@@ -51,19 +68,24 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
         /// </param>
         private void ButtonAddOnClick([CanBeNull] object sender, [CanBeNull] RoutedEventArgs e)
         {
-            var s = "TextBox" + this.counter;
-
-            var findTextBox = ExtendedVisualTreeHelper.FindChild<TextBox>(this.StackPanel, s);
-
-            if (string.IsNullOrWhiteSpace(findTextBox?.Text))
+            if (this.counter != 0)
             {
-                MessageBox.Show("Please update previous text field(s)");
-                return;
+                var s = "TextBox" + this.counter;
+
+                var findTextBox = ExtendedVisualTreeHelper.FindChild<TextBox>(this.StackPanel, s);
+
+                if (string.IsNullOrWhiteSpace(findTextBox?.Text))
+                {
+                    MessageBox.Show("Please update previous text field(s)");
+                    return;
+                }
             }
-            
+
             var textBox = new TextBox
                               {
-                                  Name = "TextBox" + ++this.counter, Margin = new Thickness(10, 10, 10, 10)
+                                  Name = "TextBox" + ++this.counter, 
+                                  Margin = new Thickness(10, 10, 10, 10),
+                                  CharacterCasing = CharacterCasing.Upper
                               };
 
             // Material Design Properties

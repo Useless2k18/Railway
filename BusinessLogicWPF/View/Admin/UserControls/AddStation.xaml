@@ -6,9 +6,13 @@
     xmlns:local="clr-namespace:BusinessLogicWPF.View.Admin.UserControls"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:admin="clr-namespace:BusinessLogicWPF.ViewModel.Admin"
+    xmlns:domain="clr-namespace:BusinessLogicWPF.Domain"
     Width="Auto"
     Height="Auto"
-    mc:Ignorable="d">
+    MinHeight="430"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance admin:AddStationViewModel, d:IsDesignTimeCreatable=False}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -50,14 +54,34 @@
                 Margin="10,0,10,5"
                 materialDesign:HintAssist.Hint="Enter Zone Name"
                 MaxLength="4"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                <TextBox.Text>
+                    <Binding 
+                        Path="ZoneName"
+                        UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <domain:NotEmptyValidationRule MaxCount="5" ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
             <TextBox
                 x:Name="TextBoxDivisionName"
                 Grid.Row="1"
                 Margin="10,10,10,5"
                 materialDesign:HintAssist.Hint="Enter Division Name"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                <TextBox.Text>
+                    <Binding 
+                        Path="DivisionName"
+                        UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <domain:NotEmptyValidationRule MaxCount="5" ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
             <TextBox
                 x:Name="TextBoxStationCode"
@@ -66,14 +90,34 @@
                 Margin="10,10,10,5"
                 materialDesign:HintAssist.Hint="Enter Station Code"
                 MaxLength="8"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                <TextBox.Text>
+                    <Binding 
+                        Path="StationCode"
+                        UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <domain:NotEmptyValidationRule MaxCount="5" ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
             <TextBox
                 x:Name="TextBoxStationName"
                 Grid.Row="3"
                 Margin="10,10,10,5"
                 materialDesign:HintAssist.Hint="Enter Station Name"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                <TextBox.Text>
+                    <Binding 
+                        Path="StationName"
+                        UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <domain:NotEmptyValidationRule MaxCount="5" ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
 
             <TextBox
@@ -84,25 +128,50 @@
                 DataObject.Pasting="TextBoxPinCodeOnPasting"
                 MaxLength="6"
                 PreviewTextInput="TextBoxPinCodePreviewTextInput"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                <TextBox.Text>
+                    <Binding 
+                        Path="PinCode"
+                        UpdateSourceTrigger="PropertyChanged"
+                        ValidatesOnExceptions="True">
+                        <Binding.ValidationRules>
+                            <domain:NotEmptyValidationRule MaxCount="5" ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </Grid>
 
-        <Grid
+        <StackPanel
             Grid.Row="1"
             Grid.Column="1"
             MinWidth="200"
             Margin="50,20,20,20"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom">
+            
+            <Button
+                x:Name="ButtonReset"
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                Margin="20">
+                <TextBlock>
+                    <materialDesign:PackIcon
+                        Kind="Refresh"
+                        Margin="5,0,0,-3"/>
+                    <Run Text="Reset"/>
+                </TextBlock>
+            </Button>
+            
             <Button
                 x:Name="ButtonAccept"
                 Click="ButtonAcceptOnClick"
+                Margin="20"
                 Style="{StaticResource MaterialDesignRaisedAccentButton}">
                 <TextBlock>
                     <materialDesign:PackIcon Kind="TickCircle" />
                     <Run Text="Accept" />
                 </TextBlock>
             </Button>
-        </Grid>
+        </StackPanel>
     </Grid>
 </UserControl>

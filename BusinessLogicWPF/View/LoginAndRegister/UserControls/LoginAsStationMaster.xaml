@@ -7,6 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:domain="clr-namespace:BusinessLogicWPF.Domain"
              xmlns:loginAndRegister="clr-namespace:BusinessLogicWPF.ViewModel.LoginAndRegister"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              Height="Auto" Width="Auto"
              d:DataContext="{d:DesignInstance loginAndRegister:LoginAsStationMasterViewModel, d:IsDesignTimeCreatable=False}">
@@ -53,7 +54,7 @@
                 LostKeyboardFocus="TextUserNameLostKeyboardFocus">
                 <Binding Path="Username" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
-                        <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                        <domain:NotEmptyValidationRule MaxCount="2" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox>

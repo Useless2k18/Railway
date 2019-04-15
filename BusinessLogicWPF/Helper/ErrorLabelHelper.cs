@@ -20,6 +20,11 @@ namespace BusinessLogicWPF.Helper
         private static int counter;
 
         /// <summary>
+        /// Gets or sets the max count.
+        /// </summary>
+        public static int MaxCount { get; set; }
+
+        /// <summary>
         /// The check.
         /// </summary>
         /// <returns>
@@ -28,7 +33,7 @@ namespace BusinessLogicWPF.Helper
         public static bool Check()
         {
             counter++;
-            return counter > 2;
+            return counter > MaxCount;
         }
 
         /// <summary>

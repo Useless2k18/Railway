@@ -27,6 +27,7 @@
             <StackPanel x:Name="StackPanel" CanVerticallyScroll="True">
                 <TextBox
                     x:Name="TextBox1"
+                    CharacterCasing="Upper"
                     Margin="10"
                     materialDesign:HintAssist.Hint="Enter Coach Number"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
@@ -35,11 +36,27 @@
 
         <DockPanel Margin="10" HorizontalAlignment="Right">
             <Button
+                x:Name="ButtonDelete"
+                Margin="10,0,10,0"
+                DockPanel.Dock="Left"
+                Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                Background="Red"
+                BorderBrush="Red"
+                ToolTip="Delete Last Added Coach"
+                Click="ButtonDeleteOnClick">
+                <materialDesign:PackIcon
+                    Width="30"
+                    Height="30"
+                    Kind="Delete"/>
+            </Button>
+            
+            <Button
                 x:Name="ButtonAdd"
-                Margin="0,0,10,0"
+                Margin="10,0,10,0"
                 Click="ButtonAddOnClick"
                 DockPanel.Dock="Left"
-                Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
+                Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                ToolTip="Add another coach">
                 <materialDesign:PackIcon
                     Width="30"
                     Height="30"
@@ -48,10 +65,11 @@
 
             <Button
                 x:Name="ButtonSuccess"
-                Margin="10,0,0,0"
+                Margin="10,0,10,0"
                 Click="ButtonSuccessOnClick"
                 DockPanel.Dock="Right"
-                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                ToolTip="Complete Adding Coach">
                 <materialDesign:PackIcon
                     Width="30"
                     Height="30"

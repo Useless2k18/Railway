@@ -85,6 +85,8 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         {
             this.InitializeComponent();
 
+            this.DataContext = new AddTrainViewModel();
+
             this.MainGrid.Visibility = Visibility.Visible;
             this.NavigateToRoute.Visibility = Visibility.Collapsed;
 
@@ -141,23 +143,6 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         private void TextBoxTrainNoOnPreviewTextInput(object sender, [NotNull] TextCompositionEventArgs e)
         {
             e.Handled = !IsTextAllowed(e.Text);
-        }
-
-        /// <summary>
-        /// The text box train no on lost focus.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        private void TextBoxTrainNoOnLostFocus(object sender, RoutedEventArgs e)
-        {
-            if (this.TextBoxTrainNo.Text.Length != 5)
-            {
-                MessageBox.Show("Train Number cannot be less than 5 digits!");
-            }
         }
 
         /// <summary>
@@ -267,6 +252,60 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         }
 
         /// <summary>
+        /// The button delete on click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ButtonDeleteOnClick(object sender, RoutedEventArgs e)
+        {
+            if (this.currentSelectedItem != "Coach")
+            {
+                if (!this.list.Contains(this.currentSelectedItem))
+                {
+                    foreach (var rootItem in this.root.Items)
+                    {
+                        var match = rootItem.Items.FirstOrDefault(r => r.Name == this.currentSelectedItem);
+
+                        if (match != null)
+                        {
+                            rootItem.Items.Remove(match);
+                            MessageBox.Show("Item Deleted!");
+                            break;
+                        }
+                    }
+
+                    this.TreeView.Items[0] = this.root;
+                }
+                else
+                {
+                    MessageBox.Show("You cannot delete a Coach Type!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("You cannot delete Coach");
+            }
+        }
+
+        /// <summary>
+        /// The button reset on click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ButtonResetOnClick(object sender, RoutedEventArgs e)
+        {
+            this.Refresh();
+        }
+
+        /// <summary>
         /// The button next on click.
         /// </summary>
         /// <param name="sender">
@@ -285,6 +324,12 @@ namespace BusinessLogicWPF.View.Admin.UserControls
                 || string.IsNullOrWhiteSpace(this.TextBoxTrainRakeZone.Text))
             {
                 MessageBox.Show("Please fill up all the fields!");
+                return;
+            }
+
+            if (this.TextBoxTrainNo.Text.Length < 5)
+            {
+                MessageBox.Show("Train Number cannot be less than 5");
                 return;
             }
 
@@ -476,6 +521,8 @@ namespace BusinessLogicWPF.View.Admin.UserControls
             }
 
             this.TreeView.Items[0] = c;
+
+            ErrorLabelHelper.Reset();
 
             DataHelper.Train = null;
         }
