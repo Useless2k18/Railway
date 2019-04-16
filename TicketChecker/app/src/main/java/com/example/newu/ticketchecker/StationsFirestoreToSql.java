@@ -53,7 +53,7 @@ public class StationsFirestoreToSql extends AppCompatActivity implements demoInt
         mydb = new DatabaseHelper(this);
         db = mydb.getReadableDatabase();
         //mydb.insertStationData(db, "HWH", "HOWRAH", 700009);
-        mydb.insertZoneData(db,"Bhaskar","Goswami","Delhi",12);    //need to insert manually and check whether
+        //mydb.insertZoneData(db,"Bhaskar","Goswami","Delhi",12);    //need to insert manually and check whether
         textView = findViewById(R.id.textView11);
         FetchStations();
         demo = this;
