@@ -45,8 +45,7 @@
         <activity
             android:name=".TrainsList"
             android:label="@string/title_activity_trains_list"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".TrainFirestoreToSql"></activity>
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

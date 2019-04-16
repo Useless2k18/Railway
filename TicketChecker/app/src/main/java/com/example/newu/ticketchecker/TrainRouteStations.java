@@ -7,10 +7,6 @@ public class TrainRouteStations {
     private String TteAssignFlag;
     private String division;
     private String zone;
-    public TrainRouteStations()
-    {
-
-    }
 
 
     public String getarrivalTime() {
