@@ -16,10 +16,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String Db_tableDivision = "DIVISION";
     public static final String Db_division_col1 = "NAME";
     public static final String Db_division_col2 = "STATION";
-    public static final String Db_tableZone = "Z";
+    public static final String Db_tableZone = "ZONE";
     public static final String Db_zone_col1 = "ID";
     public static final String Db_zone_col2 = "NAME";
-    public static final String Db_zone_col3 = "DIVISION";
+    public static final String Db_zone_col3 = "DIVISION_NAME";
     public static final String Db_zone_col4 = "NUMBER_OF";
     public DatabaseHelper(Context context) {
         super(context,Db_name,null,1);
@@ -29,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table "+Db_tableStation+" (CODE varchar primary key,NAME varchar not null,PINCODE long not null)");
         db.execSQL("create table "+Db_tableDivision+" (NAME varchar primary key,STATION varchar not null,FOREIGN KEY(STATION) REFERENCES Stations(CODE))");
-        db.execSQL("create table "+Db_tableZone+" (ID varchar primary key,DIVISION varchar not null,NUMBER_OF int not null,FOREIGN KEY(DIVISION) REFERENCES Divisions(NAME))");
+        db.execSQL("create table "+Db_tableZone+" (ID varchar primary key,DIVISION_NAME varchar not null,NUMBER_OF int not null,FOREIGN KEY(DIVISION_NAME) REFERENCES Division(NAME))");
     }
 
     @Override
