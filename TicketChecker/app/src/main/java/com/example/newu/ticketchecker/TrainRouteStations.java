@@ -4,14 +4,12 @@ public class TrainRouteStations {
     private String arrivalTime;
     private String departureTime;
     private String stationCode;
-    private String TteAssignFlag;
     private String division;
     private String zone;
     public TrainRouteStations()
     {
 
     }
-
 
     public String getarrivalTime() {
         return arrivalTime;
@@ -41,13 +39,7 @@ public class TrainRouteStations {
         this.stationCode = stationCode;
     }
 
-    public String getTteAssignFlag() {
-        return TteAssignFlag;
-    }
 
-    public void setTteAssignFlag(String tteAssignFlag) {
-        TteAssignFlag = tteAssignFlag;
-    }
 
     public String getDivision() {
         return division;

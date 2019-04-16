@@ -15,6 +15,10 @@ public class TrainDetails {
     private int noOfStations;
     private Map<String,String> coach =new HashMap<String, String>();
     Map<String,TrainRouteStations> route =new HashMap<String, TrainRouteStations>();
+    public TrainDetails()
+    {
+
+    }
 
     public String getDocumentID() {
         return documentID;

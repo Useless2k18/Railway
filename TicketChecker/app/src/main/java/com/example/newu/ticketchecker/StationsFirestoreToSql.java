@@ -211,7 +211,9 @@ public class StationsFirestoreToSql extends AppCompatActivity implements demoInt
 //            });
 //        }
     }
-
+@Override
+public void onTrainFetchSuccess()
+{}
     @Override
     public void onSuccess(final List<String> zoneList, long noOfZones) {
         //Log.d("TAG", zoneList.get(0).toString());
