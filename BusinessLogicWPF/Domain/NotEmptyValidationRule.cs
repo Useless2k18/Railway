@@ -38,7 +38,7 @@ namespace BusinessLogicWPF.Domain
         /// </returns>
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            ErrorLabelHelper.MaxCount = this.MaxCount;
+            ErrorLabelHelper.MaxCount += this.MaxCount;
 
             if (ErrorLabelHelper.Check())
             {

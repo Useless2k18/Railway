@@ -36,11 +36,6 @@ namespace BusinessLogicWPF.ViewModel.Admin.ForHelpers
         private string arrivalTime;
 
         /// <summary>
-        /// The TTE assign flag.
-        /// </summary>
-        private int tteAssignFlag;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="AddRouteDialogViewModel"/> class.
         /// </summary>
         /// <param name="route">
@@ -56,7 +51,6 @@ namespace BusinessLogicWPF.ViewModel.Admin.ForHelpers
             this.StationCode = route.StationCode;
             this.DepartureTime = route.DepartureTime;
             this.ArrivalTime = route.ArrivalTime;
-            this.TteAssignFlag = route.TteAssignFlag;
         }
 
         /// <summary>
@@ -107,22 +101,6 @@ namespace BusinessLogicWPF.ViewModel.Admin.ForHelpers
                 if (value != null && this.arrivalTime != value)
                 {
                     this.arrivalTime = value;
-                    this.OnPropertyChanged();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the TTE assign flag.
-        /// </summary>
-        public int TteAssignFlag
-        {
-            get => this.tteAssignFlag;
-            set
-            {
-                if (this.tteAssignFlag != value)
-                {
-                    this.tteAssignFlag = value;
                     this.OnPropertyChanged();
                 }
             }

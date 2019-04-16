@@ -121,20 +121,12 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
                     return;
                 }
             }
-            
-            var tteFlag = 0;
-
-            if (!string.IsNullOrWhiteSpace(this.TextBoxTteAssignFlag.Text))
-            {
-                tteFlag = Convert.ToInt32(this.TextBoxTteAssignFlag.Text);
-            }
 
             var route = new Route
                             {
                                 StationCode = this.TextBoxStationCode.Text,
                                 DepartureTime = this.TextBoxDepartureTime.Text,
-                                ArrivalTime = this.TextBoxArrivalTime.Text,
-                                TteAssignFlag = tteFlag
+                                ArrivalTime = this.TextBoxArrivalTime.Text
                             };
             DialogHost.CloseDialogCommand.Execute(route, null);
         }

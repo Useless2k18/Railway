@@ -37,13 +37,6 @@
             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             Text="{Binding Path=ArrivalTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             materialDesign:HintAssist.Hint="Enter Arrival Time"/>
-        <TextBox
-            x:Name="TextBoxTteAssignFlag"
-            HorizontalAlignment="Stretch"
-            Margin="8"
-            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-            Text="{Binding Path=TteAssignFlag, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            materialDesign:HintAssist.Hint="Enter Tte Assign Flag"/>
         <StackPanel
             Orientation="Horizontal"
             HorizontalAlignment="Right">

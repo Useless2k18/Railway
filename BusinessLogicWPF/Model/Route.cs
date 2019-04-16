@@ -39,11 +39,5 @@ namespace BusinessLogicWPF.Model
         [CanBeNull]
         [FirestoreProperty("stationCode")]
         public string StationCode { get; set; }
-
-        /// <summary>
-        /// Gets or sets the TTE assign flag.
-        /// </summary>
-        [FirestoreProperty("tteAssignFlag")]
-        public int TteAssignFlag { get; set; }
     }
 }

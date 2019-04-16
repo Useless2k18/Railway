@@ -20,6 +20,14 @@ namespace BusinessLogicWPF.Helper
         private static int counter;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="ErrorLabelHelper"/> class.
+        /// </summary>
+        public ErrorLabelHelper()
+        {
+            MaxCount = 0;
+        }
+
+        /// <summary>
         /// Gets or sets the max count.
         /// </summary>
         public static int MaxCount { get; set; }
