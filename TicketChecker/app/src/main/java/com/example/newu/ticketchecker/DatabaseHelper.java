@@ -28,8 +28,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table "+Db_tableStation+" (CODE varchar primary key,NAME varchar not null,PINCODE long not null)");
-        db.execSQL("create table "+Db_tableDivision+" (NAME varchar primary key,STATION varchar not null,FOREIGN KEY(STATION) REFERENCES Stations(CODE))");
-        db.execSQL("create table "+Db_tableZone+" (ID varchar primary key,DIVISION_NAME varchar not null,NUMBER_OF int not null,FOREIGN KEY(DIVISION_NAME) REFERENCES Division(NAME))");
+        db.execSQL("create table "+Db_tableDivision+" (NAME varchar primary key,STATION varchar not null,FOREIGN KEY(STATION) REFERENCES STATIONS(CODE))");
+        db.execSQL("create table "+Db_tableZone+" (ID varchar primary key,DIVISION_NAME varchar not null,NUMBER_OF int not null,FOREIGN KEY(DIVISION_NAME) REFERENCES DIVISION(NAME))");
     }
 
     @Override
