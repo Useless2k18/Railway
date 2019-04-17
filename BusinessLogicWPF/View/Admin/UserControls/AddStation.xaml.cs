@@ -21,6 +21,8 @@ namespace BusinessLogicWPF.View.Admin.UserControls
     using BusinessLogicWPF.Properties;
     using BusinessLogicWPF.ViewModel.Admin;
 
+    using Google.Cloud.Firestore;
+
     using MahApps.Metro.Controls;
 
     /// <summary>
@@ -141,6 +143,17 @@ namespace BusinessLogicWPF.View.Admin.UserControls
                 || string.IsNullOrWhiteSpace(this.TextBoxPinCode.Text))
             {
                 MessageBox.Show("Please fill up all the fields!");
+
+                try
+                {
+                    MessageBox.Show(
+                        StaticDbContext.ConnectFireStore.FindDocument("ER", "Root", "Stations", "StationDetails").ToString());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
                 return;
             }
 

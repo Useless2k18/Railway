@@ -8,6 +8,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:domain="clr-namespace:BusinessLogicWPF.Domain"
              xmlns:json="clr-namespace:BusinessLogicWPF.Model.Json"
+             xmlns:behavioral="clr-namespace:BusinessLogicWPF.Model.Json.Behavioral"
              mc:Ignorable="d" 
              Height="Auto" Width="Auto"
              d:DataContext="{d:DesignInstance loginAndRegister:OtpFieldViewModel, d:IsDesignTimeCreatable=False}">
@@ -42,10 +43,10 @@
                       IsEditable="False"
                       ItemTemplateSelector="{DynamicResource ItemTemplateSelector}">
                 <ComboBox.Resources>
-                    <DataTemplate x:Key="SelectedTemplate" DataType="{x:Type json:IsdCodes}">
+                    <DataTemplate x:Key="SelectedTemplate" DataType="{x:Type behavioral:IsdCodes}">
                         <TextBlock Text="{Binding Path=ShortDescription}"/>
                     </DataTemplate>
-                    <DataTemplate x:Key="DropDownTemplate" DataType="{x:Type json:IsdCodes}">
+                    <DataTemplate x:Key="DropDownTemplate" DataType="{x:Type behavioral:IsdCodes}">
                         <TextBlock Text="{Binding Path=LongDescription}"/>
                     </DataTemplate>
                     <domain:ComboBoxItemTemplateSelector

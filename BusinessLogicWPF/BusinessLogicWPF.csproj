@@ -331,7 +331,8 @@
     <Compile Include="JsClasses\DotNetPhoneNumberAuthentication.cs" />
     <Compile Include="Model\Coach.cs" />
     <Compile Include="Model\Division.cs" />
-    <Compile Include="Model\Json\IsdCodes.cs" />
+    <Compile Include="Model\Json\Creation\ZoneAndDivisionModel.cs" />
+    <Compile Include="Model\Json\Behavioral\IsdCodes.cs" />
     <Compile Include="Model\Route.cs" />
     <Compile Include="Model\Station.cs" />
     <Compile Include="Model\StationFrom.cs" />

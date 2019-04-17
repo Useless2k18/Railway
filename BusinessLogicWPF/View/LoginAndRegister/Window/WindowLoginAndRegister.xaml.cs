@@ -11,10 +11,12 @@ namespace BusinessLogicWPF.View.LoginAndRegister.Window
 {
     using System;
     using System.IO;
+    using System.Runtime.InteropServices;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
 
+    using BusinessLogicWPF.Helper;
     using BusinessLogicWPF.Properties;
     using BusinessLogicWPF.ViewModel.LoginAndRegister;
 
@@ -40,6 +42,12 @@ namespace BusinessLogicWPF.View.LoginAndRegister.Window
         private static readonly string SecretFolder = Path.Combine(Files, "Secret");
 
         /// <summary>
+        /// The JSON folder.
+        /// </summary>
+        [NotNull]
+        private static readonly string JsonFolder = Path.Combine(Files, "Json");
+
+        /// <summary>
         /// The counter.
         /// </summary>
         private int counter;
@@ -61,13 +69,30 @@ namespace BusinessLogicWPF.View.LoginAndRegister.Window
             SystemEvents.DisplaySettingsChanged += this.SystemEventsDisplaySettingsChanged;
             this.DataContext = new LoginViewModel();
 
+            #region Database Secret JSON Folder creation
+
+            DataHelper.SecretFolderPath = SecretFolder;
+
             if (!Directory.Exists(SecretFolder))
             {
                 Directory.CreateDirectory(SecretFolder);
             }
+
+            #endregion
+
+            #region Json Folder Creation
+
+            DataHelper.JsonFolderPath = JsonFolder;
+            
+            if (!Directory.Exists(JsonFolder))
+            {
+                Directory.CreateDirectory(JsonFolder);
+            }
+
+            #endregion
         }
 
-        [System.Runtime.InteropServices.DllImport("wininet.dll")]
+        [DllImport("wininet.dll")]
         private static extern bool InternetGetConnectedState(out int description, int reservedValue);
 
         /// <summary>

@@ -9,7 +9,7 @@
 
 // ReSharper disable InconsistentNaming
 // ReSharper disable StyleCop.SA1300 for JSON file
-namespace BusinessLogicWPF.Model.Json
+namespace BusinessLogicWPF.Model.Json.Behavioral
 {
     using System;
 

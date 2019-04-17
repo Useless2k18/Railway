@@ -179,5 +179,15 @@ namespace BusinessLogicWPF.Helper
                 selectedCoach = value;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the secret folder path.
+        /// </summary>
+        public static string SecretFolderPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the JSON folder path.
+        /// </summary>
+        public static string JsonFolderPath { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace BusinessLogicWPF.ViewModel.Admin
 {
     using System;
     using System.Diagnostics;
+    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Windows;
 
@@ -48,6 +49,7 @@ namespace BusinessLogicWPF.ViewModel.Admin
         /// <exception cref="ArgumentNullException">
         /// thrown if Argument is null
         /// </exception>
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1123:DoNotPlaceRegionsWithinElements", Justification = "Reviewed. Suppression is OK here.")]
         public AdminWindowViewModel([NotNull] ISnackbarMessageQueue snackBarMessageQueue)
         {
             if (snackBarMessageQueue == null)
@@ -55,16 +57,8 @@ namespace BusinessLogicWPF.ViewModel.Admin
                 throw new ArgumentNullException(nameof(snackBarMessageQueue));
             }
 
-            this.DemoItems = new[]
-                                 {
-                                     new DemoItem("Home", new AdminHome()),
-                                     new DemoItem("Add Train", new AddTrain { DataContext = new AddTrainViewModel() }),
-                                     new DemoItem(
-                                         "Add Station",
-                                         new AddStation { DataContext = new AddStationViewModel() }),
-                                     new DemoItem("Add TTE", new AddTte())
-                                 };
-
+            #region Database with Secrets
+            
             var di = new DirectoryInfo(SecretFolder);
             var jsonFiles = di.GetFiles("*.json");
             if (jsonFiles.Length == 0)
@@ -96,6 +90,18 @@ namespace BusinessLogicWPF.ViewModel.Admin
                 DataHelper.ExitCode = -1;
                 Application.Current.Shutdown(DataHelper.ExitCode);
             }
+
+            #endregion
+
+            this.DemoItems = new[]
+                                 {
+                                     new DemoItem("Home", new AdminHome()),
+                                     new DemoItem("Add Train", new AddTrain { DataContext = new AddTrainViewModel() }),
+                                     new DemoItem(
+                                         "Add Station",
+                                         new AddStation { DataContext = new AddStationViewModel() }),
+                                     new DemoItem("Add TTE", new AddTte())
+                                 };
         }
 
         /// <summary>
