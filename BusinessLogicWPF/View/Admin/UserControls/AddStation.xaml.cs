@@ -10,20 +10,24 @@
 namespace BusinessLogicWPF.View.Admin.UserControls
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
+    using System.IO;
     using System.Text.RegularExpressions;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
+    using System.Windows.Threading;
 
     using BusinessLogicWPF.Helper;
     using BusinessLogicWPF.Model;
+    using BusinessLogicWPF.Model.Json.Creation;
     using BusinessLogicWPF.Properties;
     using BusinessLogicWPF.ViewModel.Admin;
 
-    using Google.Cloud.Firestore;
-
     using MahApps.Metro.Controls;
+
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Interaction logic for AddStations.XAML
@@ -36,6 +40,16 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         [NotNull]
         private static readonly Regex Regex = new Regex("[^0-9]+"); // regex that matches disallowed text
 
+        /// <summary>
+        /// The background worker.
+        /// </summary>
+        private readonly BackgroundWorker backgroundWorker;
+
+        /// <summary>
+        /// The zone and division details.
+        /// </summary>
+        private ZoneAndDivisionModel zoneAndDivisionDetails;
+
         /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the <see cref="T:BusinessLogicWPF.View.Admin.UserControls.AddStation" /> class.
@@ -45,6 +59,19 @@ namespace BusinessLogicWPF.View.Admin.UserControls
             this.InitializeComponent();
 
             this.DataContext = new AddStationViewModel();
+
+            this.backgroundWorker = new BackgroundWorker();
+            this.backgroundWorker.DoWork += this.BackgroundWorkerDoWork;
+            this.backgroundWorker.RunWorkerCompleted += this.BackgroundWorkerRunWorkerCompleted;
+
+            try
+            {
+                this.backgroundWorker.RunWorkerAsync();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         /// <summary>
@@ -64,6 +91,69 @@ namespace BusinessLogicWPF.View.Admin.UserControls
             }
 
             return !Regex.IsMatch(text);
+        }
+
+        /// <summary>
+        /// The background worker do work.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void BackgroundWorkerDoWork(object sender, DoWorkEventArgs e)
+        {
+            this.Dispatcher.Invoke(
+                () =>
+                    {
+                        this.zoneAndDivisionDetails =
+                            JsonConvert.DeserializeObject<ZoneAndDivisionModel>(
+                                File.ReadAllText(DataHelper.JsonFolderPath));
+                        this.ComboBoxZoneName.ItemsSource = this.zoneAndDivisionDetails.ZoneList;
+                    },
+                DispatcherPriority.Normal);
+        }
+
+        /// <summary>
+        /// The background worker run worker completed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void BackgroundWorkerRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            this.ComboBoxZoneName.IsEnabled = true;
+        }
+
+        /// <summary>
+        /// The combo box zone name on selection changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ComboBoxZoneNameOnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.ComboBoxZoneName.SelectedItem == null)
+            {
+                return;
+            }
+            
+            var b = this.zoneAndDivisionDetails.DivisionList.TryGetValue(
+                this.ComboBoxZoneName.SelectedItem.ToString(),
+                out var divisionsList);
+
+            if (b)
+            {
+                this.ComboBoxDivisionName.ItemsSource = divisionsList;
+                this.ComboBoxDivisionName.IsEnabled = true;
+            }
         }
 
         /// <summary>
@@ -136,8 +226,8 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         /// </param>
         private void ButtonAcceptOnClick([CanBeNull] object sender, [CanBeNull] RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(this.TextBoxZoneName.Text)
-                || string.IsNullOrWhiteSpace(this.TextBoxDivisionName.Text)
+            if (string.IsNullOrWhiteSpace(this.ComboBoxZoneName.Text)
+                || string.IsNullOrWhiteSpace(this.ComboBoxDivisionName.Text)
                 || string.IsNullOrWhiteSpace(this.TextBoxStationCode.Text)
                 || string.IsNullOrWhiteSpace(this.TextBoxStationName.Text)
                 || string.IsNullOrWhiteSpace(this.TextBoxPinCode.Text))
@@ -175,14 +265,14 @@ namespace BusinessLogicWPF.View.Admin.UserControls
 
             var station = new Station
                               {
-                                  RailwayDivision = this.TextBoxDivisionName.Text,
+                                  RailwayDivision = this.ComboBoxDivisionName.Text,
                                   StationCode = this.TextBoxStationCode.Text,
                                   StationName = this.TextBoxStationName.Text,
                                   StationPinCode = Convert.ToInt32(this.TextBoxPinCode.Text)
                               };
 
-            var backgroundWorker = new BackgroundWorker();
-            backgroundWorker.DoWork += (o, args) => this.Dispatcher.Invoke(
+            var backgroundWorker2 = new BackgroundWorker();
+            backgroundWorker2.DoWork += (o, args) => this.Dispatcher.Invoke(
                 () =>
                     {
                         this.ProgressBar.Visibility = Visibility.Visible;
@@ -191,12 +281,12 @@ namespace BusinessLogicWPF.View.Admin.UserControls
                             "Root",
                             "Stations",
                             "StationDetails",
-                            this.TextBoxZoneName.Text,
+                            this.ComboBoxZoneName.Text,
                             station.RailwayDivision,
                             station.StationCode);
                     });
 
-            backgroundWorker.RunWorkerCompleted += (o, args) =>
+            backgroundWorker2.RunWorkerCompleted += (o, args) =>
                 {
                     this.ProgressBar.Visibility = Visibility.Hidden;
                     MessageBox.Show("Data Successfully added");
@@ -204,13 +294,29 @@ namespace BusinessLogicWPF.View.Admin.UserControls
 
             try
             {
-                backgroundWorker.RunWorkerAsync();
+                backgroundWorker2.RunWorkerAsync();
                 this.Refresh();
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
             }
+        }
+
+        /// <summary>
+        /// The button reset on click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ButtonResetOnClick(object sender, RoutedEventArgs e)
+        {
+            this.Refresh();
+
+            this.ComboBoxDivisionName.IsEnabled = false;
         }
 
         /// <summary>
@@ -221,6 +327,11 @@ namespace BusinessLogicWPF.View.Admin.UserControls
             foreach (var textBox in this.FindChildren<TextBox>())
             {
                 textBox.Clear();
+            }
+
+            foreach (var comboBox in this.FindChildren<ComboBox>())
+            {
+                comboBox.SelectedIndex = -1;
             }
 
             ErrorLabelHelper.Reset();

@@ -48,40 +48,36 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <TextBox
-                x:Name="TextBoxZoneName"
+            <ComboBox
+                x:Name="ComboBoxZoneName"
                 Grid.Row="0"
                 Margin="10,0,10,5"
                 materialDesign:HintAssist.Hint="Enter Zone Name"
-                MaxLength="4"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                <TextBox.Text>
-                    <Binding 
-                        Path="ZoneName"
-                        UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <domain:NotEmptyValidationRule MaxCount="5" ValidatesOnTargetUpdated="True" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
+                IsEnabled="False"
+                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                ItemsSource="{Binding}"
+                SelectionChanged="ComboBoxZoneNameOnSelectionChanged">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel/>
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
 
-            <TextBox
-                x:Name="TextBoxDivisionName"
+            <ComboBox
+                x:Name="ComboBoxDivisionName"
                 Grid.Row="1"
                 Margin="10,10,10,5"
+                IsEnabled="False"
                 materialDesign:HintAssist.Hint="Enter Division Name"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                <TextBox.Text>
-                    <Binding 
-                        Path="DivisionName"
-                        UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
+                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                ItemsSource="{Binding}">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel/>
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
 
             <TextBox
                 x:Name="TextBoxStationCode"
@@ -153,7 +149,8 @@
             <Button
                 x:Name="ButtonReset"
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
-                Margin="20">
+                Margin="20"
+                Click="ButtonResetOnClick">
                 <TextBlock>
                     <materialDesign:PackIcon
                         Kind="Refresh"

@@ -93,6 +93,17 @@ namespace BusinessLogicWPF.ViewModel.Admin
 
             #endregion
 
+            #region Json Folder Path
+
+            if (DataHelper.JsonFolderPath == null)
+            {
+                DataHelper.JsonFolderPath = Path.Combine(Files, "Json");
+                const string Json = @"ZoneAndDivision.json";
+                DataHelper.JsonFolderPath = Path.Combine(DataHelper.JsonFolderPath, Json);
+            }
+
+            #endregion
+
             this.DemoItems = new[]
                                  {
                                      new DemoItem("Home", new AdminHome()),

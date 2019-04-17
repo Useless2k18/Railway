@@ -71,25 +71,22 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         /// <param name="e">
         /// The e.
         /// </param>
-        private void BackgroundWorkerDoWork(object sender, DoWorkEventArgs e)
+        private async void BackgroundWorkerDoWork(object sender, DoWorkEventArgs e)
         {
             this.Dispatcher.Invoke(() => ButtonProgressAssist.SetIsIndeterminate(this.ButtonRefresh, true));
 
             var zoneAndDivisionModel = StaticDbContext.ConnectFireStore.GetCollectionFields<ZoneAndDivisionModel>("Root", "Employee");
             
             var jsonResult = JsonConvert.SerializeObject(zoneAndDivisionModel, Formatting.Indented);
-            const string Json = @"ZoneAndDivision.json";
 
-            var jsonFile = Path.Combine(DataHelper.JsonFolderPath, Json);
-
-            if (File.Exists(jsonFile))
+            if (File.Exists(DataHelper.JsonFolderPath))
             {
-                File.Delete(jsonFile);
+                File.Delete(DataHelper.JsonFolderPath);
             }
 
-            using (var streamWriter = new StreamWriter(jsonFile, true))
+            using (var streamWriter = new StreamWriter(DataHelper.JsonFolderPath, true))
             {
-                streamWriter.WriteLineAsync(jsonResult);
+                await streamWriter.WriteLineAsync(jsonResult).ConfigureAwait(false);
                 streamWriter.Close();
             }
         }

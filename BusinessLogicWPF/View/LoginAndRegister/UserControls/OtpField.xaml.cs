@@ -12,17 +12,14 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Diagnostics.Contracts;
     using System.Globalization;
     using System.IO;
-    using System.Linq;
     using System.Text.RegularExpressions;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
 
     using BusinessLogicWPF.Helper;
-    using BusinessLogicWPF.Model.Json;
     using BusinessLogicWPF.Model.Json.Behavioral;
     using BusinessLogicWPF.Properties;
 
@@ -137,8 +134,8 @@ namespace BusinessLogicWPF.View.LoginAndRegister.UserControls
                     this.Dispatcher.Invoke(
                         () =>
                             {
-                                if (listOfCode.name != null && listOfCode.name.Contains(
-                                        countryName ?? throw new InvalidOperationException()))
+                                if (listOfCode.name?.Contains(
+                                        countryName ?? throw new InvalidOperationException()) == true)
                                 {
                                     this.ComboBoxCountryCode.SelectedIndex = i1;
                                     index = i1;

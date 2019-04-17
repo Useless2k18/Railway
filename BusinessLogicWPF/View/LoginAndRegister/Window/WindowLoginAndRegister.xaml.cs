@@ -89,6 +89,10 @@ namespace BusinessLogicWPF.View.LoginAndRegister.Window
                 Directory.CreateDirectory(JsonFolder);
             }
 
+            const string Json = @"ZoneAndDivision.json";
+
+            DataHelper.JsonFolderPath = Path.Combine(DataHelper.JsonFolderPath, Json);
+
             #endregion
         }
 
@@ -101,7 +105,7 @@ namespace BusinessLogicWPF.View.LoginAndRegister.Window
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public static bool CheckNet()
+        private static bool CheckNet()
         {
             return InternetGetConnectedState(out var desc, 0);
         }
