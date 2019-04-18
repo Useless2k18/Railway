@@ -59,7 +59,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Images\Flat-Icons.com-Square-Train.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>AF64AA8157E733B9DF0FBD526804833C89BC5137</ManifestCertificateThumbprint>
