@@ -338,6 +338,7 @@
     <Compile Include="Model\Route.cs" />
     <Compile Include="Model\Station.cs" />
     <Compile Include="Model\StationFrom.cs" />
+    <Compile Include="Model\StationMaster.cs" />
     <Compile Include="Model\StationTo.cs" />
     <Compile Include="Model\Train.cs" />
     <Compile Include="Model\Tte.cs" />
@@ -365,6 +366,9 @@
     <Compile Include="ViewModel\StationMaster\StationMasterWindowViewModel.cs" />
     <Compile Include="View\Admin\UserControls\AddStation.xaml.cs">
       <DependentUpon>AddStation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Admin\UserControls\AddStationMaster.xaml.cs">
+      <DependentUpon>AddStationMaster.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Admin\UserControls\AddTrain.xaml.cs">
       <DependentUpon>AddTrain.xaml</DependentUpon>
@@ -456,6 +460,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Admin\UserControls\AddStation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Admin\UserControls\AddStationMaster.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

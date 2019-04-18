@@ -141,7 +141,8 @@ namespace BusinessLogicWPF.ViewModel.Admin
                                      new DemoItem(
                                          "Add Station",
                                          new AddStation { DataContext = new AddStationViewModel() }),
-                                     new DemoItem("Add TTE", new AddTte())
+                                     new DemoItem("Add TTE", new AddTte()),
+                                     new DemoItem("Add Station Master", new AddStationMaster()) 
                                  };
         }
 
