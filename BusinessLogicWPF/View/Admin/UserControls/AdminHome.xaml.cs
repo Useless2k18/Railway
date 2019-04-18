@@ -10,12 +10,14 @@
 namespace BusinessLogicWPF.View.Admin.UserControls
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.IO;
     using System.Windows;
     using System.Windows.Controls;
 
     using BusinessLogicWPF.Helper;
+    using BusinessLogicWPF.Model;
     using BusinessLogicWPF.Model.Json.Creation;
 
     using MaterialDesignThemes.Wpf;
@@ -27,6 +29,9 @@ namespace BusinessLogicWPF.View.Admin.UserControls
     /// </summary>
     public partial class AdminHome : UserControl
     {
+        /// <summary>
+        /// The background worker.
+        /// </summary>
         private BackgroundWorker backgroundWorker;
         
         /// <summary>
@@ -75,20 +80,79 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         {
             this.Dispatcher.Invoke(() => ButtonProgressAssist.SetIsIndeterminate(this.ButtonRefresh, true));
 
-            var zoneAndDivisionModel = StaticDbContext.ConnectFireStore.GetCollectionFields<ZoneAndDivisionModel>("Root", "Employee");
+            #region Zone And Division
+
+            var zoneAndDivisionModel =
+                StaticDbContext.ConnectFireStore.GetCollectionFields<ZoneAndDivision>("Root", "Employee");
+
+            DataHelper.ZoneAndDivisionModel = zoneAndDivisionModel;
             
             var jsonResult = JsonConvert.SerializeObject(zoneAndDivisionModel, Formatting.Indented);
 
-            if (File.Exists(DataHelper.JsonFolderPath))
+            var zoneAndDivisionFile = Path.Combine(DataHelper.JsonFolderPath, Properties.Resources.ZoneAndDivisionJson);
+
+            if (File.Exists(zoneAndDivisionFile))
             {
-                File.Delete(DataHelper.JsonFolderPath);
+                File.Delete(zoneAndDivisionFile);
             }
 
-            using (var streamWriter = new StreamWriter(DataHelper.JsonFolderPath, true))
+            using (var streamWriter = new StreamWriter(zoneAndDivisionFile, true))
             {
                 await streamWriter.WriteLineAsync(jsonResult).ConfigureAwait(false);
                 streamWriter.Close();
             }
+
+            #endregion
+
+            #region Stations
+
+            if (DataHelper.ZoneAndDivisionModel != null)
+            {
+                var stationsList = new StationsList { Stations = new Dictionary<string, Station>() };
+
+                foreach (var zone in DataHelper.ZoneAndDivisionModel.ZoneList)
+                {
+                    var collectionList = StaticDbContext.ConnectFireStore.GetCollections(
+                        "Root",
+                        "Stations",
+                        "StationDetails",
+                        zone);
+
+                    foreach (var collectionReference in collectionList)
+                    {
+                        var stations = StaticDbContext.ConnectFireStore.GetAllDocumentData<Station>(
+                            "Root",
+                            "Stations",
+                            "StationDetails",
+                            zone,
+                            collectionReference.Id);
+
+                        foreach (var station in stations)
+                        {
+                            stationsList.Stations.Add(new KeyValuePair<string, Station>(station.StationCode, station));
+                        }
+                    }
+                }
+
+                DataHelper.StationsList = stationsList;
+
+                var jsonResult2 = JsonConvert.SerializeObject(stationsList, Formatting.Indented);
+
+                var stationsJson = Path.Combine(DataHelper.JsonFolderPath, Properties.Resources.StationsListJson);
+
+                if (File.Exists(stationsJson))
+                {
+                    File.Delete(stationsJson);
+                }
+
+                using (var streamWriter = new StreamWriter(stationsJson, true))
+                {
+                    await streamWriter.WriteLineAsync(jsonResult2).ConfigureAwait(false);
+                    streamWriter.Close();
+                }
+            }
+
+            #endregion
         }
 
         /// <summary>

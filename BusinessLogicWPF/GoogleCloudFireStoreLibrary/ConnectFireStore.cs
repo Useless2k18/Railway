@@ -446,7 +446,8 @@ namespace BusinessLogicWPF.GoogleCloudFireStoreLibrary
         /// The <see cref="List{T}"/>.
         /// </returns>
         [CanBeNull]
-        public List<TEntity> GetAllDocumentData<TEntity>([NotNull] params string[] name) where TEntity : class
+        public List<TEntity> GetAllDocumentData<TEntity>([NotNull] params string[] name)
+            where TEntity : class
         {
             if (name == null)
             {

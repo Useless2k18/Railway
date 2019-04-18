@@ -12,6 +12,7 @@ namespace BusinessLogicWPF.Helper
     using System.Collections.Generic;
 
     using BusinessLogicWPF.Model;
+    using BusinessLogicWPF.Model.Json.Creation;
     using BusinessLogicWPF.Properties;
 
     /// <summary>
@@ -37,10 +38,22 @@ namespace BusinessLogicWPF.Helper
         private static Station station;
 
         /// <summary>
+        /// The stations list.
+        /// </summary>
+        [CanBeNull]
+        private static StationsList stationsList;
+
+        /// <summary>
         /// The route.
         /// </summary>
         [CanBeNull]
         private static Route route;
+
+        /// <summary>
+        /// The zone and division model.
+        /// </summary>
+        [CanBeNull]
+        private static ZoneAndDivision zoneAndDivisionModel;
 
         /// <summary>
         /// The status for enable.
@@ -127,6 +140,40 @@ namespace BusinessLogicWPF.Helper
                 }
 
                 route = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the zone and division model.
+        /// </summary>
+        public static ZoneAndDivision ZoneAndDivisionModel
+        {
+            get => zoneAndDivisionModel;
+            set
+            {
+                if (value == null || zoneAndDivisionModel == value)
+                {
+                    return;
+                }
+
+                zoneAndDivisionModel = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the stations list.
+        /// </summary>
+        public static StationsList StationsList
+        {
+            get => stationsList;
+            set
+            {
+                if (value == null || stationsList == value)
+                {
+                    return;
+                }
+
+                stationsList = value;
             }
         }
 

@@ -5,7 +5,6 @@
     xmlns:class="clr-namespace:BusinessLogicWPF.Style.Class"
     xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
     xmlns:local="clr-namespace:BusinessLogicWPF"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     StartupUri="View/LoginAndRegister/Window/WindowLoginAndRegister.xaml">
     <Application.Resources>
         <ResourceDictionary>

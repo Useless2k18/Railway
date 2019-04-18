@@ -89,10 +89,6 @@ namespace BusinessLogicWPF.View.LoginAndRegister.Window
                 Directory.CreateDirectory(JsonFolder);
             }
 
-            const string Json = @"ZoneAndDivision.json";
-
-            DataHelper.JsonFolderPath = Path.Combine(DataHelper.JsonFolderPath, Json);
-
             #endregion
         }
 

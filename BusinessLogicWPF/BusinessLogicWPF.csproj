@@ -331,7 +331,8 @@
     <Compile Include="JsClasses\DotNetPhoneNumberAuthentication.cs" />
     <Compile Include="Model\Coach.cs" />
     <Compile Include="Model\Division.cs" />
-    <Compile Include="Model\Json\Creation\ZoneAndDivisionModel.cs" />
+    <Compile Include="Model\Json\Creation\StationsList.cs" />
+    <Compile Include="Model\Json\Creation\ZoneAndDivision.cs" />
     <Compile Include="Model\Json\Behavioral\IsdCodes.cs" />
     <Compile Include="Model\Route.cs" />
     <Compile Include="Model\Station.cs" />
@@ -584,15 +585,11 @@
     <None Include="app.manifest" />
     <None Include="BusinessLogicWPF_TemporaryKey.pfx" />
     <None Include="ClassDiagram1.cd" />
-    <None Include="isd_country_code.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="railway_division_station.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\Home\UserControls\" />

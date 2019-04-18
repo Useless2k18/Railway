@@ -10,6 +10,7 @@
 namespace BusinessLogicWPF.ViewModel.Admin
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
@@ -18,10 +19,14 @@ namespace BusinessLogicWPF.ViewModel.Admin
     using BusinessLogicWPF.Domain;
     using BusinessLogicWPF.GoogleCloudFireStoreLibrary;
     using BusinessLogicWPF.Helper;
+    using BusinessLogicWPF.Model;
+    using BusinessLogicWPF.Model.Json.Creation;
     using BusinessLogicWPF.Properties;
     using BusinessLogicWPF.View.Admin.UserControls;
 
     using MaterialDesignThemes.Wpf;
+
+    using Newtonsoft.Json;
 
     /// <summary>
     /// The admin window view model.
@@ -98,8 +103,33 @@ namespace BusinessLogicWPF.ViewModel.Admin
             if (DataHelper.JsonFolderPath == null)
             {
                 DataHelper.JsonFolderPath = Path.Combine(Files, "Json");
-                const string Json = @"ZoneAndDivision.json";
-                DataHelper.JsonFolderPath = Path.Combine(DataHelper.JsonFolderPath, Json);
+            }
+
+            if (DataHelper.ZoneAndDivisionModel == null)
+            {
+                try
+                {
+                    DataHelper.ZoneAndDivisionModel =
+                        JsonConvert.DeserializeObject<ZoneAndDivision>(
+                            File.ReadAllText(Path.Combine(DataHelper.JsonFolderPath, Resources.ZoneAndDivisionJson)));
+                }
+                catch (JsonException e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            }
+
+            if (DataHelper.StationsList == null)
+            {
+                try
+                {
+                    DataHelper.StationsList = JsonConvert.DeserializeObject<StationsList>(
+                        File.ReadAllText(Path.Combine(DataHelper.JsonFolderPath, Resources.StationsListJson)));
+                }
+                catch (JsonException e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
 
             #endregion

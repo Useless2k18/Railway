@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ZoneAndDivisionModel.cs" company="SDCWORLD">
+// <copyright file="ZoneAndDivision.cs" company="SDCWORLD">
 //   Sourodeep Chatterjee
 // </copyright>
 // <summary>
@@ -17,7 +17,7 @@ namespace BusinessLogicWPF.Model.Json.Creation
     /// The employee.
     /// </summary>
     [FirestoreData]
-    public class ZoneAndDivisionModel
+    public class ZoneAndDivision
     {
         /// <summary>
         /// Gets or sets the zone list.

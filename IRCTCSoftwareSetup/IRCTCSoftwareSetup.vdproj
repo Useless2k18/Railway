@@ -471,6 +471,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_40154331194B4A29ACEA0413EC760247"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_408FD436C3F81946FB1B212BD8B1656C"
         "OwnerKey" = "8:_C23136B681694E32AF994B644813E608"
         "MsmSig" = "8:_UNDEFINED"
@@ -1317,6 +1323,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_C928C75A675D49DC98645BE30B4370E6"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_C9919878A8292BE06CC47FD4CDE46CCB"
         "OwnerKey" = "8:_C23136B681694E32AF994B644813E608"
         "MsmSig" = "8:_UNDEFINED"
@@ -1481,6 +1493,12 @@
         {
         "MsmKey" = "8:_EEE8DA11BD9A806486CDC97A68C30933"
         "OwnerKey" = "8:_C23136B681694E32AF994B644813E608"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F0522FA8A61F4760B26A46BCBDF1A336"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -3912,6 +3930,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_40154331194B4A29ACEA0413EC760247"
+            {
+            "SourcePath" = "8:..\\BusinessLogicWPF\\bin\\Debug\\Json\\ZoneAndDivision.json"
+            "TargetName" = "8:ZoneAndDivision.json"
+            "Tag" = "8:"
+            "Folder" = "8:_24A37018032E4C4CB314EADEE4703A59"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_408FD436C3F81946FB1B212BD8B1656C"
@@ -6578,6 +6616,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C928C75A675D49DC98645BE30B4370E6"
+            {
+            "SourcePath" = "8:..\\BusinessLogicWPF\\bin\\Debug\\Json\\isd_country_codes.json"
+            "TargetName" = "8:isd_country_codes.json"
+            "Tag" = "8:"
+            "Folder" = "8:_24A37018032E4C4CB314EADEE4703A59"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C9919878A8292BE06CC47FD4CDE46CCB"
             {
             "AssemblyRegister" = "3:1"
@@ -7167,6 +7225,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F0522FA8A61F4760B26A46BCBDF1A336"
+            {
+            "SourcePath" = "8:..\\BusinessLogicWPF\\bin\\Debug\\Json\\StationsList.json"
+            "TargetName" = "8:StationsList.json"
+            "Tag" = "8:"
+            "Folder" = "8:_24A37018032E4C4CB314EADEE4703A59"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F38F69E3A4F1B1DAD741BD6621529588"
             {
             "AssemblyRegister" = "3:1"
@@ -7453,6 +7531,28 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_24A37018032E4C4CB314EADEE4703A59"
+                    {
+                    "Name" = "8:Json"
+                    "AlwaysCreate" = "11:TRUE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_550BBF14258E4F97BAA7576322FF2057"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_8485ACE3E1F6432B809F4E39F4576C5F"
+                    {
+                    "Name" = "8:Secret"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_8288A0B14098495780C637E6EC08FAB5"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
         }
@@ -7471,15 +7571,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:IRCTC Software"
-        "ProductCode" = "8:{7EFA56C9-B582-41F0-B462-E8FE89758B0C}"
-        "PackageCode" = "8:{38DC95E5-B83E-4CFD-9DC7-BECF34D3C3B3}"
+        "ProductCode" = "8:{CFDE9062-A91E-49D9-B81D-28F4F2FA9874}"
+        "PackageCode" = "8:{A42FC5F8-6358-4F0B-A029-2628A60095F4}"
         "UpgradeCode" = "8:{E9DFC204-8AB9-4862-847E-FDB230D47A1A}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.1"
+        "ProductVersion" = "8:1.0.2"
         "Manufacturer" = "8:SDCWORLD"
         "ARPHELPTELEPHONE" = "8:+919658805873"
         "ARPHELPLINK" = "8:ticketchecker-d4f79.firebaseapp.com"
@@ -8007,7 +8107,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_C23136B681694E32AF994B644813E608"
             {
-            "SourcePath" = "8:"
+            "SourcePath" = "8:..\\BusinessLogicWPF\\obj\\Release\\BussinessLogicWPF.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A1BC84B5B8AE4BF9A9F1BFDEB51D556B"

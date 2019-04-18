@@ -113,41 +113,40 @@
                         </TextBox.Text>
                     </TextBox>
 
-                    <TextBox
-                        x:Name="TextBoxTrainSource"
-                        CharacterCasing="Upper"
+                    <ComboBox
+                        x:Name="ComboBoxTrainSource"
+                        ItemsSource="{Binding}"
                         Grid.Row="3"
                         Grid.Column="0"
-                        Margin="10,10,10,5"
-                        MaxLength="8"
+                        Margin="10,10,10,10"
                         materialDesign:HintAssist.Hint="Enter Train Source Station"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                        <TextBox.Text>
-                            <Binding Path="SourceStation" UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
-                    </TextBox>
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                        SelectionChanged="ComboBoxTrainSourceOnSelectionChanged">
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel
+                                    RequestBringIntoView="FrameworkElementOnRequestBringIntoView"/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
 
-                    <TextBox
-                        x:Name="TextBoxTrainDestination"
-                        CharacterCasing="Upper"
+                    <ComboBox
+                        x:Name="ComboBoxTrainDestination"
+                        ItemsSource="{Binding}"
+                        IsEnabled="False"
                         Grid.Row="4"
                         Grid.Column="0"
-                        Margin="10,10,10,5"
-                        MaxLength="8"
+                        Margin="10,10,10,10"
                         materialDesign:HintAssist.Hint="Enter Train Destination Station"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                        <TextBox.Text>
-                            <Binding Path="DestinationStation" UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
-                    </TextBox>
+                        SelectedValue="{Binding DestinationStation}"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel
+                                    RequestBringIntoView="FrameworkElementOnRequestBringIntoView"/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
 
                     <TextBox
                         x:Name="TextBoxTrainRakeZone"

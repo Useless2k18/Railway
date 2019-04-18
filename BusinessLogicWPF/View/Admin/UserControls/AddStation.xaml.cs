@@ -10,9 +10,7 @@
 namespace BusinessLogicWPF.View.Admin.UserControls
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel;
-    using System.IO;
     using System.Text.RegularExpressions;
     using System.Windows;
     using System.Windows.Controls;
@@ -21,13 +19,10 @@ namespace BusinessLogicWPF.View.Admin.UserControls
 
     using BusinessLogicWPF.Helper;
     using BusinessLogicWPF.Model;
-    using BusinessLogicWPF.Model.Json.Creation;
     using BusinessLogicWPF.Properties;
     using BusinessLogicWPF.ViewModel.Admin;
 
     using MahApps.Metro.Controls;
-
-    using Newtonsoft.Json;
 
     /// <summary>
     /// Interaction logic for AddStations.XAML
@@ -44,11 +39,6 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         /// The background worker.
         /// </summary>
         private readonly BackgroundWorker backgroundWorker;
-
-        /// <summary>
-        /// The zone and division details.
-        /// </summary>
-        private ZoneAndDivisionModel zoneAndDivisionDetails;
 
         /// <inheritdoc />
         /// <summary>
@@ -107,10 +97,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls
             this.Dispatcher.Invoke(
                 () =>
                     {
-                        this.zoneAndDivisionDetails =
-                            JsonConvert.DeserializeObject<ZoneAndDivisionModel>(
-                                File.ReadAllText(DataHelper.JsonFolderPath));
-                        this.ComboBoxZoneName.ItemsSource = this.zoneAndDivisionDetails.ZoneList;
+                        this.ComboBoxZoneName.ItemsSource = DataHelper.ZoneAndDivisionModel.ZoneList;
                     },
                 DispatcherPriority.Normal);
         }
@@ -145,7 +132,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls
                 return;
             }
             
-            var b = this.zoneAndDivisionDetails.DivisionList.TryGetValue(
+            var b = DataHelper.ZoneAndDivisionModel.DivisionList.TryGetValue(
                 this.ComboBoxZoneName.SelectedItem.ToString(),
                 out var divisionsList);
 
@@ -233,17 +220,6 @@ namespace BusinessLogicWPF.View.Admin.UserControls
                 || string.IsNullOrWhiteSpace(this.TextBoxPinCode.Text))
             {
                 MessageBox.Show("Please fill up all the fields!");
-
-                try
-                {
-                    MessageBox.Show(
-                        StaticDbContext.ConnectFireStore.FindDocument("ER", "Root", "Stations", "StationDetails").ToString());
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-
                 return;
             }
 

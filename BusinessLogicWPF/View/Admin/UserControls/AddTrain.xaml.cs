@@ -33,7 +33,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls
 
     using Properties;
 
-    using MenuItem = BusinessLogicWPF.Domain.TreeView.MenuItem;
+    using MenuItem = Domain.TreeView.MenuItem;
 
     /// <summary>
     /// Interaction logic for AddTrains.XAML
@@ -67,9 +67,19 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         private readonly MenuItem root;
 
         /// <summary>
+        /// The source stations.
+        /// </summary>
+        private readonly List<string> sourceStations;
+
+        /// <summary>
         /// The background worker.
         /// </summary>
         private BackgroundWorker backgroundWorker;
+
+        /// <summary>
+        /// The destination stations.
+        /// </summary>
+        private List<string> destinationStations = new List<string>();
 
         /// <summary>
         /// The current selected item.
@@ -90,6 +100,16 @@ namespace BusinessLogicWPF.View.Admin.UserControls
             this.MainGrid.Visibility = Visibility.Visible;
             this.NavigateToRoute.Visibility = Visibility.Collapsed;
 
+            // ComboBox Section
+            if (DataHelper.StationsList != null)
+            {
+                this.sourceStations = DataHelper.StationsList.Stations.Keys.ToList();
+            }
+
+            this.ComboBoxTrainSource.ItemsSource = this.sourceStations;
+            this.ComboBoxTrainDestination.ItemsSource = this.sourceStations;
+
+            // TreeView Section
             this.root = new MenuItem { Name = "Coach" };
             
             // We should delete this part as here we are initializing the whole list for coaches
@@ -143,6 +163,54 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         private void TextBoxTrainNoOnPreviewTextInput(object sender, [NotNull] TextCompositionEventArgs e)
         {
             e.Handled = !IsTextAllowed(e.Text);
+        }
+
+        /// <summary>
+        /// The combo box train source on selection changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ComboBoxTrainSourceOnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.ComboBoxTrainDestination.SelectedIndex = -1;
+            var combo1 = this.ComboBoxTrainSource.SelectedValue as string;
+            this.destinationStations.Clear();
+            this.destinationStations.AddRange(this.sourceStations);
+            this.destinationStations.Remove(combo1);
+            this.ComboBoxTrainDestination.ItemsSource = null;
+            this.ComboBoxTrainDestination.ItemsSource = this.destinationStations;
+            this.ComboBoxTrainDestination.IsEnabled = true;
+        }
+
+        /// <summary>
+        /// The framework element on request bring into view.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void FrameworkElementOnRequestBringIntoView(
+            [CanBeNull] object sender,
+            [NotNull] RequestBringIntoViewEventArgs e)
+        {
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
+            // Allows the keyboard to bring the items into view as expected:
+            if (Keyboard.IsKeyDown(Key.Down) || Keyboard.IsKeyDown(Key.Up))
+            {
+                return;
+            }            
+
+            e.Handled = true;  
         }
 
         /// <summary>
@@ -319,8 +387,8 @@ namespace BusinessLogicWPF.View.Admin.UserControls
             if (string.IsNullOrWhiteSpace(this.TextBoxTrainNo.Text)
                 || string.IsNullOrWhiteSpace(this.TextBoxTrainName.Text)
                 || string.IsNullOrWhiteSpace(this.TextBoxTrainType.Text)
-                || string.IsNullOrWhiteSpace(this.TextBoxTrainSource.Text)
-                || string.IsNullOrWhiteSpace(this.TextBoxTrainDestination.Text)
+                || string.IsNullOrWhiteSpace(this.ComboBoxTrainSource.Text)
+                || string.IsNullOrWhiteSpace(this.ComboBoxTrainDestination.Text)
                 || string.IsNullOrWhiteSpace(this.TextBoxTrainRakeZone.Text))
             {
                 MessageBox.Show("Please fill up all the fields!");
@@ -443,8 +511,8 @@ namespace BusinessLogicWPF.View.Admin.UserControls
                                        TrainNumber = Convert.ToInt32(this.TextBoxTrainNo.Text),
                                        TrainName = this.TextBoxTrainName.Text,
                                        Type = this.TextBoxTrainType.Text,
-                                       SourceStation = this.TextBoxTrainSource.Text,
-                                       DestinationStation = this.TextBoxTrainDestination.Text,
+                                       SourceStation = this.ComboBoxTrainSource.Text,
+                                       DestinationStation = this.ComboBoxTrainDestination.Text,
                                        RakeZone = this.TextBoxTrainRakeZone.Text,
                                        Coach = new Coach
                                                    {
@@ -512,6 +580,13 @@ namespace BusinessLogicWPF.View.Admin.UserControls
             {
                 textBox.Clear();
             }
+
+            foreach (var comboBox in this.FindChildren<ComboBox>())
+            {
+                comboBox.SelectedIndex = -1;
+            }
+
+            this.ComboBoxTrainDestination.IsEnabled = false;
 
             var c = (MenuItem)this.TreeView.Items[0];
 
