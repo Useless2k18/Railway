@@ -3,7 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:adminView="clr-namespace:BusinessLogicWPF.View.Admin.UserControls.ForHelpers"
-    xmlns:collections="clr-namespace:BusinessLogicWPF.Collections"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:domain1="clr-namespace:BusinessLogicWPF.Domain"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"

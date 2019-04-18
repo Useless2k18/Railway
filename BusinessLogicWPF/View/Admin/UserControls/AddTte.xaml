@@ -6,8 +6,89 @@
     xmlns:local="clr-namespace:BusinessLogicWPF.View.Admin.UserControls"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    HorizontalAlignment="Center"
+    VerticalAlignment="Center"
     mc:Ignorable="d">
-    <Grid />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBox
+            x:Name="TextBoxTteName"
+            Grid.Row="0"
+            Margin="10,10,10,10"
+            materialDesign:HintAssist.Hint="Enter TTE Name"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+        
+        <ComboBox
+            x:Name="ComboBoxZoneName"
+            Grid.Row="1"
+            Margin="10,0,10,10"
+            materialDesign:HintAssist.Hint="Enter Zone Name"
+            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+            ItemsSource="{Binding}"
+            SelectionChanged="ComboBoxZoneNameOnSelectionChanged">
+            <ComboBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel
+                        RequestBringIntoView="FrameworkElementOnRequestBringIntoView"/>
+                </ItemsPanelTemplate>
+            </ComboBox.ItemsPanel>
+        </ComboBox>
+
+        <ComboBox
+            x:Name="ComboBoxDivisionName"
+            Grid.Row="2"
+            Margin="10,10,10,10"
+            IsEnabled="False"
+            materialDesign:HintAssist.Hint="Enter Division Name"
+            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+            ItemsSource="{Binding}">
+            <ComboBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel/>
+                </ItemsPanelTemplate>
+            </ComboBox.ItemsPanel>
+        </ComboBox>
+
+        <StackPanel
+            Grid.Row="3"
+            Margin="0,20,0,0"
+            Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Stretch">
+            <Button
+                x:Name="ButtonRefresh"
+                HorizontalAlignment="Left"
+                Margin="5"
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                Click="ButtonRefreshOnClick">
+                <TextBlock>
+                    <materialDesign:PackIcon
+                        Kind="Refresh"
+                        Margin="5,0,0,-3"/>
+                    <Run Text="Reset"/>
+                </TextBlock>
+            </Button>
+            <Button
+                x:Name="ButtonAccept"
+                HorizontalAlignment="Right"
+                Margin="5"
+                Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                materialDesign:ButtonProgressAssist.IsIndicatorVisible="False"
+                Click="ButtonAcceptOnClick">
+                <TextBlock>
+                    <materialDesign:PackIcon
+                        Kind="Tick"
+                        Margin="5,0,0,-3"/>
+                    <Run Text="Accept"/>
+                </TextBlock>
+            </Button>
+        </StackPanel>
+    </Grid>
 </UserControl>

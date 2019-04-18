@@ -222,11 +222,11 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
                 throw new ArgumentNullException(nameof(e));
             }
 
-            if (this.ComboBoxTteId.SelectedItem != null)
+            /*if (this.ComboBoxTteId.SelectedItem != null)
             {
                 this.ComboBoxTteName.SelectedItem =
                     (Ttes ?? throw new InvalidOperationException()).FirstOrDefault(t => t.TT_ID == this.ComboBoxTteId.SelectedItem as string)?.FullName;
-            }
+            }*/
         }
 
         /// <summary>
@@ -250,12 +250,12 @@ namespace BusinessLogicWPF.View.StationMaster.UserControls.HelperForAllocation
                 throw new ArgumentNullException(nameof(e));
             }
 
-            if (this.ComboBoxTteName.SelectedItem != null)
+            /*if (this.ComboBoxTteName.SelectedItem != null)
             {
                 this.ComboBoxTteId.SelectedItem =
                     (Ttes ?? throw new InvalidOperationException())
                     .FirstOrDefault(t => t.FullName == this.ComboBoxTteName.SelectedItem as string)?.TT_ID;
-            }
+            }*/
         }
 
         /// <summary>

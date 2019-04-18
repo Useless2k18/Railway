@@ -1,34 +1,37 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Tte.cs" company="SDCWORLD">
+// <copyright file="EnumEmployeeGroups.cs" company="SDCWORLD">
 //   Sourodeep Chatterjee
 // </copyright>
 // <summary>
-//   Defines the Tte type.
+//   Defines the EnumEmployeeGroups type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace BusinessLogicWPF.Model
 {
-    using BusinessLogicWPF.Properties;
-
-    using Google.Cloud.Firestore;
-
     /// <summary>
-    /// The TTE.
+    /// Enumeration for employee groups.
     /// </summary>
-    [FirestoreData]
-    public class Tte
+    public enum EnumEmployeeGroups
     {
         /// <summary>
-        /// Gets or sets the TTE id.
+        /// The admin.
         /// </summary>
-        [FirestoreProperty("empId")]
-        public string Id { get; set; }
+        Admin = 0,
 
         /// <summary>
-        /// Gets or sets the name.
+        /// The group A.
         /// </summary>
-        [FirestoreProperty("name")]
-        public string Name { get; set; }
+        GroupA = 1,
+
+        /// <summary>
+        /// The group B.
+        /// </summary>
+        GroupB = 2,
+
+        /// <summary>
+        /// The group C.
+        /// </summary>
+        GroupC = 3
     }
 }

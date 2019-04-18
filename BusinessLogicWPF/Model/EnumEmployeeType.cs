@@ -1,34 +1,27 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Tte.cs" company="SDCWORLD">
+// <copyright file="EnumEmployeeType.cs" company="SDCWORLD">
 //   Sourodeep Chatterjee
 // </copyright>
 // <summary>
-//   Defines the Tte type.
+//   Defines the EnumEmployeeType type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace BusinessLogicWPF.Model
 {
-    using BusinessLogicWPF.Properties;
-
-    using Google.Cloud.Firestore;
-
     /// <summary>
-    /// The TTE.
+    /// Enumeration for employee type.
     /// </summary>
-    [FirestoreData]
-    public class Tte
+    public enum EnumEmployeeType
     {
         /// <summary>
-        /// Gets or sets the TTE id.
+        /// The station master.
         /// </summary>
-        [FirestoreProperty("empId")]
-        public string Id { get; set; }
+        StationMaster = 5,
 
         /// <summary>
-        /// Gets or sets the name.
+        /// The TTE.
         /// </summary>
-        [FirestoreProperty("name")]
-        public string Name { get; set; }
+        Tte = 9
     }
 }

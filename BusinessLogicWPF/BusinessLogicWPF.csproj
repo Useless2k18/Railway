@@ -305,7 +305,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Collections\TteCollection.cs" />
     <Compile Include="Domain\AnotherCommandImplementation.cs" />
     <Compile Include="Domain\DemoItem.cs" />
     <Compile Include="Domain\IsCheckedValidationRule.cs" />
@@ -331,6 +330,8 @@
     <Compile Include="JsClasses\DotNetPhoneNumberAuthentication.cs" />
     <Compile Include="Model\Coach.cs" />
     <Compile Include="Model\Division.cs" />
+    <Compile Include="Model\EnumEmployeeGroups.cs" />
+    <Compile Include="Model\EnumEmployeeType.cs" />
     <Compile Include="Model\Json\Creation\StationsList.cs" />
     <Compile Include="Model\Json\Creation\ZoneAndDivision.cs" />
     <Compile Include="Model\Json\Behavioral\IsdCodes.cs" />
@@ -592,6 +593,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Collections\" />
     <Folder Include="View\Home\UserControls\" />
   </ItemGroup>
   <ItemGroup>

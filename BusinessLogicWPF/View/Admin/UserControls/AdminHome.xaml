@@ -9,6 +9,9 @@
     xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     UseLayoutRounding="True"
+    HorizontalAlignment="Center"
+    VerticalAlignment="Center"
+    MinWidth="400"
     mc:Ignorable="d">
 
     <Grid>
@@ -26,8 +29,7 @@
             materialDesign:ButtonProgressAssist.Value="-1"
             materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
             MinHeight="100"
-            HorizontalAlignment="Right"
-            Height="100">
+            HorizontalAlignment="Center">
             <StackPanel 
                 Orientation="Vertical"
                 HorizontalAlignment="Left"
