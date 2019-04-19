@@ -59,7 +59,8 @@
                 SelectionChanged="ComboBoxZoneNameOnSelectionChanged">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <VirtualizingStackPanel/>
+                        <VirtualizingStackPanel
+                            RequestBringIntoView="FrameworkElementOnRequestBringIntoView"/>
                     </ItemsPanelTemplate>
                 </ComboBox.ItemsPanel>
             </ComboBox>
@@ -74,7 +75,8 @@
                 ItemsSource="{Binding}">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <VirtualizingStackPanel/>
+                        <VirtualizingStackPanel
+                            RequestBringIntoView="FrameworkElementOnRequestBringIntoView"/>
                     </ItemsPanelTemplate>
                 </ComboBox.ItemsPanel>
             </ComboBox>

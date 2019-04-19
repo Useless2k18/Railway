@@ -144,6 +144,33 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         }
 
         /// <summary>
+        /// The framework element on request bring into view.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void FrameworkElementOnRequestBringIntoView(
+            [CanBeNull] object sender,
+            [NotNull] RequestBringIntoViewEventArgs e)
+        {
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
+            // Allows the keyboard to bring the items into view as expected:
+            if (Keyboard.IsKeyDown(Key.Down) || Keyboard.IsKeyDown(Key.Up))
+            {
+                return;
+            }            
+
+            e.Handled = true;  
+        }
+
+        /// <summary>
         /// The text OTP preview text input.
         /// </summary>
         /// <param name="sender">
