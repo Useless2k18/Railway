@@ -7571,15 +7571,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:IRCTC Software"
-        "ProductCode" = "8:{588AAAF2-18C5-4D31-ABED-8D76D221242B}"
-        "PackageCode" = "8:{E538AB2B-B739-4DFD-8E86-CB2A81962DAA}"
+        "ProductCode" = "8:{2E10A757-3A23-48DE-AA96-286D656199C2}"
+        "PackageCode" = "8:{0FDB62D2-65B4-4CAC-B10E-2189F921D284}"
         "UpgradeCode" = "8:{E9DFC204-8AB9-4862-847E-FDB230D47A1A}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.3"
+        "ProductVersion" = "8:1.0.4"
         "Manufacturer" = "8:SDCWORLD"
         "ARPHELPTELEPHONE" = "8:+919658805873"
         "ARPHELPLINK" = "8:ticketchecker-d4f79.firebaseapp.com"
@@ -8107,7 +8107,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_C23136B681694E32AF994B644813E608"
             {
-            "SourcePath" = "8:..\\BusinessLogicWPF\\obj\\Release\\BussinessLogicWPF.exe"
+            "SourcePath" = "8:..\\BusinessLogicWPF\\obj\\Debug\\BussinessLogicWPF.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A1BC84B5B8AE4BF9A9F1BFDEB51D556B"
