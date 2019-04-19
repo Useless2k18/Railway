@@ -253,7 +253,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls
                 () =>
                     {
                         this.ProgressBar.Visibility = Visibility.Visible;
-                        StaticDbContext.ConnectFireStore?.AddCollectionDataAsync(
+                        StaticDbContext.ConnectFireStore?.AddOrUpdateCollectionDataAsync(
                             station,
                             "Root",
                             "Stations",
