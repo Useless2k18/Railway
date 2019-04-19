@@ -34,6 +34,20 @@ namespace BusinessLogicWPF.Model
         public string DepartureTime { get; set; }
 
         /// <summary>
+        /// Gets or sets the station zone.
+        /// </summary>
+        [CanBeNull]
+        [FirestoreProperty("stationZone")]
+        public string StationZone { get; set; }
+
+        /// <summary>
+        /// Gets or sets the station division.
+        /// </summary>
+        [CanBeNull]
+        [FirestoreProperty("stationDivision")]
+        public string StationDivision { get; set; }
+
+        /// <summary>
         /// Gets or sets the station code.
         /// </summary>
         [CanBeNull]
