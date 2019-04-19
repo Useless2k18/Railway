@@ -69,7 +69,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         /// <summary>
         /// The source stations.
         /// </summary>
-        private readonly List<string> sourceStations;
+        private readonly List<Station> sourceStations;
 
         /// <summary>
         /// The background worker.
@@ -79,7 +79,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls
         /// <summary>
         /// The destination stations.
         /// </summary>
-        private List<string> destinationStations = new List<string>();
+        private List<Station> destinationStations = new List<Station>();
 
         /// <summary>
         /// The current selected item.
@@ -103,7 +103,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls
             // ComboBox Section
             if (DataHelper.StationsList != null)
             {
-                this.sourceStations = DataHelper.StationsList.Stations.Keys.ToList();
+                this.sourceStations = DataHelper.StationsList.Stations.Values.ToList();
             }
 
             this.ComboBoxTrainSource.ItemsSource = this.sourceStations;
@@ -180,7 +180,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls
             var combo1 = this.ComboBoxTrainSource.SelectedValue as string;
             this.destinationStations.Clear();
             this.destinationStations.AddRange(this.sourceStations);
-            this.destinationStations.Remove(combo1);
+            this.destinationStations.Remove(this.destinationStations.Find(d => d.StationCode == combo1));
             this.ComboBoxTrainDestination.ItemsSource = null;
             this.ComboBoxTrainDestination.ItemsSource = this.destinationStations;
             this.ComboBoxTrainDestination.IsEnabled = true;
@@ -511,8 +511,8 @@ namespace BusinessLogicWPF.View.Admin.UserControls
                                        TrainNumber = Convert.ToInt32(this.TextBoxTrainNo.Text),
                                        TrainName = this.TextBoxTrainName.Text,
                                        Type = this.TextBoxTrainType.Text,
-                                       SourceStation = this.ComboBoxTrainSource.Text,
-                                       DestinationStation = this.ComboBoxTrainDestination.Text,
+                                       SourceStation = this.ComboBoxTrainSource.SelectedValue as string,
+                                       DestinationStation = this.ComboBoxTrainDestination.SelectedValue as string,
                                        RakeZone = this.TextBoxTrainRakeZone.Text,
                                        Coach = new Coach
                                                    {

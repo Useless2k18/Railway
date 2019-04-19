@@ -10,11 +10,15 @@
 namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Input;
 
     using BusinessLogicWPF.Helper;
     using BusinessLogicWPF.Model;
+    using BusinessLogicWPF.Properties;
 
     using MaterialDesignThemes.Wpf;
 
@@ -24,11 +28,56 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
     public partial class AddRouteDialog : UserControl
     {
         /// <summary>
+        /// The list of stations.
+        /// </summary>
+        private readonly List<Station> listOfStations;
+        
+        /// <summary>
         /// Initializes a new instance of the <see cref="AddRouteDialog"/> class.
         /// </summary>
         public AddRouteDialog()
         {
             this.InitializeComponent();
+
+            if (DataHelper.StationsList != null)
+            {
+                this.listOfStations = DataHelper.StationsList.Stations.Values.ToList();
+            }
+            
+            // Just for deleting already selected station
+            /*else if (DataHelper.PreviousSelectedStation != null)
+            {
+                this.listOfStations.Remove(DataHelper.PreviousSelectedStation);
+            }*/
+
+            this.ComboBoxStationCode.ItemsSource = this.listOfStations;
+        }
+
+        /// <summary>
+        /// The framework element on request bring into view.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void FrameworkElementOnRequestBringIntoView(
+            [CanBeNull] object sender,
+            [NotNull] RequestBringIntoViewEventArgs e)
+        {
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
+            // Allows the keyboard to bring the items into view as expected:
+            if (Keyboard.IsKeyDown(Key.Down) || Keyboard.IsKeyDown(Key.Up))
+            {
+                return;
+            }            
+
+            e.Handled = true;  
         }
 
         /// <summary>
@@ -42,11 +91,11 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
         /// </param>
         private void TextBoxStationCodeOnLostFocus(object sender, RoutedEventArgs e)
         {
-            if (this.TextBoxStationCode.Text == DataHelper.Train.SourceStation)
+            if (this.ComboBoxStationCode.SelectedValue as string == DataHelper.Train.SourceStation)
             {
                 this.TextBoxArrivalTime.Text = "SRC0";
             }
-            else if (this.TextBoxStationCode.Text == DataHelper.Train.DestinationStation)
+            else if (this.ComboBoxStationCode.SelectedValue as string == DataHelper.Train.DestinationStation)
             {
                 this.TextBoxDepartureTime.Text = "DEST0";
             }
@@ -82,7 +131,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
         /// </param>
         private void ButtonAcceptOnClick(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(this.TextBoxStationCode.Text)
+            if (string.IsNullOrWhiteSpace(this.ComboBoxStationCode.Text)
                 || string.IsNullOrWhiteSpace(this.TextBoxDepartureTime.Text)
                 || string.IsNullOrWhiteSpace(this.TextBoxArrivalTime.Text))
             {
@@ -93,7 +142,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
             if (!DateTime.TryParse(this.TextBoxDepartureTime.Text, out var _))
             {
                 if (this.TextBoxDepartureTime.Text == "DEST0"
-                    && this.TextBoxStationCode.Text != DataHelper.Train.DestinationStation)
+                    && this.ComboBoxStationCode.SelectedValue as string != DataHelper.Train.DestinationStation)
                 {
                     MessageBox.Show("Only Destination Station can have Departure Time as DEST0");
                     return;
@@ -109,7 +158,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
             if (!DateTime.TryParse(this.TextBoxArrivalTime.Text, out var _))
             {
                 if (this.TextBoxArrivalTime.Text == "SRC0"
-                    && this.TextBoxStationCode.Text != DataHelper.Train.SourceStation)
+                    && this.ComboBoxStationCode.SelectedValue as string != DataHelper.Train.SourceStation)
                 {
                     MessageBox.Show("Only Source Station can have Arrival Time as SRC0");
                     return;
@@ -124,10 +173,19 @@ namespace BusinessLogicWPF.View.Admin.UserControls.ForHelpers
 
             var route = new Route
                             {
-                                StationCode = this.TextBoxStationCode.Text,
+                                StationCode = this.ComboBoxStationCode.SelectedValue as string,
                                 DepartureTime = this.TextBoxDepartureTime.Text,
                                 ArrivalTime = this.TextBoxArrivalTime.Text
                             };
+
+            route.StationZone = DataHelper.StationsList
+                .Stations[route.StationCode ?? throw new InvalidOperationException()].Zone;
+
+            route.StationDivision = DataHelper.StationsList.Stations[route.StationCode].RailwayDivision;
+
+            /*// Just for deleting already selected station
+            DataHelper.PreviousSelectedStation = DataHelper.StationsList.Stations[route.StationCode ?? throw new InvalidOperationException()];*/
+
             DialogHost.CloseDialogCommand.Execute(route, null);
         }
     }

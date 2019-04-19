@@ -6,23 +6,30 @@
              xmlns:local="clr-namespace:BusinessLogicWPF.View.Admin.UserControls.ForHelpers"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             MinWidth="500"
-             MinHeight="350">
+             MinWidth="500">
     <StackPanel Margin="16">
         <TextBlock 
             Text="Add a new Route"
             Style="{StaticResource MaterialDesignHeadlineTextBlock}"
             Margin="10"
             TextAlignment="Center"/>
-        <TextBox
-            x:Name="TextBoxStationCode"
+        <ComboBox
+            x:Name="ComboBoxStationCode"
             HorizontalAlignment="Stretch"
-            Margin="8"
-            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-            CharacterCasing="Upper"
-            Text="{Binding StationCode}"
+            Margin="10"
+            ItemsSource="{Binding}"
+            DisplayMemberPath="StationName"
+            SelectedValuePath="StationCode"
+            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
             materialDesign:HintAssist.Hint="Enter Station Code"
-            LostFocus="TextBoxStationCodeOnLostFocus"/>
+            LostFocus="TextBoxStationCodeOnLostFocus">
+            <ComboBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel
+                        RequestBringIntoView="FrameworkElementOnRequestBringIntoView"/>
+                </ItemsPanelTemplate>
+            </ComboBox.ItemsPanel>
+        </ComboBox>
         <TextBox
             x:Name="TextBoxDepartureTime"
             HorizontalAlignment="Stretch"

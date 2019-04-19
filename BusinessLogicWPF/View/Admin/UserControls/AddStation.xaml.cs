@@ -241,6 +241,7 @@ namespace BusinessLogicWPF.View.Admin.UserControls
 
             var station = new Station
                               {
+                                  Zone = this.ComboBoxZoneName.Text,
                                   RailwayDivision = this.ComboBoxDivisionName.Text,
                                   StationCode = this.TextBoxStationCode.Text,
                                   StationName = this.TextBoxStationName.Text,

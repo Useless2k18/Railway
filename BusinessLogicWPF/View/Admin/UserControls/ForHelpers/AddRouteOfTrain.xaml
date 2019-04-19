@@ -66,6 +66,16 @@
                                     EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
                                     MaxLength="8"/>
                                 <materialDesign:MaterialDataGridTextColumn
+                                    Binding="{Binding (model:Route.StationZone)}"
+                                    Header="Station Zone"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                    MaxLength="8"/>
+                                <materialDesign:MaterialDataGridTextColumn
+                                    Binding="{Binding (model:Route.StationDivision)}"
+                                    Header="Station Division"
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                    MaxLength="8"/>
+                                <materialDesign:MaterialDataGridTextColumn
                                     Binding="{Binding (model:Route.DepartureTime)}"
                                     Header="Departure Time"
                                     EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
@@ -75,11 +85,6 @@
                                     Header="Arrival Time"
                                     EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
                                     MaxLength="8"/>
-                                <materialDesign:MaterialDataGridTextColumn
-                                    Binding="{Binding (model:Route.TteAssignFlag)}"
-                                    Header="TTE Assign"
-                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
-                                    MaxLength="1"/>
                                 <DataGridTemplateColumn
                                     Header="Actions">
                                     <DataGridTemplateColumn.CellTemplate>

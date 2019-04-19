@@ -115,6 +115,8 @@
 
                     <ComboBox
                         x:Name="ComboBoxTrainSource"
+                        DisplayMemberPath="StationName"
+                        SelectedValuePath="StationCode"
                         ItemsSource="{Binding}"
                         Grid.Row="3"
                         Grid.Column="0"
@@ -132,6 +134,8 @@
 
                     <ComboBox
                         x:Name="ComboBoxTrainDestination"
+                        DisplayMemberPath="StationName"
+                        SelectedValuePath="StationCode"
                         ItemsSource="{Binding}"
                         IsEnabled="False"
                         Grid.Row="4"

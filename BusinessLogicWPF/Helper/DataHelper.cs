@@ -38,6 +38,12 @@ namespace BusinessLogicWPF.Helper
         private static Station station;
 
         /// <summary>
+        /// The previous selected station.
+        /// </summary>
+        [CanBeNull]
+        private static Station previousSelectedStation;
+
+        /// <summary>
         /// The stations list.
         /// </summary>
         [CanBeNull]
@@ -122,6 +128,23 @@ namespace BusinessLogicWPF.Helper
                 }
 
                 station = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the previous selected station.
+        /// </summary>
+        public static Station PreviousSelectedStation
+        {
+            get => previousSelectedStation;
+            set
+            {
+                if (value == null || previousSelectedStation == value)
+                {
+                    return;
+                }
+
+                previousSelectedStation = value;
             }
         }
 
