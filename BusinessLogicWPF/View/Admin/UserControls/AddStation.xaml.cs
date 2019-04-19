@@ -249,19 +249,24 @@ namespace BusinessLogicWPF.View.Admin.UserControls
                               };
 
             var backgroundWorker2 = new BackgroundWorker();
-            backgroundWorker2.DoWork += (o, args) => this.Dispatcher.Invoke(
-                () =>
+            backgroundWorker2.DoWork += async (o, args) =>
+                {
+                    this.Dispatcher.Invoke(
+                        () => this.ProgressBar.Visibility = Visibility.Visible,
+                        DispatcherPriority.Normal);
+
+                    if (StaticDbContext.ConnectFireStore != null)
                     {
-                        this.ProgressBar.Visibility = Visibility.Visible;
-                        StaticDbContext.ConnectFireStore?.AddOrUpdateCollectionDataAsync(
+                        await StaticDbContext.ConnectFireStore?.AddOrUpdateCollectionDataAsync(
                             station,
                             "Root",
                             "Stations",
                             "StationDetails",
-                            this.ComboBoxZoneName.Text,
+                            station.Zone,
                             station.RailwayDivision,
                             station.StationCode);
-                    });
+                    }
+                };
 
             backgroundWorker2.RunWorkerCompleted += (o, args) =>
                 {
