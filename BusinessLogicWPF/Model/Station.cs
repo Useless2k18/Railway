@@ -20,6 +20,13 @@ namespace BusinessLogicWPF.Model
     public class Station
     {
         /// <summary>
+        /// Gets or sets the zone.
+        /// </summary>
+        [CanBeNull]
+        [FirestoreProperty("zone")]
+        public string Zone { get; set; }
+        
+        /// <summary>
         /// Gets or sets the railway division.
         /// </summary>
         [CanBeNull]
