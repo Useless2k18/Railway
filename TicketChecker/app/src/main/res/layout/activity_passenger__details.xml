@@ -153,7 +153,7 @@
             android:textColorHint="#ffff" />
 
         <TextView
-            android:id="@+id/textView25"
+            android:id="@+id/done"
             android:layout_width="318dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
