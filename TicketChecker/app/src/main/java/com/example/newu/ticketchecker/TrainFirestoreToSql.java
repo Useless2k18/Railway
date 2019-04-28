@@ -14,6 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -47,13 +48,26 @@ public class TrainFirestoreToSql extends AppCompatActivity {
                     return;
                 }
                 if (documentSnapshot.exists()) {
+                    List<Map<String, String>> route; // this is what you have already
+                    route=(List<Map<String, String>>)documentSnapshot.get("route");
 
+                    for (Map<String, String> map :route) {
+                        textView.setText(map.get("arrivalTime"));
+                        }
+
+                    /*Map<String,String> trainRoute;
                     List<Map<String,String>> route ;
                     route=(List<Map<String, String>>)documentSnapshot.get("route");
-                    for (Map<String,String> train: route) {
+                    Iterator iterator =route.iterator();
+                    while(iterator.hasNext())
+                    {
+                        trainRoute=iterator.
+
+                    }*/
+                    //for (Map<String,String> train: route) {
 
                         //textView.setText(train.getValue());
-                    }
+                   // }
 
                 }
             }
