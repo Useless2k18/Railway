@@ -3,6 +3,7 @@ package com.example.newu.ticketchecker;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.core.Tag;
@@ -21,11 +22,13 @@ import javax.annotation.Nullable;
 public class TrainFirestoreToSql extends AppCompatActivity {
     public FirebaseFirestore trainDatabaseObject=FirebaseFirestore.getInstance();
     int trainNo=12073;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_train_firestore_to_sql);
+        textView = findViewById(R.id.textView11);
         FetchTrainDetails();
     }
     void FetchTrainDetails()
@@ -45,10 +48,11 @@ public class TrainFirestoreToSql extends AppCompatActivity {
                 }
                 if (documentSnapshot.exists()) {
 
-                    List<TrainRouteStations> route ;
-                    route=(List<TrainRouteStations>)documentSnapshot.get("route");
-                    for (TrainRouteStations tr: route) {
-                        Log.d("de",tr.getStationCode());;
+                    List<Map<String,String>> route ;
+                    route=(List<Map<String, String>>)documentSnapshot.get("route");
+                    for (Map<String,String> train: route) {
+
+                        //textView.setText(train.getValue());
                     }
 
                 }
