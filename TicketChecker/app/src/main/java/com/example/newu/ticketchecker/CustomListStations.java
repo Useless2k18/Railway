@@ -1,9 +1,8 @@
 package com.example.newu.ticketchecker;
 
-import android.content.ClipData;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +10,13 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-class CustomListAdapter extends ArrayAdapter<StationInfo> {
+public class CustomListStations extends ArrayAdapter<StationInfo> {
 
     ArrayList<StationInfo> myList = new ArrayList<>();
 
-    public CustomListAdapter(Context context, int textViewResourceId, ArrayList<StationInfo> objects) {
+    public CustomListStations(Context context, int textViewResourceId, ArrayList<StationInfo> objects) {
         super(context, textViewResourceId, objects);
-        myList = objects;
     }
 
     @Override
@@ -40,6 +37,5 @@ class CustomListAdapter extends ArrayAdapter<StationInfo> {
         //textView2.setText(myList.get(position).getNum_of_pass());
 
         return v;
-
     }
 }
