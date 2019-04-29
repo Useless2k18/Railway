@@ -1,5 +1,6 @@
 package com.example.newu.ticketchecker;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,11 +15,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.List;
+import java.util.Map;
+
 import io.opencensus.tags.Tag;
 
 public class PassengerList extends AppCompatActivity {
     public FirebaseFirestore passengerDatabaseObject=FirebaseFirestore.getInstance();
     TextView textVieww;
+    SQLiteDatabase passengerDatabase;
+    DatabaseHelper passengerDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,18 @@ public class PassengerList extends AppCompatActivity {
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String pnr=(String)document.get("pnrNo");
+                                String boardingStation=(String)document.get("boardingStation");
+                                String destinationStation=(String)document.get("destinationStation");
+                                String classOfTravel=(String)document.get("class");
+
+                                List<Map<String, String>> route;
+                                route=(List<Map<String, String>>)document.get("passengerDetails");
+                                //int i=0;
+                                for (Map<String, String> map :route) {
+                                    //textView.setText(map.get("arrivalTime"));
+                                    passengerDb.insertPassengerData(passengerDatabase,pnr,map.get("firstName"),map.get("lastName"),boardingStation,destinationStation,map.get("coach"),map.get("status"),map.get("seat"),classOfTravel,map.get("age"),map.get("waitingListNo"));
+                                }
+
 
                             }
                         } else
