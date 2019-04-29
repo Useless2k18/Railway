@@ -29,6 +29,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String Db_route_col4 = "ARRIVALTIME";
     public static final String Db_route_col5 = "DEPARTURETIME";
     public static final String Db_route_col6 = "DAY";
+
+    public static final String Db_tablePassenger = "PASSENGER";
+    public static final String Db_passenger_col1 = "PNR";
+    public static final String Db_passenger_col2 = "NAME";
+    public static final String Db_passenger_col3 = "BOARDINGSTATION";
+    public static final String Db_passenger_col4 = "DEPARTURESTATION";
+    public static final String Db_passenger_col5 = "COACH";
+    public static final String Db_passenger_col6 = "STATUS";
+    public static final String Db_passenger_col7 = "SEAT";
+    public static final String Db_passenger_col8 = "CLASSOF";
+
+
     public DatabaseHelper(Context context) {
         super(context,Db_name,null,1);
     }
@@ -39,6 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table "+Db_tableDivision+" (NAME varchar primary key,STATION varchar not null,FOREIGN KEY(STATION) REFERENCES STATIONS(CODE))");
         db.execSQL("create table "+Db_tableZone+" (ID varchar primary key,NAME varchar not null,DIVISION_NAME varchar not null,NUMBER_OF long not null,FOREIGN KEY(DIVISION_NAME) REFERENCES DIVISION(NAME))");
         db.execSQL("create table "+Db_tableRoute+" (SERIAL long not null,STATIONCODE varchar not null,STATUS long not null,ARRIVALTIME varchar not null,DEPARTURETIME varchar not null,DAY varchar not null)");
+        db.execSQL("create table "+Db_tablePassenger+" (PNR varchar not null,NAME varchar not null,BOARDINGSTATION varchar not null,DEPARTURESTATION varchar not null,COACH varchar not null,STATUS varchar not null,SEAT varchar not null,CLASSOF varchar not null)");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -46,6 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+Db_tableDivision);
         db.execSQL("DROP TABLE IF EXISTS "+Db_tableStation);
         db.execSQL("DROP TABLE IF EXISTS "+Db_tableRoute);
+        db.execSQL("DROP TABLE IF EXISTS "+Db_tablePassenger);
         onCreate(db);
     }
     public long insertStationData(SQLiteDatabase db, String Station_code, String Station_Name, long Station_pincode) {
@@ -90,6 +104,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //long res = db.insert(Db_name,null,c);
         long i = db.insert("ROUTE",null,c);
         return i;
+    }
+    public long insertPassengerData(SQLiteDatabase db,String pnr,String name,String boardingStation,String destinationStation,String coach,String status,String seat,String classOf)
+    {
+        db = this.getWritableDatabase();
+        ContentValues c = new ContentValues();
+        c.put(Db_passenger_col1,pnr);
+        c.put(Db_passenger_col2,name);
+        c.put(Db_passenger_col3,boardingStation);
+        c.put(Db_passenger_col4,destinationStation);
+        c.put(Db_passenger_col5,coach);
+        c.put(Db_passenger_col6,status);
+        c.put(Db_passenger_col7,seat);
+        c.put(Db_passenger_col8,classOf);
+        //long res = db.insert(Db_name,null,c);
+        long i = db.insert("PASSENGER",null,c);
+        return i;
+    }
+    public Cursor getPassengerData(SQLiteDatabase db)
+    {
+
+        db = this.getWritableDatabase();
+        Cursor route = db.rawQuery("select * from "+"PASSENGER",null);
+        return route;
     }
     public Cursor getRouteData(SQLiteDatabase db)
     {
