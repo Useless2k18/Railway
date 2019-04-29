@@ -1,5 +1,6 @@
 package com.example.newu.ticketchecker;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,13 +24,17 @@ import javax.annotation.Nullable;
 public class TrainFirestoreToSql extends AppCompatActivity {
     public FirebaseFirestore trainDatabaseObject=FirebaseFirestore.getInstance();
     int trainNo=12073;
-    TextView textView;
+    //TextView textView;
+    SQLiteDatabase trainRouteDatabase;
+    DatabaseHelper trainRouteDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_train_firestore_to_sql);
-        textView = findViewById(R.id.textView11);
+        //textView = findViewById(R.id.textView11);
+        trainRouteDb = new DatabaseHelper(this);
+        trainRouteDatabase = trainRouteDb.getReadableDatabase();
         FetchTrainDetails();
     }
     void FetchTrainDetails()
@@ -50,9 +55,10 @@ public class TrainFirestoreToSql extends AppCompatActivity {
                 if (documentSnapshot.exists()) {
                     List<Map<String, String>> route; // this is what you have already
                     route=(List<Map<String, String>>)documentSnapshot.get("route");
-
+                    int i=0;
                     for (Map<String, String> map :route) {
-                        textView.setText(map.get("arrivalTime"));
+                        //textView.setText(map.get("arrivalTime"));
+                        trainRouteDb.insertRouteData(trainRouteDatabase,i++,map.get("stationCode"),0,map.get("arrivalTime"),map.get("departureTime"),map.get("day"));
                         }
 
                     /*Map<String,String> trainRoute;

@@ -22,7 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String Db_zone_col3 = "DIVISION_NAME";
     public static final String Db_zone_col4 = "NUMBER_OF";
 
-
+    public static final String Db_tableRoute = "ROUTE";
     public static final String Db_route_col1 = "SERIAL";
     public static final String Db_route_col2 = "STATIONCODE";
     public static final String Db_route_col3 = "STATUS";
@@ -38,14 +38,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table "+Db_tableStation+" (CODE varchar primary key,NAME varchar not null,PINCODE long not null)");
         db.execSQL("create table "+Db_tableDivision+" (NAME varchar primary key,STATION varchar not null,FOREIGN KEY(STATION) REFERENCES STATIONS(CODE))");
         db.execSQL("create table "+Db_tableZone+" (ID varchar primary key,NAME varchar not null,DIVISION_NAME varchar not null,NUMBER_OF long not null,FOREIGN KEY(DIVISION_NAME) REFERENCES DIVISION(NAME))");
-        db.execSQL("create table ROUTE (SERIAL long not null,STATIONCODE varchar not null,STATUS long not null,ARRIVALTIME varchar not null,DEPARTURETIME varchar not null,DAY varchar not null)");
+        db.execSQL("create table "+Db_tableRoute+" (SERIAL long not null,STATIONCODE varchar not null,STATUS long not null,ARRIVALTIME varchar not null,DEPARTURETIME varchar not null,DAY varchar not null)");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+Db_tableZone);
         db.execSQL("DROP TABLE IF EXISTS "+Db_tableDivision);
         db.execSQL("DROP TABLE IF EXISTS "+Db_tableStation);
-        db.execSQL("DROP TABLE IF EXISTS ROUTE");
+        db.execSQL("DROP TABLE IF EXISTS "+Db_tableRoute);
         onCreate(db);
     }
     public long insertStationData(SQLiteDatabase db, String Station_code, String Station_Name, long Station_pincode) {
