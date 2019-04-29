@@ -39,8 +39,6 @@ public class TrainRouteStations {
         this.stationCode = stationCode;
     }
 
-
-
     public String getDivision() {
         return division;
     }
