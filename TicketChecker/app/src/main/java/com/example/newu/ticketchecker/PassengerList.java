@@ -22,7 +22,7 @@ import io.opencensus.tags.Tag;
 
 public class PassengerList extends AppCompatActivity {
     public FirebaseFirestore passengerDatabaseObject=FirebaseFirestore.getInstance();
-    TextView textVieww;
+    //TextView textVieww;
     SQLiteDatabase passengerDatabase;
     DatabaseHelper passengerDb;
 
@@ -31,8 +31,8 @@ public class PassengerList extends AppCompatActivity {
 
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_train_firestore_to_sql);
-        textVieww = (TextView)findViewById(R.id.textView11);
+        setContentView(R.layout.activity_passenger_list);
+        //textVieww = (TextView)findViewById(R.id.textView11);
         passengerDb = new DatabaseHelper(this);
         passengerDatabase= passengerDb.getReadableDatabase();
         FetchPassengerDetails();
@@ -52,19 +52,21 @@ public class PassengerList extends AppCompatActivity {
                                 String boardingStation=(String)document.get("boardingStation");
                                 String destinationStation=(String)document.get("destinationStation");
                                 String classOfTravel=(String)document.get("class");
+                                //String name=new String();
 
-                                List<Map<String, String>> route;
-                                route=(List<Map<String, String>>)document.get("passengerDetails");
+                                List<Map<String, String>> passenger;
+                                passenger=(List<Map<String, String>>)document.get("passengerDetails");
                                 //int i=0;
-                                for (Map<String, String> map :route) {
-                                    //textView.setText(map.get("arrivalTime"));
-                                    //passengerDb.insertPassengerData(passengerDatabase,pnr,map.get("firstName"),map.get("lastName"),boardingStation,destinationStation,map.get("coach"),map.get("status"),map.get("seat"),classOfTravel,map.get("age"),map.get("waitingListNo"));
+                                for (Map<String, String> passengerList :passenger) {
+                                    //textVieww.setText(passengerList.get(pnr));
+                                    //name=passengerList.get("firstName");
+                                   passengerDb.insertPassengerData(passengerDatabase,pnr,passengerList.get("firstName"),passengerList.get("lastName"),boardingStation,destinationStation,passengerList.get("coach"),passengerList.get("status"),passengerList.get("seatNo"),classOfTravel,passengerList.get("age"),passengerList.get("waitingListNo"));
                                 }
-                               passengerDb.insertPassengerData(passengerDatabase,"123","bhaskar","goswami","hwh","bbsr",
-                                        "s30","conf","234","fjhf","123","123");
+                               //passengerDb.insertPassengerData(passengerDatabase,pnr,"bhaskar","goswami",boardingStation,destinationStation,"CNF", "s30","conf","234","fjhf","123");
 
                             }
-                        } else
+                        }
+                        else
                             {
                             //Log.d(TAG, "Error getting documents: ", task.getException());
                         }
