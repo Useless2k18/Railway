@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -26,11 +27,29 @@ public class ShowList extends AppCompatActivity {
         c = dbhelp.getRouteData(sd);
 
         c=dbhelp.getRouteData(sd);
+
+
+
+
+        String PinCodeFromGPS;
+
+
+
+
+
+
+
+
+
+
+
         while (c.moveToNext())
         {
             StationInfo ob = new StationInfo(" ",c.getString(1),0,"");
+            Cursor res = sd.rawQuery("SELECT * FROM STATIONS WHERE CODE = '"+ob.getStationCode()+"'",null);
             myList.add(ob);
         }
+
         cla=new CustomListAdapter(getApplicationContext(),R.layout.customlistlayout,myList);
         lv.setAdapter(cla);
     }
