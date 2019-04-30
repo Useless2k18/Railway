@@ -54,7 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table "+Db_tableDivision+" (NAME varchar primary key,STATION varchar not null,FOREIGN KEY(STATION) REFERENCES STATIONS(CODE))");
         db.execSQL("create table "+Db_tableZone+" (ID varchar primary key,NAME varchar not null,DIVISION_NAME varchar not null,NUMBER_OF long not null,FOREIGN KEY(DIVISION_NAME) REFERENCES DIVISION(NAME))");
         db.execSQL("create table "+Db_tableRoute+" (SERIAL long not null,STATIONCODE varchar not null,STATUS long not null,ARRIVALTIME varchar not null,DEPARTURETIME varchar not null,DAY varchar not null)");
-        db.execSQL("create table "+Db_tablePassenger+" (PNR varchar not null,FNAME varchar not null,FNAME varchar not null,BOARDINGSTATION varchar not null,DEPARTURESTATION varchar not null,COACH varchar not null,STATUS varchar not null,SEAT varchar not null,CLASSOF varchar not null,AGE varchar not null,WL_NO varchar not null)");
+        db.execSQL("create table "+Db_tablePassenger+" (PNR varchar not null,FNAME varchar not null,LASTNAME varchar not null,BOARDINGSTATION varchar not null,DEPARTURESTATION varchar not null,COACH varchar not null,STATUS varchar not null,SEAT varchar not null,CLASSOF varchar not null,AGE varchar not null,WL_NO varchar not null)");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
