@@ -33,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String Db_tablePassenger = "PASSENGER";
     public static final String Db_passenger_col1 = "PNR";
     public static final String Db_passenger_col2 = "FNAME";
-    public static final String Db_passenger_col3 = "LASTNAME";
+    public static final String Db_passenger_col3 = "LNAME";
     public static final String Db_passenger_col4 = "BOARDINGSTATION";
     public static final String Db_passenger_col5 = "DEPARTURESTATION";
     public static final String Db_passenger_col6 = "COACH";
@@ -41,7 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String Db_passenger_col8 = "SEAT";
     public static final String Db_passenger_col9 = "CLASSOF";
     public static final String Db_passenger_col10 = "AGE";
-    public static final String Db_passenger_col11 = "WL_NO";
+    public static final String Db_passenger_col11 = "WLNO";
 
 
     public DatabaseHelper(Context context) {
@@ -54,7 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table "+Db_tableDivision+" (NAME varchar primary key,STATION varchar not null,FOREIGN KEY(STATION) REFERENCES STATIONS(CODE))");
         db.execSQL("create table "+Db_tableZone+" (ID varchar primary key,NAME varchar not null,DIVISION_NAME varchar not null,NUMBER_OF long not null,FOREIGN KEY(DIVISION_NAME) REFERENCES DIVISION(NAME))");
         db.execSQL("create table "+Db_tableRoute+" (SERIAL long not null,STATIONCODE varchar not null,STATUS long not null,ARRIVALTIME varchar not null,DEPARTURETIME varchar not null,DAY varchar not null)");
-        db.execSQL("create table "+Db_tablePassenger+" (PNR varchar not null,FNAME varchar not null,LASTNAME varchar not null,BOARDINGSTATION varchar not null,DEPARTURESTATION varchar not null,COACH varchar not null,STATUS varchar not null,SEAT varchar not null,CLASSOF varchar not null,AGE varchar not null,WL_NO varchar not null)");
+        db.execSQL("create table "+Db_tablePassenger+" (PNR varchar not null,FNAME varchar not null,LNAME varchar not null,BOARDINGSTATION varchar not null,DEPARTURESTATION varchar not null,COACH varchar not null,STATUS varchar not null,SEAT varchar not null,CLASSOF varchar not null,AGE varchar not null,WLNO varchar not null)");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -124,15 +124,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.put(Db_passenger_col10,age);
         c.put(Db_passenger_col11,wl_No);
         //long res = db.insert(Db_name,null,c);
-        long i = db.insert("PASSENGER",null,c);
+        long i = db.insert(Db_tablePassenger,null,c);
         return i;
     }
     public Cursor getPassengerData(SQLiteDatabase db)
     {
 
         db = this.getWritableDatabase();
-        Cursor route = db.rawQuery("select * from "+"PASSENGER",null);
-        return route;
+        Cursor pass = db.rawQuery("select * from "+Db_tablePassenger,null);
+        return pass;
     }
     public Cursor getRouteData(SQLiteDatabase db)
     {
