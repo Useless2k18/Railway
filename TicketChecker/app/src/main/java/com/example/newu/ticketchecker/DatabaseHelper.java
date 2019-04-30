@@ -32,13 +32,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String Db_tablePassenger = "PASSENGER";
     public static final String Db_passenger_col1 = "PNR";
-    public static final String Db_passenger_col2 = "NAME";
-    public static final String Db_passenger_col3 = "BOARDINGSTATION";
-    public static final String Db_passenger_col4 = "DEPARTURESTATION";
-    public static final String Db_passenger_col5 = "COACH";
-    public static final String Db_passenger_col6 = "STATUS";
-    public static final String Db_passenger_col7 = "SEAT";
-    public static final String Db_passenger_col8 = "CLASSOF";
+    public static final String Db_passenger_col2 = "FNAME";
+    public static final String Db_passenger_col3 = "LASTNAME";
+    public static final String Db_passenger_col4 = "BOARDINGSTATION";
+    public static final String Db_passenger_col5 = "DEPARTURESTATION";
+    public static final String Db_passenger_col6 = "COACH";
+    public static final String Db_passenger_col7 = "STATUS";
+    public static final String Db_passenger_col8 = "SEAT";
+    public static final String Db_passenger_col9 = "CLASSOF";
+    public static final String Db_passenger_col10 = "AGE";
+    public static final String Db_passenger_col11 = "WL_NO";
 
 
     public DatabaseHelper(Context context) {
@@ -105,18 +108,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long i = db.insert("ROUTE",null,c);
         return i;
     }
-    public long insertPassengerData(SQLiteDatabase db,String pnr,String name,String boardingStation,String destinationStation,String coach,String status,String seat,String classOf)
+    public long insertPassengerData(SQLiteDatabase db,String pnr,String firstName,String lastName,String boardingStation,String destinationStation,String coach,String status,String seat,String classOf,String age,String wl_No)
     {
         db = this.getWritableDatabase();
         ContentValues c = new ContentValues();
         c.put(Db_passenger_col1,pnr);
-        c.put(Db_passenger_col2,name);
-        c.put(Db_passenger_col3,boardingStation);
-        c.put(Db_passenger_col4,destinationStation);
-        c.put(Db_passenger_col5,coach);
-        c.put(Db_passenger_col6,status);
-        c.put(Db_passenger_col7,seat);
-        c.put(Db_passenger_col8,classOf);
+        c.put(Db_passenger_col2,firstName);
+        c.put(Db_passenger_col3,lastName);
+        c.put(Db_passenger_col4,boardingStation);
+        c.put(Db_passenger_col5,destinationStation);
+        c.put(Db_passenger_col6,coach);
+        c.put(Db_passenger_col7,status);
+        c.put(Db_passenger_col8,seat);
+        c.put(Db_passenger_col9,classOf);
+        c.put(Db_passenger_col10,age);
+        c.put(Db_passenger_col11,wl_No);
         //long res = db.insert(Db_name,null,c);
         long i = db.insert("PASSENGER",null,c);
         return i;
