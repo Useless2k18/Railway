@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 public class TteFirstLoginTest extends AppCompatActivity {
     public FirebaseFirestore tteDatabaseObject=FirebaseFirestore.getInstance();
     Button login;
-    EditText tteid;
+    EditText tteid,pass;
     TextView tteidShow,tteidsh;
 
     @Override
@@ -31,20 +31,27 @@ public class TteFirstLoginTest extends AppCompatActivity {
         setContentView(R.layout.activity_tte_first_login_test);
         tteid = (EditText) findViewById(R.id.tteid);
         tteidShow = (TextView) findViewById(R.id.textView11);
-        tteidsh=(TextView)findViewById(R.id.textView12);
+        pass = (EditText) findViewById(R.id.password);
+        //tteidsh=(TextView)findViewById(R.id.textView12);
         login = (Button) findViewById(R.id.Login);
 
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String tteidd;
+                String tteidd,pas;
                 tteidd = tteid.getText().toString().trim();
+                pas = pass.getText().toString().trim();
 
                 if (tteidd.isEmpty()) {
                     tteid.setError("UID required");
                     tteid.requestFocus();
                     return;
                 }
-
+                if (pas.isEmpty()) {
+                    pass.setError("password required");
+                    pass.requestFocus();
+                    return;
+                }
+             tteidShow.setText(pas);
             CreateTteDocumentUrl(tteidd);
             }
 
@@ -395,7 +402,7 @@ public class TteFirstLoginTest extends AppCompatActivity {
     }
     void FetchTte(String TteUrl,String ID)
     {
-        tteidsh.setText(TteUrl+"/"+ID);
+        //tteidsh.setText(TteUrl+"/"+ID);
         DocumentReference tteCollection=tteDatabaseObject.document(TteUrl+"/"+ID);
         tteCollection.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
@@ -406,8 +413,8 @@ public class TteFirstLoginTest extends AppCompatActivity {
                 }
                 if (documentSnapshot.exists())
                 {
-                    String Name =(String)documentSnapshot.get("name");
-                    tteidShow.setText(Name);
+                    String Name =(String)documentSnapshot.get("password");
+                    //tteidShow.setText(Name);
                 }
                 else
                 {

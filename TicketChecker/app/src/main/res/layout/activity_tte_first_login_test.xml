@@ -24,6 +24,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.563" />
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="password"
+        android:inputType="textPassword"
+        android:textColor="#ffffff"
+        android:textColorHint="@color/HintColour"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.947"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.677" />
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
@@ -32,14 +51,15 @@
         tools:layout_editor_absoluteX="105dp"
         tools:layout_editor_absoluteY="207dp"
         tools:ignore="MissingConstraints" />
-    <TextView
+
+    <!--<TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         tools:layout_editor_absoluteX="105dp"
         tools:layout_editor_absoluteY="207dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints" />-->
     <Button
         android:id="@+id/Login"
         android:layout_width="250dp"
