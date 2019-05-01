@@ -60,7 +60,7 @@ public class PassengerList extends AppCompatActivity {
                                 for (Map<String, String> passengerList :passenger) {
                                     //textVieww.setText(passengerList.get(pnr));
                                     //name=passengerList.get("firstName");
-                                   passengerDb.insertPassengerData(passengerDatabase,pnr,passengerList.get("firstName"),passengerList.get("lastName"),boardingStation,destinationStation,passengerList.get("coach"),passengerList.get("status"),passengerList.get("seatNo"),classOfTravel,passengerList.get("age"),passengerList.get("waitingListNo"));
+                                   passengerDb.insertPassengerData(passengerDatabase,pnr,passengerList.get("firstName"),passengerList.get("lastName"),boardingStation,destinationStation,passengerList.get("coach"),passengerList.get("status"),"NOT VERIFIED",passengerList.get("seatNo"),classOfTravel,passengerList.get("age"),passengerList.get("waitingListNo"));
                                 }
                                //passengerDb.insertPassengerData(passengerDatabase,pnr,"bhaskar","goswami",boardingStation,destinationStation,"CNF", "s30","conf","234","fjhf","123");
 
