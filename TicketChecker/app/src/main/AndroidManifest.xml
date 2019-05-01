@@ -4,6 +4,7 @@
     package="com.example.newu.ticketchecker">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -13,7 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".CustomListStations" />
         <activity android:name=".NavigationDrawer" />
         <activity android:name=".MainActivity">
             <intent-filter>

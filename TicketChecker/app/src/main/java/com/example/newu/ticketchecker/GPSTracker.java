@@ -48,7 +48,7 @@ import static android.content.Context.LOCATION_SERVICE;
                     this.canGetLocation = true;
                     if (isNetworkEnabled) {
                         int requestPermissionsCode = 50;
-                        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, mLocationListener);
+                       locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, mLocationListener);
                         Log.d("Network", "Network");
                         if (locationManager != null) {
                             location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
