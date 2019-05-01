@@ -38,6 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String Db_passenger_col5 = "DEPARTURESTATION";
     public static final String Db_passenger_col6 = "COACH";
     public static final String Db_passenger_col7 = "STATUS";
+    public static final String Db_passenger_col7_i = "VERIFIED";
     public static final String Db_passenger_col8 = "SEAT";
     public static final String Db_passenger_col9 = "CLASSOF";
     public static final String Db_passenger_col10 = "AGE";
@@ -54,7 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table "+Db_tableDivision+" (NAME varchar primary key,STATION varchar not null,FOREIGN KEY(STATION) REFERENCES STATIONS(CODE))");
         db.execSQL("create table "+Db_tableZone+" (ID varchar primary key,NAME varchar not null,DIVISION_NAME varchar not null,NUMBER_OF long not null,FOREIGN KEY(DIVISION_NAME) REFERENCES DIVISION(NAME))");
         db.execSQL("create table "+Db_tableRoute+" (SERIAL long not null,STATIONCODE varchar not null,STATUS long not null,ARRIVALTIME varchar not null,DEPARTURETIME varchar not null,DAY varchar not null)");
-        db.execSQL("create table "+Db_tablePassenger+" (PNR varchar not null,FNAME varchar not null,LNAME varchar not null,BOARDINGSTATION varchar not null,DEPARTURESTATION varchar not null,COACH varchar not null,STATUS varchar not null,SEAT varchar not null,CLASSOF varchar not null,AGE varchar not null,WLNO varchar not null)");
+        db.execSQL("create table "+Db_tablePassenger+" (PNR varchar not null,FNAME varchar not null,LNAME varchar not null,BOARDINGSTATION varchar not null,DEPARTURESTATION varchar not null,COACH varchar not null,STATUS varchar not null,VERIFIED varchar not null,SEAT varchar not null,CLASSOF varchar not null,AGE varchar not null,WLNO varchar not null)");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -108,7 +109,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long i = db.insert("ROUTE",null,c);
         return i;
     }
-    public long insertPassengerData(SQLiteDatabase db,String pnr,String firstName,String lastName,String boardingStation,String destinationStation,String coach,String status,String seat,String classOf,String age,String wl_No)
+    public long insertPassengerData(SQLiteDatabase db,String pnr,String firstName,String lastName,String boardingStation,String destinationStation,String coach,String status,String verified,String seat,String classOf,String age,String wl_No)
     {
         db = this.getWritableDatabase();
         ContentValues c = new ContentValues();
@@ -119,10 +120,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.put(Db_passenger_col5,destinationStation);
         c.put(Db_passenger_col6,coach);
         c.put(Db_passenger_col7,status);
+        c.put(Db_passenger_col7_i,verified);
         c.put(Db_passenger_col8,seat);
         c.put(Db_passenger_col9,classOf);
         c.put(Db_passenger_col10,age);
         c.put(Db_passenger_col11,wl_No);
+
         //long res = db.insert(Db_name,null,c);
         long i = db.insert(Db_tablePassenger,null,c);
         return i;
