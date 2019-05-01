@@ -26,6 +26,7 @@ public class loginForm extends AppCompatActivity {
     TextView signup;
     ProgressDialog progressDialog;
     FirebaseAuth ob;
+    int firstLogin=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
