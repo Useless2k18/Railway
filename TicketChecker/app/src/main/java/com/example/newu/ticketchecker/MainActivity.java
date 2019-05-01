@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        Intent i = new Intent(this,TrainFirestoreToSql.class);
-        startActivity(i);
 
     }
 }
