@@ -1,5 +1,6 @@
 package com.example.newu.ticketchecker;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,7 @@ public class TteFirstLoginTest extends AppCompatActivity {
     Button login;
     EditText tteid,pass;
     TextView tteidShow,tteidsh;
+    String tteidd,pas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,7 @@ public class TteFirstLoginTest extends AppCompatActivity {
 
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String tteidd,pas;
+
                 tteidd = tteid.getText().toString().trim();
                 pas = pass.getText().toString().trim();
 
@@ -52,12 +54,12 @@ public class TteFirstLoginTest extends AppCompatActivity {
                     return;
                 }
              tteidShow.setText(pas);
-            CreateTteDocumentUrl(tteidd);
+            CreateTteDocumentUrl(tteidd,pas);
             }
 
         });
     }
-   public void CreateTteDocumentUrl(String tteId)
+   public void CreateTteDocumentUrl(String tteId,String password)
     {
         String employeeCode, zoneCode, divsionCode, groupCode, tteZone, tteDivision;
         groupCode=Character.toString(tteId.charAt(0))+Character.toString((tteId.charAt(1)));
@@ -397,10 +399,10 @@ public class TteFirstLoginTest extends AppCompatActivity {
 
         String tteUrl="Root/Employee/"+tteZone+"/"+tteDivision+"/Tte";
 
-        FetchTte(tteUrl,tteId);
+        FetchTte(tteUrl,tteId,password);
 
     }
-    void FetchTte(String TteUrl,String ID)
+    void FetchTte(String TteUrl,String ID,String adminpass)
     {
         //tteidsh.setText(TteUrl+"/"+ID);
         DocumentReference tteCollection=tteDatabaseObject.document(TteUrl+"/"+ID);
@@ -414,6 +416,7 @@ public class TteFirstLoginTest extends AppCompatActivity {
                 if (documentSnapshot.exists())
                 {
                     String Name =(String)documentSnapshot.get("password");
+                    check(Name);
                     //tteidShow.setText(Name);
                 }
                 else
@@ -423,6 +426,19 @@ public class TteFirstLoginTest extends AppCompatActivity {
                 }
             }
         });
+
+    }
+    void check(String userPassword){
+        tteidShow.setText(userPassword+" "+pas);
+        if(userPassword==pas)
+        {
+            Intent i = new Intent(TteFirstLoginTest.this,TteSignUp.class);
+            startActivity(i);
+        }
+        else{
+            Toast.makeText(TteFirstLoginTest.this,"NO mATCH",Toast.LENGTH_LONG);
+
+        }
 
     }
 
