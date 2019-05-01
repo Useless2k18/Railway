@@ -15,13 +15,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".NavigationDrawer" />
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".MainActivity"></activity>
         <activity
             android:name=".loginForm"
             android:screenOrientation="portrait" />
@@ -35,32 +29,14 @@
 
         <activity android:name=".DynamicStationsList" />
         <activity android:name=".Passenger_Details" />
-        <activity android:name=".StationsFirestoreToSql">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".StationsFirestoreToSql" />
         <activity android:name=".BookTicket" />
         <activity
             android:name=".TrainsList"
             android:label=".TrainsList"
             android:theme="@style/AppTheme" />
-        <activity android:name=".TrainFirestoreToSql">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".PassengerList">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".TrainFirestoreToSql" />
+        <activity android:name=".PassengerList" />
         <activity android:name=".ShowList">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -2,6 +2,7 @@ package com.example.newu.ticketchecker;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -44,8 +45,7 @@ public class ShowList extends AppCompatActivity {
         c = dbhelp.getRouteData(sd);
 
         c=dbhelp.getRouteData(sd);
-
-
+        
 
         geocoder = new Geocoder(this, Locale.getDefault());
         mContext = this;
