@@ -45,7 +45,7 @@ public class ShowList extends AppCompatActivity {
         c = dbhelp.getRouteData(sd);
 
         c=dbhelp.getRouteData(sd);
-        
+
 
         geocoder = new Geocoder(this, Locale.getDefault());
         mContext = this;

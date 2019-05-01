@@ -36,6 +36,8 @@ public class TrainFirestoreToSql extends AppCompatActivity {
         trainRouteDb = new DatabaseHelper(this);
         trainRouteDatabase = trainRouteDb.getReadableDatabase();
         FetchTrainDetails();
+
+        moveTaskToBack(true);
     }
     void FetchTrainDetails()
     {
