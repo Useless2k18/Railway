@@ -1,81 +1,56 @@
 package com.example.newu.ticketchecker;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
-public class TteFirstLogin extends AppCompatActivity {
+public class TteFirstLoginTest extends AppCompatActivity {
     public FirebaseFirestore tteDatabaseObject=FirebaseFirestore.getInstance();
     Button login;
-    EditText tteid, pass;
-    TextView signup;
-    ProgressDialog progressDialog;
+    EditText tteid;
+    TextView tteidShow,tteidsh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_form);
+        setContentView(R.layout.activity_tte_first_login_test);
         tteid = (EditText) findViewById(R.id.tteid);
-        pass = (EditText) findViewById(R.id.password);
+        tteidShow = (TextView) findViewById(R.id.textView11);
+        tteidsh=(TextView)findViewById(R.id.textView12);
         login = (Button) findViewById(R.id.Login);
-        signup = (TextView) findViewById(R.id.SignUp);
-        progressDialog = new ProgressDialog(this);
-
 
         login.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
-                String tteId, pas;
+                String tteidd;
+                tteidd = tteid.getText().toString().trim();
 
-                tteId = tteid.getText().toString().trim();
-                pas = pass.getText().toString().trim();
-
-                if (tteId.isEmpty()) {
+                if (tteidd.isEmpty()) {
                     tteid.setError("UID required");
                     tteid.requestFocus();
                     return;
                 }
-                if (pas.isEmpty()) {
-                    pass.setError("password required");
-                    pass.requestFocus();
-                    return;
-                }
-                CreateTteDocumentUrl(tteId,pas);
+
+            CreateTteDocumentUrl(tteidd);
             }
-        });
-        signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(TteFirstLogin.this,TteSignUp.class);
-                startActivity(i);
-            }
+
         });
     }
-
-    public void CreateTteDocumentUrl(String tteId,String password)
+   public void CreateTteDocumentUrl(String tteId)
     {
         String employeeCode, zoneCode, divsionCode, groupCode, tteZone, tteDivision;
         groupCode=Character.toString(tteId.charAt(0))+Character.toString((tteId.charAt(1)));
@@ -415,43 +390,33 @@ public class TteFirstLogin extends AppCompatActivity {
 
         String tteUrl="Root/Employee/"+tteZone+"/"+tteDivision+"/Tte";
 
-        FetchTte(tteUrl,tteId,password);
+        FetchTte(tteUrl,tteId);
 
     }
-    void FetchTte(String TteUrl, String ID, final String adminPassword)
+    void FetchTte(String TteUrl,String ID)
     {
-        //tteidsh.setText(TteUrl+"/"+ID);
+        tteidsh.setText(TteUrl+"/"+ID);
         DocumentReference tteCollection=tteDatabaseObject.document(TteUrl+"/"+ID);
         tteCollection.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 if (e != null) {
-                    Toast.makeText(TteFirstLogin.this, "EXCEPTION ENCOUNTERED", Toast.LENGTH_LONG).show();
+                    Toast.makeText(TteFirstLoginTest.this, "EXCEPTION ENCOUNTERED", Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (documentSnapshot.exists())
                 {
-                    String userPassword =(String)documentSnapshot.get("password");
-                    if(userPassword==adminPassword)
-                    {
-                        Intent i = new Intent(TteFirstLogin.this,TteSignUp.class);
-                        startActivity(i);
-                    }
-                    else{
-                        Toast.makeText(TteFirstLogin.this, "GIVE THE PASSORD GIVEN BY ADMIN", Toast.LENGTH_LONG).show();
-                    }
-                    //tteidShow.setText(Name);
+                    String Name =(String)documentSnapshot.get("name");
+                    tteidShow.setText(Name);
                 }
                 else
                 {
-                    Toast.makeText(TteFirstLogin.this, "USER DOESN'T EXISTS CONTACT ADMIN", Toast.LENGTH_LONG).show();
+                    Toast.makeText(TteFirstLoginTest.this, "ERROR FETCHING ZONE DATA", Toast.LENGTH_LONG).show();
 
                 }
             }
         });
 
     }
-    }
 
-
-
+}
