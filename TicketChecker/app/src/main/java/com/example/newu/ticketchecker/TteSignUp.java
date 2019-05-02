@@ -27,6 +27,8 @@ public class TteSignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reg_form);
+        Intent intent =getIntent();
+        //String url=intent.getStringExtra("url");
         firebaseAuthenticationObject = FirebaseAuth.getInstance();
         userId = (EditText) findViewById(R.id.mail);
         tteId = (EditText) findViewById(R.id.uid);
