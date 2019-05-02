@@ -27,7 +27,14 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".TteSignUp"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"
@@ -57,13 +64,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
-        <activity android:name=".TteFirstLoginTest" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+       
 
     </application>
 

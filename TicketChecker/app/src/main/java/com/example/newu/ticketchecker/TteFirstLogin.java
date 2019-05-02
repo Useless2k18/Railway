@@ -432,7 +432,7 @@ public class TteFirstLogin extends AppCompatActivity {
                 if (documentSnapshot.exists())
                 {
                     String userPassword =(String)documentSnapshot.get("password");
-                    if(userPassword==adminPassword)
+                    if(userPassword.equals(adminPassword))
                     {
                         Intent i = new Intent(TteFirstLogin.this,TteSignUp.class);
                         startActivity(i);
