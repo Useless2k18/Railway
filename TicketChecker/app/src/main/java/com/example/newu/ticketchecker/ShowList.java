@@ -79,8 +79,8 @@ public class ShowList extends AppCompatActivity {
         {
             StationInfo ob = new StationInfo(" ",c.getString(1),0,"");
            // Cursor res = sd.rawQuery("SELECT * FROM STATIONS WHERE CODE = '"+ob.getStationCode()+"'",null);
-           // Toast.makeText(mContext, res.getString(0), Toast.LENGTH_SHORT).show();
-           // if(GPSPinCode.equalsIgnoreCase("751024"))
+            //Toast.makeText(mContext, res.getString(0), Toast.LENGTH_SHORT).show();
+            //if(GPSPinCode.equalsIgnoreCase("751024"))
             myList.add(ob);
         }
 
