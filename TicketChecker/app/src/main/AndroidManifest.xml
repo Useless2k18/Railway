@@ -39,7 +39,13 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".TrainFirestoreToSql" />
         <activity android:name=".PassengerList" />
-        <activity android:name=".ShowList"/>
+        <activity android:name=".ShowList">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity android:name=".TteFirstLogin" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />

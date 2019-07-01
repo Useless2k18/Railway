@@ -65,7 +65,6 @@ public class TteFirstLogin extends AppCompatActivity {
                     return;
                 }
                     CreateTteDocumentUrl(tteId, pas);
-
             }
         });
         signup.setOnClickListener(new View.OnClickListener() {
