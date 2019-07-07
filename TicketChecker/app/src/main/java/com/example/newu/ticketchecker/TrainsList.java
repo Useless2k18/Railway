@@ -23,14 +23,14 @@ import com.google.firebase.iid.InstanceIdResult;
 public class TrainsList extends AppCompatActivity {
     public static final String NODE_USERS="users";
     private FirebaseAuth authenticationObject;
-    Button logout;
+    Button logout,view;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trains_list);
         authenticationObject =FirebaseAuth.getInstance();
         logout = (Button)findViewById(R.id.logout);
-
+        view=findViewById(R.id.view);
         FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
             @Override
             public void onComplete(@NonNull Task<InstanceIdResult> task) {
@@ -56,7 +56,13 @@ public class TrainsList extends AppCompatActivity {
                 startActivity(new Intent(TrainsList.this,loginForm.class));
             }
         });
-
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(TrainsList.this,ShowList.class);
+                startActivity(i);
+            }
+        });
     }
 
     @Override

@@ -71,16 +71,16 @@ public class ShowList extends AppCompatActivity {
             String countryStr = addressList.get(0).getCountryName();
             GPSPinCode = addressList.get(0).getPostalCode();
             String fullAddress = addressStr+", "+areaStr+", "+cityStr+", "+countryStr+", "+GPSPinCode;
-            Toast.makeText(getApplicationContext(), "POSTAL CODE : "+GPSPinCode, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "POSTAL CODE : "+GPSPinCode, Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
         }
         while (c.moveToNext())
         {
             StationInfo ob = new StationInfo(" ",c.getString(1),0,"");
-           // Cursor res = sd.rawQuery("SELECT * FROM STATIONS WHERE CODE = '"+ob.getStationCode()+"'",null);
-           // Toast.makeText(mContext, res.getString(0), Toast.LENGTH_SHORT).show();
-           // if(GPSPinCode.equalsIgnoreCase("751024"))
+            Cursor res = sd.rawQuery("SELECT * FROM STATIONS WHERE CODE = '"+ob.getStationCode()+"'",null);
+            Toast.makeText(mContext, res.getString(0), Toast.LENGTH_LONG).show();
+            if(GPSPinCode.equalsIgnoreCase("751024"))
             myList.add(ob);
         }
 

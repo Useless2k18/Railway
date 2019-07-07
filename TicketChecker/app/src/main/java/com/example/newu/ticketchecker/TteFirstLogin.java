@@ -53,6 +53,7 @@ public class TteFirstLogin extends AppCompatActivity {
                 tteId = tteid.getText().toString().trim();
                 pas = pass.getText().toString().trim();
 
+
                 if (tteId.isEmpty()) {
                     tteid.setError("UID required");
                     tteid.requestFocus();
@@ -63,7 +64,7 @@ public class TteFirstLogin extends AppCompatActivity {
                     pass.requestFocus();
                     return;
                 }
-                CreateTteDocumentUrl(tteId,pas);
+                    CreateTteDocumentUrl(tteId, pas);
             }
         });
         signup.setOnClickListener(new View.OnClickListener() {
