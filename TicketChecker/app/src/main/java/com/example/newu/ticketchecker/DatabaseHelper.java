@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -54,7 +55,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table "+Db_tableStation+" (CODE varchar primary key,NAME varchar not null,PINCODE long not null)");
         db.execSQL("create table "+Db_tableDivision+" (NAME varchar primary key,STATION varchar not null,FOREIGN KEY(STATION) REFERENCES STATIONS(CODE))");
         db.execSQL("create table "+Db_tableZone+" (ID varchar primary key,NAME varchar not null,DIVISION_NAME varchar not null,NUMBER_OF long not null,FOREIGN KEY(DIVISION_NAME) REFERENCES DIVISION(NAME))");
-        db.execSQL("create table "+Db_tableRoute+" (SERIAL long not null,STATIONCODE varchar not null,STATUS long not null,ARRIVALTIME varchar not null,DEPARTURETIME varchar not null,DAY varchar not null)");
+        //db.execSQL("create table "+Db_tableRoute+" (SERIAL long not null,STATIONCODE varchar not null,STATUS long not null,ARRIVALTIME varchar not null,DEPARTURETIME varchar not null,DAY varchar not null)");
+        db.execSQL("create table "+Db_tableRoute+" (SERIAL long ,STATIONCODE varchar ,STATUS long ,ARRIVALTIME varchar ,DEPARTURETIME varchar,DAY varchar )");
         db.execSQL("create table "+Db_tablePassenger+" (PNR varchar not null,FNAME varchar not null,LNAME varchar not null,BOARDINGSTATION varchar not null,DEPARTURESTATION varchar not null,COACH varchar not null,STATUS varchar not null,VERIFIED varchar not null,SEAT varchar not null,CLASSOF varchar not null,AGE varchar not null,WLNO varchar not null)");
     }
     @Override
@@ -95,9 +97,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long i = db.insert(Db_tableZone,null,c);
         return i;
     }
-    public long insertRouteData(SQLiteDatabase db,long serial_number,String station_code,long status,String arrival_time,String departure_time,String day )
+    public long insertRouteData(SQLiteDatabase routeDb,long serial_number,String station_code,long status,String arrival_time,String departure_time,String day )
     {
-        db = this.getWritableDatabase();
+        //System.out.println(station_code);
+        Log.i("myTag",station_code);
+        routeDb = this.getWritableDatabase();
         ContentValues c = new ContentValues();
         c.put(Db_route_col1,serial_number);
         c.put(Db_route_col2,station_code);
@@ -106,7 +110,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.put(Db_route_col5,departure_time);
         c.put(Db_route_col6,day);
         //long res = db.insert(Db_name,null,c);
-        long i = db.insert("ROUTE",null,c);
+        long i = routeDb.insert("ROUTE",null,c);
         return i;
     }
     public long insertPassengerData(SQLiteDatabase db,String pnr,String firstName,String lastName,String boardingStation,String destinationStation,String coach,String status,String verified,String seat,String classOf,String age,String wl_No)

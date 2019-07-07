@@ -21,23 +21,29 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
-public class TrainFirestoreToSql extends AppCompatActivity {
+public class TrainFirestoreToSql extends AppCompatActivity implements demoInterface {
     public FirebaseFirestore trainDatabaseObject=FirebaseFirestore.getInstance();
     int trainNo=12073;
-    //TextView textView;
+    TextView textView;
     SQLiteDatabase trainRouteDatabase;
     DatabaseHelper trainRouteDb;
+    demoInterface demo1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_train_firestore_to_sql);
-        //textView = findViewById(R.id.textView11);
+        textView = findViewById(R.id.textView11);
         trainRouteDb = new DatabaseHelper(this);
         trainRouteDatabase = trainRouteDb.getReadableDatabase();
-        FetchTrainDetails();
+        //FetchTrainDetails();
+        demo1 = this;
+        demo1.onTrainFetchSuccess();
     }
-    void FetchTrainDetails()
+    @Override
+    public void onSuccess(final List<String> zoneList, long noOfZones) {}
+    @Override
+    public void onTrainFetchSuccess()
     {
         int firstDigit=trainNo/10000;
         int j=trainNo/1000;
@@ -55,10 +61,12 @@ public class TrainFirestoreToSql extends AppCompatActivity {
                 if (documentSnapshot.exists()) {
                     List<Map<String, String>> route; // this is what you have already
                     route=(List<Map<String, String>>)documentSnapshot.get("route");
-                    int i=0;
-                    for (Map<String, String> map :route) {
-                        //textView.setText(map.get("arrivalTime"));
-                        trainRouteDb.insertRouteData(trainRouteDatabase,i++,map.get("stationCode"),0,map.get("arrivalTime"),map.get("departureTime"),map.get("day"));
+
+                    for (int i=0;i < route.size(); i++ ) {
+                        Map<String, String> map=route.get(i);
+                        System.out.println(map.get("arrivalTime"));
+                        textView.setText(map.get("arrivalTime"));
+                        trainRouteDb.insertRouteData(trainRouteDatabase,i,map.get("stationCode"),0,map.get("arrivalTime"),map.get("departureTime"),map.get("day"));
                         }
 
                     /*Map<String,String> trainRoute;
